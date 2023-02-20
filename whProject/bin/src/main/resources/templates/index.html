@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- <head> -->
+
+<head th:replace="~{head :: head}"></head>
+
+<body>
+
+   
+
+        <!-- start header section -->
+        <header th:replace="~{header :: header}"></header>
+        <!-- end header section -->
+
+
+		
+			
+        <!-- start banner -->
+        <banner th:replace="~{banner ::banner }"></banner>
+        <!-- end banner -->
+
+ 
+
+        <!-- Start popular destination Section -->
+       
+        
+        <section layout:fragment="content"></section>
+        
+        <!-- end other section -->
+
+        
+        
+        <!-- start footer section -->
+        
+        <footer th:replace="~{footer :: footer}"></footer>
+        
+        
+        <!-- end footer section -->
+
+    </div>
+    
+
+</body>
+
+</html>

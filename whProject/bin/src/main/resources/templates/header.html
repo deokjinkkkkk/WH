@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<header th:fragment="header">
+ <!-- start page loading -->
+    <div id="preloader">
+        <div class="row loader">
+            <div class="loader-icon"></div>
+        </div>
+    </div>
+    <!-- end page loading -->
+
+    <!-- start main-wrapper section -->
+    <div class="main-wrapper">
+    <!-- Navigation-->
+         <div class="navbar-default">
+
+                <!-- start top search -->
+                <div class="top-search bg-black">
+                    <div class="container">
+                        <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search font-size18 text-white" type="submit"></button>
+                                </span>
+                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type & hit enter...">
+                                <span class="input-group-addon close-search"><i class="fas fa-times font-size18 line-height-28 margin-5px-top"></i></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end top search -->
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-12">
+                            <div class="menu_area alt-font">
+                                <nav class="navbar navbar-expand-lg navbar-light no-padding">
+
+                                    <div class="navbar-header navbar-header-custom">
+                                        <!-- start logo -->
+                                        <a href="index.html" class="navbar-brand logo4"><img id="logo" src="img/logos/logo.png" alt="logo" /></a>
+                                        <!-- end logo -->
+                                    </div>
+
+                                    <div class="navbar-toggler"></div>
+
+                                    <!-- start menu area -->
+                                    <ul class="navbar-nav ml-auto" id="nav" style="display: none;">
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="departments.html">Pages</a>
+                                            <ul>
+                                                <li><a href="about-us.html">About Us</a></li>
+                                                <li><a href="booking.html">Booking</a></li>
+                                                <li><a href="elements.html">Elements</a></li>
+                                                <li><a href="login.html">Login</a></li>
+                                                <li><a href="registration.html">Register</a></li>
+                                                <li><a href="javascript:void(0)">Other</a>
+                                                    <ul>
+                                                        <li><a href="faq.html">FAQ</a></li>
+                                                        <li><a href="404-page.html">404 Page</a></li>
+                                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="javascript:void(0)">Tour</a>
+                                            <ul>
+                                                <li><a href="tour-grid.html">Tour Grid</a></li>
+                                                <li><a href="tour-listing.html">Tour List</a></li>
+                                                <li><a href="tour-detail.html">Tour Details</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="javascript:void(0)">Portfolio</a>
+                                            <ul>
+                                                <li><a href="portfolio-1.html">Portfolio Simple</a></li>
+                                                <li><a href="portfolio-2.html">Portfolio Masonry</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="javascript:void(0)">Blog</a>
+                                            <ul>
+                                                <li><a href="blog-grid.html">Blog Grid</a></li>
+                                                <li><a href="blog-details.html">Blog Details</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact-us.html">Contact</a></li>
+                                    </ul>
+                                    <!-- end menu area -->
+
+                                    <!-- start atribute navigation -->
+                                    <div class="attr-nav sm-no-margin sm-margin-65px-right xs-margin-50px-right">
+                                        <ul class="no-margin-top">
+                                            <li class="search"><a href="#"><i class="fas fa-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- end atribute navigation -->
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</header>
+</body>
+</html>
