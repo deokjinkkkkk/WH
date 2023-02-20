@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index}">
+
+<!-- 뭐야.. CSS -->
+	<th:block layout:fragment="head" th:include="@{head}"></th:block>
+    <!-- 뭐야.. CSS 끝 -->
+    
+    
+    
+    <body>
+    
+    	<!-- 헤더 시작 -->
+        <th:block layout:fragment="header" th:include="@{header}"></th:block>
+		<!-- 헤더 끝 -->
+		
+		<!-- 배너 시작 -->
+		<!-- <banner th:replace="~{banner ::banner }"></banner> -->
+		<th:block layout:fragment="banner" th:include="@{banner}"></th:block>
+        <!-- 배너 끝 -->
+        
+	
+        <!-- start login section -->
+        <section class="full-screen text-center cover-background bg-img no-padding" data-overlay-dark="5" data-background="img/member/1.jpg">
+            <div class="container d-flex flex-column">
+                <div class="row align-items-center justify-content-center min-vh-100">
+                    <div class="col-md-8">
+
+                        <div class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
+                            <h3 class="margin-40px-bottom text-center text-white">로그인</h3>
+                            <form method="post" action="#!">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" name="id" id="id" required="required" placeholder="id" maxlength="70">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="password" name="password" id="password" required="required" placeholder="Password" maxlength="70">
+                                        </div>
+                                    </div>
+
+                                </div>
+  
+                                <div class="col-md-12 margin-25px-top">
+                                    <button type="button" class="butn btn-block">로그인</button>
+                                </div>
+
+                                <div class="col-md-12 text-center margin-25px-top text-white">
+                                    <span><a href="registration.html" class="text-white">회원가입</a></span>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end login section -->
+   		<!-- 내용 끝 -->      
+        <!-- 푸터 시작 -->
+        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+        <!-- 푸터 끝 -->
+	<script>
+	
+	</script>
+</body>
+
+</html>

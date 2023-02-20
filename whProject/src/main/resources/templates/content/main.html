@@ -3,24 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index}">
    
-<!-- Î≠êÏïº.. CSS -->
+<!-- ππæﬂ.. CSS -->
 	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- Î≠êÏïº.. CSS ÎÅù -->
+    <!-- ππæﬂ.. CSS ≥° -->
     
     
     
     <body>
     
-    	<!-- Ìó§Îçî ÏãúÏûë -->
+    	<!-- «Ï¥ı Ω√¿€ -->
         <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- Ìó§Îçî ÎÅù -->
+		<!-- «Ï¥ı ≥° -->
 		
-		<!-- Î∞∞ÎÑà ÏãúÏûë -->
+		<!-- πË≥  Ω√¿€ -->
 		<!--         <banner th:replace="~{banner ::banner }"></banner> -->
 		<th:block layout:fragment="banner" th:include="@{banner}"></th:block>
-        <!-- Î∞∞ÎÑà ÎÅù -->
+        <!-- πË≥  ≥° -->
         
-        <!-- Í∞ÅÏûê ÎÇ¥Ïö© -->
+        <!-- ∞¢¿⁄ ≥ªøÎ -->
         <div layout:fragment="content" class="content">
             <!-- Start popular destination Section -->
         <section>
@@ -81,15 +81,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </section>
+        
         <!-- End  popular destination Section -->
 
         <!-- start packages section -->
         <section>
             <div class="container">
                 <div class="text-center margin-40px-bottom">
-                    <h3 class="margin-10px-bottom position-relative">Ïù∏Í∏∞ Ïó¨ÌñâÏßÄ????</h3>
+                    <h3 class="margin-10px-bottom position-relative">¿Œ±‚ ø©«‡¡ˆ????</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 sm-margin-30px-bottom">
@@ -178,11 +179,11 @@
         </section>
         <!-- end other section -->
         </div>
-        <!-- ÎÇ¥Ïö© ÎÅù -->
+        <!-- ≥ªøÎ ≥° -->
         
-        <!-- Ìë∏ÌÑ∞ ÏãúÏûë -->
+        <!-- «™≈Õ Ω√¿€ -->
         <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-        <!-- Ìë∏ÌÑ∞ ÎÅù -->
+        <!-- «™≈Õ ≥° -->
  
     </body>
 </html>
