@@ -7,4 +7,12 @@
 			SELECT * FROM member 
 	</select>
 	
+	<select id="memberSelect"
+			resultType="co.admin.wh.member.service.MemberVO">
+			SELECT * FROM member
+			where id = #{id}
+			<if test="password !=null">
+			AND PASSWORD = #{password}
+			</if>
+	</select>	
 </mapper>
