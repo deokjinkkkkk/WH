@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.member.mapper.MemberMapper">
 
-
 	<select id="getMemberList" 
 			resultType="map">
-
-			SELECT * 
-			  FROM member 
-
+			SELECT * FROM member 
 	</select>
 	
+	<select id="memberSelect"
+			resultType="co.admin.wh.member.service.MemberVO">
+			SELECT * FROM member
+			where id = #{id}
+			<if test="password !=null">
+			AND PASSWORD = #{password}
+			</if>
+	</select>	
 </mapper>
