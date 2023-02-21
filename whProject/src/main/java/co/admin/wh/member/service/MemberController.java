@@ -35,4 +35,8 @@ public class MemberController {
 		session.invalidate();
 		return "member/login";
 	}
+	@RequestMapping("/contract")
+	public String contractForm() {
+		return "member/contract";
+	}
 }
