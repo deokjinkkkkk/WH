@@ -1,4 +1,4 @@
-package co.admin.wh.notice;
+package co.admin.wh.notice.vo;
 
 import java.sql.Date;
 

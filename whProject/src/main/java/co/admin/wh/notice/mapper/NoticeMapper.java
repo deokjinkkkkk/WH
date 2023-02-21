@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import co.admin.wh.notice.NoticeVO;
+import co.admin.wh.notice.vo.NoticeVO;
 
 public interface NoticeMapper {
 
