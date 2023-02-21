@@ -1,4 +1,4 @@
-package co.admin.wh.member.service;
+package co.admin.wh.member.vo;
 
 import lombok.Data;
 
@@ -12,6 +12,5 @@ public class MemberVO {
 	String email;
 	int perm;
 	int state;
-	
 	
 }
