@@ -16,4 +16,9 @@ public class TripController {
 	public String tripDetail(Model model) {
 		return "trip/tripDetail";
 	}
+	
+	@RequestMapping("/tripCourse")
+	public String tripCourse(Model model) {
+		return "trip/tripCourse";
+	}
 }
