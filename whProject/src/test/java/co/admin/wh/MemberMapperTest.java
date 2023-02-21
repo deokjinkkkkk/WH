@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import co.admin.wh.member.mapper.MemberMapper;
-import co.admin.wh.member.service.MemberVO;
+import co.admin.wh.member.vo.MemberVO;
 
 @SpringBootTest
 public class MemberMapperTest {
