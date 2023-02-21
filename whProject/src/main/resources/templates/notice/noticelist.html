@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index}">
+<script src="/resources/ckeditor/ckeditor.js"></script>
+<script>
+ var ckeditor_config = {
+   resize_enaleb : false,
+   enterMode : CKEDITOR.ENTER_BR,
+   shiftEnterMode : CKEDITOR.ENTER_P,
+   filebrowserUploadUrl : "/common/ckUpload"
+ };
+</script>
+
+<!-- 뭐야.. CSS -->
+	<th:block layout:fragment="head" th:include="@{head}"></th:block>
+    <!-- 뭐야.. CSS 끝 -->
+    
+    
+    
+    <body>
+    
+    	<!-- 헤더 시작 -->
+        <th:block layout:fragment="header" th:include="@{header}"></th:block>
+		<!-- 헤더 끝 -->
+		
+       <!-- 내용 시작 -->
+         <!-- start page title section -->
+        <section class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg2.jpg">
+            <div class="container">
+                <h1 class="text-white font-weight-600">공지사항</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">공지사항</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- end page title section -->
+
+        <!-- start faq section -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 center-col">
+                        <div class="accordion" id="accordionOne">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                <button class="btn btn-link mb-0 text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                 	공지드립니다.
+                                </button>
+                                 </h2>
+                                </div>
+                            </div>
+                          </div>  
+                    </div>     
+                </div>
+            </div>
+        </section>
+        
+     <section>
+     </section>
+        <!-- end faq section -->
+   		<!-- 내용 끝 -->   
+   		
+   		   
+        <!-- 푸터 시작 -->
+        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+        <!-- 푸터 끝 -->
+	<script>
+	
+	</script>
+</body>
+
+</html>
