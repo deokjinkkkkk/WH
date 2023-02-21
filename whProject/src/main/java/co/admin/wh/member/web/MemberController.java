@@ -1,4 +1,4 @@
-package co.admin.wh.member.service;
+package co.admin.wh.member.web;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.member.mapper.MemberMapper;
+import co.admin.wh.member.vo.MemberVO;
 
 @Controller
 public class MemberController {
@@ -39,4 +40,9 @@ public class MemberController {
 	public String contractForm() {
 		return "member/contract";
 	}
+	@RequestMapping("/myPage")
+	public String myPageForm() {
+		return "member/myPage";
+	}
 }
+
