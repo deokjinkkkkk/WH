@@ -2,40 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index}">
-   
-<!-- ππæﬂ.. CSS -->
+
+<!-- Î≠êÏïº.. CSS -->
 	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- ππæﬂ.. CSS ≥° -->
-    
-    
-    
+    <!-- Î≠êÏïº.. CSS ÎÅù -->
+
+
+
     <body>
-    
-    	<!-- «Ï¥ı Ω√¿€ -->
+
+    	<!-- Ìó§Îçî ÏãúÏûë -->
         <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- «Ï¥ı ≥° -->
-		
-		<!-- πË≥  Ω√¿€ -->
+		<!-- Ìó§Îçî ÎÅù -->
+
+		<!-- Î∞∞ÎÑà ÏãúÏûë -->
 		<!--         <banner th:replace="~{banner ::banner }"></banner> -->
 		<th:block layout:fragment="banner" th:include="@{banner}"></th:block>
-        <!-- πË≥  ≥° -->
-        
-        <!-- ∞¢¿⁄ ≥ªøÎ -->
+        <!-- Î∞∞ÎÑà ÎÅù -->
+
+        <!-- Í∞ÅÏûê ÎÇ¥Ïö© -->
         <div layout:fragment="content" class="content">
             <!-- Start popular destination Section -->
         <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom">
-                        <div class="destination padding-50px-right xs-no-padding-right">
-                            <h4 class="margin-30px-bottom">ÎÜÄÎü¨Í∞ÄÏûê</h4>
-                            <p class="margin-30px-bottom">Ïó¨ÌñâÌï†Îïå Ïó¨Í∏∞Ïñ¥Îïå</p>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="container" align="center">
+<!--                 <div class="row"> -->
+<!--                     <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom"> -->
+<!--                         <div class="destination padding-50px-right xs-no-padding-right"> -->
+<!--                             <div class="input-group"> -->
+<!--                                 <div class="input-group-append"> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
                     <div class="col-md-7 text-center">
                         <div class="owl-carousel owl-theme" id="destination">
                             <div>
@@ -83,16 +81,15 @@
                         </div>
                     </div>
                 </div>
-            
+            </div>
         </section>
-        
         <!-- End  popular destination Section -->
 
         <!-- start packages section -->
         <section>
             <div class="container">
                 <div class="text-center margin-40px-bottom">
-                    <h3 class="margin-10px-bottom position-relative">¿Œ±‚ ø©«‡¡ˆ????</h3>
+                    <h3 class="margin-10px-bottom position-relative">Ïù∏Í∏∞ Ïó¨ÌñâÏßÄ????</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 sm-margin-30px-bottom">
@@ -181,11 +178,11 @@
         </section>
         <!-- end other section -->
         </div>
-        <!-- ≥ªøÎ ≥° -->
-        
-        <!-- «™≈Õ Ω√¿€ -->
+        <!-- ÎÇ¥Ïö© ÎÅù -->
+
+        <!-- Ìë∏ÌÑ∞ ÏãúÏûë -->
         <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-        <!-- «™≈Õ ≥° -->
- 
+        <!-- Ìë∏ÌÑ∞ ÎÅù -->
+
     </body>
 </html>
