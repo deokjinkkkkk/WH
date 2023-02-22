@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{index}">
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -10,95 +10,113 @@
 
 <body>
 
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
+   <!-- 헤더 시작 -->
+   <th:block layout:fragment="header" th:include="@{header}"></th:block>
+   <!-- 헤더 끝 -->
 
-	<!-- 배너 시작 -->
-	<div layout:fragment="content" class="content">
-		<!-- start page title section -->
-		<section class="page-title-section bg-img cover-background"
-			data-overlay-dark="6" data-background="img/banner/bg1.jpg">
-			<div class="container">
-				<h1 class="text-white font-weight-600">Trip</h1>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><span class="active">여행 코스</span></li>
-				</ul>
-			</div>
-		</section>
-	</div>
-	<!-- end page title section -->
-	<!-- 배너 끝 -->
+   <!-- 배너 시작 -->
+   <div layout:fragment="content" class="content">
+      <!-- start page title section -->
+      <section class="page-title-section bg-img cover-background"
+         data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+         <div class="container">
+            <h1 class="text-white font-weight-600">Trip</h1>
+            <ul>
+               <li><a href="index.html">Home</a></li>
+               <li><span class="active">여행 코스</span></li>
+            </ul>
+         </div>
+      </section>
+   </div>
+   <!-- end page title section -->
+   <!-- 배너 끝 -->
 
-	<!-- 썸네일 리스트 -->
-	<section>
-		<div class="container">
-			<div class="row">
-			
-				<div
-					class="col-md-1 border margin-30px-bottom padding-15px-tb text-center">서울
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">인천
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">대전
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">대구
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">광주
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">부산
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">울산
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">세종
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">경기
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">서울
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">인천
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">대전
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">대구
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">광주
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">부산
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">울산
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">세종
-				</div>
-				<div
-					class="col-md-1 border margin-25px-bottom padding-15px-tb text-center">경기
-				</div>
-			</div>
-		</div>
-	</section>
+   <!-- 내용 시작 -->
+   <section>
+      <div class="container">
+         <div class="row">
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">서울</a>
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="" >인천</a>            
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">대전</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">               
+               <a href="">대구</a>
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">광주</a>
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">부산</a>               
+            </div>
 
-	<!-- 썸네일 리스트 끝 -->
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">울산</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">세종</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">경기</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">강원</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">충북</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">충남</a>               
+            </div>
 
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">경북</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">경남</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">전북</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">전남</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">제주</a>               
+            </div>
+            <div
+               class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
+               <a href="">전체보기</a>               
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- 내용 끝 -->
+
+   <!-- 푸터 시작 -->
+   <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+   <!-- 푸터 끝 -->
 
 </body>
 </html>

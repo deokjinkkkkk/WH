@@ -1,5 +1,13 @@
 package co.admin.wh.notice.service;
 
-public interface NoticeService {
+import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import co.admin.wh.notice.vo.NoticeVO;
+
+public interface NoticeService {
+	List<NoticeVO> getNoticeList();
+	NoticeVO getNoticeSelect(NoticeVO vo);
+	
 }
