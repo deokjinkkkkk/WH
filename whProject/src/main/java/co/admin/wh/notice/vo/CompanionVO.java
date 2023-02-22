@@ -1,8 +1,12 @@
 package co.admin.wh.notice.vo;
 
-import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+
+
+
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -15,9 +19,9 @@ public class CompanionVO  {
 	private String compTitle;
 	private String compCount;
 	private String compLocal;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy/mm/dd")
 	private Date compStartDate;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy/mm/dd")
 	private Date compEndDate;
 	private String compContent;
 	private String imgGroCode;

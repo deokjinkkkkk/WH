@@ -8,7 +8,7 @@
 		VALUES (#{compGroup}, #{compTitle}, #{compCount},#{compStartDate},#{compEndDate}, #{compContent}, #{imgGroCode})
 	</insert>
 	
-	<select id="memberList" resultType="map">
+	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
 		select *
 		from companion c join member m
         on c.id= m.id
