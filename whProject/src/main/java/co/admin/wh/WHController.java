@@ -17,11 +17,6 @@ public class WHController {
 		return "content/main";
 	}
 	
-	@GetMapping("/hotel")
-	public String hotel(Model model) {
-		return "content/hotelMain";
-	}
-	
 	@GetMapping("/companion")
 	public String companion(Model model) {
 		return "notice/companion";
