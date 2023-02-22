@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import co.admin.wh.notice.vo.CompanionVO;
+import co.admin.wh.notice.vo.NoticeVO;
 
 public interface CompanionService {
 	
-	List<Map> memberList();
+	List<CompanionVO> getCompanionList();
 	
 	int companionInsert(CompanionVO vo);
 }
