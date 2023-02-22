@@ -1,5 +1,10 @@
 package co.admin.wh.notice.service;
 
-public interface FoodService {
+import java.util.List;
 
+import co.admin.wh.notice.vo.FoodVO;
+
+public interface FoodService {
+	List<FoodVO> getFoodList();
+	FoodVO getFoodSelect(FoodVO vo);
 }
