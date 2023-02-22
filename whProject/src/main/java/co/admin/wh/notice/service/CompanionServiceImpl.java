@@ -21,11 +21,9 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public List<Map> memberList() {
-		return map.memberList();
+	public List<CompanionVO> getCompanionList() {
+		// TODO Auto-generated method stub
+		return map.getCompanionList();
 	}
-
-
-
 
 }

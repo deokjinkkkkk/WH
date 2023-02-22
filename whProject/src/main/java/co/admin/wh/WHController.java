@@ -16,6 +16,5 @@ public class WHController {
 	public String main(Model model) {
 		return "content/main";
 	}
-		
-		
+
 }

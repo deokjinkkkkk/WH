@@ -7,7 +7,7 @@ import co.admin.wh.notice.vo.CompanionVO;
 
 public interface CompanionMapper {
 	
-	List<Map> memberList();
+	List<CompanionVO> getCompanionList();
 	
 	int companionInsert(CompanionVO vo);
 
