@@ -4,11 +4,11 @@
 	
 	<select id="getNoticeList"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
-	SELECT * FROM NOTICE ORDER BY NOTICE_ID DESC
-	</select>
+	SELECT * FROM NOTICE
+		</select>
 	
 	<select id="getNoticeSelect" resultType="co.admin.wh.notice.vo.NoticeVO">
 		SELECT * FROM NOTICE
-		WHERE NOTICE_ID = #{noticeId}
+		WHERE 
 	</select>
 </mapper>

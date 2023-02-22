@@ -13,35 +13,17 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired 
 	private NoticeMapper mapper;
 	
+
+	@Override
+	public List<NoticeVO> getNoticeList() {
+		return mapper.getNoticeList();
+	}
+
+	@Override
+	public NoticeVO getNoticeSelect(NoticeVO vo) {
+		return mapper.getNoticeSelect(vo);
+	}
+
 	
-	@Override
-	public List<NoticeVO> noticeList() {
-		return mapper.noticeList();
-	}
-
-	@Override
-	public NoticeVO noticeSelect(NoticeVO vo) {
-		return mapper.noticeSelect(vo);
-	}
-
-	@Override
-	public int noticeInsert(NoticeVO vo) {
-		return mapper.noticeInsert(vo);
-	}
-
-	@Override
-	public int noticeUpdate(NoticeVO vo) {
-		return mapper.noticeUpdate(vo);
-	}
-
-	@Override
-	public int noticeDelete(NoticeVO vo) {
-		return mapper.noticeDelete(vo);
-	}
-
-	@Override
-	public List<NoticeVO> noticeSearch(String key, String val) {
-		return mapper.noticeSearch(key, val);
-	}
 
 }

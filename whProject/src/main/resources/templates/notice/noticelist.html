@@ -17,7 +17,6 @@ body>.container {
 }
 </style>
 </head>
-<script src="/resources/ckeditor/ckeditor.js"></script>
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -30,6 +29,11 @@ body>.container {
 	<!-- 헤더 끝 -->
 
 	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+		[[ ${noticelist} ]]
+		<hr>
+	</div>
+
 	<!-- start page title section -->
 	<section class="page-title-section bg-img cover-background"
 		data-overlay-dark="6" data-background="img/banner/bg1.jpg">
@@ -42,7 +46,7 @@ body>.container {
 		</div>
 	</section>
 	<!-- end page title section -->
-	
+
 	<!-- start faq section -->
 	<section>
 		<div class="container">
@@ -58,20 +62,20 @@ body>.container {
 												<tr>
 													<th class="col-md-2">번호</th>
 													<th class="col-md-5">제목</th>
-												   	<th class="col-md-2">작성날짜</th>
+													<th class="col-md-2">등록일</th>
 													<th class="col-md-2">조회수</th>
-													<th class="col-md-2">첨부파일</th>
+													<th class="col-md-5">첨부파일</th>
 												</tr>
 											</thead>
-											
-											<tbody id="notice-list">
-											<c:forEach>
-											<tr>
-											
-											</tr>
-											</c:forEach>
+											<tbody>
+												<tr th:each="n ,nStat: ${noticelist}">
+													<td th:text="${nStat.count}"></td>
+													<td th:text="${n.noticeTitle}" ></td>
+													<td th:text="${n.noticeRegDate}"></td>
+													<td th:text="${n.noticeHit}"></td>
+													<td th:text="${n.noticeFile}"></td>
+												</tr>
 											</tbody>
-										
 										</table>
 									</div>
 								</div>
