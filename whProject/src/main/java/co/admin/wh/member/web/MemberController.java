@@ -18,7 +18,7 @@ public class MemberController {
 	public String loginForm() {
 		return "member/login";
 	}
-	@PostMapping("")
+	@PostMapping("/memberLogin.do")
 	public String login(HttpSession session,MemberVO vo) {
 		
 		vo = memberMapper.memberSelect(vo);

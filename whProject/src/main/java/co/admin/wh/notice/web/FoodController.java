@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.admin.wh.notice.mapper.NoticeMapper;
+import co.admin.wh.notice.mapper.FoodMapper;
 
 @Controller
-public class NoticeController {
-	@Autowired NoticeMapper noticeMapper;
+public class FoodController {
 	
-	@RequestMapping("/notice")
-	public String noticeForm() {
-		return "notice/noticelist";
+	@Autowired FoodMapper foodMapper;
+	
+	@RequestMapping("/food")
+	public String foodForm() {
+		return "notice/foodList";
 	}
 }
