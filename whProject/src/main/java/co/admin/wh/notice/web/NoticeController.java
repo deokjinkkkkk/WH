@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.notice.mapper.NoticeMapper;
+
 @Controller
 public class NoticeController {
 	@Autowired NoticeMapper noticeMapper;
