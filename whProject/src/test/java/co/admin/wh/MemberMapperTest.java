@@ -14,8 +14,11 @@ public class MemberMapperTest {
 	
 
 	@Test
-	public void 로그인테스트(MemberVO vo) {
-		vo = memberMapper.memberSelect(vo);
+	public void 로그인테스트() {
+		MemberVO vo = new MemberVO();
+		vo.setId("USER");
+		vo.setPassword("1234");
+		memberMapper.memberSelect(vo);
 		System.out.println(vo);
 	}
 }
