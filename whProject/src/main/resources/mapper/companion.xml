@@ -3,7 +3,16 @@
 <mapper namespace="co.admin.wh.notice.mapper.CompanionMapper">
 
 	<insert id="companionInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
-		INSERT INTO COMPANION (COMP_TITLE)
-		VALUES (#{compTitle})
+		INSERT INTO COMPANION (COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE, COMP_CONTENT,IMG_GRO_CODE)
+		
+		VALUES (#{compGroup}, #{compTitle}, #{compCount},#{compStartDate},#{compEndDate}, #{compContent}, #{imgGroCode})
 	</insert>
+	
+	<select id="memberList" resultType="map">
+		select *
+		from companion c join member m
+        on c.id= m.id
+		
+		
+	</select>
 </mapper>
