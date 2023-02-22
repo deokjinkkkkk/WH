@@ -2,22 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-	<head>
-	 <meta charset="UTF-8">
-	<link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        /*html{position:relative;min-height:100%;}*/
-        body{
-            margin-bottom:60px;
-        }
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+/*html{position:relative;min-height:100%;}*/
+body {
+	margin-bottom: 60px;
+}
 
-        body > .container{
-            padding:60px 15px 0;
-        }
-    </style>
-	</head>
-<script src="/resources/ckeditor/ckeditor.js"></script>
+body>.container {
+	padding: 60px 15px 0;
+}
+</style>
+</head>
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -25,14 +24,19 @@
 
 
 <body>
-
 	<!-- 헤더 시작 -->
 	<th:block layout:fragment="header" th:include="@{header}"></th:block>
 	<!-- 헤더 끝 -->
 
 	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+		[[ ${noticelist} ]]
+		<hr>
+	</div>
+
 	<!-- start page title section -->
-	<section class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+	<section class="page-title-section bg-img cover-background"
+		data-overlay-dark="6" data-background="img/banner/bg1.jpg">
 		<div class="container">
 			<h1 class="text-white font-weight-600">공지사항</h1>
 			<ul>
@@ -47,40 +51,33 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-9 center-col">
+				<div class="col-md-10 center-col">
 					<div class="accordion" id="accordionOne">
 						<div class="card">
 							<div class="card-header" id="headingOne">
 								<div class="mb-0">
-									<!--  <button class="btn btn-link mb-0 text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                </button>-->
-									 <div id="mainHide">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th class="col-md-1">#</th>
-                    <th class="col-md-2">서비스분류</th>
-                    <th class="col-md-5">제목</th>
-                    <th class="col-md-2">작성날짜</th>
-                    <th class="col-md-2">수정날짜</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="board : ${boardList}">
-                    <td th:text="${board.idx}"></td>
-                    <td th:text="${board.boardType.value}"></td>
-                    <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                    <td th:text="${board.createdDate} ?
-                    ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
-                    <td th:text="${board.updatedDate} ?
-                    ${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')} : ${board.updatedDate}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br/>
-									
+									<div id="mainHide">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th class="col-md-2">번호</th>
+													<th class="col-md-5">제목</th>
+													<th class="col-md-2">등록일</th>
+													<th class="col-md-2">조회수</th>
+													<th class="col-md-5">첨부파일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="n ,nStat: ${noticelist}">
+													<td th:text="${nStat.count}"></td>
+													<td th:text="${n.noticeTitle}" ></td>
+													<td th:text="${n.noticeRegDate}"></td>
+													<td th:text="${n.noticeHit}"></td>
+													<td th:text="${n.noticeFile}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -89,7 +86,6 @@
 			</div>
 		</div>
 	</section>
-
 	<!-- end faq section -->
 	<!-- 내용 끝 -->
 

@@ -16,6 +16,22 @@ public class WHController {
 	public String main(Model model) {
 		return "content/main";
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+	
+	@GetMapping("/companion")
+	public String companion(Model model) {
+		return "notice/companion";
+	}
+	
+	@GetMapping("/companionForm")
+	public String companionForm(Model model) {
+		return "notice/companionForm";
+	}
+	
+	
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 }

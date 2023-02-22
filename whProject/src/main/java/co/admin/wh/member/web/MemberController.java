@@ -18,7 +18,7 @@ public class MemberController {
 	public String loginForm() {
 		return "member/login";
 	}
-	@PostMapping("")
+	@PostMapping("/memberLogin.do")
 	public String login(HttpSession session,MemberVO vo) {
 		
 		vo = memberMapper.memberSelect(vo);
@@ -43,6 +43,10 @@ public class MemberController {
 	@RequestMapping("/myPage")
 	public String myPageForm() {
 		return "member/myPage";
+	}
+	@RequestMapping("/signUp")
+	public String signUpForm() {
+		return "member/signUp";
 	}
 }
 
