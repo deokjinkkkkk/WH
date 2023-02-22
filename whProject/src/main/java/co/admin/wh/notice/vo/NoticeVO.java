@@ -1,6 +1,11 @@
 package co.admin.wh.notice.vo;
 
+
+
 import java.sql.Date;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -11,6 +16,8 @@ public class NoticeVO {
 	String noticeContent;  //내용 
 	int noticeHit;         //조회수 
 	String noticeFile;    //파일 
-	Date noticeRedDate ;   //업로드날짜 
+	@JsonFormat(pattern = "yyyy/mm/dd")
+	Date noticeRegDate;   //등록날짜 
+	@JsonFormat(pattern = "yyyy/mm/dd")
 	Date noticeModDate;    //수정날짜 
 }

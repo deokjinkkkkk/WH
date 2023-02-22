@@ -13,8 +13,8 @@ public class CompanionController {
 	private CompanionService companionService;
 	
 	@RequestMapping("/companionJoin.do")
-	public String companionJoin(CompanionVO vo) {
-		companionService.companionInsert(vo);
+	public String companionJoin() {
 		return "content/home";
 	}
+	
 }
