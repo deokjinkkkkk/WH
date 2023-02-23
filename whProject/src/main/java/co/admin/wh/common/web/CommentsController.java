@@ -1,21 +1,19 @@
 package co.admin.wh.common.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import co.admin.wh.common.mapper.CommentsMapper;
 
 @Controller
 public class CommentsController {
+	@Autowired CommentsMapper commentsMapper;
 	
-	
-//	@RequestMapping("/comments")
-//	public String loginForm() {
-//		return "comments/commentsForm";
-//	}
+	@RequestMapping("/comments")
+	public String commentsForm() {
+		return "comments/commentsForm";
+	}
 //	
 //	@GetMapping("")
 //	public int commentsCount() {
@@ -27,10 +25,10 @@ public class CommentsController {
 //		return 1;
 //	}
 //	
-//	@GetMapping("")
-//	@ResponseBody
-//	public String commentsList() {
-//		return "";
+//	@GetMapping("/comments")
+//	public String commentsList(Model model,CommentsVO vo) {
+//		model.addAttribute("commentsList", commentsMapper.commentsList());
+//		return "comments/commentsForm";
 //	}
 //	
 //	@DeleteMapping("")
