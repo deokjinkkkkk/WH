@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+body {
+	margin-bottom: 60px;
+}
+
+body>.container {
+	padding: 60px 15px 60px;
+}
+
+.paging {
+	justify-content: center;
+}
+</style>
+</head>
+
+<!-- 뭐야.. CSS -->
+<th:block layout:fragment="head" th:include="@{head}"></th:block>
+<!-- 뭐야.. CSS 끝 -->
+
+
+<body>
+	<!-- 헤더 시작 -->
+	<th:block layout:fragment="header" th:include="@{header}"></th:block>
+	<!-- 헤더 끝 -->
+
+	<!-- 배너시작 -->
+	<section class="page-title-section bg-img cover-background"
+		data-overlay-dark="6" data-background="img/banner/bg5.jpg">
+		<div class="container">
+			<h1 class="text-white font-weight-600">맛집리스트</h1>
+			<ul>
+				<li><a href="main">Home</a></li>
+				<li><span class="active">맛집정보</span></li>
+			</ul>
+		</div>
+	</section>
+	<!-- 배너끝 -->
+
+	<!-- 각자 내용 -->
+	<div layout:fragment="content" class="content">
+		<div class="container">
+
+			<div class="col-lg-6 mb-5 ftco-animate">
+
+				<img src="${}" class="img-fluid"
+					alt="Colorlib Template">
+			</div>
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
+				th:each="f : ${foodList}">
+				<p th:text="${f.foodTitle}"></p>
+
+
+				<p class="price">
+				<img src="${f.imgGroCode}" class="img-fluid"
+					alt="Colorlib Template">
+					<span><span th:text="${f.foodAddr}"></span></span>
+				
+					<span th:text="${f.foodName}"></span>
+			
+					<span th:text="${f.foodDate}"></span>
+				
+					<span th:text="${f.foodContent}"></span>
+				</p>
+			</div>
+			</div>
+
+
+
+
+
+
+
+
+
+		</div>
+		<!-- 내용 끝 -->
+
+		<!-- 푸터 시작 -->
+		<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+		<!-- 푸터 끝 -->
+</body>
+</html>
