@@ -1,61 +1,64 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<head>
-<meta charset="utf-8">
-<title>CKEditor</title>
-<style>
-.ck.ck-editor {
-	max-width: 1000px;
-}
-
-.ck-editor__editable {
-	min-height: 300px;
-}
-.title {
-max-width: 1000px;
-}
-</style>
-</head>
+	
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
 <!-- 뭐야.. CSS 끝 -->
-
-<body>
-	<!-- 헤더 시작 -->
+<style>
+  .ck.ck-editor {
+    	max-width: 1000px;
+    	 margin-left: auto;
+    	margin-right: auto;
+	}
+	.ck-editor__editable {
+	    min-height: 400px;
+	}
+  #editor {
+  width: 30px;
+  }
+  .form-control{
+  padding: 10px;
+  width: 1000px;
+   margin-left: auto;
+    margin-right: auto;
+  }
+  .ck-toolbar__items {
+  	width: 300px;
+  }
+  
+  
+</style>
+  <body>
+  
+  <!-- 헤더 시작 -->
 	<th:block layout:fragment="header" th:include="@{header}"></th:block>
 	<!-- 헤더 끝 -->
-
-	<!-- 내용 시작 -->
 	
-	<form action="" method="POST">
-		<div>
-			<input type="text" name="subject" placeholder="제목을 입력하세요" class="title">
-		</div>
-
-		<textarea name="text" id="editor"></textarea>
-		<p>
-			<input type="submit" value="전송">
-		</p>
-
-	</form>
-
-	<script
-		src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-	<script>
-		ClassicEditor.create(document.querySelector('#editor'));
-	</script>
-	<!-- 내용 끝 -->
-<script>
-  ClassicEditor.create( document.querySelector( '#editor' ), {
-    removePlugins: [ 'Heading' ],
-    language: "ko"
-  } );
-</script>
+	<!-- 각자 내용 -->
+	<br>
+	<input type="text" name="noticeTitle" id="noticeTitle" class="form-control" placeholder="제목을 입력하세요"><br>
+    <form action="noticeInsert.do" method="POST" id="frm" >
+      <textarea name="text" id="editor" ></textarea><br>
+    <div class="pull-right" style="width: 100px; margin: auto;">
+	<input type="submit" class="btn btn-primary btn-block" value="등록"></div><br>
+    </form>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+    <script>
+      ClassicEditor.create( document.querySelector( '#editor' ),{
+      language: 'ko' //언어설정
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+    </script>
+    
+    <!-- 내용 끝 -->
 
 	<!-- 푸터 시작 -->
 	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
 	<!-- 푸터 끝 -->
-</body>
+  </body>
 </html>

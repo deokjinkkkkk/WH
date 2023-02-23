@@ -11,4 +11,12 @@
 		SELECT * FROM NOTICE
 		WHERE 
 	</select>
+	
+	<insert id="noticeInsert" parameterType="co.admin.wh.notice.vo.NoticeVO">
+	<selectKey keyProperty="noticeCode" resultType="int" order="BEFORE">
+			SELECT MAX(noticeCode)+1 FROM NOTICE
+		</selectKey>
+	INSERT INTO NOTICE
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},#{noticeRegDate},#{noticeModDate})
+	</insert>
 </mapper>
