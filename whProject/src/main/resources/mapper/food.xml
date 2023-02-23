@@ -10,18 +10,24 @@
 	<select id="countFood" resultType="int">
 		SELECT COUNT(*) FROM FOOD
 	</select>
+	
+<select id="getFoodSelect" resultType="co.admin.wh.notice.vo.FoodVO">
+		SELECT * FROM FOOD
+		WHERE 
+	</select>
+	
+	<insert id="foodInsert" parameterType="co.admin.wh.notice.vo.FoodVO">
+	<selectKey keyProperty="foodCode" resultType="int" order="BEFORE">
+			SELECT MAX(food_Code)+1 FROM FOOD
+		</selectKey> 
+			INSERT INTO FOOD
+			VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},#{foodDate},#{imgGroCode},#{foodTitle}) 
 
-	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="selectFood" resultType="co.admin.wh.notice.vo.FoodVO">
-		SELECT * 
-			FROM (
-				SELECT ROWNUM RN, A.* 
-					FROM (
-							SELECT * 
-							FROM FOOD 
-							ORDER BY SEQ DESC 
-							) A
-					)
-		WHERE RN BETWEEN #{start} AND #{end}
+	</insert>
+	
+	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
+		select *
+		from food f join member m
+        on f.id= m.id		
 	</select>
 </mapper>
