@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.notice.mapper.CompanionMapper">
+
+	<insert id="companionInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
+		INSERT INTO COMPANION (ID, COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE, COMP_CONTENT,IMG_GRO_CODE)
+		
+		VALUES (#{id},#{compGroup}, #{compTitle}, #{compCount},#{compStartDate},#{compEndDate}, #{compContent}, #{imgGroCode})
+	</insert>
+	
+	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
+		select *
+		from companion c join member m
+        on c.id= m.id
+		
+		
+	</select>
+</mapper>

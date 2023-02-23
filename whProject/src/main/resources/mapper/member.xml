@@ -8,10 +8,10 @@
 	</select>
 	
 	<select id="memberSelect"
-			resultType="co.admin.wh.member.service.MemberVO">
+			resultType="co.admin.wh.member.vo.MemberVO">
 			SELECT * FROM member
 			where id = #{id}
-			<if test="password !=null">
+			<if test="password != null">
 			AND PASSWORD = #{password}
 			</if>
 	</select>	

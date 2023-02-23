@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.notice.mapper.FoodMapper">
+	
+<select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO">
+		select * from food
+	</select>
+	
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countFood" resultType="int">
+		SELECT COUNT(*) FROM FOOD
+	</select>
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectFood" resultType="co.admin.wh.notice.vo.FoodVO">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM FOOD 
+							ORDER BY SEQ DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+</mapper>

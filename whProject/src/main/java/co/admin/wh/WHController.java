@@ -16,9 +16,5 @@ public class WHController {
 	public String main(Model model) {
 		return "content/main";
 	}
-	
-	@GetMapping("/hotel")
-	public String hotel(Model model) {
-		return "content/hotelMain";
-	}
+
 }

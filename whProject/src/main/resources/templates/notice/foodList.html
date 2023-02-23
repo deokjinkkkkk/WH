@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+
+
+
+body {
+	margin-bottom: 60px;
+}
+
+body>.container {
+	padding: 60px 15px 60px;
+	
+}
+
+.paging {
+	
+  justify-content: center;
+}
+
+</style>
+</head>
+
+<!-- 뭐야.. CSS -->
+<th:block layout:fragment="head" th:include="@{head}"></th:block>
+<!-- 뭐야.. CSS 끝 -->
+
+
+<body>
+	<!-- 헤더 시작 -->
+	<th:block layout:fragment="header" th:include="@{header}"></th:block>
+	<!-- 헤더 끝 -->
+	
+<!-- 배너시작 -->
+	<section class="page-title-section bg-img cover-background"
+		data-overlay-dark="6" data-background="img/banner/bg5.jpg">
+		<div class="container">
+			<h1 class="text-white font-weight-600">맛집리스트</h1>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><span class="active">맛집정보</span></li>
+			</ul>
+		</div>
+	</section>
+	<!-- 배너끝 -->
+
+
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+		<hr>
+	</div>
+
+	
+
+	<!--  start faq section  -->
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 center-col">
+					<div class="accordion" id="accordionOne">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<div class="mb-0">
+									<div id="mainHide">
+										<table class="table table-hover">
+										<thead>
+										<tr>
+										
+										</tr>										
+										</thead>
+										
+											<thead>
+												<tr>
+											
+													<th class="col-md-5">제목</th>
+													<th class="col-md-2">작성일</th>
+													<th class="col-md-2">조회수</th>
+													<th class="col-md-5">첨부파일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="f ,nStat: ${foodList}">																							
+													<td th:text="${f.foodTitle}" ></td>
+													<td th:text="${f.foodDate}"></td>
+													<td th:text="${f.foodHit}"></td>
+													<td th:text="${f.foodFile}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end faq section -->
+	<!--  내용 끝  -->
+<div class="paging">
+<nav aria-label="Page navigation example" class="container">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+</div>
+
+	<!-- 푸터 시작  -->
+	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+	<!-- 푸터 끝 -->
+	<script>
+
+	</script>
+</body>
+
+</html>
