@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.notice.mapper.NoticeMapper;
 import co.admin.wh.notice.service.NoticeService;
+import co.admin.wh.notice.vo.NoticeVO;
 
 @Controller
 public class NoticeController {
@@ -16,11 +17,20 @@ public class NoticeController {
 	@Autowired NoticeMapper noticeMapper;
 	
 	@RequestMapping("/notice")
-	public String noticeForm(Model model) {
+	public String notice(Model model) {
 		model.addAttribute("noticelist", noticeService.getNoticeList()); 
 		return "notice/noticelist";
 	}
 	
+	@RequestMapping("/noticeForm")
+	public String noticeForm(Model model) {
+		return "notice/noticeForm";
+	}
 	
+	@RequestMapping("noticeInsert.do")
+	public String noticeInsert(NoticeVO vo) {
+		noticeMapper.noticeInsert(vo);
+		return "notice/noticelist";
+	}
 	
 }

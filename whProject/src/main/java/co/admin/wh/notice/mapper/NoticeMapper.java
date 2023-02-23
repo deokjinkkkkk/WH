@@ -10,5 +10,5 @@ public interface NoticeMapper {
 
 	List<NoticeVO> getNoticeList();
 	NoticeVO getNoticeSelect(NoticeVO vo);
-	
+	int noticeInsert(NoticeVO vo);
 }

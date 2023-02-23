@@ -105,7 +105,8 @@
 		    <groupId>org.seleniumhq.selenium</groupId>
 		    <artifactId>selenium-java</artifactId>
 		</dependency>
-
+		<!-- ckeditor 시도중-->
+		
 
 	</dependencies>
 

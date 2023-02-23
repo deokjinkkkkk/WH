@@ -24,6 +24,11 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.getNoticeSelect(vo);
 	}
 
+	@Override
+	public int noticeInsert(NoticeVO vo) {
+		return mapper.noticeInsert(vo);
+	}
+
 	
 
 }
