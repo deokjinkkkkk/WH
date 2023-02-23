@@ -16,8 +16,26 @@ body>.container {
 	padding: 60px 15px 0;
 }
 </style>
+
 </head>
 
+<script type="text/javascript">
+$(function(){
+	$(".btnInfo").on("click", function(){
+		//클릭한 버튼이 있는 행의 id는?
+	let noticeTitle = $(this).closest('tr').children().first().next().text()
+		
+		//단건조회
+		$.ajax({
+			url:"/n/"+noticeTitle
+		})
+		.then(obj=> {
+			$("#noticeTitle").val(obj.noticeTitle);
+			$("#noticeContent").val(obj.noticeContent);
+		});
+});
+})
+</script>
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
 <!-- 뭐야.. CSS 끝 -->
@@ -30,11 +48,11 @@ body>.container {
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		<!-- [[ ${noticelist} ]] -->
+		<!--  [[ ${noticelist} ]]-->
 		<hr>
 	</div>
 
-	<!-- start page title section -->
+	<!--배너시작 -->
 	<section class="page-title-section bg-img cover-background"
 		data-overlay-dark="6" data-background="img/banner/bg1.jpg">
 		<div class="container">
@@ -45,7 +63,7 @@ body>.container {
 			</ul>
 		</div>
 	</section>
-	<!-- end page title section -->
+	<!-- 배너 끝 -->
 
 	<!-- start faq section -->
 	<section>
@@ -61,23 +79,27 @@ body>.container {
 											<div class="pull-right" style="width: 100px; margin: 10px 0;">
 												<a href="noticeForm" class="btn btn-primary btn-block">등록</a>
 											</div>
+
 											<br>
 											<thead>
 												<tr>
 													<th class="col-md-2">번호</th>
-													<th class="col-md-5">제목</th>
+													<th class="col-md-4">제목</th>
 													<th class="col-md-2">등록일</th>
 													<th class="col-md-2">조회수</th>
 													<th class="col-md-5">첨부파일</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="n : ${noticelist}">
-													<td th:text="${count}"></td>
+												<tr th:data-noticeCode="${n.noticeTitle}" th:each="n,nStat : ${noticelists}">
+													<td th:text="${nStat.count}"></td>
 													<td th:text="${n.noticeTitle}"></td>
 													<td th:text="${n.noticeRegDate}"></td>
-												
+													<td th:text="${n.noticeHit}"></td>
 													<td th:text="${n.noticeFile}"></td>
+													<td>
+														<button type="button" class="btnInfo">조회</button>
+													</td>
 												</tr>
 											</tbody>
 										</table>
