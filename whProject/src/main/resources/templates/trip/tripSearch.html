@@ -1,238 +1,149 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
-
-<!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
-<!-- 뭐야.. CSS 끝 -->
-
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{/index}">
 
 <body>
 
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
 
-	<!-- 배너 시작 -->
-		<div layout:fragment="content" class="content">
-                    <!-- start page title section -->
-        <section class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
-            <div class="container">
-                <h1 class="text-white font-weight-600">Trip</h1>
-                <ul>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <span class="active">여행 지역</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        </div>
-        <!-- end page title section -->
-	<!-- 배너 끝 -->
+   <div layout:fragment="content" class="content">
+      <!-- start tour-list section -->
+      <section>
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+                  <div class="row margin-30px-bottom">
+                     <div class="col-12 margin-40px-bottom">
+                     
+                        <div class="card card-list">
+                                 <ul class="no-margin-bottom">
+                                    <li><a href="javascript:void(0);" onclick="testapi(); return false;" class="font-size20 text-theme-color">여행지</a>
+                                       <a class="font-size20 text-theme-color">|</a>
+                                       <a href="#" class="font-size20 text-theme-color">코스</a>
+                                    
+                                       <a href="#" class="font-size20 text-theme-color" >검색 옵션</a>
+                                       <a class="font-size20 text-theme-color">|</a>
+                                       <a href="#" class="font-size20 text-theme-color">최신순</a>
+                                       <a class="font-size20 text-theme-color">|</a>
+                                       <a href="#" class="font-size20 text-theme-color">인기순</a>
+                                       <a class="font-size20 text-theme-color">|</a>      
+                                       <a href="#" class="font-size20 text-theme-color">조회순</a>
+                                    </li>
+                                    </ul>                        
+                        </div><br>
 
-	<!-- 썸네일 리스트 -->
-	<div layout:fragment="content" class="content">
-		<!-- start tour-list section -->
-		<section>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-						<div class="row margin-30px-bottom">
-							<div class="col-12 margin-40px-bottom">
-							
-								<div class="card card-list">
-											<ul class="no-margin-bottom">
-												<li><a href="#" class="font-size20 text-theme-color">여행지</a>
-													<a class="font-size20 text-theme-color">|</a>
-													<a href="#" class="font-size20 text-theme-color">코스</a>
-												
-													<a href="#" class="font-size20 text-theme-color" >검색 옵션</a>
-													<a class="font-size20 text-theme-color">|</a>
-													<a href="#" class="font-size20 text-theme-color">최신순</a>
-													<a class="font-size20 text-theme-color">|</a>
-													<a href="#" class="font-size20 text-theme-color">인기순</a>
-													<a class="font-size20 text-theme-color">|</a>		
-													<a href="#" class="font-size20 text-theme-color">조회순</a>
-												</li>
-												</ul>								
-								</div><br>
-
-								<div class="card card-list">
-									<div class="row align-items-center">
-										<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-											<div class="card-list-img">
-												<img class="border-radius-5" src="img/content/listing-1.jpg"
-													alt="" />
-											</div>
-										</div>
-										<div class="col-md-7 col-lg-8">
-											<div
-												class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<h5 class="card-title no-margin-bottom font-size22">
-														<a href="tour-detail.html" class="text-extra-dark-gray">온몸으로
-															즐기는 대구 축제</a>
-													</h5>
-												</div>
-												<p class="margin-20px-tb sm-margin-10px-top">대구 중구</p>
-												<!-- 해시태그로 -->
-												<ul class="tags">
-												<li><a href="#">#대구</a></li>
-												</ul>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-12 margin-40px-bottom">
-								<div class="card card-list">
-									<div class="row align-items-center">
-										<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-											<div class="card-list-img">
-												<img class="border-radius-5" src="img/content/listing-2.jpg"
-													alt="" />
-											</div>
-										</div>
-										<div class="col-md-7 col-lg-8">
-											<div
-												class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<h5 class="card-title no-margin-bottom font-size22">
-														<a href="tour-detail.html" class="text-extra-dark-gray">팔공산
-															구석구석 숨은 매력 속으로</a>
-													</h5>													
-												</div>
-												<p class="margin-20px-tb sm-margin-10px-top">대구 동구</p>
-												<!-- 해시태그로 -->
-												<ul class="tags">
-												<li><a href="#">#대구</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-12 margin-40px-bottom">
-								<div class="card card-list">
-									<div class="row align-items-center">
-										<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-											<div class="card-list-img">
-												<img class="border-radius-5" src="img/content/listing-3.jpg"
-													alt="" />
-											</div>
-										</div>
-										<div class="col-md-7 col-lg-8">
-											<div
-												class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<h5 class="card-title no-margin-bottom font-size22">
-														<a href="tour-detail.html" class="text-extra-dark-gray">시원한
-															물놀이 후 즐기는 대구의 찐빵</a>
-													</h5>													
-												</div>
-												<p class="margin-20px-tb sm-margin-10px-top">대구 달성군</p>
-												<!-- 해시태그로 -->
-												<ul class="tags">
-												<li><a href="#">#대구</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-12 margin-40px-bottom">
-								<div class="card card-list">
-									<div class="row align-items-center">
-										<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-											<div class="card-list-img">
-												<img class="border-radius-5" src="img/content/listing-4.jpg"
-													alt="" />
-											</div>
-										</div>
-										<div class="col-md-7 col-lg-8">
-											<div
-												class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<h5 class="card-title no-margin-bottom font-size22">
-														<a href="tour-detail.html" class="text-extra-dark-gray">대구
-															서부시장의 구석구석 맛집을 찾아</a>
-													</h5>
-												</div>
-												<p class="margin-20px-tb sm-margin-10px-top">대구 서구</p>
-												<!-- 해시태그로 -->
-												<ul class="tags">
-												<li><a href="#">#대구</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div
-								class="pagination text-small text-uppercase text-extra-dark-gray col-12">
-								<ul>
-									<li><a href="javascript:void(0);"><i
-											class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
-											Prev</a></li>
-									<li class="active"><a href="javascript:void(0);">1</a></li>
-									<li><a href="javascript:void(0);">2</a></li>
-									<li><a href="javascript:void(0);">3</a></li>
-									<li><a href="javascript:void(0);">Next <i
-											class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
-								</ul>
-							</div>
-
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-                        <div class="side-bar">
-						     <div class="widget">
-	                                <div class="widget-title">
-	                                    <h3>태그</h3>
-	                                </div>
-	                                <p>월별</p>
-	                                <ul class="tags">
-	                                    <li><a href="#">#전체</a></li>
-	                                    <li><a href="#">#1월</a></li>
-	                                    <li><a href="#">#2월</a></li>
-	                                    <li><a href="#">#3월</a></li>
-	                                    <li><a href="#">#4월</a></li>
-	                                    <li><a href="#">#5월</a></li>
-	                                    <li><a href="#">#6월</a></li>
-	                                    <li><a href="#">#7월</a></li>
-	                                    <li><a href="#">#8월</a></li>
-	                                    <li><a href="#">#9월</a></li>
-	                                    <li><a href="#">#10월</a></li>
-	                                    <li><a href="#">#11월</a></li>
-	                                    <li><a href="#">#12월</a></li>	                                    
-	                                </ul>
-	                            </div>
-	                      </div>
-	                </div>
+             
+                     </div>
+	
 					
-				</div>
-			</div>
-		</section>
-		<!-- end tour-list section -->
-	</div>
-	<!-- 썸네일 리스트 끝 -->
+                </div>
+                     
+                     
+				<div id="tripList"></div>
 
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
+                    
+
+                
+                     <div
+                        class="pagination text-small text-uppercase text-extra-dark-gray col-12">
+                        <ul>
+                           <li><a href="javascript:void(0);"><i
+                                 class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
+                                 Prev</a></li>
+                           <li class="active"><a href="javascript:void(0);">1</a></li>
+                           <li><a href="javascript:void(0);">2</a></li>
+                           <li><a href="javascript:void(0);">3</a></li>
+                           <li><a href="javascript:void(0);">Next <i
+                                 class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
+                        </ul>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+                        <div class="side-bar">
+                       <div class="widget">
+                                   <div class="widget-title">
+                                       <h3>태그</h3>
+                                   </div>
+                                   <p>월별</p>
+                                   <ul class="tags">
+                                       <li><a href="#">#전체</a></li>
+                                       <li><a href="#">#1월</a></li>
+                                       <li><a href="#">#2월</a></li>
+                                       <li><a href="#">#3월</a></li>
+                                       <li><a href="#">#4월</a></li>
+                                       <li><a href="#">#5월</a></li>
+                                       <li><a href="#">#6월</a></li>
+                                       <li><a href="#">#7월</a></li>
+                                       <li><a href="#">#8월</a></li>
+                                       <li><a href="#">#9월</a></li>
+                                       <li><a href="#">#10월</a></li>
+                                       <li><a href="#">#11월</a></li>
+                                       <li><a href="#">#12월</a></li>                                       
+                                   </ul>
+                               </div>
+                         </div>
+                   </div>
+               
+            </div>
+      </section>
+   <script type="text/javascript">
+function testapi() {
+   // code : 지역번호 (일단 1-8번)
+   // title: 제목, addr1 : 주소 일단? 가져와보기?
+   fetch(
+         `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=CA&areaCode=32&cat1=A01`
+         )
+         .then(res => res.json())
+         .then(data => {
+            let tripList = data.response.body.items.item;
+            
+   
+            
+            for (let trip of tripList) {
+               let tr = `           <div class="card card-list">
+                   <div class="row align-items-center">
+                   <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
+                      <div class="card-list-img">
+                         <img class="border-radius-5" src="img/content/listing-1.jpg"
+                            alt="" />
+                      </div>
+                   </div>
+                   <div class="col-md-7 col-lg-8" id="trip">
+                      <div
+                         class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
+                         <div
+                            class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title no-margin-bottom font-size22">
+                               <a id="title" href="tour-detail.html" class="text-extra-dark-gray">${trip.title}</a>
+                            </h5>
+                         </div>
+                         <p class="margin-20px-tb sm-margin-10px-top">대구 중구</p>
+                         <!-- 해시태그로 -->
+                         <ul class="tags">
+                         <li><a href="#">#대구</a></li>
+                         </ul>
+                      </div>
+
+                   </div>
+                </div>
+             </div>`
+            
+               
+    
+               $("#tripList").append(tr);
+
+            }
+         
+         })
+         .catch(data => console.log(data));
+    }
+    
+	testapi();
+</script >   
+   </div>
+      <!-- end tour-list section -->
 
 </body>
 </html>
