@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import co.admin.wh.notice.mapper.FoodMapper;
 import co.admin.wh.notice.vo.FoodVO;
+import co.admin.wh.notice.vo.PagingVO;
 
 
 @Service
@@ -23,5 +24,7 @@ private FoodMapper mapper;
 	public FoodVO getFoodSelect(FoodVO vo) {
 		return mapper.getFoodSelect(vo);
 	}
+
+
 
 }

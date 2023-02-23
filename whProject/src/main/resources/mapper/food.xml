@@ -5,4 +5,23 @@
 <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO">
 		select * from food
 	</select>
+	
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countFood" resultType="int">
+		SELECT COUNT(*) FROM FOOD
+	</select>
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectFood" resultType="co.admin.wh.notice.vo.FoodVO">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM FOOD 
+							ORDER BY SEQ DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 </mapper>
