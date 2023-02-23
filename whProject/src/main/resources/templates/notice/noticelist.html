@@ -30,7 +30,7 @@ body>.container {
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		[[ ${noticelist} ]]
+		<!-- [[ ${noticelist} ]] -->
 		<hr>
 	</div>
 
@@ -72,11 +72,11 @@ body>.container {
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="n ,nStat: ${noticelist}">
-													<td th:text="${nStat.count}"></td>
+												<tr th:each="n : ${noticelist}">
+													<td th:text="${count}"></td>
 													<td th:text="${n.noticeTitle}"></td>
 													<td th:text="${n.noticeRegDate}"></td>
-													<td th:text="${n.noticeHit}"></td>
+												
 													<td th:text="${n.noticeFile}"></td>
 												</tr>
 											</tbody>

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -65,6 +68,17 @@ public class HotelCrawler implements Crawler {
 			System.out.println("=====================");
 			System.out.println("----"+str); // 얘 json형태로 파싱할 것 !!!!!!!!!!!
 			System.out.println("=====================");
+			
+			JSONParser jsonParser = new JSONParser();
+			try {
+				Object obj = jsonParser.parse(str);
+				JSONObject jsonObj = (JSONObject) obj;
+				
+				System.out.println(jsonObj.get("props"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//node = mapper.readValue(doc.select("#__NEXT_DATA__").text(), JsonNode.class );
 			//System.out.println(node);
 //		} catch (JsonMappingException e) {

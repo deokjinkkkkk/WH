@@ -1,44 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{index}">
-   
-	<!-- 뭐야.. CSS -->
-	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- 뭐야.. CSS 끝 -->
-    
-    
-    <body>
-    
-    	<!-- 헤더 시작 -->
-        <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- 헤더 끝 -->
-		
-		<!-- 배너 시작 -->
-		<!--         <banner th:replace="~{banner ::banner }"></banner> -->
-		<th:block layout:fragment="banner2" th:include="@{banner2}"></th:block>
-        <!-- 배너 끝 -->
-        
-        <!-- 각자 내용 -->
-        <div layout:fragment="content" class="content">
-            <h2>This is Content</h2>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        </div>
-        <!-- 내용 끝 -->
-        
-        <!-- 푸터 시작 -->
-        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-        <!-- 푸터 끝 -->
- 
-    </body>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+
+<!-- 뭐야.. CSS -->
+<th:block layout:fragment="head" th:include="@{head}"></th:block>
+<!-- 뭐야.. CSS 끝 -->
+
+
+<body>
+
+	<!-- 헤더 시작 -->
+	<th:block layout:fragment="header" th:include="@{header}"></th:block>
+	<!-- 헤더 끝 -->
+
+	<!-- 배너 시작 -->
+	<!--         <banner th:replace="~{banner ::banner }"></banner> -->
+	<th:block layout:fragment="banner2" th:include="@{banner2}"></th:block>
+	<!-- 배너 끝 -->
+
+	<!-- 각자 내용 -->
+	<div layout:fragment="content" class="content">
+		<div class="container">
+
+			<div class="col-lg-6 mb-5 ftco-animate">
+
+				<img src="img/banner/bg4.jpg" class="img-fluid"
+					alt="Colorlib Template">
+			</div>
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
+				th:each="c : ${companionList}">
+				<p th:text="${c.compTitle}"></p>
+
+
+				<p class="price">
+					<span><td th:text="${c.compCount}"></td></span>
+				</p>
+				<p>
+					<td th:text="${c.compGroup}"></td>
+				</p>
+				<p>
+					<td th:text="${c.compStartDate}"></td> ~
+					<td th:text="${c.compEndDate}"></td>
+				</p>
+				<p>
+					<td th:text="${c.compContent}"></td>
+				</p>
+			</div>
+
+
+
+
+
+
+
+
+
+		</div>
+		<!-- 내용 끝 -->
+
+		<!-- 푸터 시작 -->
+		<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+		<!-- 푸터 끝 -->
+</body>
 </html>

@@ -16,10 +16,9 @@ import co.admin.wh.notice.vo.CompanionVO;
 public class CompanionController {
 	@Autowired
 	private CompanionMapper companionMapper;
+	
 	@Autowired
 	CompanionService companionService;
-	
-	
 	
 	@RequestMapping("/companion")
 	public String companion(Model model) {
@@ -33,9 +32,15 @@ public class CompanionController {
 	}
 
 	@RequestMapping("/companionJoin.do")
-	public String companionJoin(CompanionVO vo) {
+	public String companionJoin(CompanionVO vo, Model model) {
+		model.addAttribute("companionList", companionService.getCompanionList());
 		companionMapper.companionInsert(vo);
-		return "notice/companion";
+		return "redirect:companion";
 	}
-
+	
+	@RequestMapping("/companionDetail")
+	public String companionDetail(Model model) {
+		model.addAttribute("companionList", companionService.getCompanionList()); 
+		return "notice/companionDetail";
+	}
 }

@@ -12,22 +12,11 @@
 		WHERE 
 	</select>
 	
-	<!-- 총 게시글 갯수 출력 -->
-	<select id="countFood" resultType="int">
-		SELECT COUNT(*) FROM FOOD
-	</select>
-
-	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="selectFood" resultType="co.admin.wh.notice.vo.PagingVO">
-		SELECT * 
-			FROM (
-				SELECT ROWNUM RN, A.* 
-					FROM (
-							SELECT * 
-							FROM FOOD 
-							ORDER BY SEQ DESC 
-							) A
-					)
-		WHERE RN BETWEEN #{start} AND #{end}
-	</select>
+	<insert id="noticeInsert" parameterType="co.admin.wh.notice.vo.NoticeVO">
+	<selectKey keyProperty="noticeCode" resultType="int" order="BEFORE">
+			SELECT MAX(noticeCode)+1 FROM NOTICE
+		</selectKey>
+	INSERT INTO NOTICE
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},#{noticeRegDate},#{noticeModDate})
+	</insert>
 </mapper>
