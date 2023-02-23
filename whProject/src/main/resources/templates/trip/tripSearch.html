@@ -5,7 +5,6 @@
 
 <body>
 
-
    <div layout:fragment="content" class="content">
       <!-- start tour-list section -->
       <section>
@@ -93,20 +92,19 @@ function testapi() {
    // code : 지역번호 (일단 1-8번)
    // title: 제목, addr1 : 주소 일단? 가져와보기?
    fetch(
-         `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=CA&areaCode=32&cat1=A01`
+         `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D&numOfRows=40&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=CA&areaCode=32&cat1=`
          )
          .then(res => res.json())
          .then(data => {
             let tripList = data.response.body.items.item;
-            
+            console.log(tripList);
    
-            
             for (let trip of tripList) {
-               let tr = `           <div class="card card-list">
+               let tr = ` <div class="card card-list margin-15px-bottom">
                    <div class="row align-items-center">
                    <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
                       <div class="card-list-img">
-                         <img class="border-radius-5" src="img/content/listing-1.jpg"
+                         <img class="border-radius-5" src="${trip.firstimage2}" style="width:300; height:200px;"
                             alt="" />
                       </div>
                    </div>
@@ -119,8 +117,8 @@ function testapi() {
                                <a id="title" href="tour-detail.html" class="text-extra-dark-gray">${trip.title}</a>
                             </h5>
                          </div>
-                         <p class="margin-20px-tb sm-margin-10px-top">대구 중구</p>
-                         <!-- 해시태그로 -->
+                         <p class="margin-20px-tb sm-margin-10px-top">${trip.addr1}</p>
+                         <!-- 해시태그 -->
                          <ul class="tags">
                          <li><a href="#">#대구</a></li>
                          </ul>
@@ -141,6 +139,7 @@ function testapi() {
     }
     
 	testapi();
+	
 </script >   
    </div>
       <!-- end tour-list section -->
