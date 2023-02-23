@@ -9,9 +9,10 @@
 	</insert>
 	
 	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
-		select *
-		from companion c join member m
-        on c.id= m.id
+		select * 
+		from companion c ,member m, image i
+		 where c.id= m.id 
+		 and c.img_gro_code=i.img_gro_code
 		
 		
 	</select>
