@@ -9,6 +9,6 @@ public class HotelController {
 
 	@GetMapping("/hotel")
 	public String hotel(Model model) {
-		return "content/hotelMain";
+		return "hotel/hotelMain";
 	}
 }
