@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class ComentsVO {
+public class CommentsVO {
 	int comCode;
 	String id;
 	String comContent;
