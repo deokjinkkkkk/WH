@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+	layout:decorate="~{/index}">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -17,7 +17,7 @@ body>.container {
 }
 </style>
 
-</head>
+
 
 <script type="text/javascript">
 $(function(){
@@ -36,34 +36,36 @@ $(function(){
 });
 })
 </script>
-<!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
-<!-- 뭐야.. CSS 끝 -->
+
 
 
 <body>
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
+	
+	     <!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+               
+                <h1 class="text-white font-weight-600">공지사항</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">공지사항</span>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 --> 
+	 
+	 
+	  
 		<!--  [[ ${noticelist} ]]-->
 		<hr>
-	</div>
-
-	<!--배너시작 -->
-	<section class="page-title-section bg-img cover-background"
-		data-overlay-dark="6" data-background="img/banner/bg1.jpg">
-		<div class="container">
-			<h1 class="text-white font-weight-600">공지사항</h1>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><span class="active">공지사항</span></li>
-			</ul>
-		</div>
-	</section>
-	<!-- 배너 끝 -->
+	
 
 	<!-- start faq section -->
 	<section>
@@ -112,16 +114,13 @@ $(function(){
 			</div>
 		</div>
 	</section>
+	</div>
 	<!-- end faq section -->
 	<!-- 내용 끝 -->
 
 
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
-	<script>
-		
-	</script>
+	
+	
 </body>
 
 </html>
