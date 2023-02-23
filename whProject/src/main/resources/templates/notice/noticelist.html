@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+	layout:decorate="~{/index}">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -16,36 +16,56 @@ body>.container {
 	padding: 60px 15px 0;
 }
 </style>
-</head>
 
-<!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
-<!-- 뭐야.. CSS 끝 -->
+
+
+<script type="text/javascript">
+$(function(){
+	$(".btnInfo").on("click", function(){
+		//클릭한 버튼이 있는 행의 id는?
+	let noticeTitle = $(this).closest('tr').children().first().next().text()
+		
+		//단건조회
+		$.ajax({
+			url:"/n/"+noticeTitle
+		})
+		.then(obj=> {
+			$("#noticeTitle").val(obj.noticeTitle);
+			$("#noticeContent").val(obj.noticeContent);
+		});
+});
+})
+</script>
+
 
 
 <body>
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		<!-- [[ ${noticelist} ]] -->
+	
+	     <!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+               
+                <h1 class="text-white font-weight-600">공지사항</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">공지사항</span>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 --> 
+	 
+	 
+	  
+		<!--  [[ ${noticelist} ]]-->
 		<hr>
-	</div>
-
-	<!-- start page title section -->
-	<section class="page-title-section bg-img cover-background"
-		data-overlay-dark="6" data-background="img/banner/bg1.jpg">
-		<div class="container">
-			<h1 class="text-white font-weight-600">공지사항</h1>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><span class="active">공지사항</span></li>
-			</ul>
-		</div>
-	</section>
-	<!-- end page title section -->
+	
 
 	<!-- start faq section -->
 	<section>
@@ -61,23 +81,27 @@ body>.container {
 											<div class="pull-right" style="width: 100px; margin: 10px 0;">
 												<a href="noticeForm" class="btn btn-primary btn-block">등록</a>
 											</div>
+
 											<br>
 											<thead>
 												<tr>
 													<th class="col-md-2">번호</th>
-													<th class="col-md-5">제목</th>
+													<th class="col-md-4">제목</th>
 													<th class="col-md-2">등록일</th>
 													<th class="col-md-2">조회수</th>
 													<th class="col-md-5">첨부파일</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="n : ${noticelist}">
-													<td th:text="${count}"></td>
+												<tr th:data-noticeCode="${n.noticeTitle}" th:each="n,nStat : ${noticelists}">
+													<td th:text="${nStat.count}"></td>
 													<td th:text="${n.noticeTitle}"></td>
 													<td th:text="${n.noticeRegDate}"></td>
-												
+													<td th:text="${n.noticeHit}"></td>
 													<td th:text="${n.noticeFile}"></td>
+													<td>
+														<button type="button" class="btnInfo">조회</button>
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -90,16 +114,13 @@ body>.container {
 			</div>
 		</div>
 	</section>
+	</div>
 	<!-- end faq section -->
 	<!-- 내용 끝 -->
 
 
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
-	<script>
-		
-	</script>
+	
+	
 </body>
 
 </html>

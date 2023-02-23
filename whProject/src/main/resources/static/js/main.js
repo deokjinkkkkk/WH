@@ -269,10 +269,10 @@
         --------------------------------------*/
 
         // CountDown for coming soon page
-        $(".countdown").countdown({
+       /* $(".countdown").countdown({
             date: "01 Jan 2021 00:01:00", //set your date and time. EX: 15 May 2014 12:00:00
             format: "on"
-        });
+        });*/
       
     });
 
