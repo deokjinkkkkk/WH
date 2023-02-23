@@ -4,11 +4,19 @@
 	
 	<select id="getNoticeList"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
-	SELECT * FROM NOTICE
+	SELECT * FROM NOTICE ORDER BY NOTICE_CODE 
 		</select>
 	
 	<select id="getNoticeSelect" resultType="co.admin.wh.notice.vo.NoticeVO">
 		SELECT * FROM NOTICE
 		WHERE 
 	</select>
+	
+	<insert id="noticeInsert" parameterType="co.admin.wh.notice.vo.NoticeVO">
+	<selectKey keyProperty="noticeCode" resultType="int" order="BEFORE">
+			SELECT MAX(NOTICE_CODE)+1 FROM NOTICE
+		</selectKey>
+	INSERT INTO NOTICE
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},#{noticeRegDate},#{noticeModDate})
+	</insert>
 </mapper>
