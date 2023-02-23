@@ -101,6 +101,11 @@
 		    <version>1.1.1</version>
 		</dependency>
 		
+		<dependency>
+<groupId>nz.net.ultraq.thymeleaf</groupId>
+<artifactId>thymeleaf-layout-dialect</artifactId>
+</dependency>
+		
 		<!-- 크롤링시도중 -->
 		<dependency>
 		    <groupId>org.seleniumhq.selenium</groupId>
