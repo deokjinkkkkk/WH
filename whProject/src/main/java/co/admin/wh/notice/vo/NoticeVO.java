@@ -20,4 +20,6 @@ public class NoticeVO {
 	Date noticeRegDate;   //등록날짜 
 	@JsonFormat(pattern = "yyyy/mm/dd")
 	Date noticeModDate;    //수정날짜 
+	
+	
 }

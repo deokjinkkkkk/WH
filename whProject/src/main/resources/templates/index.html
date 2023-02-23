@@ -5,25 +5,19 @@
 <!-- <head> -->
 
 <head th:replace="~{head :: head}"></head>
+
+
 <body>
 
-   
-
+    <!-- start main-wrapper section -->
+    <div class="main-wrapper">
         <!-- start header section -->
         <header th:replace="~{header :: header}"></header>
         <!-- end header section -->
 
 
-		
-			
-
- 	<!-- start banner -->
-        <div th:replace="~{banner2 ::banner2 }"></div>
-        <!-- end banner -->
- 
-
         <!-- Start popular destination Section -->
-       
+
         
         <section layout:fragment="content"></section>
         
@@ -37,7 +31,7 @@
         
         
         <!-- end footer section -->
-
+</div>
 
 </body>
 
