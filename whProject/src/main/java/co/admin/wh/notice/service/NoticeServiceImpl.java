@@ -1,6 +1,7 @@
 package co.admin.wh.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.noticeInsert(vo);
 	}
 
+	@Override
+	public NoticeVO ndetil(NoticeVO nvo) {
+		return mapper.ndetil(nvo);
+	}
+
+
+	
 	
 
 }
