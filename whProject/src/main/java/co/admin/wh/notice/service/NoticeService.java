@@ -9,4 +9,6 @@ public interface NoticeService {
 	NoticeVO getNoticeSelect(NoticeVO vo);
 	int noticeInsert(NoticeVO vo);
 	
+	NoticeVO ndetil(NoticeVO nvo);
+	
 }
