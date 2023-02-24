@@ -27,6 +27,7 @@
 
 		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
+<<<<<<< HEAD
 
 	<select id="getCompanionList"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
@@ -75,5 +76,10 @@
 		from companion
 		where comp_code = #{compCode}
 >>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
+=======
+	
+	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
+
+>>>>>>> branch 'jin' of https://github.com/deokjinkkkkk/WH.git
 	</select>
 </mapper>
