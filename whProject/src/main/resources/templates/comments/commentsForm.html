@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-sm-2">
 						<input  type="hidden" id="id" name="id" value="${id}"></input>
-						<button type="button" class="btn btn-sm btn-primary" id="btnReplySave" style="width: 100%; margin-top: 10px"> 저 장 </button>
+						<button type="button" class="btn btn-sm btn-primary" id="replyInsert" onclick="commentsInsert()"> 저장 </button>
 					</div>
 				</div>
 				</form>
@@ -37,14 +37,14 @@
 				style="padding-top: 10px">
 				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
 				<div id="replyList">
-					<div>
+					<div th:each="c : ${com}">
 						<ul>
 							<li>
 								<div class="content">
-									<p>내용</p>
+									<p th:text="${c.comContent}"></p>
 									<div class="date">
-									 <span class="name">이름</span>
-									 <span>작성날짜</span>
+									 <span>이름</span>
+									 <span th:text="${c.comDate}"></span>
 									</div>
 								</div>
 								<span class="report">
@@ -52,9 +52,8 @@
 									</button>
 								</span>
 								<div class="replyBtn">
-									<button type="button" id="replBtn1">답글</button>
+									<button type="button" id="replBtn1" onclick="">답글</button>
 								</div>
-								
 							</li>
 						</ul>
 					</div>
@@ -63,18 +62,32 @@
 		</div>
 </div>
 <script>
+	$(function(){
+		
+			
+			//단건조회
+			$.ajax({
+				url:"/comments"
+			})
+			.then(obj => {
+			});
+				
+	})
 	function commentsInsert(){
 		$("#btnReplySave").on('click',function(){
 			console.log( $("#content").val())
 			$.ajax({
 				url:"/comments",
+				type:"POST",
+				data: JSON.stringify(list),
+				
 			})
 			.then(result => {
 				$("#replyList")
 			})
 			
 		})
-	})
+	}
 </script>	
 </body>
 </html>
