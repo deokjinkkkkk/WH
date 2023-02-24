@@ -18,10 +18,10 @@
                     </li>
                 </ul>
         </section>
-<div>
+	<div>
 	<div class="container">
 			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-				<form name="form" id="form" role="form" method="post">
+				<form name="tform" id="tform" method="post">
 				<div class="row">
 					<div class="col-sm-10">
 						<textarea  id="content" class="form-control" rows="3" placeholder="댓글을 입력해 주세요"></textarea>
@@ -36,24 +36,43 @@
 			<div class="my-3 p-3 bg-white rounded shadow-sm"
 				style="padding-top: 10px">
 				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
-				<div id="replyList"></div>
+				<div id="replyList">
+					<div>
+						<ul>
+							<li>
+								<div class="content">
+									<p>내용</p>
+									<div class="date">
+									 <span class="name">이름</span>
+									 <span>작성날짜</span>
+									</div>
+								</div>
+								<span class="report">
+									<button type="button" onclick="">신고
+									</button>
+								</span>
+								<div class="replyBtn">
+									<button type="button" id="replBtn1">답글</button>
+								</div>
+								
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 </div>
 <script>
-	$(function(){
+	function commentsInsert(){
 		$("#btnReplySave").on('click',function(){
 			console.log( $("#content").val())
-			$
 			$.ajax({
-				type="post",
-				url:"/comments/"+comCode, 
-				data:JSON.stringfy(reply),
-				contentType:"application/json",
-				success : function(data){
-					$("#replyList").append()
-				}
+				url:"/comments",
 			})
+			.then(result => {
+				$("#replyList")
+			})
+			
 		})
 	})
 </script>	

@@ -27,8 +27,8 @@
 	</select>
 	
 	<select id="detailSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
-	select *
-	from companion
-	where comp_code = #{compCode}
+		select *
+		from companion
+		where comp_code = #{compCode}
 	</select>
 </mapper>
