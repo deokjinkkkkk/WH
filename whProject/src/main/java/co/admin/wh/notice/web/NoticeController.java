@@ -36,7 +36,7 @@ public class NoticeController {
 		return "redirect:notice";
 	}
 	
-	@RequestMapping("/noticDetile")
+	@RequestMapping("/noticeDetile.do")
 	public String noticeDe(NoticeVO svo, Model model) {
 		model.addAttribute("noticelists", noticeService.ndetil(svo));
 		return "notice/noticDetile";
