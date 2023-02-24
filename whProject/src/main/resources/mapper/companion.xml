@@ -2,33 +2,84 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.notice.mapper.CompanionMapper">
 
-	<insert id="companionInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
-		<selectKey keyProperty="compCode" resultType="int" order="BEFORE">
-       SELECT MAX(COMP_CODE)+1 FROM COMPANION
-      </selectKey>
-		INSERT INTO COMPANION (COMP_CODE, ID, COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE, COMP_CONTENT,IMG_GRO_CODE)
-		
-		VALUES (#{compCode},#{id},#{compGroup}, #{compTitle}, #{compCount},#{compStartDate},#{compEndDate}, #{compContent}, #{imgGroCode})
-	</insert >
-	
-	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
-		<selectKey keyProperty="imgCode" resultType="int" order="BEFORE">
-       SELECT MAX(IMG_CODE)+1 FROM IMAGE
-      </selectKey>
+	<insert id="companionInsert"
+		parameterType="co.admin.wh.notice.vo.CompanionVO">
+		<selectKey keyProperty="compCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(COMP_CODE)+1 FROM COMPANION
+		</selectKey>
+		INSERT INTO COMPANION (COMP_CODE, ID,
+		COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE,
+		COMP_CONTENT,IMG_GRO_CODE)
+
+		VALUES (#{compCode},#{id},#{compGroup}, #{compTitle},
+		#{compCount},#{compStartDate},#{compEndDate}, #{compContent},
+		#{imgGroCode})
+	</insert>
+
+	<insert id="imgInsert"
+		parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
-		
+
 		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
-	
-	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
-		select *
+<<<<<<< HEAD
+
+	<select id="getCompanionList"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+		select * from(  select rownum rn, a.*  from(
+		select c.COMP_CODE,
+		m.ID,
+		c.AGE,
+		c.COMP_GROUP,
+		c.COMP_TITLE,
+		c.COMP_COUNT,
+		c.COMP_LOCAL,
+		c.COMP_START_DATE,
+		c.COMP_END_DATE,
+		c.COMP_CONTENT,
+		c.IMG_GRO_CODE,
+		c.COU_CODE,
+		m.TEL,
+		m.NAME,
+		m.GENDER
 		from companion c ,member m
-        where c.id= m.id
+		where c.id= m.id
+		order by comp_code
+<![CDATA[
+		) a  where rownum <=#{last} ) b where rn >=#{first}
+	]]>
 	</select>
+<<<<<<< HEAD
+
+	<select id="detailSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+		select *
+		from companion
+		where comp_code = #{compCode}
+	</select>
+
+	<!-- 전체건수조회 -->
+	<select id="getCountTotal"
+		parameterType="co.admin.wh.notice.vo.CompanionSearchVO"
+		resultType="int">
+		select count(*)
+		from companion
+=======
 	
 	<select id="detailSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
 		select *
 		from companion
 		where comp_code = #{compCode}
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
+=======
+	
+	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
+
+>>>>>>> branch 'jin' of https://github.com/deokjinkkkkk/WH.git
 	</select>
 </mapper>
