@@ -6,7 +6,8 @@
 	</select>
 	
 	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
-	
+		select * from comments
+		
 	</select>
 	
 	<insert id="commentsInsert">
