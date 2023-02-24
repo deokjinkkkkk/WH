@@ -3,50 +3,62 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 
-<!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
-<!-- 뭐야.. CSS 끝 -->
+
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
-<script>
-// 	$(function() {
-// 		$(".btnInfo").on("click", function() {
-// 			//클릭한 버튼이 있는 행의 employeeId를 가져오자
-// 			let compCode = $(this).closest("tr").children().first().text();
-// 			location.href = "companionDetail?compCode="+compCode
 
-
-// 		})
-
-// 	});
-$(function() {
-		$(".btnInfo").on("click", function() {
-			//클릭한 버튼이 있는 행의 employeeId를 가져오자
-			let compCode = $(this).closest("tr").children().first().text();
-			location.href = "companionDetail?compCode="+compCode
-
-
-		})
-
-	});
-</script>
 <body>
 
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
 
-	<!-- 배너 시작 -->
-	<!--         <banner th:replace="~{banner ::banner }"></banner> -->
-	<th:block layout:fragment="banner2" th:include="@{banner2}"></th:block>
-	<!-- 배너 끝 -->
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="../img/banner/bg1.jpg">
+			<div class="container">
 
-	<!-- 각자 내용 -->
-	<div class="container">
-		<div layout:fragment="content" class="content">
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+		<script>
+			// 	$(function() {
+			// 		$(".btnInfo").on("click", function() {
+			// 			//클릭한 버튼이 있는 행의 employeeId를 가져오자
+			// 			let compCode = $(this).closest("tr").children().first().text();
+			// 			location.href = "companionDetail?compCode="+compCode
 
+			// 		})
+
+			// 	});
+			$(function() {
+				$(".btnInfo").on(
+						"click",
+						function() {
+							//클릭한 버튼이 있는 행의 employeeId를 가져오자
+							let compCode = $(this).closest("tr").children()
+									.first().text();
+							location.href = "companionDetail?compCode="
+									+ compCode
+
+						})
+
+			});
+			
+			function gopage(page){
+			 	location.href="companion?page="+page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+		</script>
+		<!-- 각자 내용 -->
+		<div class="container">
 			<div class="card d-flex flex-row align-items-center overflow-hidden"
 				style="height: 200px;" th:each="c : ${companionList}">
 				<div class="card-image w-25 ">
@@ -55,17 +67,16 @@ $(function() {
 				<div class="card-body">
 					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
 					<h4 class="card-title">[[${c.compTitle}]]</h4>
-					인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
+					게시글 순서 : <span th:text="${c.compCode}"></span> <br> 인원수 : <span
+						th:text="${c.compCount}"></span> <br> 그룹유형 : <span
 						th:text="${c.compGroup}"></span><br> 여행기간 : <span
-						th:text="${c.compStartDate}"></span> ~ <span
-						th:text="${c.compEndDate}"></span><br> <a
-						href="companionDetail" class="btn btn-primary">상세보기</a>
+						th:text="${c.compStartDate}"> </span> ~ <span
+						th:text="${c.compEndDate}"></span><br> 
+						<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
 				</div>
 			</div>
 
-			<button class="btn btn-danger">
-				<a href="companionForm">신청하기</a>
-			</button>
+				<a href="companionForm" class="btn btn-danger">신청하기</a>
 
 			<table class="table">
 				<thead>
@@ -86,17 +97,18 @@ $(function() {
 				</tbody>
 			</table>
 		</div>
-
-
-
+		<div>
+			<a
+				th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+				th:href="|javascript:gopage(${num})|"
+				th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
+		</div>
+	
 
 	</div>
-	</div>
+	
 	<!-- 내용 끝 -->
 
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
 
 </body>
 </html>
