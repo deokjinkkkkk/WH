@@ -3,6 +3,7 @@ package co.admin.wh.notice.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import co.admin.wh.notice.mapper.FoodMapper;
@@ -51,6 +52,7 @@ public class FoodController {
 	}
 	
 	//게시물 상세보기
+	@GetMapping("/food/{foodCode}")
 	@RequestMapping("/foodDetail")
 	public String foodDetail(FoodVO vo,Model model) {
 		model.addAttribute("foodList",foodMapper.getFoodList(vo));

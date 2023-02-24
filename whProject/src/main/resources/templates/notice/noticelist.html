@@ -78,6 +78,7 @@ body>.container {
 													<tr th:each="n  : ${noticelists}">
 														<td th:text="${n.noticeCode}"></td>
 														<td><a th:text="${n.noticeTitle}"
+
 															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeFile}"></td>
