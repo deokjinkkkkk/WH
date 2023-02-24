@@ -4,11 +4,11 @@
 	
 <select id="getFoodList" 
 resultType="co.admin.wh.notice.vo.FoodVO">
-	select *   from (  select rownum rn, a.*    from(
-		SELECT * FROM FOOD order by food_code
-	<![CDATA[
- ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
-]]>	
+		select *   from (  select rownum rn, a.*    from(
+			SELECT * FROM FOOD order by food_code
+		<![CDATA[
+	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>	
 	</select>
 	
 	<!-- 총 게시글 갯수 출력 -->

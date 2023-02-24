@@ -53,6 +53,7 @@
 		) a  where rownum <=#{last} ) b where rn >=#{first}
 	]]>
 	</select>
+<<<<<<< HEAD
 
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
@@ -67,5 +68,12 @@
 		resultType="int">
 		select count(*)
 		from companion
+=======
+	
+	<select id="detailSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
+		select *
+		from companion
+		where comp_code = #{compCode}
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 	</select>
 </mapper>
