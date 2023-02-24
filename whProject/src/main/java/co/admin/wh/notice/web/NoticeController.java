@@ -44,17 +44,17 @@ public class NoticeController {
 		return "redirect:notice";
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping("/noticeDetile.do")
 	public String noticeDe(NoticeVO svo, Model model) {
 		model.addAttribute("noticelists", noticeService.ndetil(svo));
 		return "notice/noticDetile";
-=======
+
 	@GetMapping("/noticeDetail/{noticeCode}")
 	public String noticeDe(NoticeVO vo, Model model) {
 		model.addAttribute("noticelists", noticeService.noticendetil(vo));
 		return "notice/noticeDetail";
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
+
 	}
 	
 	
