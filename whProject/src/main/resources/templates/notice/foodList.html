@@ -25,25 +25,30 @@ body>.container {
 
 <body>
 <div layout:fragment="content">
-<!-- [[ ${paging} ]] <hr>
+<!--  [[ ${paging} ]] <hr>
 [[ ${paging.startPage} ]] <hr>
 [[ ${paging.lastPage} ]] <hr>
-[[ ${FoodSearchVO} ]] <hr> -->
+[[ ${FoodSearchVO} ]] <hr>  -->
 
 
 <script>
 function gopage(page){
- 	location.href="foosList?page="+page;
-//	frmSearch.page.value = page;
-//	frmSearch.submit();
+ 	location.href="food?page="+page;
+	frmSearch.page.value = page;
+	frmSearch.submit();
 }
+
+$(function(){
+	$(".btnInfo").on("click",function(){
+		let url = $(this).closest("tr").children().first().text();
+		location.href=`foodDetail/${url}`
+	})
+})
 </script>
 
 
-
-
 	<!-- 내용 시작 -->
-	<div layout:fragment="content" class="content">
+	
 	
 	 <!-- 배너시작 -->  
 		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg5.jpg">
@@ -102,16 +107,25 @@ function gopage(page){
 									</div>
 								</div>
 							</div>
+							<div>
+						<a
+							th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+							th:href="|javascript:gopage(${num})|"
+							th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
+					</div>
 							<div class="pull-right" style="width: 100px; margin: 10px 0;">
 								<a href="foodForm" class="btn btn-primary btn-block">등록</a>
 							</div>
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	</div>
+	
 	<!-- end faq section -->
 	<!--  내용 끝  -->
 
@@ -128,10 +142,8 @@ function gopage(page){
 			</ul>
 		</nav>
 	</div> -->
-</div>
-	<!-- 푸터 시작  -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
+
+
 	<script>
 		
 	</script>

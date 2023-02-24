@@ -32,6 +32,7 @@ public class FoodController {
 		
 		paging.setTotalRecord(foodMapper.getCountTotal(svo));
 		model.addAttribute("foodList", foodMapper.getFoodList(svo)); 
+		
 		return "notice/foodList";
 	}
 	
