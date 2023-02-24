@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.notice.mapper.FoodMapper">
+<<<<<<< HEAD
 
 	<!-- 페이징을 위한... -->
 	<select id="getFoodList"
@@ -11,6 +12,16 @@
 	<![CDATA[
  		) A  WHERE ROWNUM <= #{last} ) B  WHERE RN  >= #{first} 	
 	]]>
+=======
+	
+<select id="getFoodList" 
+resultType="co.admin.wh.notice.vo.FoodVO">
+		select *   from (  select rownum rn, a.*    from(
+			SELECT * FROM FOOD order by food_code
+		<![CDATA[
+	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>	
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 	</select>
 
 	<!-- 총 게시글 갯수 출력 -->

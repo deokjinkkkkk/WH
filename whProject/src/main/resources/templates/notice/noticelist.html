@@ -4,8 +4,7 @@
 	layout:decorate="~{/index}">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <style>
 /*html{position:relative;min-height:100%;}*/
 body {
@@ -16,30 +15,20 @@ body>.container {
 	padding: 60px 15px 0;
 }
 </style>
-
-
-
-<script type="text/javascript">
-$(function(){
-	$(".btnInfo").on("click", function(){
-		//클릭한 버튼이 있는 행의 id는?
-	let noticeTitle = $(this).closest('tr').children().first().next().text()
-		
-		//단건조회
-		$.ajax({
-			url:"/n/"+noticeTitle
-		})
-		.then(obj=> {
-			$("#noticeTitle").val(obj.noticeTitle);
-			$("#noticeContent").val(obj.noticeContent);
-		});
-});
-})
-</script>
 <body>
+
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
+		<script>
+			function gopage(page) {
+				location.href = "notice?page=" + page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+		</script>
+
+
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
@@ -77,7 +66,7 @@ $(function(){
 													<a href="noticeForm" class="btn btn-primary btn-block">등록</a>
 												</div>
 												<br>
-												<thead>
+						 						<thead>
 													<tr>
 														<th class="col-md-2">번호</th>
 														<th class="col-md-4">제목</th>
@@ -86,11 +75,14 @@ $(function(){
 													</tr>
 												</thead>
 												<tbody>
-													<tr th:each="n,nStat : ${noticelists}">
-														<td th:text="${nStat.count}"></td>
-														<!--  <td th:text="${n.noticeTitle}"></td>-->
+													<tr th:each="n  : ${noticelists}">
+														<td th:text="${n.noticeCode}"></td>
 														<td><a th:text="${n.noticeTitle}"
+<<<<<<< HEAD
 															th:onclick="|location.href='@{/noticeDetail.do}'|"></a></td>
+=======
+															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeFile}"></td>
 													</tr>
@@ -98,6 +90,12 @@ $(function(){
 											</table>
 										</div>
 									</div>
+								</div>
+								<div>
+									<a
+										th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+										th:href="|javascript:gopage(${num})|"
+										th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
 								</div>
 							</div>
 						</div>

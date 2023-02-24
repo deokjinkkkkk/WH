@@ -2,20 +2,24 @@ package co.admin.wh.common.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.common.mapper.CommentsMapper;
+import co.admin.wh.common.vo.CommentsVO;
 
 @Controller
 public class CommentsController {
 	@Autowired CommentsMapper commentsMapper;
 	
 	@RequestMapping("/comments")
-	public String commentsForm() {
+	public String commentsForm(Model model, CommentsVO vo) {
+		model.addAttribute("com", commentsMapper.commentsList());
 		return "comments/commentsForm";
 	}
-//	
-//	@GetMapping("")
+
+//	@GetMapping("/comments")
 //	public int commentsCount() {
 //		return 1;
 //	}
