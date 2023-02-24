@@ -4,12 +4,17 @@
 	
 	<select id="getNoticeList"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
-	SELECT * FROM NOTICE ORDER BY NOTICE_CODE 
+	select *   from (  select rownum rn, a.*    from(
+		SELECT * FROM notice order by notice_code desc
+	<![CDATA[
+ ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+]]>	
+	
 		</select>
 	
-	<select id="getNoticeSelect" resultType="co.admin.wh.notice.vo.NoticeVO">
+	<select id="noticendetil" resultType="co.admin.wh.notice.vo.NoticeVO">
 		SELECT * FROM NOTICE
-		WHERE 
+		WHERE notice_code =#{noticeCode}
 	</select>
 	
 	<insert id="noticeInsert" parameterType="co.admin.wh.notice.vo.NoticeVO">
@@ -19,4 +24,13 @@
 	INSERT INTO NOTICE
 		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},#{noticeRegDate},#{noticeModDate})
 	</insert>
+	
+		<!-- 전체 건수 조회 -->
+	<select id="getCountTotal" 
+			parameterType="co.admin.wh.notice.vo.NoticeSearchVO"
+			resultType="int">
+			select count(*)
+			from notice
+			<!-- <include refid="creitria"></include>	 -->
+	</select>
 </mapper>

@@ -1,33 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.notice.mapper.FoodMapper">
+
+
 	
-<select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO">
-		select * from food
+<select id="getFoodList" 
+resultType="co.admin.wh.notice.vo.FoodVO">
+		select *   from (  select rownum rn, a.*    from(
+			SELECT * FROM FOOD order by food_code
+		<![CDATA[
+	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>	
+
 	</select>
-	
+
 	<!-- 총 게시글 갯수 출력 -->
-	<select id="countFood" resultType="int">
+	<!-- <select id="countFood" resultType="int">
 		SELECT COUNT(*) FROM FOOD
-	</select>
+	</select> -->
 	
-<select id="getFoodSelect" resultType="co.admin.wh.notice.vo.FoodVO">
-		SELECT * FROM FOOD
-		WHERE 
+	<!-- 전체 건수 조회 -->
+	<select id="getCountTotal" parameterType="FoodSearchVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM FOOD
+
 	</select>
-	
-	<insert id="foodInsert" parameterType="co.admin.wh.notice.vo.FoodVO">
-	<selectKey keyProperty="foodCode" resultType="int" order="BEFORE">
-			SELECT MAX(food_Code)+1 FROM FOOD
-		</selectKey> 
-			INSERT INTO FOOD
-			VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},#{foodDate},#{imgGroCode},#{foodTitle}) 
+
+
+	<insert id="foodInsert"
+		parameterType="co.admin.wh.notice.vo.FoodVO">
+		<selectKey keyProperty="foodCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(FOOD_CODE)+1 FROM FOOD
+		</selectKey>
+		INSERT INTO FOOD
+		VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},#{foodDate},#{imgGroCode},#{foodTitle})
 
 	</insert>
-	
-	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
-		select *
-		from food f join member m
-        on f.id= m.id		
+
+<!-- 	<select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
+		SELECT * 
+		FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
+		
+		
+	<select id="detailSelect" resultType="co.admin.wh.notice.vo.FoodVO">
+	SELECT *
+	FROM FOOD
+	WHERE FOOD_CODE = #{foodCode}
 	</select>
+
 </mapper>
