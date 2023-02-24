@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import co.admin.wh.notice.mapper.FoodMapper;
+import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 
 
@@ -15,12 +16,7 @@ public class FoodServiceImpl implements FoodService {
 private FoodMapper mapper;
 	
 	
-	//목록보기
-	@Override
-	public List<FoodVO> getFoodList() {
-		return mapper.getFoodList();
-	}
-	
+
 	//상세페이지
 	@Override
 	public FoodVO getFoodSelect(FoodVO vo) {
@@ -31,6 +27,18 @@ private FoodMapper mapper;
 	@Override
 	public int foodInsert(FoodVO vo) {
 		return mapper.foodInsert(vo);
+	}
+
+	//목록보기
+	@Override
+	public List<FoodVO> getFoodList(FoodSearchVO svo) {
+		return mapper.getFoodList(svo);
+	}
+
+	@Override
+	public int getCountTotal(FoodSearchVO svo) {
+		// 페이지 수 관리
+		return mapper.getCountTotal(svo);
 	}
 
 
