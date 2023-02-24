@@ -41,6 +41,12 @@ private FoodMapper mapper;
 		return mapper.getCountTotal(svo);
 	}
 
+	@Override
+	public FoodVO detailSelect(FoodVO fvo) {
+		// 상세보기
+		return mapper.detailSelect(fvo);
+	}
+
 
 
 }

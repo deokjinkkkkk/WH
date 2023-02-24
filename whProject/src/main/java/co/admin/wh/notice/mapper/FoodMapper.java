@@ -10,7 +10,7 @@ public interface FoodMapper {
 
 	List<FoodVO> getFoodList(FoodVO vo);
 	int getCountTotal(FoodSearchVO svo);
-	
+	FoodVO detailSelect(FoodVO fvo);
 	
 	FoodVO getFoodSelect(FoodVO vo);
 	int foodInsert(FoodVO vo);

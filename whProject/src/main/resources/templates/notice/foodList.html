@@ -15,9 +15,7 @@ body>.container {
 	padding: 60px 15px 60px;
 }
 
-.paging {
-	justify-content: center;
-}
+
 </style>
 </head>
 
@@ -31,6 +29,7 @@ body>.container {
 [[ ${FoodSearchVO} ]] <hr>  -->
 
 
+<!-- 페이징 -->
 <script>
 function gopage(page){
  	location.href="food?page="+page;
@@ -45,7 +44,7 @@ $(function(){
 	})
 })
 </script>
-
+<!-- 페이징끝 -->
 
 	<!-- 내용 시작 -->
 	
@@ -95,9 +94,11 @@ $(function(){
 												<tr th:each="f ,nStat: ${foodList}"
 												onmouseover='this.style.background="#fcecae";'
 												onmouseleave='this.style.background="#FFFFFF";'>
-													<td>
-													<!-- <a th:text="${f.foodTitle}" 
-													th:href="${/notice/food(id=${food.id})}">제목</a></td> -->
+												<td>
+												<a th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a></td>
+													<!-- <td>
+													<a th:text="${f.foodTitle}" 
+													th:onclick="|location.href='@{/foodDetail}'|">제목</a></td> -->
 													<td th:text="${f.foodDate}"></td>
 													<td th:text="${f.foodHit}"></td>
 													<td th:text="${f.foodFile}"></td>
@@ -130,8 +131,8 @@ $(function(){
 	<!--  내용 끝  -->
 
 
-	<!-- <div class="paging">
-		<nav aria-label="Page navigation example" class="container">
+	 <div class="gopage">
+		<nav aria-label="Page navigation example" class="gopage">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -141,12 +142,9 @@ $(function(){
 				<li class="page-item"><a class="page-link" href="#">Next</a></li>
 			</ul>
 		</nav>
-	</div> -->
+	</div> 
 
 
-	<script>
-		
-	</script>
 </body>
 
 </html>
