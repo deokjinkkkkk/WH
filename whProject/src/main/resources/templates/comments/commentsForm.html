@@ -7,26 +7,53 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
+<section class="page-title-section bg-img cover-background" th:style="|background: url('img/banner/bg4.jpg')|">
+                <h1 class="text-white font-weight-600">Tour Listing</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">Tour Listing</span>
+                    </li>
+                </ul>
+        </section>
 <div>
 	<div class="container">
-		<form action="" id="frm">
-			<div class="mb-3">
-			  	<label for="comContent" class="form-label">댓글</label>
-			  	<textarea class="form-control" rows="3" id="comContent" name="comContent"></textarea>
+			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+				<form name="form" id="form" role="form" method="post">
+				<div class="row">
+					<div class="col-sm-10">
+						<textarea  id="content" class="form-control" rows="3" placeholder="댓글을 입력해 주세요"></textarea>
+					</div>
+					<div class="col-sm-2">
+						<input  type="hidden" id="id" name="id" value="${id}"></input>
+						<button type="button" class="btn btn-sm btn-primary" id="btnReplySave" style="width: 100%; margin-top: 10px"> 저 장 </button>
+					</div>
+				</div>
+				</form>
 			</div>
-			<div class="mb-3" style="text-align: right">
-				<button class="btn btn-primary" type=button id="btn">등록</button>
+			<div class="my-3 p-3 bg-white rounded shadow-sm"
+				style="padding-top: 10px">
+				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
+				<div id="replyList"></div>
 			</div>
-			<div id="comList">
-			</div>
-		</form>
-	</div>
+		</div>
 </div>
 <script>
 	$(function(){
-		$("#comList").append($("<div>"))
-		$("#btn").on('click',function(){
-			console.log( $("#comContent").val())
+		$("#btnReplySave").on('click',function(){
+			console.log( $("#content").val())
+			$
+			$.ajax({
+				type="post",
+				url:"/comments/"+comCode, 
+				data:JSON.stringfy(reply),
+				contentType:"application/json",
+				success : function(data){
+					$("#replyList").append()
+				}
+			})
 		})
 	})
 </script>	

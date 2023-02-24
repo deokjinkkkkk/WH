@@ -6,7 +6,9 @@
 	</select>
 	
 	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
-		select * from comments
+		select * 
+		from comments
+		where com_code =${comCode}
 		
 	</select>
 	
