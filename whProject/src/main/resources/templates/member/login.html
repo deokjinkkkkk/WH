@@ -2,20 +2,12 @@
 <html  xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index}">
-	 <script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<!-- 뭐야.. CSS -->
-	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- 뭐야.. CSS 끝 -->
     
     
     
-    <body>
+    <body layout:fragment="content">
     
-    	<!-- 헤더 시작 -->
-        <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- 헤더 끝 -->
-		
+    	
 	
         
 	
@@ -56,7 +48,6 @@
         <!-- end login section -->
    		<!-- 내용 끝 -->      
         <!-- 푸터 시작 -->
-        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
         <!-- 푸터 끝 -->
 	<script>
 	

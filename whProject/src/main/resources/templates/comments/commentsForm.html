@@ -18,6 +18,7 @@
                     </li>
                 </ul>
         </section>
+<<<<<<< HEAD
  <!--  start comment-->
                             <div class="comments-area">
                                 <div class="title-g margin-30px-bottom">
@@ -68,22 +69,78 @@
                             </div>
                             <!-- end comment-->
 
+=======
+	<div>
+	<div class="container">
+			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+				<form name="tform" id="tform" method="post">
+				<div class="row">
+					<div class="col-sm-10">
+						<textarea  id="content" class="form-control" rows="3" placeholder="댓글을 입력해 주세요"></textarea>
+					</div>
+					<div class="col-sm-2">
+						<input  type="hidden" id="id" name="id" value="${id}"></input>
+						<button type="button" class="btn btn-sm btn-primary" id="replyInsert" onclick="commentsInsert()"> 저장 </button>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="my-3 p-3 bg-white rounded shadow-sm"
+				style="padding-top: 10px">
+				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
+				<div id="replyList">
+					<div th:each="c : ${com}">
+						<ul>
+							<li>
+								<div class="content">
+									<p th:text="${c.comContent}"></p>
+									<div class="date">
+									 <span>이름</span>
+									 <span th:text="${c.comDate}"></span>
+									</div>
+								</div>
+								<span class="report">
+									<button type="button" onclick="">신고
+									</button>
+								</span>
+								<div class="replyBtn">
+									<button type="button" id="replBtn1" onclick="">답글</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+>>>>>>> branch 'DJ' of https://github.com/deokjinkkkkk/WH.git
 <script>
 	$(function(){
+		
+			
+			//단건조회
+			$.ajax({
+				url:"/comments"
+			})
+			.then(obj => {
+			});
+				
+	})
+	function commentsInsert(){
 		$("#btnReplySave").on('click',function(){
 			console.log( $("#content").val())
-			$
 			$.ajax({
-				type="post",
-				url:"/comments/"+comCode, 
-				data:JSON.stringfy(reply),
-				contentType:"application/json",
-				success : function(data){
-					$("#replyList").append()
-				}
+				url:"/comments",
+				type:"POST",
+				data: JSON.stringify(list),
+				
 			})
+			.then(result => {
+				$("#replyList")
+			})
+			
 		})
-	})
+	}
 </script>	
 </body>
 </html>

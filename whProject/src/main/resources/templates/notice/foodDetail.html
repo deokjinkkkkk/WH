@@ -1,35 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+	layout:decorate="~{/index}">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<style>
-body {
-	margin-bottom: 60px;
-}
-
-body>.container {
-	padding: 60px 15px 60px;
-}
-
-.paging {
-	justify-content: center;
-}
-</style>
-</head>
-
-<!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
-<!-- 뭐야.. CSS 끝 -->
-
-
 <body>
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
 
 	<!-- 배너시작 -->
 	<section class="page-title-section bg-img cover-background"
@@ -50,8 +24,7 @@ body>.container {
 
 			<div class="col-lg-6 mb-5 ftco-animate">
 
-				<img src="${}" class="img-fluid"
-					alt="Colorlib Template">
+				<img src="${}" class="img-fluid" alt="Colorlib Template">
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
 				th:each="f : ${foodList}">
@@ -59,32 +32,26 @@ body>.container {
 
 
 				<p class="price">
-				<img src="${f.imgGroCode}" class="img-fluid"
-					alt="Colorlib Template">
-					<span><span th:text="${f.foodAddr}"></span></span>
-				
-					<span th:text="${f.foodName}"></span>
-			
-					<span th:text="${f.foodDate}"></span>
-				
-					<span th:text="${f.foodContent}"></span>
+					<img src="${f.imgGroCode}" class="img-fluid"
+						alt="Colorlib Template"> <span><span
+						th:text="${f.foodAddr}"></span></span> <span th:text="${f.foodName}"></span>
+
+					<span th:text="${f.foodDate}"></span> <span
+						th:text="${f.foodContent}"></span>
 				</p>
 			</div>
-			</div>
-
-
-
-
-
-
-
-
-
 		</div>
-		<!-- 내용 끝 -->
 
-		<!-- 푸터 시작 -->
-		<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-		<!-- 푸터 끝 -->
+
+
+
+
+
+
+
+
+	</div>
+	<!-- 내용 끝 -->
+
 </body>
 </html>

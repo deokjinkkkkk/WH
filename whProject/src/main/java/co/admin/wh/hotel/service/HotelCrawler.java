@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -23,6 +24,8 @@ import co.admin.wh.hotel.vo.HotelVO;
 
 public class HotelCrawler implements Crawler {
 
+	@Autowired private SubstationInfoRepository infoRepository;
+	
 	@Override
 	public void crawling(String url) {
 
@@ -80,19 +83,21 @@ public class HotelCrawler implements Crawler {
 				JSONObject jsonObj3 = (JSONObject)jsonObj2.get("pageProps");
 				JSONObject jsonObj4 = (JSONObject)jsonObj3.get("apolloState");
 				JSONObject jsonObj5 = (JSONObject)jsonObj4.get("ROOT_QUERY");
-				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\"2023-03-02\",\"checkOut\":\"2023-03-03\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":1,\"placeFileName\":\"place:Seoul\",\"sortDirection\":\"descending\",\"sortField\":\"popularityKR\"})");
+				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\"2023-02-24\",\"checkOut\":\"2023-02-25\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":1,\"placeFileName\":\"place:Seoul\",\"sortDirection\":\"descending\",\"sortField\":\"popularityKR\"})");
 				
+//				System.out.println(jsonObj5);
 //				System.out.println(jsonObj6); // HotelList json
 				
 				JSONArray infoArr = (JSONArray) jsonObj6.get("hotelList");
-				
-				System.out.println(infoArr); // db에 담을 정보를 배열에 담음
-				
+//				
+//				System.out.println(infoArr); // db에 담을 정보를 배열에 담음
+//				
 				for(int i=0;i<infoArr.size();i++){
 		               JSONObject tmp = (JSONObject)infoArr.get(i);
-		               HotelVO infoObj = new HotelVO(i+(int)1, (String)tmp.get("hotelName"),"4",(String)tmp.get("address"),
-		                       (String)tmp.get("hotelFileName"), (String)tmp.get("hcHotelId"),(int)tmp.get("latitude"),(String)tmp.get("city"),(String)tmp.get("city")); // vo에 담음
-		           }				
+		               HotelVO infoObj = new HotelVO(i, (String)tmp.get("hotelName")); // vo에 담음
+		               System.out.println(infoObj);
+//		               infoRepository.save(infoObj);
+				}
 				
 				
 				
