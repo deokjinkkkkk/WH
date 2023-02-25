@@ -27,7 +27,7 @@
 
 		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
-<<<<<<< HEAD
+
 
 	<select id="getCompanionList"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
@@ -54,7 +54,7 @@
 		) a  where rownum <=#{last} ) b where rn >=#{first}
 	]]>
 	</select>
-<<<<<<< HEAD
+
 
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
@@ -69,17 +69,7 @@
 		resultType="int">
 		select count(*)
 		from companion
-=======
+</select>
 	
-	<select id="detailSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
-		select *
-		from companion
-		where comp_code = #{compCode}
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
-=======
-	
-	<select id="getCompanionList" resultType="co.admin.wh.notice.vo.CompanionVO">
 
->>>>>>> branch 'jin' of https://github.com/deokjinkkkkk/WH.git
-	</select>
 </mapper>
