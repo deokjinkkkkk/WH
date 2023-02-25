@@ -26,11 +26,11 @@ public class CommentsController {
 //		return 1;
 //	}
 //	
-	@PostMapping("/com")
-	public int commentsInsert() {
-		
-		return ;
-	}
+//	@PostMapping("/com")
+//	public int commentsInsert() {
+//		
+//		return ;
+//	}
 //	
 //	@GetMapping("/comments")
 //	public String commentsList(Model model,CommentsVO vo) {
