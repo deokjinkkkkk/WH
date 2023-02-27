@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import antlr.collections.List;
 import co.admin.wh.notice.mapper.NoticeMapper;
 import co.admin.wh.notice.service.NoticeService;
 import co.admin.wh.notice.vo.NoticeSearchVO;
@@ -21,6 +23,7 @@ public class NoticeController {
 	
 	@RequestMapping("/notice")
 	public String notice(Model model, @ModelAttribute("svo")NoticeSearchVO svo,  Paging paging) {
+		
 		paging.setPageUnit(5);//한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); //한 페이지에 보여질 페이지 갯수
 		
@@ -32,10 +35,12 @@ public class NoticeController {
 		return "notice/noticelist";
 	}
 	
+	
 	@RequestMapping("/noticeForm")
 	public String noticeForm(Model model) {
 		return "notice/noticeForm";
 	}
+	
 	
 	@RequestMapping("/noticeInsert.do")
 	public String noticeInsert(NoticeVO vo, Model model, NoticeSearchVO svo ) {
@@ -51,5 +56,12 @@ public class NoticeController {
 	}
 	
 	
+	
+	@RequestMapping("/noticeUpdate.do")
+	public String noticeUpdate(NoticeVO vo, Model model) {
+		model.addAttribute("noticelists", noticeService.noticeUpdate(vo));
+		model.addAttribute("noticelists", vo);
+		return "notice/noticeUpdate";
+	}
 	
 }
