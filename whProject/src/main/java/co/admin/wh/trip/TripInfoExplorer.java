@@ -66,10 +66,10 @@ public class TripInfoExplorer {
         //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
         //doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        System.out.println("--" + dbFactory);
+        System.out.println(dbFactory);
         
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        System.out.println("-+-"+dBuilder);
+        System.out.println(dBuilder);
         
         Document doc = dBuilder.parse(parsingUrl);       
 
@@ -92,6 +92,7 @@ public class TripInfoExplorer {
                 System.out.println("=================================");
                 System.out.println(getTagValue("title", eElement)); // 관광지 제목
                 System.out.println(getTagValue("addr1", eElement)); // 관광지 주소
+                System.out.println(getTagValue("tel", eElement)); // 관광지 전화번호
                 
                 
 //                System.out.println(getTagValue("wkplNm", eElement));//사업장명
@@ -101,6 +102,7 @@ public class TripInfoExplorer {
 
                   vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
                   vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
+                  vo.setTripTel(getTagValue("tel", eElement)); // 관광지 전화번호
                   
 //                dto.setDataCrtYm(getTagValue("dataCrtYm", eElement));//자료생성년월
 //                dto.setSeq(getTagValue("seq", eElement));//seq번호
