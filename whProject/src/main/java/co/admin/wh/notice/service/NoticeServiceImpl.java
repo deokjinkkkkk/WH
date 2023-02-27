@@ -40,6 +40,24 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
+	@Override
+	public int noticeCount(int noticeCode) {
+		return mapper.noticeCount(noticeCode);
+	}
+
+
+	@Override
+	public int noticeUpdate(NoticeVO vo) {
+		return mapper.noticeUpdate(vo);
+	}
+
+
+	@Override
+	public int noticeDelete(NoticeVO vo) {
+		return mapper.noticeDelete(vo);
+	}
+
+
 
 
 	

@@ -3,13 +3,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 <!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
 
 <!-- 뭐야.. CSS 끝 -->
 
-<body>
+<body layout:fragment="content">
 	<!-- 헤더 시작 -->
-<th:block layout:fragment="header" th:include="@{header}"></th:block>
 	 <section class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg4.jpg">
             <div class="container">
                 <h1 class="text-white font-weight-600">My page</h1>
@@ -138,6 +136,5 @@
                 </div>
 
             </div>
-<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
 </body>
 </html>
