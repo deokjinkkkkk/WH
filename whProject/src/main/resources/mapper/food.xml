@@ -3,22 +3,21 @@
 <mapper namespace="co.admin.wh.notice.mapper.FoodMapper">
 
 
-	
-<select id="getFoodList" 
-resultType="co.admin.wh.notice.vo.FoodVO">
-		select *   from (  select rownum rn, a.*    from(
-			SELECT * FROM FOOD order by food_code
+
+	<select id="getFoodList"
+		resultType="co.admin.wh.notice.vo.FoodVO">
+		select * from ( select rownum rn, a.* from(
+		SELECT * FROM FOOD order by food_code desc
 		<![CDATA[
 	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
-	]]>	
+	]]>
 
 	</select>
 
 	<!-- 총 게시글 갯수 출력 -->
-	<!-- <select id="countFood" resultType="int">
-		SELECT COUNT(*) FROM FOOD
-	</select> -->
-	
+	<!-- <select id="countFood" resultType="int"> SELECT COUNT(*) FROM FOOD 
+		</select> -->
+
 	<!-- 전체 건수 조회 -->
 	<select id="getCountTotal" parameterType="FoodSearchVO"
 		resultType="int">
@@ -27,7 +26,7 @@ resultType="co.admin.wh.notice.vo.FoodVO">
 
 	</select>
 
-
+	<!-- 등록 -->
 	<insert id="foodInsert"
 		parameterType="co.admin.wh.notice.vo.FoodVO">
 		<selectKey keyProperty="foodCode" resultType="int"
@@ -35,10 +34,10 @@ resultType="co.admin.wh.notice.vo.FoodVO">
 			SELECT MAX(FOOD_CODE)+1 FROM FOOD
 		</selectKey>
 		INSERT INTO FOOD
-		VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},#{foodDate},#{imgGroCode},#{foodTitle})
+		VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},sysdate,#{imgGroCode},#{foodTitle})
 
 	</insert>
-	
+
 	<insert id="imgInsert"
 		parameterType="co.admin.wh.notice.vo.FoodImgVO">
 		<selectKey keyProperty="imgCode" resultType="int"
@@ -47,18 +46,27 @@ resultType="co.admin.wh.notice.vo.FoodVO">
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
 
-		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+		VALUES
+		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
 
-<!-- 	<select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
-		SELECT * 
-		FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
-		
-		
-	<select id="detailSelect" resultType="co.admin.wh.notice.vo.FoodVO">
-	SELECT *
-	FROM FOOD
-	WHERE FOOD_CODE = #{foodCode}
+	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
+		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
+
+	
+	<!-- 상세보기  -->
+	<select id="detailSelect"
+		resultType="co.admin.wh.notice.vo.FoodVO">
+		SELECT *
+		FROM FOOD
+		WHERE FOOD_CODE = #{foodCode}
 	</select>
+
+	<!-- 조회수 -->
+	<update id="hitUpdate" parameterType="co.admin.wh.notice.vo.FoodVO">
+		update food
+		set food_hit = food_hit + 1
+		where food_code = #{foodCode}
+	</update>
 
 </mapper>

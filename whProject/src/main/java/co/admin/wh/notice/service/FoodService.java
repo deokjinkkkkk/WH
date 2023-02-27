@@ -20,7 +20,7 @@ public interface FoodService {
 	
 	int imgInsert(FoodImgVO ivo);
 	
-	
+	int hitUpdate(int foodCode); //조회수증가
 	
 	
 	
