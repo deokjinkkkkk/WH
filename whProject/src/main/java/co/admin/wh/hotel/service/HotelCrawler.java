@@ -24,7 +24,7 @@ import co.admin.wh.hotel.vo.HotelVO;
 
 public class HotelCrawler implements Crawler {
 
-	@Autowired private SubstationInfoRepository infoRepository;
+	@Autowired private HotelInfoRepository infoRepository;
 	
 	@Override
 	public void crawling(String url) {
@@ -83,7 +83,7 @@ public class HotelCrawler implements Crawler {
 				JSONObject jsonObj3 = (JSONObject)jsonObj2.get("pageProps");
 				JSONObject jsonObj4 = (JSONObject)jsonObj3.get("apolloState");
 				JSONObject jsonObj5 = (JSONObject)jsonObj4.get("ROOT_QUERY");
-				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\"2023-02-24\",\"checkOut\":\"2023-02-25\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":1,\"placeFileName\":\"place:Seoul\",\"sortDirection\":\"descending\",\"sortField\":\"popularityKR\"})");
+				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\"2023-03-24\",\"checkOut\":\"2023-03-25\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":1,\"placeFileName\":\"place:Seoul\",\"sortDirection\":\"descending\",\"sortField\":\"popularityKR\"})");
 				
 //				System.out.println(jsonObj5);
 //				System.out.println(jsonObj6); // HotelList json
@@ -93,11 +93,11 @@ public class HotelCrawler implements Crawler {
 //				System.out.println(infoArr); // db에 담을 정보를 배열에 담음
 //				
 				for(int i=0;i<infoArr.size();i++){
-		               JSONObject tmp = (JSONObject)infoArr.get(i);
-		               HotelVO infoObj = new HotelVO(i, (String)tmp.get("hotelName")); // vo에 담음
-		               System.out.println(infoObj);
-//		               infoRepository.save(infoObj);
-				}
+                    JSONObject tmp = (JSONObject)infoArr.get(i);
+                    HotelVO infoObj = new HotelVO(i, (String)tmp.get("hotelName"), "5", "hotelAddr", "hotelInfo", "imgGroCode", 9, "hotelContent", 20000); // vo에 담음
+                    System.out.println(infoObj);
+                    infoRepository.save(infoObj);
+           }
 				
 				
 				
