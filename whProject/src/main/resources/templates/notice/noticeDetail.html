@@ -41,39 +41,39 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="n  : ${noticelists}">
+							<tr>
 								<td style="width: 20%;">제목</td>
 								<td colspan="2" th:text="${n.noticeTitle}"></td>
 							</tr>
-							<tr th:each="n  : ${noticelists}">
+							<tr >
 								<td>조회</td>
 								<td colspan="2" th:text="${n.noticeHit}"></td>
 							</tr>
-							<tr th:each="n  : ${noticelists}">
+							<tr>
 								<td>첨부파일</td>
 								<td colspan="2" th:text="${n.noticeFile}"></td>
 							</tr>
-							<tr th:each="n  : ${noticelists}">
+							<tr >
 								<td>등록일자</td>
 								<td colspan="2" th:text="${n.noticeRegDate}"></td>
 							</tr>
-							<tr th:each="n  : ${noticelists}">
+							<tr>
 								<td>내용</td>
 								<td colspan="2" style="min-height: 200px; text-align: center;"
-									th:text="${n.noticeContent}"></td>
+									th:utext="${n.noticeContent}"></td>
 							</tr>
+							
 						</tbody>
 					</table>
 					<div>
-					<a href="/noticeUpdateForm" class="btn btn-primary">수정</a>
-						
+					<a th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|" class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
+					
 					</div>
-
 				</div>
 		</section>
 	</div>
 	<script type="text/javascript">
-		
+	
 	</script>
 	<!-- 내용 끝 -->
 </body>
