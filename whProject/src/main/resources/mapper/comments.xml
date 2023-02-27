@@ -6,30 +6,40 @@
 	</select>
 	
 	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
-		select * 
-		from comments
-		
+		select c.*,m.name 
+		from comments c ,member m
+		where c.id = m.id
 	</select>
 	
 	<insert id="commentsInsert">
 		insert into comments(com_code,
 							id,
-							con_cotent,
+							com_content,
 							com_date,
 							com_lock,
-							com_oreder,
+							com_order,
 							com_group,
 							block,
 							com_flag)
-					   value(#{comCode},
+					   values(
+					   		com_test_seq.NEXTVAL,
 							#{id},
-							#{conCotent},
+							#{comContent},
 							sysdate,
-							#{comLock},
+							1,
+							1,
+							1,
+							1,
+							1
+							
+							
+							<!--#{comLock},
 							#{comOrder},
-							#{comgroup},
+							#{comGroup},
 							#{block},
-							#{com_flag}							)
+							#{comFlag}  -->
+							
+							)
 	</insert>
 	
 	<delete id="commentsDelete">
