@@ -20,4 +20,5 @@ public class FoodVO {
 	private String imgGroCode;	//이미지그룹번호
 	
 	
+	
 }

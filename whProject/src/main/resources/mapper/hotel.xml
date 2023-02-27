@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.hotel.mapper.HotelMapper">
 
-	<insert id="insertName">
-		<foreach collection="list" open="DECLARE BEGIN" close="; END;" separator="hotel">		
-			insert into HOTEL(HOTEL_NAME)
-			values (${hotel.hotelName})
-		</foreach>
-	</insert>
+   <insert id="insertInfo">
+	   	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
+	        SELECT MAX(hotel_Id)+1 FROM HOTEL        
+	    </selectKey>
+	     
+	    <if test="hotelName != #{hotelName}">
+         	insert into HOTEL
+         	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelFlag}, #{hotelContent}, #{hotelPrice})
+		</if>
+   </insert>
+   
+   <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
+       select *
+       from hotel
+   </select>
 </mapper>

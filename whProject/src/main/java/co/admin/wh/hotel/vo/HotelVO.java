@@ -23,11 +23,10 @@ public class HotelVO {
 	public int hotelPrice; // 호텔가격
 	public HotelVO() {};
 
-	   public HotelVO(int hotelId, String hotelName,
+	   public HotelVO(String hotelName,
                String star, String hotelAddr, String hotelInfo, String imgGroCode,
                int hotelFlag, String hotelContent, int hotelPrice) {
       // TODO Auto-generated constructor stub
-      this.hotelId = hotelId;
       this.hotelName = hotelName;
       this.star = star;
       this.hotelAddr = hotelAddr;

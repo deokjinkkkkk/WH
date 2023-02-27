@@ -1,11 +1,17 @@
 package co.admin.wh.notice.web;
 
+import java.util.Date;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.thymeleaf.model.IModel;
@@ -44,15 +50,17 @@ public class FoodController {
 	//글작성
 	@RequestMapping("/foodForm")
 	public String foodForm(Model model) {
+
 		return "notice/foodForm";
 	}
 	
-	
-	@RequestMapping("/foodJoin.do")
+	//등록
+	@RequestMapping("/foodInsert.do")
 	public String foodJoin(FoodVO vo, Model model, FoodImgVO ivo) {
-		model.addAttribute("foodList", foodMapper.getFoodList(vo));
+		/* model.addAttribute("foodList", foodMapper.getFoodList(vo)); */
 		foodService.foodInsert(vo);
 		foodService.imgInsert(ivo);
+		
 		return "redirect:food";
 	}
 	
@@ -66,11 +74,14 @@ public class FoodController {
 	@RequestMapping(value="/foodDetail/{foodCode}", method=RequestMethod.GET)
 	public String foodDetail(@PathVariable("foodCode") int foodCode, FoodVO vo, Model model) {
 		vo.setFoodCode(foodCode);
-
+		foodService.hitUpdate(foodCode); // 조회수증가
+		
 		model.addAttribute("food",foodService.detailSelect(vo));
 		return "notice/foodDetail";
 		
 	}
+	
+
 
 	
 }

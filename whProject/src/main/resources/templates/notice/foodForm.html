@@ -2,24 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<style>
-body {
-	margin-bottom: 60px;
-}
 
-body>.container {
-	padding: 60px 15px 60px;
-}
+<th:block layout:fragment="head" th:include="@{head}"></th:block>
 
-.paging {
-	justify-content: center;
-}
-</style>
-</head>
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -27,45 +12,43 @@ body>.container {
 
 
 <body>
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
-
-	<!-- 배너시작 -->
-	<section class="page-title-section bg-img cover-background"
-		data-overlay-dark="6" data-background="img/banner/bg5.jpg">
-		<div class="container">
-			<h1 class="text-white font-weight-600">맛집리스트</h1>
-			<ul>
-				<li><a href="main">Home</a></li>
-				<li><span class="active">맛집정보</span></li>
-			</ul>
-		</div>
-	</section>
-	<!-- 배너끝 -->
 
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="img/banner/bg5.jpg">
+			<div class="container">
+				<h1 class="text-white font-weight-600">맛집리스트</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">맛집정보</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+
+
 
 		<!-- start booking section -->
 		<section>
 			<div class="container">
 
-				<form id="frm" action="foodJoin.do" method="post">
+				<form id="frm" action="foodInsert.do" method="post">
 					<div class="row">
 						<div class="form-group col-md-12">
-							*제목<input type="text" name="foodTitle" id="foodTitle" >
+							*제목<input type="text" name="foodTitle" id="foodTitle">
 						</div>
 						<div class="form-group col-md-12">
 							*주소<input type="text" name="foodAddr" id="foodAddr">
 						</div>
 						<div class="form-group col-md-12">
 							*상호명<input type="text" name="foodName" id="foodName">
-						</div>					
+						</div>
 						<div class="form-group col-md-12">
 							<table class="table border">
 								<tr>
-									<th style="vertical-align: middle;">리뷰<br/> <sup>(<span
+									<th style="vertical-align: middle;">리뷰<br /> <sup>(<span
 											id="byteInfo">0</span>/1000bytes)
 									</sup>
 									</th>
@@ -80,12 +63,13 @@ body>.container {
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							첨부파일<input type="file" name="imgGroCode" id="imgGroCode" >
+							첨부파일<input type="file" name="imgGroCode" id="imgGroCode">
 						</div>
-						
-						<input type="hidden" name="id" id="id" value="1">
-						<input type="hidden" name="imgGroCode" id="imgGroCode" value="1">
+
+						<input type="hidden" name="id" id="id" value="1"> <input
+							type="hidden" name="imgGroCode" id="imgGroCode" value="1">
 					</div>
+				
 					<input type="submit" value="완료">
 				</form>
 			</div>
@@ -142,4 +126,4 @@ body>.container {
 		}
 	</script>
 </body>
-</html>	
+</html>

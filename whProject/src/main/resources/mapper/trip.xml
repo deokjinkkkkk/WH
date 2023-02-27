@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.trip">
+<mapper namespace="co.admin.wh.trip.mapper.TripMapper">
 
-<select id="getTripList" resultType="map">
+
+<!-- 검색시 데이터 체크해서 없는데이터 넣기 위해 ignore로 중복시 무시하도록 처리 -->
+
+<insert id="insertInfo">
+
+	INSERT IGNORE INTO trip (trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon, 
+							 trip_summ, trip_content, homepage, trip_region, img_gro_code, trip_date)
+	VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
+	       #{TripSumm}, #{TripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate})						 
+</insert>
+
+<select id="tripList" resultType="co.admin.wh.trip.TripVO">
 	SELECT * FROM trip
 </select>
 
