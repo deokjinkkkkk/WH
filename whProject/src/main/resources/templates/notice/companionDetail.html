@@ -34,51 +34,32 @@
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
 				th:each="c : ${detailSelect}">
-				<p th:text="${c.compTitle}"></p>
+				제목 : <span th:text="${c.compTitle}"></span>
 
 
 
-				<p class="price">
-					<span th:text="${c.compCount}"></span>
+				<p >
+				인원수 : <span th:text="${c.compCount}"></span>
 				</p>
 				<p>
-					<span th:text="${c.compGroup}"></span>
+				그룹유형 : <span th:text="${c.compGroup}"></span>
 				</p>
 				<p>
-					<span th:text="${c.compStartDate}"></span> ~ <span
+				여행 기간 : <span th:text="${c.compStartDate}"></span> ~ <span
 						th:text="${c.compEndDate}"></span>
 				</p>
 				<p>
-					<span th:text="${c.compContent}"></span>
-				</p>
-
-				<table>
-					<tr>			
-						<td th:text="${c.compCount}"></td>					
-						<td th:text="${c.compGroup}"></td>			
-						<td th:text="${c.compStartDate}"></td>
-						<td th:text="${c.compEndDate}"></td>
-						<td th:text="${c.compContent}"></td>
-					</tr>
-				</table>
-
+				여행 내용
+				<p th:text="${c.compContent}">
+			</p>
 			</div>
-
-
+			<a href="/companionUpdateForm" class="btn btn-primary">수정하기</a>
+			
 		</div>
 
 	</div>
 		<!-- 내용 끝 -->
 
-
-
-
-
-
-
-
-	</div>
-	<!-- 내용 끝 -->
 
 </body>
 </html>

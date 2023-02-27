@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="../img/banner/bg1.jpg">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+	<!-- 각자 내용 -->
+	<section>
+		<div class="container">
+
+			<form id="frm" action="companionUpdate" method="post">
+				<div class="row">
+					<div class="form-group col-md-7">
+						[필수]연락처<input type="text" name="tel" id="tel">
+					</div>
+					<div class="form-group col-md-7">
+						[필수]이름<input type="text" name="name" id="name">
+					</div>
+					<div class="form-group col-md-7">
+						[필수]성별<input type="text" name="gender" id="gender">
+					</div>
+					<div class="form-group col-md-12">
+						함께 여행하고 싶은 그룹 유형<br> <input type="radio" id="compGroup"
+							name="compGroup" value="누구든지 그룹"> 누구든지 그룹<br> <input
+							type="radio" id="compGroup" name="compGroup" value="여자끼리 그룹">
+						여자끼리 그룹<br> <input type="radio" id="compGroup"
+							name="compGroup" value="남자끼리 그룹"> 남자끼리 그룹<br> <input
+							type="radio" id="compGroup" name="compGroup" value="가족동반 그룹">
+						가족동반 그룹<br> <input type="radio" id="compGroup"
+							name="compGroup" value="아무 상관 없음"> 아무 상관 없음
+					</div>
+					<div class="form-group col-md-7">
+						제목<input type="text" name="compTitle" id="compTitle">
+					</div>
+					<div class="form-group col-md-7">
+						<select name="compCount" id="compCount">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					<div class="form-group col-md-7">
+						지역<input type="text" name="compLocal" id="compLocal">
+					</div>
+					<div class="form-group col-md-7">
+						시작날짜<input type="date" name="compStartDate" id="compStartDate">
+					</div>
+					<div class="form-group col-md-7">
+						끝나는날짜<input type="date" name="compEndDate" id="compEndDate">
+					</div>
+					<div class="form-group col-md-12">
+						<table class="table border">
+							<tr>
+								<th style="vertical-align: middle;">TextArea<br /> <sup>(<span
+										id="byteInfo">0</span>/1000bytes)
+								</sup>
+								</th>
+								<td>
+									<form id="compContent" name="compContent">
+										<textarea rows="10" class="form-control"
+											id="textArea_byteLimit" name="textArea_byteLimit"
+											onkeyup="fn_checkByte(this,'1000')"></textarea>
+									</form>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<input type="submit" value="모집">
+			</form>
+		</div>
+
+	</section>
+	<!-- 글자수 체크하는 function -->
+	<script type="text/javascript">
+		//Byte 수 체크 제한
+		function fn_checkByte(obj, maxByte) {
+			var str = obj.value;
+			var str_len = str.length;
+
+			var rbyte = 0;
+			var rlen = 0;
+			var one_char = "";
+			var str2 = "";
+
+			for (var i = 0; i < str_len; i++) {
+				one_char = str.charAt(i);
+				if (escape(one_char).length > 4) {
+					rbyte += 2; //한글2Byte
+				} else {
+					rbyte++; //영문 등 나머지 1Byte
+				}
+				if (rbyte <= maxByte) {
+					rlen = i + 1; //return할 문자열 갯수
+				}
+			}
+			if (rbyte > maxByte) {
+				// alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+				alert("메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+				str2 = str.substr(0, rlen); //문자열 자르기
+				obj.value = str2;
+				fnChkByte(obj, maxByte);
+
+			} else {
+				document.getElementById('byteInfo').innerText = rbyte;
+			}
+		}
+	</script>
+</body>
+</html>
