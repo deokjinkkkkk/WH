@@ -38,7 +38,7 @@
                 <div class="row">
 
                     <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 margin-30px-bottom">
+                    <div th:each="hotel : ${hotelList}" class="col-lg-4 col-md-6 col-sm-12 margin-30px-bottom">
                         <div class="blog-block1">
                             <div class="img">
                                 <img src="img/blog/blog-1.jpg" alt="" />
@@ -49,119 +49,13 @@
                                     <a href="#"><i class="ti-comments margin-5px-right"></i>방등급</a>
                                 </div>
 
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">숙소명</a></h5>
+                                <h5 class="font-size20"><a th:text="${hotel.hotelName}" href="blog-details.html" class="text-extra-dark-gray">숙소명</a></h5>
 
                                 <a href="blog-details.html" class="text-theme-color">Read More</a>
                             </div>
                         </div>
                     </div>
                     <!-- end blog -->
-
-                    <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 margin-30px-bottom">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <a href="#"><span>19 Dec</span> 2019</a>
-                                <img src="img/blog/blog-2.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>By Admin</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>3 Comments</a>
-                                </div>
-
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">On the beach of a blue sea in Australia.</a></h5>
-
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-
-                    <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 margin-30px-bottom">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <a href="#"><span>2 Jan</span> 2020</a>
-                                <img src="img/blog/blog-3.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>By Admin</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>8 Comments</a>
-                                </div>
-
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">Advice and travel tips to help you along your way</a></h5>
-
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-
-                    <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 sm-margin-30px-bottom">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <a href="#"><span>26 Jan</span> 2020</a>
-                                <img src="img/blog/blog-4.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>By Admin</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>10 Comments</a>
-                                </div>
-
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">Travel, and survey for the modern day in each of us.</a></h5>
-
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-
-                    <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 xs-margin-30px-bottom">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <a href="#"><span>12 Feb</span> 2020</a>
-                                <img src="img/blog/blog-5.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>By Admin</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>9 Comments</a>
-                                </div>
-
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">Packing guides and stories of the world.</a></h5>
-
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-
-                    <!-- start blog -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <a href="#"><span>29 Feb</span> 2020</a>
-                                <img src="img/blog/blog-6.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>By Admin</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>20 Comments</a>
-                                </div>
-
-                                <h5 class="font-size20"><a href="blog-details.html" class="text-extra-dark-gray">News from the world of outdoor adventure</a></h5>
-
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-
                 </div>
             </div>
             <div class="row">
