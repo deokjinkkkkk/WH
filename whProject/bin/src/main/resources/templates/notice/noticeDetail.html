@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<style>
+</style>
+
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="img/banner/bg3.jpg">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+
+
+		<!-- 내용 찐시 -->
+		<section>
+
+			<div class="container">
+				<div class="row">
+					<a href="notice" class="btn btn-primary">목록</a>&nbsp;&nbsp;&nbsp;
+					<table class="table table-striped"
+						style="text-align: center; border: 1px solid #dddddd">
+						<thead>
+							<tr>
+								<th colspan="3"
+									style="backgrosund-color: #eeeeee; text-align: center;">게시판
+									글내용</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="n  : ${noticelists}">
+								<td style="width: 20%;">제목</td>
+								<td colspan="2" th:text="${n.noticeTitle}"></td>
+							</tr>
+							<tr th:each="n  : ${noticelists}">
+								<td>조회</td>
+								<td colspan="2" th:text="${n.noticeHit}"></td>
+							</tr>
+							<tr th:each="n  : ${noticelists}">
+								<td>첨부파일</td>
+								<td colspan="2" th:text="${n.noticeFile}"></td>
+							</tr>
+							<tr th:each="n  : ${noticelists}">
+								<td>등록일자</td>
+								<td colspan="2" th:text="${n.noticeRegDate}"></td>
+							</tr>
+							<tr th:each="n  : ${noticelists}">
+								<td>내용</td>
+								<td colspan="2" style="min-height: 200px; text-align: center;"
+									th:text="${n.noticeContent}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<button onclick="location.href='noticeUpdate'" type="button"
+							class="btn btn-primary">수정</button>
+					</div>
+
+				</div>
+		</section>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+	<!-- 내용 끝 -->
+</body>
+</html>

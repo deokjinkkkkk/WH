@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/index}">
+
+<body>
+
+
+	<div layout:fragment="content" class="content">
+
+		<!-- 나만의 코스 상세정보 -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+						<div class="posts">
+
+							<!-- post 시작 -->
+							<div class="post">
+								<div class="content">
+									<div class="blog-list-simple-text post-meta margin-20px-bottom">
+									
+									<!-- 작성자 프로필 시작 -->								
+									 <div class="author-thumb">
+                                        <img src="img/blog/01.png" class="rounded-circle width-5 xs-width-5" alt="" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">쫜덕</a></h6>
+                                        </div>
+                                    <!-- 작성자 프로필 끝 -->
+                                    
+										<div class="post-title-g margin-20px-bottom text-center">
+											<h5>제주의 여장부 김만덕을 따라 걷는 산책(코스제목)</h5>
+										</div>
+										<!-- 지도 form 시작 -->
+										<div>
+											<iframe class="contact-map" id="gmap_canvas"
+												src="https://maps.google.com/maps?q=jeju&t=&z=13&ie=UTF8&iwloc=&output=embed"
+												scrolling="no" marginheight="0" marginwidth="0"></iframe>
+										</div>
+										<!-- 지도 form 끝 -->
+
+										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력) -->
+										<div class="owl-carousel owl-theme tour margin-10px-tb">
+											<div>
+												<img src="img/content/tour-detail.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+											<div>
+												<img src="img/content/tour-detail-1.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+											<div>
+												<img src="img/content/tour-detail-2.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+										</div>
+										<!-- 코스 종류 사진 끝 -->
+										
+										<!-- 코스 종류 사진 클릭 시, 바로 화면에 출력되는 상세 내용 -->
+										<p class="margin-30px-bottom">[ 이건 사진 클릭 시, 해당 장소 이름 / 상세 내용 / 사진이 주루룩 밑에 출력됨]</p>										
+							<!--  댓글 시작 -->
+                            <div class="comments-area">
+                                <div class="title-g margin-30px-bottom">
+                                    <h3>댓글</h3>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/01.png" class="rounded-circle width-85 xs-width-100" alt="" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Alex Joyrina</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/02.png" alt="" class="rounded-circle width-85 xs-width-100" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Jama Karleny</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/03.png" alt="" class="rounded-circle width-85 xs-width-100" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Ivonne Drennen</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 댓글 끝 -->
+
+									</div>
+								</div>
+							</div>
+							<!-- 포스트 끝 -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- 나만의 코스 상세정보 끝 -->
+
+	</div>
+
+</body>
+</html>

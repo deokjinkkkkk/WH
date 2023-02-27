@@ -1,8 +1,12 @@
 package co.admin.wh.common.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +21,17 @@ public class CommentsController {
 	
 	
 	@RequestMapping("/comments") //댓글 창이동
-	public String commentsForm(Model model, CommentsVO vo) {
-		model.addAttribute("com", commentsMapper.commentsList());
-		
+	public String commentsForm() {
 		return "comments/commentsForm";
 	}
 
-//	@GetMapping("/comments") //댓글 리스트 띄우기
-//	public int commentsCount() {
-//		return 1;
-//	}
+	@GetMapping("/comGetList") //댓글 리스트 띄우기
+	@ResponseBody
+	public List<CommentsVO> commentsCount( CommentsVO vo,Model model) {
+		List<CommentsVO> comList = commentsMapper.commentsList();
+		
+		return comList;
+	}
 //	
 	@PostMapping("/comInsert") //댓글 등록
 	@ResponseBody
@@ -40,10 +45,15 @@ public class CommentsController {
 	}
 //	
 //	
-//	@DeleteMapping("") //댓글 삭제
-//	public int commentsDelete() {
-//		return 1;
-//	}
+	@DeleteMapping("/comDelete") //댓글 삭제
+	@ResponseBody
+	public String commentsDelete(CommentsVO vo) {
+		System.out.println("삭제");
+		System.out.println(vo.getComCode());
+		
+		commentsMapper.commentsDelete(vo);
+		return "success";
+	}
 //	
 //	@PutMapping("") //댓글 수정
 //	public int commentsUpdate() {

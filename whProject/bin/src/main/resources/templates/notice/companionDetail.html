@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+
+
+
+
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="/img/banner/bg1.jpg">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+
+		<div class="container">
+
+			<div class="col-lg-6 mb-5 ftco-animate">
+
+				<img src="/img/banner/bg4.jpg" class="img-fluid"
+					alt="Colorlib Template">
+			</div>
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
+				th:each="c : ${detailSelect}">
+				<p th:text="${c.compTitle}"></p>
+
+
+
+				<p class="price">
+					<span th:text="${c.compCount}"></span>
+				</p>
+				<p>
+					<span th:text="${c.compGroup}"></span>
+				</p>
+				<p>
+					<span th:text="${c.compStartDate}"></span> ~ <span
+						th:text="${c.compEndDate}"></span>
+				</p>
+				<p>
+					<span th:text="${c.compContent}"></span>
+				</p>
+
+				<table>
+					<tr>			
+						<td th:text="${c.compCount}"></td>					
+						<td th:text="${c.compGroup}"></td>			
+						<td th:text="${c.compStartDate}"></td>
+						<td th:text="${c.compEndDate}"></td>
+						<td th:text="${c.compContent}"></td>
+					</tr>
+				</table>
+
+			</div>
+
+
+		</div>
+
+	</div>
+		<!-- 내용 끝 -->
+
+
+
+
+
+
+
+
+	</div>
+	<!-- 내용 끝 -->
+
+</body>
+</html>

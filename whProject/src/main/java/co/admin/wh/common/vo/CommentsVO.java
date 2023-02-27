@@ -18,4 +18,6 @@ public class CommentsVO {
 	String comGroup;
 	String block;
 	int comFlag;
+	
+	String name;
 }

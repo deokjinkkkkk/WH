@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.common.mapper.CommentsMapper">
+	<select id="commentsCount" resultType="int">
+
+	</select>
+	
+	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
+		select c.*,m.name 
+		from comments c ,member m
+		where c.id = m.id
+	</select>
+	
+	<insert id="commentsInsert">
+		insert into comments(com_code,
+							id,
+							com_content,
+							com_date,
+							com_lock,
+							com_order,
+							com_group,
+							block,
+							com_flag)
+					   values(
+					   		com_test_seq.NEXTVAL,
+							#{id},
+							#{comContent},
+							sysdate,
+							1,
+							1,
+							1,
+							1,
+							1
+							
+							
+							<!--#{comLock},
+							#{comOrder},
+							#{comGroup},
+							#{block},
+							#{comFlag}  -->
+							
+							)
+	</insert>
+	
+	<delete id="commentsDelete">
+	
+	</delete>
+	
+	<update id="commentsUpdate">
+	
+	</update>
+
+</mapper>

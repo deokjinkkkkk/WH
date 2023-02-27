@@ -26,27 +26,31 @@
 						<div class="title-g margin-30px-bottom">
 							<h3>Comments</h3>
 						</div>
-						<div class="comment-box" th:each=" c : ${com}">
+						<!-- <div class="comment-box" 
+							th:each=" c : ${com}"
+							th:data-comcode="${c.comCode}">
 							<div class="author-thumb">
 								<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" />
 							</div>
 							<div class="comment-info">
 								<h6>
-									<a href="javascript:void(0);">Alex Joyrina</a>
+									<a href="javascript:void(0);" th:text="${c.name}"></a>
 								</h6>
 								<p th:text="${c.comContent}"></p>
+									<button type="button" class="btnDel" onclick="comDelete()">삭제</button>
 								<div class="reply">
 									<a href="javascript:void(0);"> <i class="fa fa-reply"
 										aria-hidden="true"></i> 답글
 									</a>
 								</div>
 							</div>
-						</div>
+							<input type="hidden" id="comCode" name="comCode"> 
+						</div> -->
 					</div>
 					<!--  start form-->
 					<div class="comment-form">
 						<div class="title-g margin-30px-bottom">
-							<h3>Post a Comment</h3>
+							<h3>댓글</h3>
 						</div>
 						<form id='comment-form' method='post'>
 							<div class="controls">
@@ -54,11 +58,11 @@
 								<input type="hidden" name="id" value="USER" id="id">
 									<div class="col-md-12 form-group">
 										<textarea id="comContent" name="comContent"
-											placeholder="Message" rows="4" required="required"></textarea>
+											placeholder="댓글 내용" rows="4" required="required"></textarea>
 									</div>
 									<div class="col-md-12">
-										<button type="button" id="butn" class="butn">
-											<span>Send Message</span>
+										<button type="button"id="butn" class="butn">
+											<span>댓글 달기</span>
 										</button>
 									</div>
 								</div>
@@ -71,6 +75,10 @@
 	</div>
 	<!-- end comment-->
 	<script>
+	$(document).ready(function(){
+		getComList()
+	})
+	
 	$("#butn").click(function(){
 		let comContent =$("#comContent").val();
 		console.log(comContent)
@@ -94,15 +102,56 @@
 			),
 			contentType:'application/json',
 			success : function(data){
-				console.log("댓글등록");
+				console.log("댓글등록")
+				comContent = ""
+				console.log("====")
+				getComList()
 			},
 			error:function(){
-				alert('통신실패');
+				alert('등록실패');
 			}
 		});
-		
 	});
-		
+	function getComList(){
+		let str=""
+		let comArea =$(".comments-area");
+		$.ajax({
+			url:"/comGetList",
+			success : function(result){
+				console.log(result[0].comCode);
+				$(result).each(function(index,item){
+					str += "<div class='comment-box' id='"+item.comCode+"'>"
+					str += '<div class="author-thumb">'
+					str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+					str += '<div class="comment-info">'
+					str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+					str	+= '<p>'+item.comContent+'</p>'
+					str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+					str += '<div class="reply">'
+					str += '<a href="javascript:void(0);"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>'
+					str += '</div> </div> <input type="hidden" id="comCode" name="comCode"> </div>'
+				})
+				comArea.html(str);
+			}
+		})
+	} 
+	function comDelete(){
+		let comBox = $(event.target).closest(".comment-box")
+		console.log($(event.target).text())
+		let comCode = comBox.attr('id')
+		console.log(comCode)
+		$.ajax({
+			url:"/comDelete",
+			type:"delete",
+			data:
+				{comCode}
+			,
+			success : function(data){
+				console.log(data)
+				comBox.remove();
+			}
+		})
+	} 
 	
 </script>
 </body>
