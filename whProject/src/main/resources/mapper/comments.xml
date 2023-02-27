@@ -6,12 +6,30 @@
 	</select>
 	
 	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
-		select * from comments
+		select * 
+		from comments
 		
 	</select>
 	
 	<insert id="commentsInsert">
-		
+		insert into comments(com_code,
+							id,
+							con_cotent,
+							com_date,
+							com_lock,
+							com_oreder,
+							com_group,
+							block,
+							com_flag)
+					   value(#{comCode},
+							#{id},
+							#{conCotent},
+							sysdate,
+							#{comLock},
+							#{comOrder},
+							#{comgroup},
+							#{block},
+							#{com_flag}							)
 	</insert>
 	
 	<delete id="commentsDelete">

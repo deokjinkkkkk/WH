@@ -3,10 +3,16 @@ package co.admin.wh.notice.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.thymeleaf.model.IModel;
+
 import co.admin.wh.notice.mapper.FoodMapper;
 import co.admin.wh.notice.service.FoodService;
+import co.admin.wh.notice.vo.FoodImgVO;
 import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 import co.admin.wh.notice.vo.Paging;
@@ -14,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 
 
 @Controller
-@Log4j2
 public class FoodController {
 	
 	@Autowired FoodMapper foodMapper;
@@ -32,6 +37,7 @@ public class FoodController {
 		
 		paging.setTotalRecord(foodMapper.getCountTotal(svo));
 		model.addAttribute("foodList", foodMapper.getFoodList(svo)); 
+		
 		return "notice/foodList";
 	}
 	
@@ -43,17 +49,27 @@ public class FoodController {
 	
 	
 	@RequestMapping("/foodJoin.do")
-	public String foodJoin(FoodVO vo, Model model) {
+	public String foodJoin(FoodVO vo, Model model, FoodImgVO ivo) {
 		model.addAttribute("foodList", foodMapper.getFoodList(vo));
 		foodService.foodInsert(vo);
+		foodService.imgInsert(ivo);
 		return "redirect:food";
 	}
 	
 	//게시물 상세보기
-	@RequestMapping("/foodDetail")
-	public String foodDetail(FoodVO vo,Model model) {
-		model.addAttribute("foodList",foodMapper.getFoodList(vo));
+//	@GetMapping("/fooDetail/{foodCode}")
+//	public String foodDetail(FoodVO vo,Model model) {
+//		model.addAttribute("foodList",foodMapper.getFoodList(vo));
+//		return "notice/foodDetail";
+//	}
+	
+	@RequestMapping(value="/foodDetail/{foodCode}", method=RequestMethod.GET)
+	public String foodDetail(@PathVariable("foodCode") int foodCode, FoodVO vo, Model model) {
+		vo.setFoodCode(foodCode);
+
+		model.addAttribute("food",foodService.detailSelect(vo));
 		return "notice/foodDetail";
+		
 	}
 
 	
