@@ -58,9 +58,12 @@ public class NoticeController {
 
 	}
 	
+	@RequestMapping("/noticeUpdateForm")
+	public String noticeUpdateForm() {
+		return "notice/noticeUpdate";
+	}
 	
-	
-	@RequestMapping("/noticeUpdate.do")
+	@RequestMapping("/noticeUpdate")
 	public String noticeUpdate(NoticeVO vo, Model model) {
 		model.addAttribute("noticelists", noticeService.noticeUpdate(vo));
 		model.addAttribute("noticelists", vo);
