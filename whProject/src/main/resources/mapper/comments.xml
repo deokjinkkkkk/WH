@@ -43,7 +43,8 @@
 	</insert>
 	
 	<delete id="commentsDelete">
-	
+		Delete from comments
+		where com_code =#{comCode}
 	</delete>
 	
 	<update id="commentsUpdate">

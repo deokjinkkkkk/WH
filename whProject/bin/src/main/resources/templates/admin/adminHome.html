@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<!-- 뭐야.. CSS -->
+<th:block layout:fragment="head" th:include="@{head}"></th:block>
+<!-- 뭐야.. CSS 끝 -->
+<body>
+	<!-- 헤더 시작 -->
+<th:block layout:fragment="header" th:include="@{header}"></th:block>
+<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
+
+
+<script>
+
+</script>
+</body>
+</html>

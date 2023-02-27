@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/index}">
+
+<body>
+  
+  <div layout:fragment="content" class="content">
+  
+  <!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+               
+                <h1 class="text-white font-weight-600">여행 지역</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">여행 지역</span>
+                    </li>
+                    <li>
+                        <a href="index.html">상세정보</a>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 -->
+  
+	<!-- 썸네일 리스트 -->
+	<!-- start blog detail section -->
+        <section class="blogs">
+            <div class="container">
+                <div class="row">
+
+                    <!--  start blog left-->
+                    <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+                        <div class="posts">
+                            <!--  start post-->
+                            <div class="post">
+                                <div class="post-img">
+                                    <img src="img/blog/blog-7.jpg" alt="" />
+                                </div>
+                                <div class="content">
+                                    <div class="blog-list-simple-text post-meta">
+                                        <div class="post-title">
+                                            <h5>팔공산온천관광호텔(온천)</h5>
+                                        </div>
+                                    <div class="share-post">
+                                        <span>공유하기</span>
+                                        <ul>
+                                            <li><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    </div>
+                                    <ul class="meta">
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-user" aria-hidden="true"></i> Admin
+                                            </a>                                     
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-comments" aria-hidden="true"></i> 0 Comments
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="margin-30px-bottom">
+                                        <p class="margin-30px-bottom">내용을 집어넣읍시다</p>
+                                        <p class="font-size20 xs-font-size18 margin-30px-bottom line-height-30 text-theme-color padding-40px-lr xs-no-padding">"추워질수록 생각나는 그곳"</p>
+                                    </div>
+                                    <div class="row margin-30px-bottom">
+                                        <div class="col-6">
+                                            <img src="img/blog/blog-10.jpg" class="rounded" alt="" />
+                                        </div>
+                                        <div class="col-6">
+                                            <img src="img/blog/blog-11.jpg" class="rounded" alt="" />
+                                        </div>
+                                    </div>
+                                    <p>나도 목욕탕 가고싶다</p>
+                                    <p>내용내용내용요요요요용용용</p>
+                                </div>
+                            </div>
+                            <!--  start post-->
+
+                            <!-- start pager  -->
+                            <div class="text-center margin-30px-bottom">
+                                <div class="pagination text-small text-uppercase text-extra-dark-gray">
+                                    <ul>
+                                        <li class="active"><a href="javascript:void(0);">Prev</a></li>
+                                        <li><a href="#!">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- end pager -->
+
+                            <!--  start comment-->
+                            <div class="comments-area">
+                                <div class="title-g margin-30px-bottom">
+                                    <h3>Comments</h3>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/01.png" class="rounded-circle width-85 xs-width-100" alt="" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Alex Joyrina</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/02.png" alt="" class="rounded-circle width-85 xs-width-100" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Jama Karleny</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-box">
+                                    <div class="author-thumb">
+                                        <img src="img/blog/03.png" alt="" class="rounded-circle width-85 xs-width-100" />
+                                    </div>
+                                    <div class="comment-info">
+                                        <h6><a href="javascript:void(0);">Ivonne Drennen</a></h6>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="reply">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end comment-->
+
+                            <!--  start form-->
+                            <div class="comment-form">
+                                <div class="title-g margin-30px-bottom">
+                                    <h3>Post a Comment</h3>
+                                </div>
+                                <form action="#!" id='comment-form' method='post'>
+                                    <div class="controls">
+                                        <div class="row">
+                                            <div class="col-md-12 form-group">
+                                                <textarea id="form_message" name="message" placeholder="Message" rows="4" required="required"></textarea>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="butn"><span>Send Message</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--  end form-->
+                        </div>
+                    </div>
+                    <!--  end blog left-->
+                </div>
+            </div>
+        </section>
+        <!-- end blog detail section -->
+	<!-- 썸네일 리스트 끝 -->
+</div>
+
+</body>
+</html>

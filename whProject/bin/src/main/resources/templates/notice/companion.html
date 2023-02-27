@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
+
+
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="../img/banner/bg1.jpg">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+		<script>
+			// 	$(function() {
+			// 		$(".btnInfo").on("click", function() {
+			// 			//클릭한 버튼이 있는 행의 employeeId를 가져오자
+			// 			let compCode = $(this).closest("tr").children().first().text();
+			// 			location.href = "companionDetail?compCode="+compCode
+
+			// 		})
+
+			// 	});
+			$(function() {
+				$(".btnInfo").on(
+						"click",
+						function() {
+							//클릭한 버튼이 있는 행의 employeeId를 가져오자
+							let compCode = $(this).closest("tr").children()
+									.first().text();
+							location.href = "companionDetail?compCode="
+									+ compCode
+
+						})
+
+			});
+			
+			function gopage(page){
+			 	location.href="companion?page="+page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+		</script>
+		<!-- 각자 내용 -->
+		<div class="container">
+			<div class="card d-flex flex-row align-items-center overflow-hidden"
+				style="height: 200px;" th:each="c : ${companionList}">
+				<div class="card-image w-25 ">
+					<img class="card-img-top h-auto" src="img/banner/bg4.jpg">
+				</div>
+				<div class="card-body">
+					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
+					<h4 class="card-title">[[${c.compTitle}]]</h4>
+					게시글 순서 : <span th:text="${c.compCode}"></span> <br> 인원수 : <span
+						th:text="${c.compCount}"></span> <br> 그룹유형 : <span
+						th:text="${c.compGroup}"></span><br> 여행기간 : <span
+						th:text="${c.compStartDate}"> </span> ~ <span
+						th:text="${c.compEndDate}"></span><br> 
+						<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
+				</div>
+			</div>
+
+				<a href="companionForm" class="btn btn-danger">신청하기</a>
+
+
+		</div>
+		<div>
+			<a
+				th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+				th:href="|javascript:gopage(${num})|"
+				th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
+		</div>
+	
+
+	</div>
+	
+	<!-- 내용 끝 -->
+
+
+</body>
+</html>
