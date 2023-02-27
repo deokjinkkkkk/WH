@@ -84,6 +84,7 @@ $(function(){
 
 											<thead>
 												<tr>
+													<th class="col-md-2">번호</th>
 													<th class="col-md-5">제목</th>
 													<th class="col-md-2">작성일</th>
 													<th class="col-md-2">조회수</th>
@@ -94,11 +95,11 @@ $(function(){
 												<tr th:each="f ,nStat: ${foodList}"
 												onmouseover='this.style.background="#fcecae";'
 												onmouseleave='this.style.background="#FFFFFF";'>
+												<td th:text="${f.foodCode}"></td>
 												<td>
-												<a th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a></td>
-													<!-- <td>
-													<a th:text="${f.foodTitle}" 
-													th:onclick="|location.href='@{/foodDetail}'|">제목</a></td> -->
+												<a th:text ="${f.foodTitle}" 
+												th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a>
+												</td>
 													<td th:text="${f.foodDate}"></td>
 													<td th:text="${f.foodHit}"></td>
 													<td th:text="${f.foodFile}"></td>
