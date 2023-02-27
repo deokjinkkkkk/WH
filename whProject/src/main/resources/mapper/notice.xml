@@ -22,7 +22,7 @@
 			SELECT MAX(NOTICE_CODE)+1 FROM NOTICE
 		</selectKey>
 	INSERT INTO NOTICE
-		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},#{noticeRegDate},#{noticeModDate})
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},sysdate,#{noticeModDate})
 	</insert>
 	
 		<!-- 전체 건수 조회 -->

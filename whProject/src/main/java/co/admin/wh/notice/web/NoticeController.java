@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import antlr.collections.List;
 import co.admin.wh.notice.mapper.NoticeMapper;
 import co.admin.wh.notice.service.NoticeService;
 import co.admin.wh.notice.vo.NoticeSearchVO;
@@ -53,21 +53,27 @@ public class NoticeController {
 
 	@GetMapping("/noticeDetail/{noticeCode}")
 	public String noticeDe(NoticeVO vo, Model model) {
-		model.addAttribute("noticelists", noticeService.noticendetil(vo));
+		model.addAttribute("n", noticeService.noticendetil(vo));
 		return "notice/noticeDetail";
 
 	}
 	
 	@RequestMapping("/noticeUpdateForm")
-	public String noticeUpdateForm() {
-		return "notice/noticeUpdate";
+	public String noticeUpdateForm(NoticeVO vo, Model model) {
+		model.addAttribute("n", noticeService.noticendetil(vo));
+		return "redirect:notice";
 	}
 	
-	@RequestMapping("/noticeUpdate")
-	public String noticeUpdate(NoticeVO vo, Model model) {
-		model.addAttribute("noticelists", noticeService.noticeUpdate(vo));
-		model.addAttribute("noticelists", vo);
-		return "notice/noticeUpdate";
-	}
 	
+	
+	@PostMapping("/noticeDelete")
+	public String noticeDelete(NoticeVO vo, Model model) {
+		int n = noticeService.noticeDelete(vo);
+		if(n != 0) {
+			model.addAttribute("정상적으로 삭제 되었습니다.");
+		}else {
+			model.addAttribute("삭제가 정상적으로 처리되지 않았습니다.");
+		}
+		return "notice/noticelist";
+	}
 }
