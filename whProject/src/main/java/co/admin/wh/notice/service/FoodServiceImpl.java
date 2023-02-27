@@ -54,6 +54,15 @@ private FoodMapper mapper;
 		return mapper.imgInsert(ivo);
 	}
 
+	@Override
+	public int hitUpdate(int foodCode) {
+		// 조회수증가
+		return mapper.hitUpdate(foodCode);
+	}
+
+	
+	
+
 
 
 }

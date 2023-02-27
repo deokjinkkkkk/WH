@@ -21,5 +21,5 @@ public interface FoodMapper {
 	
 	int imgInsert(FoodImgVO ivo);
 	
-	
+	int hitUpdate(int foodCode);
 }
