@@ -32,8 +32,7 @@
 				<img src="/img/banner/bg4.jpg" class="img-fluid"
 					alt="Colorlib Template">
 			</div>
-			<div class="col-lg-6 product-details pl-md-5 ftco-animate"
-				th:each="c : ${detailSelect}">
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				제목 : <span th:text="${c.compTitle}"></span>
 
 
@@ -53,7 +52,7 @@
 				<p th:text="${c.compContent}">
 			</p>
 			</div>
-			<a href="/companionUpdateForm" class="btn btn-primary">수정하기</a>
+			<a th:href="|/companionUpdateForm?compCode=${c.compCode}|" class="btn btn-primary">수정하기</a>
 			
 		</div>
 

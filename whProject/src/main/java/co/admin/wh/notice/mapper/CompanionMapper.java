@@ -18,4 +18,6 @@ public interface CompanionMapper {
 
 	int getCountTotal(CompanionSearchVO cvo);
 	
+	int companionUpdate(CompanionVO vo);
+	
 }

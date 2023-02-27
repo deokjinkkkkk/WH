@@ -45,4 +45,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.getCountTotal(cvo);
 	}
 
+	@Override
+	public int companionUpdate(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.companionUpdate(vo);
+	}
+
 }
