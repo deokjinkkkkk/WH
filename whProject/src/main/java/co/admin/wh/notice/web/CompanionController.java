@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
@@ -53,17 +54,23 @@ public class CompanionController {
 	}
 	
 	@RequestMapping("/companionDetail/{compCode}")
-	public String companionDetail(Model model, CompanionVO compCode) {
-		model.addAttribute("detailSelect", companionService.detailSelect(compCode)); 
-		//model.addAttribute("companionList", companionService.getCompanionList());
+	public String companionDetail(Model model, CompanionVO compVO) {
+		
+		model.addAttribute("c", companionService.detailSelect(compVO)); 
 		return "notice/companionDetail";
 	}
 	
 	@RequestMapping("/companionUpdateForm")
-	public String companionUpdateForm() {
+	public String companionUpdateForm(CompanionVO compVO, Model model) {
+		model.addAttribute("c", companionService.detailSelect(compVO));
 		return "notice/companionUpdateForm";
 	}
 	
+//	@RequestMapping("/companionUpdate")
+//	public String companionUpdate(Model model, @PathVariable("compCode")) {
+//		
+//	return "redirect:noticeDetail/"+vo.getCompCode();
+//	}
 	
 	 
 }
