@@ -50,8 +50,6 @@ public class NoticeController {
 	}
 	
 
-
-
 	@GetMapping("/noticeDetail/{noticeCode}")
 	public String noticeDe(NoticeVO vo, Model model) {
 		model.addAttribute("noticelists", noticeService.noticendetil(vo));
