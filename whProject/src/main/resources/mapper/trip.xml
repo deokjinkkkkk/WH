@@ -3,23 +3,25 @@
 <mapper namespace="co.admin.wh.trip.mapper.TripMapper">
 
 
-<!-- 검색시 데이터 체크해서 없는데이터 넣기 위해 ignore로 중복시 무시하도록 처리 -->
-<insert id="insertInfo">
+	<!-- 검색시 데이터 체크해서 없는데이터 넣기 위해 ignore로 중복시 무시하도록 처리 -->
+	<insert id="insertInfo">
 	<selectKey resultType="int" keyProperty="tripCode" order="BEFORE">
 		SELECT MAX(trip_Code)+1 FROM TRIP
 	</selectKey>
 
-	<if test="#{tripName} != #{tripName}">
-	INSERT IGNORE INTO TRIP (TRIP_CODE, TRIP_NAME, TRIP_TEL, TRIP_ADDR, TRIP_LAT, TRIP_LON,
-							 TRIP_SUMM, TRIP_CONTENT, HOMEPAGE, TRIP_REGION, IMG_GRO_CODE, TRIP_DATE)
-	VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
-	       #{TripSumm}, #{TripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate})						 	
-	</if>
-</insert>
+			INSERT INTO TRIP (TRIP_CODE, TRIP_NAME, TRIP_TEL, TRIP_ADDR,
+			TRIP_LAT, TRIP_LON,
+			TRIP_SUMM, TRIP_CONTENT, HOMEPAGE, TRIP_REGION, IMG_GRO_CODE, TRIP_DATE)
+			VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat},
+			#{tripLon},
+			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode},
+			#{tripDate})
 
-<select id="tripList" resultType="co.admin.wh.trip.TripVO">
-	SELECT * FROM trip
-</select>
+	</insert>
+
+	<select id="tripList" resultType="co.admin.wh.trip.TripVO">
+		SELECT * FROM trip
+	</select>
 
 
 </mapper>

@@ -38,7 +38,7 @@ public class TripInfoExplorer {
         String parsingUrl = "";//Parsing할 URL
         String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
                 "&pageNo=100" + "&numOfRows=20" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
-        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=32" + "&cat1=";
+        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=1" + "&cat1=";
         URL url = new URL(urlBuilder);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -94,19 +94,10 @@ public class TripInfoExplorer {
                 System.out.println(getTagValue("addr1", eElement)); // 관광지 주소
                 System.out.println(getTagValue("tel", eElement)); // 관광지 전화번호
                 
-                
-//                System.out.println(getTagValue("wkplNm", eElement));//사업장명
-//                System.out.println(getTagValue("dataCrtYm", eElement));//자료생성년월
-//                System.out.println(getTagValue("seq", eElement));//seq번호
-//                System.out.println(getTagValue("wkplRoadNmDtlAddr", eElement));//사업장명
-
-                  vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
+                vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
                   vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
                   vo.setTripTel(getTagValue("tel", eElement)); // 관광지 전화번호
-                  
-//                dto.setDataCrtYm(getTagValue("dataCrtYm", eElement));//자료생성년월
-//                dto.setSeq(getTagValue("seq", eElement));//seq번호
-//                dto.setWkplRoadNmDtlAddr(getTagValue("wkplRoadNmDtlAddr", eElement));//사업장명
+        
 
                 assert false;
                 list.add(vo);
