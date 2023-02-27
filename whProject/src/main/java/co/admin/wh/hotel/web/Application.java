@@ -12,6 +12,6 @@ public class Application {
 //			hotel.crawling("https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn=2023-02-22&checkOut=2023-02-23&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex="
 //							+Integer.toString(i));
 		
-		hotel.crawling("https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn=2023-02-24&checkOut=2023-02-25&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1");
+		hotel.crawling("https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn=2023-03-24&checkOut=2023-03-25&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1");
 	}
 }

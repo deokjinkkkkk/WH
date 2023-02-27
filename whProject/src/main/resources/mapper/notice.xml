@@ -33,4 +33,19 @@
 			from notice
 			<!-- <include refid="creitria"></include>	 -->
 	</select>
+	
+	<update id="noticeUpdate">
+		UPDATE NOTICE
+		<set>
+			<if test="noticeTitle != null"> NOTICE_TITLE = #{noticeTitle},</if>
+			<if test="noticeContent != null"> NOTICE_CONTENT = #{noticeContent},</if>
+			<if test="noticeFile != null"> NOTICE_FILE = #{noticeFile},</if>
+			<if test="noticeModDate != null"> NOTICE_MOD_DATE = #{noticeModDate}</if>
+		</set>
+		WHERE NOTICE_CODE = #{noticeCode}
+	</update>
+	
+	<delete id="noticeDelete">
+	DELETE FROM NOTICE WHERE NOTICE_CODE = #{noticeCode}
+	</delete>
 </mapper>
