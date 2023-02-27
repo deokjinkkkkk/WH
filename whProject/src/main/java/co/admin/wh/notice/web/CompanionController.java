@@ -47,7 +47,6 @@ public class CompanionController {
 
 	@RequestMapping("/companionJoin.do")
 	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo) {
-		model.addAttribute("companionList", companionService.getCompanionList(null));
 		companionMapper.companionInsert(vo);
 		companionMapper.imgInsert(ivo);
 		return "redirect:companion";
@@ -60,6 +59,11 @@ public class CompanionController {
 		return "notice/companionDetail";
 	}
 	
-
+	@RequestMapping("/companionUpdateForm")
+	public String companionUpdateForm() {
+		return "notice/companionUpdateForm";
+	}
+	
+	
 	 
 }

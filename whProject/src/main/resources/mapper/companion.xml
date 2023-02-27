@@ -71,6 +71,18 @@
 		from companion
 </select>
 	
+<update id="companionUpdate">
+UPDATE COMPANION
+<set>
+			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
+			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
+			<if test="compGroup != null">COMP_GROUP = #{compGroup},</if>
+			<if test="compStartDate != null">COMP_START_DATE = #{compStartDate},</if>
+			<if test="compEndDate != null">COMP_END_DATE = #{compEndDate},</if>
+			<if test="compContent != null">COMP_CONTENT = #{compContent}</if>
+		</set>
+WHERE COMP_CODE=#{compCode}
+</update>	
 
 </mapper>
 

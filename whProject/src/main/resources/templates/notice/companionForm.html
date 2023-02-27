@@ -10,17 +10,24 @@
 
 <body>
 
-	<!-- 헤더 시작 -->
-	<th:block layout:fragment="header" th:include="@{header}"></th:block>
-	<!-- 헤더 끝 -->
-
-	<!-- 배너 시작 -->
-	<!--         <banner th:replace="~{banner ::banner }"></banner> -->
-	<th:block layout:fragment="banner2" th:include="@{banner2}"></th:block>
-	<!-- 배너 끝 -->
-
-	<!-- 각자 내용 -->
+	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
+
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="../img/banner/bg1.jpg">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">공지사항</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">공지사항</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+	<!-- 각자 내용 -->
+
 
 		<!-- start booking section -->
 		<section>
@@ -113,24 +120,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 	</div>
 	<!-- 내용 끝 -->
-
-	<!-- 푸터 시작 -->
-	<th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-	<!-- 푸터 끝 -->
-
-
 
 	<!-- 글자수 체크하는 function -->
 	<script type="text/javascript">
