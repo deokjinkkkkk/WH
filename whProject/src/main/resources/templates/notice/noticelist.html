@@ -31,7 +31,7 @@ body>.container {
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-      th:style="|background: url('/img/banner/bg1.jpg')|">
+      th:style="|background: url('/img/banner/bg2.jpg')|">
       <h1 class="text-white font-weight-600">공지사항</h1>
       <ul>
          <li><a href="main">Home</a></li>
@@ -62,7 +62,7 @@ body>.container {
 														<th class="col-md-2">번호</th>
 														<th class="col-md-4">제목</th>
 														<th class="col-md-4">등록일</th>
-														<th class="col-md-5">첨부파일</th>
+														<th class="col-md-5">첨부파일 건수</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -71,7 +71,7 @@ body>.container {
 														<td><a th:text="${n.noticeTitle}"
 															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
 														<td th:text="${n.noticeRegDate}"></td>
-														<td th:text="${n.noticeFile}"></td>
+														<td th:text="${n.noticeCount}"></td>
 													</tr>
 												</tbody>
 											</table>

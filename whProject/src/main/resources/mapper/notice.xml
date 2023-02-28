@@ -5,11 +5,19 @@
 	<select id="getNoticeList"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
 		select * from ( select rownum rn, a.* from(
-		SELECT * FROM notice order
-		by notice_code desc
+		SELECT DISTINCT
+		n.NOTICE_CODE,
+		n.NOTICE_TITLE,
+		n.NOTICE_MOD_DATE,
+		(select count(*) from image where img_gro_code = n.img_gro_code ) as
+		notice_count
+		FROM notice n
+		order by notice_code desc
 	<![CDATA[
- ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+ 		) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
 ]]>
+
+
 
 	</select>
 	<!-- 상세페이지 -->
@@ -18,6 +26,8 @@
 		SELECT * FROM NOTICE
 		WHERE notice_code =#{noticeCode}
 	</select>
+
+
 	<!-- 등록 -->
 	<insert id="noticeInsert"
 		parameterType="co.admin.wh.notice.vo.NoticeVO">
@@ -26,10 +36,22 @@
 			SELECT MAX(NOTICE_CODE)+1 FROM NOTICE
 		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{noticeFile},sysdate,#{noticeModDate})
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{imgGroCode},sysdate,#{noticeModDate},#{noticeCount})
 	</insert>
 
+	<insert id="imgInsert"
+		parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+		</selectKey>
+		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
 
+		VALUES
+		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+	</insert>
+	
+	
 	<!-- 페이징 -->
 	<select id="getCountTotal"
 		parameterType="co.admin.wh.notice.vo.NoticeSearchVO" resultType="int">
@@ -40,22 +62,24 @@
 
 	<!-- 조회수 -->
 	<update id="noticeHit" parameterType="int">
-    update notice
-    set notice_Hit = notice_Hit + 1
-    where notice_Code = #{noticeCode}
-</update>
+		update notice
+		set notice_Hit
+		= notice_Hit + 1
+		where notice_Code = #{noticeCode}
+	</update>
 
 
 	<!-- 수정 -->
 	<update id="noticeUpdate">
-    UPDATE NOTICE
-    <set>
-        <if test="noticeTitle != null"> NOTICE_TITLE = #{noticeTitle},</if>
-        <if test="noticeContent != null"> NOTICE_CONTENT = #{noticeContent},</if>
-        <if test="noticeModDate != null"> NOTICE_MOD_DATE = sysdate</if>
-    </set>
-    WHERE NOTICE_CODE = #{noticeCode}
-</update>
+		UPDATE NOTICE
+		<set>
+			<if test="noticeTitle != null"> NOTICE_TITLE = #{noticeTitle},</if>
+			<if test="imgGroCode != null"> IMG_GRO_CODE = #{imgGroCode},</if>
+			<if test="noticeContent != null"> NOTICE_CONTENT = #{noticeContent},</if>
+			NOTICE_MOD_DATE = sysdate
+		</set>
+		WHERE NOTICE_CODE = #{noticeCode}
+	</update>
 
 	<!--삭제 -->
 	<delete id="noticeDelete">

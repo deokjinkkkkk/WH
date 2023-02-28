@@ -3,18 +3,17 @@ package co.admin.wh.notice.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.NoticeMapper;
 import co.admin.wh.notice.service.NoticeService;
+
 import co.admin.wh.notice.vo.NoticeSearchVO;
 import co.admin.wh.notice.vo.NoticeVO;
 import co.admin.wh.notice.vo.Paging;
@@ -46,15 +45,14 @@ public class NoticeController {
 	}
 	
 	
-	@RequestMapping("/noticeInsert.do")
-	public String noticeInsert(NoticeVO vo, Model model, NoticeSearchVO svo ) {
-		model.addAttribute("noticelists", noticeService.getNoticeList(svo));
-		noticeMapper.noticeInsert(vo);
-		return "redirect:notice";
+	@RequestMapping("/noticeInsert")
+	public String noticeInsert(NoticeVO vo, Model model, ImageVO ivo) {
+	    noticeMapper.noticeInsert(vo);
+	    noticeMapper.imgInsert(ivo);
+	    return "redirect:/notice";
 	}
+
 	
-
-
 	@RequestMapping(value="/noticeDetail/{noticeCode}",method=RequestMethod.GET)
 	public String noticeDe(@PathVariable("noticeCode") int noticeCode,   NoticeVO vo, Model model ) {
 		vo.setNoticeCode(noticeCode);
@@ -65,18 +63,19 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/noticeUpdateForm")
-	public String noticeUpdateForm(NoticeVO vo, Model model) {
+	public String noticeUpdateForm(@ModelAttribute("n") NoticeVO vo, Model model) {
 		model.addAttribute("n", noticeService.noticendetil(vo));
 		return "notice/noticeUpdate";
 	}
 	
 	
 	@PostMapping("/noticeUpdate")
-	public String noticeUpdate(NoticeVO vo) {
+	public String noticeUpdate( NoticeVO vo, Model model) {
 	    noticeService.noticeUpdate(vo); // 수정된 공지사항 정보를 DB에 반영
-	    return "redirect:/noticeDetail/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
+	    return "redirect:noticeDetail/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
 	}
 	
+
 	
 	@PostMapping("/noticeDelete")
 	public String noticeDelete(NoticeVO vo, RedirectAttributes redirectAttributes) {
