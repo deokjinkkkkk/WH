@@ -1,4 +1,5 @@
-	<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
@@ -14,140 +15,133 @@ body {
 body>.container {
 	padding: 60px 15px 60px;
 }
-
-
 </style>
 </head>
 
 
 
 <body>
-<div layout:fragment="content">
-<!--  [[ ${paging} ]] <hr>
+	<div layout:fragment="content">
+		<!--  [[ ${paging} ]] <hr>
 [[ ${paging.startPage} ]] <hr>
 [[ ${paging.lastPage} ]] <hr>
 [[ ${FoodSearchVO} ]] <hr>  -->
 
 
-<!-- 페이징 -->
-<script>
-function gopage(page){
- 	location.href="food?page="+page;
-	frmSearch.page.value = page;
-	frmSearch.submit();
-}
+		<!-- 페이징 -->
+		<script>
+			function gopage(page) {
+				location.href = "food?page=" + page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
 
-$(function(){
-	$(".btnInfo").on("click",function(){
-		let url = $(this).closest("tr").children().first().text();
-		location.href=`foodDetail/${url}`
-	})
-})
-</script>
-<!-- 페이징끝 -->
+			$(function() {
+				$(".btnInfo").on("click", function() {
+					let url = $(this).closest("tr").children().first().text();
+					location.href = `foodDetail/${url}`
+				})
+			})
+		</script>
+		<!-- 페이징끝 -->
 
-	<!-- 내용 시작 -->
-	
-	
-	 <!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg5.jpg">
- 			<div class="container">
-               
-                <h1 class="text-white font-weight-600">맛집리스트</h1>
-                <ul>
-                    <li>
-                        <a href="main">Home</a>
-                    </li>
-                    <li>
-                        <span class="active">커뮤니티</span>
-                    </li>
-                    <li>
-                        <span class="active">맛집</span>
-                    </li>
-                </ul>
-               </div>
-        </section>
-	 <!-- 배너끝 --> 
+		<!-- 내용 시작 -->
 
 
-	<!--  start faq section  -->
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 center-col">
-					<div class="accordion" id="accordionOne">
-						<div class="card">
-							<div class="card-header" id="headingOne">
-								<div class="mb-0">
-									<div id="mainHide">
-										<table class="table table-hover">
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			data-overlay-dark="6" data-background="img/banner/bg5.jpg">
+			<div class="container">
 
-											<thead>
-												<tr>
-													<th class="col-md-1">번호</th>
-													<th class="col-md-3">썸네일</th>
-													<th class="col-md-4">제목</th>
-													<th class="col-md-3">작성일</th>
-													<th class="col-md-4">조회수</th>
-													
-												</tr>
-											</thead>
-											<tbody>
-												<tr th:each="f ,nStat: ${foodList}"
-												onmouseover='this.style.background="#fcecae";'
-												onmouseleave='this.style.background="#FFFFFF";'>
-												<td th:text="${f.foodCode}"></td>
-												<td th="{f.imgGroCode}"></td>
-												<td>
-												<a th:text ="${f.foodTitle}" 
-												th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a>
-												</td>
-													
-													<!-- <td th:value="${#dates.format(f.foodDate, 'yyyy-MM-dd')}"></td> -->
-													<td th:text="${f.foodDate}"></td>
-													<td th:text="${f.foodHit}"></td>
-												
-												</tr>
-											</tbody>
-										</table>
+				<h1 class="text-white font-weight-600">맛집리스트</h1>
+				<ul>
+					<li><a href="main">Home</a></li>
+					<li><span class="active">커뮤니티</span></li>
+					<li><span class="active">맛집</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+
+
+		<!--  start faq section  -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 center-col">
+						<div class="accordion" id="accordionOne">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<div class="mb-0">
+										<div id="mainHide">
+											<table class="table table-hover">
+
+												<thead>
+													<tr>
+														<th class="col-md-1">번호</th>
+														<th class="col-md-3">썸네일</th>
+														<th class="col-md-4">제목</th>
+														<th class="col-md-3">작성일</th>
+														<th class="col-md-4">조회수</th>
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="f ,nStat: ${foodList}"
+														onmouseover='this.style.background="#fcecae";'
+														onmouseleave='this.style.background="#FFFFFF";'>
+														<td th:text="${f.foodCode}"></td>
+														<td th="{f.imgGroCode}"></td>
+														<td><a th:text="${f.foodTitle}"
+															th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a>
+														</td>
+
+														<!-- <td th:value="${#dates.format(f.foodDate, 'yyyy-MM-dd')}"></td> -->
+														<td th:text="${f.foodDate}"></td>
+														<td th:text="${f.foodHit}"></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
+								<div><br><br>
+								
+								<!-- 페이징 bootstrap 적용  -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+												<li class="page-item"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|"
+													th:class="${paging.page}==${num} ? 'active'">
+														[[${num}]] </a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+									<!-- 페이징 bootstrap 적용 끝  -->
+									
+								</div>
+								<div class="pull-right" style="width: 100px; margin: 10px 0;">
+									<a href="foodForm" class="btn btn-primary btn-block">등록</a>
+								</div>
+
 							</div>
-							<div>
-						<a
-							th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
-							th:href="|javascript:gopage(${num})|"
-							th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
-					</div>
-							<div class="pull-right" style="width: 100px; margin: 10px 0;">
-								<a href="foodForm" class="btn btn-primary btn-block">등록</a>
-							</div>
-							
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	
+		</section>
+
 	</div>
-	
+
 	<!-- end faq section -->
 	<!--  내용 끝  -->
 
 
-	 <div class="gopage">
-		<nav aria-label="Page navigation example" class="gopage">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
-	</div> 
+
 
 
 </body>
