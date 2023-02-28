@@ -9,6 +9,7 @@
 		select c.*,m.name 
 		from comments c ,member m
 		where c.id = m.id
+		order By com_code ASC
 	</select>
 	
 	<insert id="commentsInsert">
@@ -31,8 +32,6 @@
 							1,
 							1,
 							1
-							
-							
 							<!--#{comLock},
 							#{comOrder},
 							#{comGroup},
