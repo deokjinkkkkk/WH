@@ -17,4 +17,9 @@ public class WHController {
 		return "content/main";
 	}
 
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		return "indexAdmin";
+	}
+
 }

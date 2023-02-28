@@ -51,4 +51,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.companionUpdate(vo);
 	}
 
+	@Override
+	public int companionDelete(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.companionDelete(vo);
+	}
+
 }

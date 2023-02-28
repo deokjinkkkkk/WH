@@ -40,11 +40,6 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	@Override
-	public int noticeCount(int noticeCode) {
-		return mapper.noticeCount(noticeCode);
-	}
-
 
 	@Override
 	public int noticeUpdate(NoticeVO vo) {
@@ -58,9 +53,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
+	@Override
+	public int noticeHit(int noticeCode) {
+		return mapper.noticeHit(noticeCode);
+	}
 
 
-	
+
 
 	
 	

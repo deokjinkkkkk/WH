@@ -37,8 +37,10 @@ public class TripInfoExplorer {
         String str = "";    //return을 위해서
         String parsingUrl = "";//Parsing할 URL
         String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-                "&pageNo=100" + "&numOfRows=20" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
-        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=32" + "&cat1=";
+
+                "&pageNo=1" + "&numOfRows=15" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
+        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=33" + "&cat1=A01";
+			
         URL url = new URL(urlBuilder);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -66,10 +68,10 @@ public class TripInfoExplorer {
         //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
         //doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        System.out.println("--" + dbFactory);
+        System.out.println(dbFactory);
         
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        System.out.println("-+-"+dBuilder);
+        System.out.println(dBuilder);
         
         Document doc = dBuilder.parse(parsingUrl);       
 
@@ -92,19 +94,18 @@ public class TripInfoExplorer {
                 System.out.println("=================================");
                 System.out.println(getTagValue("title", eElement)); // 관광지 제목
                 System.out.println(getTagValue("addr1", eElement)); // 관광지 주소
+                System.out.println(getTagValue("tel", eElement)); // 관광지 전화번호
+                System.out.println(getTagValue("mapx", eElement)); // 경도
+                System.out.println(getTagValue("mapy", eElement)); // 위도
+                System.out.println(getTagValue("firstimage2", eElement)); // 관광지 사진
                 
-                
-//                System.out.println(getTagValue("wkplNm", eElement));//사업장명
-//                System.out.println(getTagValue("dataCrtYm", eElement));//자료생성년월
-//                System.out.println(getTagValue("seq", eElement));//seq번호
-//                System.out.println(getTagValue("wkplRoadNmDtlAddr", eElement));//사업장명
-
-                  vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
-                  vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
-                  
-//                dto.setDataCrtYm(getTagValue("dataCrtYm", eElement));//자료생성년월
-//                dto.setSeq(getTagValue("seq", eElement));//seq번호
-//                dto.setWkplRoadNmDtlAddr(getTagValue("wkplRoadNmDtlAddr", eElement));//사업장명
+                vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
+                vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
+                vo.setTripTel(getTagValue("tel", eElement)); // 관광지 전화번호
+                vo.setTripLon(getTagValue("mapx", eElement)); // 경도
+                vo.setTripLat(getTagValue("mapy", eElement)); // 위도
+                vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 관광지 사진
+        
 
                 assert false;
                 list.add(vo);

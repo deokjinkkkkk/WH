@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{index}">
-   
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <!-- 뭐야.. CSS -->
 	<th:block layout:fragment="head" th:include="@{head}"></th:block>
     <!-- 뭐야.. CSS 끝 -->
-    
-    
-    
+
+
+
     <body>
-    
+
     	<!-- 헤더 시작 -->
         <th:block layout:fragment="header" th:include="@{header}"></th:block>
 		<!-- 헤더 끝 -->
-		
+
 		<!-- 배너 시작 -->
 		<!--         <banner th:replace="~{banner ::banner }"></banner> -->
-		<th:block layout:fragment="banner" th:include="@{banner}"></th:block>
+		<section class="bg-img screen-height cover-background line-banner" data-overlay-dark="2" data-background="img/banner/bg3.jpg">
+
+            <!-- start banner text -->
+            <div class="header-text">
+                <div class="container">
+                    <div class="text-center">
+
+                        <!-- start banner headline text -->
+                        <h1 class="cd-headline slide">
+                            Walking Holiday
+                        </h1>
+                        <!-- end banner headline text -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- end banner text -->
+
+        </section>
         <!-- 배너 끝 -->
-        
+
         <!-- 각자 내용 -->
         <div layout:fragment="content" class="content">
             <!-- Start popular destination Section -->
@@ -34,6 +51,7 @@
 <!--                             </div> -->
 <!--                         </div> -->
 <!--                     </div> -->
+<div>
                     <div class="col-md-7 text-center">
                         <div class="owl-carousel owl-theme" id="destination">
                             <div>
@@ -179,10 +197,10 @@
         <!-- end other section -->
         </div>
         <!-- 내용 끝 -->
-        
+
         <!-- 푸터 시작 -->
         <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
         <!-- 푸터 끝 -->
- 
+
     </body>
 </html>
