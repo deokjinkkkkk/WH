@@ -93,10 +93,16 @@ public class FoodController {
 		return "notice/foodUpdateForm";
 	}
 	//수정
-	@PostMapping("/foodUpdate")
-	public String foodUpdate(FoodVO vo, Model model) {
-		model.addAttribute("food",foodService.foodUpdate(vo));
-		return "redirect:foodDetail/" + vo.getFoodCode();
-	}
+	/*
+	 * @PostMapping("/foodUpdate") public String foodUpdate(FoodVO vo, Model model)
+	 * { model.addAttribute("food",foodService.foodUpdate(vo)); return
+	 * "redirect:foodDetail/" + vo.getFoodCode(); }
+	 */
 	
+	
+	@PostMapping("/foodUpdate")
+	public String foodUpdate(@ModelAttribute("foodVO") FoodVO vo, Model model) {
+	model.addAttribute("food", foodService.foodUpdate(vo));
+	return "redirect:/foodDetail/" + vo.getFoodCode();
+	}
 }

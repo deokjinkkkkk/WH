@@ -17,34 +17,35 @@
 	<div layout:fragment="content" class="content">
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-			data-overlay-dark="6" data-background="img/banner/bg5.jpg">
-			<div class="container">
-				<h1 class="text-white font-weight-600">맛집리스트</h1>
-				<ul>
-					<li><a href="main">Home</a></li>
-					<li><span class="active">맛집정보</span></li>
-				</ul>
-			</div>
+			th:style="|background: url('/img/banner/bg1.jpg')|">
+			<h1 class="text-white font-weight-600">맛집리스트</h1>
+			<ul>
+				<li><a href="/main">Home</a></li>
+				<li><span class="active">맛집리스트</span></li>
+			</ul>
 		</section>
 		<!-- 배너끝 -->
-
 
 
 		<!-- start booking section -->
 		<section>
 			<div class="container">
 
-				<form id="frm" action="foodUpdate" method="post">
+				<form id="frm" action="./foodUpdate" method="post">
+					<input type="hidden" name="foodCode" th:value="${food.foodCode}">
 					<div class="row">
 						<div class="form-group col-md-12">
-					<!-- 	<input type="hidden" th:value="${food.foodCode}"> -->
-							*제목<input type="text" name="foodTitle" id="foodTitle" th:text="${food.foodTitle}">
+							<input type="hidden" th:value="${food.foodCode}"> *제목<input
+								type="text" name="foodTitle" id="foodTitle"
+								th:value="${food.foodTitle}">
 						</div>
 						<div class="form-group col-md-12">
-							*주소<input type="text" name="foodAddr" id="foodAddr">
+							*주소<input type="text" name="foodAddr" id="foodAddr"
+								th:value="${food.foodAddr}">
 						</div>
 						<div class="form-group col-md-12">
-							*상호명<input type="text" name="foodName" id="foodName">
+							*상호명<input type="text" name="foodName" id="foodName"
+								th:value="${food.foodName}">
 						</div>
 						<div class="form-group col-md-12">
 							<table class="table border">
@@ -70,7 +71,7 @@
 						<input type="hidden" name="id" id="id" value="1"> <input
 							type="hidden" name="imgGroCode" id="imgGroCode" value="1">
 					</div>
-				
+
 					<input type="submit" value="수정완료">
 				</form>
 			</div>
