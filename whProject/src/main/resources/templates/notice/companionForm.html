@@ -5,9 +5,23 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/moment.js"></script>
+<script type="text/javascript" src="/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+
+
+
 <style>
 body {
     color: #000;
@@ -192,7 +206,7 @@ thead tr:nth-child(3) th {
 		<section>
 			<div class="container">
 
-				<form id="frm" action="companionJoin.do" method="post">
+				<form id="frm" action="companionJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
 							[필수]연락처<input type="text" name="tel" id="tel" >
@@ -265,9 +279,9 @@ thead tr:nth-child(3) th {
 									</sup>
 									</th>
 									<td>
-										<form id="compContent" name="compContent">
+										<form>
 											<textarea rows="10" class="form-control"
-												id="textArea_byteLimit" name="textArea_byteLimit"
+												id="compContent" name="compContent"
 												onkeyup="fn_checkByte(this,'1000')"></textarea>
 										</form>
 									</td>
@@ -275,17 +289,15 @@ thead tr:nth-child(3) th {
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							<input type="file" name="imgName" id="imgName">
+								<input type="file" name="imgFile" id="imgFile">
 						</div>
 						<div class="form-group col-md-12">
 							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
 						</div>
-					
-
 						<input type="hidden" name="id" id="id" value="1">
 						<input type="hidden" name="imgGroCode" id="imgGroCode" value="1">
 						<input type="hidden" name="imgCode" id="imgCode" value="1">
-						<input type="hidden" name="imgPath" id="imgPath" value="1">
+						<input type="hidden" name="imgPath" id="imgPath">
 					</div>
 					<input type="submit" value="모집">
 				</form>
@@ -296,16 +308,7 @@ thead tr:nth-child(3) th {
 	</div>
 
 
-	<!-- Row -->
-	<!-- end booking section -->
-
-
-
-	</div>
-	<!-- 내용 끝 -->
-
 	<!-- 글자수 체크하는 function -->
-
 	<script type="text/javascript">
 		//Byte 수 체크 제한
 		function fn_checkByte(obj, maxByte) {
