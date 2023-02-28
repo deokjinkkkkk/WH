@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.xml.sax.SAXException;
 
+import co.admin.wh.notice.vo.Paging;
 import co.admin.wh.trip.TripInfoExplorer;
+import co.admin.wh.trip.mapper.TripMapper;
 import co.admin.wh.trip.service.TripService;
+import co.admin.wh.trip.vo.TripSearchVO;
 import co.admin.wh.trip.vo.TripVO;
 
 @Controller
@@ -22,6 +26,7 @@ public class TripController {
 	private TripService tripService;
 	
 	//생성자 주입
+	@Autowired TripMapper tripMapper;
 	@Autowired
 	public TripController(TripService apiService) {
 		this.tripService = apiService;
@@ -52,8 +57,17 @@ public class TripController {
 	// 검색시 데이터가 없으면 db에 추가하도록 처리
 	// + 페이지 리스트 처리 페이징
 	@GetMapping("/tripSearch")
-	public String test(Model model) throws ParserConfigurationException, SAXException, IOException {
+	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo, Paging paging) throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("파싱 시작");;
+		
+		paging.setPageUnit(5); // 한 페이지에 출력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		model.addAttribute("tripLittleList");
+		
 		
 		TripInfoExplorer apiExplorer = new TripInfoExplorer();
 		
