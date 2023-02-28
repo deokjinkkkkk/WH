@@ -1,20 +1,16 @@
 package co.admin.wh.notice.web;
 
-import java.util.Date;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.thymeleaf.model.IModel;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.admin.wh.notice.mapper.FoodMapper;
 import co.admin.wh.notice.service.FoodService;
@@ -22,7 +18,6 @@ import co.admin.wh.notice.vo.FoodImgVO;
 import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 import co.admin.wh.notice.vo.Paging;
-import lombok.extern.log4j.Log4j2;
 
 
 @Controller
@@ -80,8 +75,28 @@ public class FoodController {
 		return "notice/foodDetail";
 		
 	}
-	
-
-
+	//삭제
+	@PostMapping("/foodDelete")
+	public String foodDelete(FoodVO vo, RedirectAttributes redirectAttributes) {
+		int n = foodService.foodDelete(vo);
+		if (n != 0) {
+			redirectAttributes.addFlashAttribute("message","정상적으로 삭제되었습니다.");
+		}else {
+			redirectAttributes.addFlashAttribute("message","삭제가 정상적으로 처리되지 않았습니다.");
+		}
+		return "redirect:/food";
+	}
+	//수정폼
+	@RequestMapping("/foodUpdateForm")
+	public String foodUpdateForm(FoodVO vo, Model model) {
+		model.addAttribute("food", foodService.detailSelect(vo));
+		return "notice/foodUpdateForm";
+	}
+	//수정
+	@PostMapping("/foodUpdate")
+	public String foodUpdate(FoodVO vo, Model model) {
+		model.addAttribute("food",foodService.foodUpdate(vo));
+		return "redirect:foodDetail/" + vo.getFoodCode();
+	}
 	
 }

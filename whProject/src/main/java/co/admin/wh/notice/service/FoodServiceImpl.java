@@ -60,6 +60,18 @@ private FoodMapper mapper;
 		return mapper.hitUpdate(foodCode);
 	}
 
+	@Override
+	public int foodDelete(FoodVO vo) {
+		// 게시글 삭제
+		return mapper.foodDelete(vo);
+	}
+
+	@Override
+	public int foodUpdate(FoodVO vo) {
+		// 수정
+		return mapper.foodUpdate(vo);
+	}
+
 	
 	
 

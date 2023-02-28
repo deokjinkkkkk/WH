@@ -21,7 +21,9 @@ public interface FoodService {
 	int imgInsert(FoodImgVO ivo);
 	
 	int hitUpdate(int foodCode); //조회수증가
+
+	int foodDelete(FoodVO vo);//삭제
 	
-	
+	int foodUpdate(FoodVO vo); //수정
 	
 }
