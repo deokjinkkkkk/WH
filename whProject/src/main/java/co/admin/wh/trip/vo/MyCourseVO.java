@@ -1,4 +1,4 @@
-package co.admin.wh.trip;
+package co.admin.wh.trip.vo;
 
 import lombok.Data;
 

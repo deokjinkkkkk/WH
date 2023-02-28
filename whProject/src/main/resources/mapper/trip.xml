@@ -6,7 +6,7 @@
 	<!-- 검색시 데이터 체크해서 없는데이터 넣기 위해 ignore로 중복시 무시하도록 처리 -->
 	<insert id="insertInfo">
 	<selectKey resultType="int" keyProperty="tripCode" order="BEFORE">
-		SELECT MAX(trip_Code)+1 FROM TRIP
+		SELECT NVL(MAX(trip_Code),0)+1 FROM TRIP
 	</selectKey>
 
 			INSERT INTO TRIP (TRIP_CODE, TRIP_NAME, TRIP_TEL, TRIP_ADDR,
@@ -19,10 +19,11 @@
 
 	</insert>
 
-	<select id="tripList" resultType="co.admin.wh.trip.TripVO">
+	<select id="tripList" resultType="co.admin.wh.trip.vo.TripVO">
+	<!-- 이미지가 없는 데이터는 출력하지 않는다. -->
 		SELECT * 
 		FROM TRIP
-		ORDER BY trip_code
+		WHERE LENGTH(img_gro_code)>=1
 	</select>
 
 

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.admin.wh.trip.TripVO;
 import co.admin.wh.trip.mapper.TripMapper;
+import co.admin.wh.trip.vo.TripVO;
 import lombok.extern.log4j.Log4j2;
 
 @Service

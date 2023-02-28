@@ -1,9 +1,8 @@
 package co.admin.wh.trip.mapper;
 
 import java.util.List;
-import java.util.Map;
 
-import co.admin.wh.trip.TripVO;
+import co.admin.wh.trip.vo.TripVO;
 
 public interface TripMapper {
 	
