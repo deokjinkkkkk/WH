@@ -13,9 +13,9 @@ public class CommentsServiceImpl implements CommentsService {
 	
 
 	@Override
-	public int commentsCount() {
+	public int commentsCount(CommentsVO vo) {
 		// TODO Auto-generated method stub
-		return commentsMapper.commentsCount();
+		return commentsMapper.commentsCount(vo);
 	}
 
 	@Override
