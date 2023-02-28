@@ -25,13 +25,15 @@
 		</section>
 		<!-- 배너끝 -->
 
+	<form id="frm" method="post" action="/companionDelete">
 		<div class="container">
-
+			
 			<div class="col-lg-6 mb-5 ftco-animate">
 
 				<img src="/img/banner/bg4.jpg" class="img-fluid"
 					alt="Colorlib Template">
 			</div>
+			
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				제목 : <span th:text="${c.compTitle}"></span>
 
@@ -53,12 +55,14 @@
 			</p>
 			</div>
 			<a th:href="|/companionUpdateForm?compCode=${c.compCode}|" class="btn btn-primary">수정하기</a>
-			
+			 <input type="hidden" name="compCode" th:value="${c.compCode}" />
+			<button type="submit" class="btn btn-danger">삭제하기</button>
+			<button></button>
 		</div>
-
+		</form>
 	</div>
 		<!-- 내용 끝 -->
-
+	
 
 </body>
 </html>

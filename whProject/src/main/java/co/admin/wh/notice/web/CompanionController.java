@@ -6,11 +6,10 @@ package co.admin.wh.notice.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
@@ -18,6 +17,7 @@ import co.admin.wh.notice.service.CompanionService;
 import co.admin.wh.notice.vo.CompanionSearchVO;
 import co.admin.wh.notice.vo.CompanionVO;
 import co.admin.wh.notice.vo.Paging;
+import oracle.ucp.proxy.annotation.Post;
 
 @Controller
 public class CompanionController {
@@ -66,11 +66,20 @@ public class CompanionController {
 		return "notice/companionUpdateForm";
 	}
 	
-//	@RequestMapping("/companionUpdate")
-//	public String companionUpdate(Model model, @PathVariable("compCode")) {
-//		
-//	return "redirect:noticeDetail/"+vo.getCompCode();
-//	}
 	
+//	 @RequestMapping("/companionUpdate") public String companionUpdate(CompanionVO compVO, Model model) { 
+//		 model.addAttribute("c",companionService.companionUpdate(compVO)); 
+//		 return "redirect:noticeDetail/"+compVO.getCompCode(); }
 	 
+	@PostMapping("/companionUpdate")
+	public String companionUpdate(CompanionVO compVO, Model model) {
+		model.addAttribute("c",companionService.companionUpdate(compVO));
+	    return "redirect:companionDetail/" + +compVO.getCompCode();
+	}
+	
+	@RequestMapping("/companionDelete")
+    public String companionDelete(CompanionVO compVO, Model model) {
+		companionService.companionDelete(compVO);
+        return "redirect:companion";
+    }
 }
