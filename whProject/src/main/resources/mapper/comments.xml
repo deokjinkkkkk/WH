@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.common.mapper.CommentsMapper">
 	<select id="commentsCount" resultType="int">
-
+		select count(*)
+		from comments
+		where com_board_code = {comBoardCode} 
+		AND com_flag = {comFlag}
 	</select>
 	
 	<select id="commentsList" resultType="co.admin.wh.common.vo.CommentsVO">
@@ -21,17 +24,23 @@
 							com_order,
 							com_group,
 							block,
-							com_flag)
+							com_flag,
+							com_board_code)
 					   values(
 					   		com_test_seq.NEXTVAL,
 							#{id},
 							#{comContent},
 							sysdate,
-							1,
-							1,
-							1,
-							1,
-							1
+							#{comLock},
+							#{comOrder},
+							<if test="comGroup != null">com_group_seq.NEXTVAL</if>
+							<if test="comGroup == null">'1'</if>
+							,
+							<if test="comGroup != null">1</if>
+							<if test="comGroup == null">2</if>
+							,
+							#{comFlag},
+							#{comBoardCode}
 							<!--#{comLock},
 							#{comOrder},
 							#{comGroup},
