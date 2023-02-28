@@ -39,11 +39,13 @@
 	<!-- 헤더 끝 -->
 
 	<!-- 각자 내용 -->
-	<br>
+	
+	
+	
 	<form action="noticeUpdate" method="POST" id="frm">
 	
 		<input type="text" name="noticeTitle" id="noticeTitle" class="form-control" th:value="${n.noticeTitle }"><br>
-		<input type="file" name="noticeFile" id="noticeFile" class=form-control th:value="${n.noticeFile }"><br>
+		<input type="file" name="file" id="noticeFile" class="form-control" th:value="${n.noticeFile }"><br>
 		<textarea class="editor" id="noticeContent" name="noticeContent" th:text="${n.noticeContent }"></textarea>
 		<br>
 		<div class="pull-right" style="width: 100px; margin-right: 800px;">
@@ -62,7 +64,7 @@
       .catch( error => {
           console.error( error );
       } );
-      
+    
     </script>
   
 
