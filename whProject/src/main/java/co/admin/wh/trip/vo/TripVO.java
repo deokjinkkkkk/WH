@@ -1,6 +1,10 @@
-package co.admin.wh.trip;
+package co.admin.wh.trip.vo;
 
 import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -18,5 +22,7 @@ public class TripVO {
 	String homepage; //홈페이지
 	String tripRegion; //지역
 	String imgGroCode; //이미지그룹번호
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date tripDate; //등록일자
 }

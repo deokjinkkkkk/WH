@@ -7,7 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import co.admin.wh.trip.TripVO;
+import co.admin.wh.trip.vo.TripVO;
 
 public interface TripService {
 	
