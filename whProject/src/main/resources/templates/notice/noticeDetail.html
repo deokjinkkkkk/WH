@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
-<style>
-</style>
+	layout:decorate="~{/index}">
+
+
 
 <body>
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
 
+
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-			data-overlay-dark="6" data-background="img/banner/bg3.jpg">
-			<div class="container">
-
-				<h1 class="text-white font-weight-600">공지사항</h1>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><span class="active">공지사항</span></li>
-				</ul>
-			</div>
+			th:style="|background: url('img/banner/bg1.jpg')|">
+			<h1 class="text-white font-weight-600">공지사항</h1>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><span class="active">공지사항</span></li>
+			</ul>
 		</section>
 		<!-- 배너끝 -->
 
 
 		<!-- 내용 찐시 -->
 		<section>
-
 			<div class="container">
 				<div class="row">
 					<a href="/notice" class="btn btn-primary">목록</a>&nbsp;&nbsp;&nbsp;
@@ -45,15 +42,15 @@
 								<td style="width: 20%;">제목</td>
 								<td colspan="2" th:text="${n.noticeTitle}"></td>
 							</tr>
-							<tr >
-								<td>조회</td>
+							<tr>
+								<td>조회수</td>
 								<td colspan="2" th:text="${n.noticeHit}"></td>
 							</tr>
 							<tr>
 								<td>첨부파일</td>
 								<td colspan="2" th:text="${n.noticeFile}"></td>
 							</tr>
-							<tr >
+							<tr>
 								<td>등록일자</td>
 								<td colspan="2" th:text="${n.noticeRegDate}"></td>
 							</tr>
@@ -62,19 +59,31 @@
 								<td colspan="2" style="min-height: 200px; text-align: center;"
 									th:utext="${n.noticeContent}"></td>
 							</tr>
-							
+
 						</tbody>
 					</table>
+					<!-- 관리자시 권한 주는것 
+						<div
+							th:if="${#session.getAttribute('member') != null and #session.getAttribute('member').admin}">
+							<a th:href="@{/noticeUpdateForm(noticeCode=${n.noticeCode})}"
+								class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <a
+								th:href="@{/noticeDelete(noticeCode=${n.noticeCode})}"
+								class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+						</div>
+						
+						-->
 					<div>
-					<a th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|" class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
-					
+						<a th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
+							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
 					</div>
+					<form method="post" action="/noticeDelete">
+						<input type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
+						<button type="submit" class="btn btn-danger">삭제</button>
+					</form>
 				</div>
+			</div>
 		</section>
 	</div>
-	<script type="text/javascript">
-	
-	</script>
 	<!-- 내용 끝 -->
 </body>
 </html>
