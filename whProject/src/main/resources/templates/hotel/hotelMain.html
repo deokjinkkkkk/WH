@@ -1,88 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{index}">
-   
-	<!-- 뭐야.. CSS -->
-	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- 뭐야.. CSS 끝 -->
-    
-    
-    <body>
-    
-    	<!-- 헤더 시작 -->
-        <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- 헤더 끝 -->
-        
-        <!-- 각자 내용 -->
-        <div layout:fragment="content" class="content">
-                    <!-- start page title section -->
-        <section class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg4.jpg">
-            <div class="container">
-                <h1 class="text-white font-weight-600">Hotel</h1>
-                <ul>
-                    <li>
-                        <a href="main">Home</a>
-                    </li>
-                    <li>
-                        <span class="active">숙소</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- end page title section -->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
 
-        <!-- start blog section -->
-        <section>
-            <div class="container">
-                <div class="row">
 
-                    <!-- start blog -->
-                    <div th:each="hotel : ${hotelList}" class="col-lg-4 col-md-6 col-sm-12 margin-30px-bottom">
-                        <div class="blog-block1">
-                            <div class="img">
-                                <img src="img/blog/blog-1.jpg" alt="" />
-                            </div>
-                            <div class="bg-light-gray padding-40px-tb padding-30px-lr">
-                                <div class="margin-30px-bottom font-size13">
-                                    <a href="#" class="margin-15px-right"><i class="ti-user margin-5px-right"></i>지역명</a>
-                                    <a href="#"><i class="ti-comments margin-5px-right"></i>방등급</a>
-                                </div>
 
-                                <h5 class="font-size20"><a th:text="${hotel.hotelName}" href="blog-details.html" class="text-extra-dark-gray">숙소명</a></h5>
 
-                                <a href="blog-details.html" class="text-theme-color">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end blog -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- start pager -->
-                    <div class="text-center margin-60px-top sm-margin-40px-top">
-                        <div class="pagination text-small text-uppercase text-extra-dark-gray">
-                            <ul>
-                                <li><a href="javascript:void(0);"><i class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i> Prev</a></li>
-                                <li class="active"><a href="javascript:void(0);">1</a></li>
-                                <li><a href="javascript:void(0);">2</a></li>
-                                <li><a href="javascript:void(0);">3</a></li>
-                                <li><a href="javascript:void(0);">Next <i class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- end pager -->
-                </div>
-            </div>
-        </section>
-        <!-- end blog section -->
-        </div>
-        <!-- 내용 끝 -->
-        
-        <!-- 푸터 시작 -->
-        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-        <!-- 푸터 끝 -->
- 
-    </body>
+<body>
+
+
+	<!-- 각자 내용 -->
+	<div layout:fragment="content" class="content">
+		<!-- start page title section -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background: url('img/banner/bg4.jpg')|">
+			<h1 class="text-white font-weight-600">Tour Listing</h1>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><span class="active">Tour Listing</span></li>
+			</ul>
+		</section>
+		<!-- end page title section -->
+		
+		<div>
+			<form name="search-form" autocomplete="off">
+				<select name="type">
+					<option selected value="">검색 내용 선택</option>
+					<option value="title">숙소명</option>
+					<option value="city">지역명</option>
+				</select>
+				<input type="text" name="keyword" value="">
+				<input type="button" onclick="getSearchList()" value="search">
+			</form>
+		</div>
+
+		<!-- start blog section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+						<div class="row margin-30px-bottom">
+						
+						
+							<div th:each="h : ${hotelList}" class="col-md-6 margin-30px-bottom">
+								<div class="border border-radius-4 package h-100">
+									<img src="img/content/package-1.jpg" alt="" />
+									<div class="padding-30px-all">
+										<div
+											class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
+											<div>
+												<h5 th:text="${h.hotelName}" class="no-margin-bottom font-size22">Bali</h5>
+												<span class="letter-spacing-2">
+												<span th:text="${h.hotelRegion}" class="ti-location-pin"></span> Indonesia</span>
+											</div>
+											<div>
+												<span class="font-size30 text-dark">549$</span>
+											</div>
+										</div>
+<!-- 										<p class="margin-30px-bottom">Lorem ipsum dolor sit amet, -->
+<!-- 											elit consectetur adipiscing elit. Nunc ut efficitur ante. -->
+<!-- 											Donec dapibu.</p> -->
+										<a href="tour-detail.html" class="butn">Details</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<!-- start pager -->
+					<div class="text-center margin-60px-top sm-margin-40px-top">
+						<div
+							class="pagination text-small text-uppercase text-extra-dark-gray">
+							<ul>
+								<li><a href="javascript:void(0);"><i
+										class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
+										Prev</a></li>
+								<li class="active"><a href="javascript:void(0);">1</a></li>
+								<li><a href="javascript:void(0);">2</a></li>
+								<li><a href="javascript:void(0);">3</a></li>
+								<li><a href="javascript:void(0);">Next <i
+										class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- end pager -->
+				</div>
+			</div>
+		</section>
+		<!-- end blog section -->
+	</div>
+	<!-- 내용 끝 -->
+
+
+
+</body>
 </html>
