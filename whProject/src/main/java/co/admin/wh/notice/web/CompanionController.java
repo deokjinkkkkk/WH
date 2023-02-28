@@ -74,7 +74,7 @@ public class CompanionController {
 	@PostMapping("/companionUpdate")
 	public String companionUpdate(CompanionVO compVO, Model model) {
 		model.addAttribute("c",companionService.companionUpdate(compVO));
-	    return "redirect:companionDetail/" + +compVO.getCompCode();
+	    return "redirect:companionDetail/" + compVO.getCompCode();
 	}
 	
 	@RequestMapping("/companionDelete")
