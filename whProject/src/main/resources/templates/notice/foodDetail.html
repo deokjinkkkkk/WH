@@ -6,76 +6,67 @@
 <body>
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
-
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			data-overlay-dark="6" data-background="img/banner/bg5.jpg">
-			<div class="container">
-				<h1 class="text-white font-weight-600">맛집리스트</h1>
-				<ul>
-					<li><a href="main">Home</a></li>
-					<li><span class="active">맛집정보</span></li>
-				</ul>
-			</div>
-		</section>
-		<!-- 배너끝 -->
-
-
-
-		<section>
-
-			<div class="container">
-				<form role="form" method="post" action="">
-					<div class="row" style="margin-bottom: 20px; margin-left: 1px;">
-
-						<div class="panel" style="margin-left: 1px;">
-							<div id="contAreaBox">
-								<div class="panel">
-									<div class="panel-body">
-
-										<div class="table-responsive" style="text-align: center;">
-											<table id="datatable-scroller"
-												class="table table-bordered tbl_Form">
-
-												<colgroup>
-													<col width="250px" />
-													<col />
-												</colgroup>
-												<tbody>
-													<tr>
-														<th scope="row">글 번호</th>
-														<td th:text="${food.foodCode}"></td>
-														<th scope="row">조회수</th>
-														<td th:text="${food.foodHit}"></td>
-														<th scope="row">제목</th>
-														<td th:text="${food.foodTitle}"></td>
-													</tr>
-													<tr>
-														<th scope="row">첨부파일</th>
-														<td th:text="${food.imgGroCode}"></td>
-													</tr>
-
-													<!-- <tr>
-														<td th:text="{food.foodContent}"></td>
-													</tr> -->
-												</tbody>
-											</table>
-										</div>
-										<div style="margin-left: 1px;">
-											<a href="/food" class="btn btn-primary"
-												style="margin-left: 1040px">목록</a>
-										</div>
-									</div>
-								</div>
+<!-- 배너시작 -->
+<section class="page-title-section bg-img cover-background"
+	data-overlay-dark="6" data-background="img/banner/bg5.jpg">
+	<div class="container">
+		<h1 class="text-white font-weight-600">맛집리스트</h1>
+		<ul>
+			<li><a href="main">Home</a></li>
+			<li><span class="active">맛집정보</span></li>
+		</ul>
+	</div>
+</section>
+<!-- 배너끝 -->
+	 <form method="post" action="/foodDelete"> 
+<div class="container">
+	<div class="row" style="margin-bottom: 20px; margin-left: 1px;">
+		<div class="panel" style="margin-left: 1px;">
+			<div id="contAreaBox">
+				<div class="panel">
+					<div class="panel-body">
+						<div class="table-responsive" style="text-align: center;">
+							<table id="datatable-scroller" class="table table-bordered tbl_Form">
+								<colgroup>
+									<col width="250px" />
+									<col />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">글 번호</th>
+										<td th:text="${food.foodCode}"></td>
+										<th scope="row">조회수</th>
+										<td th:text="${food.foodHit}"></td>
+										<th scope="row">제목</th>
+										<td th:text="${food.foodTitle}"></td>
+									</tr>
+									<tr>
+										<th scope="row">첨부파일</th>
+										<td th:text="${food.imgGroCode}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div>
+							<a th:href="@{/foodUpdateForm(foodCode=${food.foodCode})}" class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
+						
+								<input type="hidden" name="foodCode" th:value="${food.foodCode}" />
+								<button type="submit" class="btn btn-danger">삭제</button>
+							
+							<div style="margin-left: 1px;">
+								<a href="/food" class="btn btn-primary" style="margin-left: 1040px">목록</a>
 							</div>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
-		</section>
+		</div>
 	</div>
+</div>
 
+		 </form> 
 
+</div>
 	<!-- 내용 끝 -->
 
 </body>

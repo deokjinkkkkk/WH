@@ -9,7 +9,7 @@ import co.admin.wh.notice.vo.FoodVO;
 
 public interface FoodMapper {
 
-	List<FoodVO> getFoodList(FoodVO vo); //페이
+	List<FoodVO> getFoodList(FoodVO vo); //전체조회
 	
 	int getCountTotal(FoodSearchVO svo);//총게시글
 	
@@ -22,4 +22,8 @@ public interface FoodMapper {
 	int imgInsert(FoodImgVO ivo);
 	
 	int hitUpdate(int foodCode);
+	
+	int foodDelete(FoodVO vo); //삭제
+	
+	int foodUpdate(FoodVO vo); //수정
 }

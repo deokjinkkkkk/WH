@@ -7,7 +7,8 @@
 	<select id="getFoodList"
 		resultType="co.admin.wh.notice.vo.FoodVO">
 		select * from ( select rownum rn, a.* from(
-		SELECT * FROM FOOD order by food_code desc
+		SELECT * FROM FOOD order by
+		food_code desc
 		<![CDATA[
 	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
 	]]>
@@ -53,8 +54,8 @@
 	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
 		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
 
-	
-	<!-- 상세보기  -->
+
+	<!-- 상세보기 -->
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.FoodVO">
 		SELECT *
@@ -63,10 +64,29 @@
 	</select>
 
 	<!-- 조회수 -->
-	<update id="hitUpdate" parameterType="co.admin.wh.notice.vo.FoodVO">
+	<update id="hitUpdate"
+		parameterType="co.admin.wh.notice.vo.FoodVO">
 		update food
 		set food_hit = food_hit + 1
-		where food_code = #{foodCode}
+		where food_code =
+		#{foodCode}
 	</update>
 
+	<!-- 삭제 -->
+	<delete id="foodDelete">
+		DELETE FROM FOOD WHERE FOOD_CODE = #{foodCode}
+	</delete>
+
+	<!-- 수정 -->
+	<update id="foodUpdate">
+		UPDATE FOOD
+		<set>
+			<if test="foodTitle != null">FOOD_TITLE = #{foodTitle},</if>
+			<if test="foodAddr != null">FOOD_ADDR = #{foodAddr},</if>
+			<if test="foodName != null">FOOD_NAME = #{foodName},</if>
+			<if test="foodContent != null">FOOD_CONTENT = #{foodContent},</if>
+			<if test="foodFile != null">FOOD_FILE = #{foodFile}</if>
+		</set>
+		WHERE FOOD_CODE= #{foodCode}
+	</update>
 </mapper>
