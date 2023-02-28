@@ -20,4 +20,6 @@ public interface CompanionMapper {
 	
 	int companionUpdate(CompanionVO vo);
 	
+	int companionDelete(CompanionVO vo);
+	
 }

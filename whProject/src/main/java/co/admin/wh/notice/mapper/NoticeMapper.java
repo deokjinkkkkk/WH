@@ -14,6 +14,6 @@ public interface NoticeMapper {
 	int noticeDelete(NoticeVO vo);
 	
 	int getCountTotal(NoticeSearchVO svo); //페이징
-	int noticeCount(int noticeCode);//게시글 카운트 
+	int noticeHit(int noticeCode);//게시글 조회수 
 	
 }

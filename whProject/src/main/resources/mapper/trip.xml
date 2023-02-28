@@ -20,7 +20,9 @@
 	</insert>
 
 	<select id="tripList" resultType="co.admin.wh.trip.TripVO">
-		SELECT * FROM trip
+		SELECT * 
+		FROM TRIP
+		ORDER BY trip_code
 	</select>
 
 

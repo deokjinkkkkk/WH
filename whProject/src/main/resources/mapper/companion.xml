@@ -84,5 +84,9 @@ UPDATE COMPANION
 WHERE COMP_CODE=#{compCode}
 </update>	
 
+<delete id="companionDelete">
+	DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
+	</delete>
+
 </mapper>
 

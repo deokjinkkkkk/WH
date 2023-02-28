@@ -50,38 +50,29 @@ public class TripController {
 		return "trip/memberCourseDetail";
 	}
 	
+	
 	// 검색시 데이터가 없으면 db에 추가하도록 처리
-	@GetMapping("/searchList")
-	public void searchInfo(Model model) throws ParserConfigurationException, SAXException, IOException {
+	@GetMapping("/test")
+	public String test(Model model) throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("파싱 시작");;
 		
 		TripInfoExplorer apiExplorer = new TripInfoExplorer();
 		
 		// 파싱하여 리턴한 데이터 값들을 list에 담아주기 위해 사용
 		List<TripVO> list = apiExplorer.parsingData("(주)");
+		System.out.println("list = " + list);
 		
 		// List에 담겨있는 정보들은 db에 넣기 위해서 사용
 		for (TripVO tripVO : list) {
 			
-				try {
-					tripService.insertInfo(tripVO);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParserConfigurationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+		tripService.insertInfo(tripVO);
+							
 		}
 		
 		model.addAttribute("tripList", tripService.tripList());
 		
 		System.out.println("파싱 끝");
-		;
+		return "trip/test";
 	}
 	
 }
