@@ -14,27 +14,25 @@ public class HotelVO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int hotelId; // 호텔아이디
 	public String hotelName; // 호텔이름
-	public String star; // 별점
+	public long star; // 별점
 	public String hotelAddr;
 	public String hotelInfo; // 객실정보
 	public String imgGroCode;
-	public int hotelFlag; // 구분
 	public String hotelContent; // 상세정보
-	public int hotelPrice; // 호텔가격
+	public String hotelRegion; // 지역
 	public HotelVO() {};
 
 	   public HotelVO(String hotelName,
-               String star, String hotelAddr, String hotelInfo, String imgGroCode,
-               int hotelFlag, String hotelContent, int hotelPrice) {
+			   long star, String hotelAddr, String hotelInfo, String imgGroCode,
+               String hotelContent, String hotelRegion) {
       // TODO Auto-generated constructor stub
       this.hotelName = hotelName;
       this.star = star;
       this.hotelAddr = hotelAddr;
       this.hotelInfo = hotelInfo;
       this.imgGroCode = imgGroCode;
-      this.hotelFlag = hotelFlag;
       this.hotelContent = hotelContent;
-      this.hotelPrice = hotelPrice;
+      this.hotelRegion = hotelRegion;
       
    }
 	

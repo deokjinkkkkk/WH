@@ -4,13 +4,10 @@
 
    <insert id="insertInfo">
 	   	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
-	        SELECT MAX(hotel_Id)+1 FROM HOTEL        
+	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL        
 	    </selectKey>
-	     
-	    <if test="hotelName != #{hotelName}">
          	insert into HOTEL
-         	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelFlag}, #{hotelContent}, #{hotelPrice})
-		</if>
+         	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelContent}, #{hotelRegion})
    </insert>
    
    <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">

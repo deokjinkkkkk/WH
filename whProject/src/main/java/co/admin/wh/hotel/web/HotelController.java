@@ -25,8 +25,14 @@ public class HotelController {
         this.hotelInfoService = InfoService;
     }
 	
-	@GetMapping("/hotel")
+	@GetMapping("/hotel") // 숙소 첫 페이지
 	public String hotel(Model model) {
+		model.addAttribute("hotelList",hotelInfoService.hotelList());
+		return "hotel/hotelMain";
+	}
+	
+	@GetMapping("/hotelCommand")
+	public String hotelCommand(Model model) {
 		
 		System.out.println("파싱되나용!!");
 		
@@ -34,7 +40,7 @@ public class HotelController {
 		
 		String url = "https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn=2023-03-24&checkOut=2023-03-25&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1";
 
-		List<HotelVO> list = crawler.crawling(url);
+		List<HotelVO> list = crawler.crawling(url); // HotelCrawler.java
 		
 		for (HotelVO hotelVO : list) {
 			try {
