@@ -1,7 +1,10 @@
 package co.admin.wh.member.vo;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
+@Component
 @Data
 public class MemberVO {
 	String id;
@@ -10,7 +13,6 @@ public class MemberVO {
 	int gender;
 	int tel;
 	String email;
-	int perm;
+	String perm;
 	int state;
-	
 }
