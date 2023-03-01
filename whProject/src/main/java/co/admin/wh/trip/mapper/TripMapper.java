@@ -7,11 +7,13 @@ import co.admin.wh.trip.vo.TripVO;
 
 public interface TripMapper {
 	
+	List<TripVO> tripList(TripVO vo); // 전체조회(페이징)
+
 	void insertInfo(TripVO tripVO); // api DB 저장
 	
-	List<TripVO> tripList(); // 관광지 전체 리스트
+	int getCountTotla(TripSearchVO svo); // 페이지수 관리
 	
-	int getTripTotla(TripSearchVO svo); // 페이징(총게시글)
+	TripVO detailSelect(TripVO tvo); //상세보기 페이지
 	
 	
 }
