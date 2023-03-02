@@ -43,7 +43,7 @@ public class TripInfoExplorer {
         String str = "";    //return을 위해서
         String parsingUrl = "";//Parsing할 URL
         String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-                "&pageNo=1" + "&numOfRows=30" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
+                "&pageNo=1" + "&numOfRows=10" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
         		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=39" + "&cat1=A01";
 			
         URL url = new URL(urlBuilder);

@@ -2,6 +2,10 @@ package co.admin.wh.trip.vo;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +18,8 @@ public class CourseVO {
 	String sido; //행정구역
 	int time; //총소요시간
 	String couContent; //코스설명
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date couRegDate; //코스등록일자
 	Date couModDate; //코스수정일자
 	String couLat; //위도
