@@ -8,21 +8,22 @@ import co.admin.wh.notice.vo.FoodVO;
 
 public interface FoodMapper {
 
-	List<FoodVO> getFoodList(FoodVO vo); //전체조회
+	List<FoodVO> getFoodList(FoodVO vo); //전체조회ㅇ
 	
-	int getCountTotal(FoodSearchVO svo);//총게시글
+	int getCountTotal(FoodSearchVO svo);//총게시글ㅇ
 	
-	FoodVO detailSelect(FoodVO fvo); //상세보기페이지
+	FoodVO detailSelect(FoodVO fvo); //상세보기페이지ㅇ
 	
-	FoodVO getFoodSelect(FoodVO vo); //글쓰기
+	/*
+	 * FoodVO getFoodSelect(FoodVO vo); //글쓰기
+	 */	
+	int foodInsert(FoodVO vo); //게시글 등록ㅇ
 	
-	int foodInsert(FoodVO vo); //게시글 등록
+	int imgInsert(ImageVO ivo);//이미지 넣기ㅇ
 	
-	int imgInsert(ImageVO ivo);
+	int hitUpdate(int foodCode);//조회수ㅇ
 	
-	int hitUpdate(int foodCode);
+	int foodDelete(FoodVO vo); //삭제ㅇ
 	
-	int foodDelete(FoodVO vo); //삭제
-	
-	int foodUpdate(FoodVO vo); //수정
+	int foodUpdate(FoodVO vo); //수정ㅇ
 }

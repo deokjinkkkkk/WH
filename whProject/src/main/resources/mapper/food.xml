@@ -60,17 +60,7 @@
 
 	</insert>
 
-	<insert id="imgInsert"
-		parameterType="co.admin.wh.notice.vo.FoodImgVO">
-		<selectKey keyProperty="imgCode" resultType="int"
-			order="BEFORE">
-			SELECT MAX(IMG_CODE)+1 FROM IMAGE
-		</selectKey>
-		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
-
-		VALUES
-		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
-	</insert>
+	
 
 	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
 		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
