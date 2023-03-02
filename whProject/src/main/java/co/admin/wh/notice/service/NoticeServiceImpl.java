@@ -15,7 +15,8 @@ import co.admin.wh.notice.vo.NoticeVO;
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired 
 	private NoticeMapper mapper;
-	
+	 @Autowired
+	   private NoticeMapper imageMapper;
 
 	@Override
 	public List<NoticeVO> getNoticeList(NoticeSearchVO svo) {
@@ -65,18 +66,4 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	
-
-
-	
-
-
-	
-
-
-
-
-	
-	
-
-}
+	}

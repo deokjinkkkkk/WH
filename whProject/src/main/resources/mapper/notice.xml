@@ -5,26 +5,37 @@
 	<select id="getNoticeList"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
 		select * from ( select rownum rn, a.* from(
-		SELECT DISTINCT
+		SELECT
 		n.NOTICE_CODE,
 		n.NOTICE_TITLE,
-		n.NOTICE_MOD_DATE,
-		(select count(*) from image where img_gro_code = n.img_gro_code ) as
-		notice_count
-		FROM notice n
-		order by notice_code desc
+		n.NOTICE_REG_DATE,
+		n.NOTICE_MOD_DATE
+		FROM notice n 
+		ORDER BY n.NOTICE_CODE DESC
 	<![CDATA[
  		) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
 ]]>
 
-
-
 	</select>
+
+
 	<!-- 상세페이지 -->
 	<select id="noticendetil"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
-		SELECT * FROM NOTICE
-		WHERE notice_code =#{noticeCode}
+		SELECT
+		n.NOTICE_CODE,
+		n.NOTICE_TITLE,
+		n.NOTICE_REG_DATE,
+		n.NOTICE_CONTENT,
+		n.NOTICE_MOD_DATE,
+		n.NOTICE_HIT,
+		n.img_gro_code,
+		i.IMG_Name,
+		i.IMG_PATH
+		FROM
+		NOTICE n  left join image i 
+		on i.img_gro_code = n.img_gro_code
+        WHERE n.notice_code =#{noticeCode}
 	</select>
 
 
@@ -36,7 +47,7 @@
 			SELECT MAX(NOTICE_CODE)+1 FROM NOTICE
 		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{imgGroCode},sysdate,#{noticeModDate},#{noticeCount})
+		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{imgGroCode},sysdate,#{noticeModDate})
 	</insert>
 
 	<insert id="imgInsert"
@@ -50,8 +61,8 @@
 		VALUES
 		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
-	
-	
+
+
 	<!-- 페이징 -->
 	<select id="getCountTotal"
 		parameterType="co.admin.wh.notice.vo.NoticeSearchVO" resultType="int">

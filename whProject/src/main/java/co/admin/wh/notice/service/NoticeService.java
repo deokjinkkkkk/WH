@@ -13,7 +13,6 @@ public interface NoticeService {
 	int noticeUpdate(NoticeVO vo); //수정
 	int imgInsert(ImageVO ivo);
 	int noticeDelete(NoticeVO vo);
-	
 	int getCountTotal(NoticeSearchVO svo); //페이징
 	
 	int noticeHit(int noticeCode);//게시글 조회수 
