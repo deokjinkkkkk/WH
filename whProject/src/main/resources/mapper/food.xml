@@ -60,7 +60,7 @@
 
 	</insert>
 
-	<insert id="imgInsert"
+<!-- 	<insert id="imgInsert"
 		parameterType="co.admin.wh.notice.vo.FoodImgVO">
 		<selectKey keyProperty="imgCode" resultType="int"
 			order="BEFORE">
@@ -70,7 +70,7 @@
 
 		VALUES
 		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
-	</insert>
+	</insert> -->
 
 	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
 		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->

@@ -38,15 +38,15 @@ public class WebSecirityConfig{
 
 		return http.build();
 	}
-	@Autowired MemberVO member;
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 		
 		UserDetails user =
 			 User.withDefaultPasswordEncoder()
-				.username(member.getId())
-				.password(member.getPassword())
-				.roles(member.getPerm())
+				.username("user")
+				.password("1234")
+				.roles("ADMIN")
 				.build();
 		return new InMemoryUserDetailsManager(user);
 	}
