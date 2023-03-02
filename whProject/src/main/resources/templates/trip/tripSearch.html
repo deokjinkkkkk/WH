@@ -7,6 +7,18 @@
 
    <div layout:fragment="content" class="content">
    
+   <!-- 페이징 -->
+   <script>
+   		function gopage(page) {
+   			location.href = "trip?page=" + page;
+   			frmSearch.page.value = page;
+   			frmSearch.submit();
+   		}
+   		
+   </script>
+   <!-- 페이징 끝-->
+   
+   
    <!-- 배너시작 -->  
 		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
  			<div class="container">
@@ -55,11 +67,11 @@
 					
                 </div>
                 
-                <div  th:each="trip : ${tripList}" class="card card-list margin-15px-bottom">
+                <div  th:each="t, nStat: ${tripList}" class="card card-list margin-15px-bottom">
                    <div class="row align-items-center">
                    <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
                    <div class="card-list-img">
-                         <img class="border-radius-5" th:src="${trip.imgGroCode}" style="width:300; height:200px;"
+                         <img class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"
                             alt="" />
                       </div>
                       <div class="card-list-img">
@@ -68,13 +80,13 @@
                    <div class="col-md-7 col-lg-8" id="trip">
                       <div
                          class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-                         <div 
+                         <div th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"
                             class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title no-margin-bottom font-size22">
-                               <a href="tripDetail" th:text="${trip.tripName}" class="text-extra-dark-gray"></a>
+                               <a class="text-extra-dark-gray">[[${t.tripName}]]</a>
                             </h5>
                          </div>
-                         <p th:text="${trip.tripAddr}" class="margin-20px-tb sm-margin-10px-top"></p>
+                         <p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
                          <!-- 해시태그 -->
                          <ul class="tags">
                          <li><a href="#">#대구</a></li>
@@ -85,21 +97,20 @@
                 </div>
              </div>
 
-                     <div 
-                        class="pagination text-small text-uppercase text-extra-dark-gray col-12">
-                        <ul>
-                           <li><a href="javascript:void(0);"><i
-                                 class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
-                                 Prev</a></li>
-                           <li class="active"><a href="javascript:void(0);">1</a></li>
-                           <li><a href="javascript:void(0);">2</a></li>
-                           <li><a href="javascript:void(0);">3</a></li>
-                           <li><a href="javascript:void(0);">4</a></li>
-                           <li><a href="javascript:void(0);">5</a></li>                           
-                           <li><a href="javascript:void(0);">Next <i
-                                 class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
-                        </ul>
-                     </div>
+								<!-- 페이징 TEST -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+												<li class="page-item"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|"
+													th:class="${paging.page}==${num} ? 'active'">
+														[[${num}]] </a>
+												</li>
+											</ul>
+										</nav>
+									</div> 
+                   				<!-- 페이징 끝 -->
 
                   </div>
                </div>

@@ -3,19 +3,18 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 <!-- 뭐야.. CSS -->
-<th:block layout:fragment="head" th:include="@{head}"></th:block>
 <!-- 뭐야.. CSS 끝 -->
-<body>
+<body layout:fragment="content">
 	<!-- 헤더 시작 -->
-<th:block layout:fragment="header" th:include="@{header}"></th:block>
+
   <!-- start register section -->
-        <section class="full-screen text-center cover-background bg-img no-padding" data-overlay-dark="5" data-background="img/member/1.jpg">
+        <section class="full-screen text-center cover-background bg-img no-padding" data-overlay-dark="5" data-background="img/member/1.jpg" >
             <div class="container d-flex flex-column">
                 <div class="row align-items-center justify-content-center min-vh-100">
                     <div class="col-md-8">
 
                         <div class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
-                            <h3 class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">Create an Account</h3>
+                            <h3 class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">회원가입</h3>
                             <form method="post" action="#!">
                                 <div class="row">
                                     <div class="col-md-12">

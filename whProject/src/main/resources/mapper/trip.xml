@@ -2,8 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.trip.mapper.TripMapper">
 
+	<select id="tripList" resultType="co.admin.wh.trip.vo.TripVO">
+	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		SELECT * FROM TRIP 
+		WHERE LENGTH(img_gro_code)>=1 		
+		ORDER BY trip_code DESC
+		<![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>		
+	</select>
 
-	<!-- 검색시 데이터 체크해서 없는데이터 넣기 위해 ignore로 중복시 무시하도록 처리 -->
+	<!-- api DB 등록 -->
 	<insert id="insertInfo">
 	<selectKey resultType="int" keyProperty="tripCode" order="BEFORE">
 		SELECT NVL(MAX(trip_Code),0)+1 FROM TRIP
@@ -18,13 +28,18 @@
 			#{tripDate})
 
 	</insert>
-
-	<select id="tripList" resultType="co.admin.wh.trip.vo.TripVO">
-	<!-- 이미지가 없는 데이터는 출력하지 않는다. -->
-		SELECT * 
-		FROM TRIP
-		WHERE LENGTH(img_gro_code)>=1
+	
+	<!-- 전체 건수 조회 -->
+	<select id="getCountTotla" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
+		SELECT COUNT(*) FROM TRIP	
 	</select>
-
+	
+	<!-- 상세페이지 보기 -->
+	<select id="detailSelect"
+		resultType="int"
+		parameterType="co.admin.wh.trip.vo.TripVO">
+		SELECT * FROM TRIP
+		WHERE trip_code = #{tripCode}
+	</select>
 
 </mapper>

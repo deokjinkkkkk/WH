@@ -8,12 +8,15 @@
 			order="BEFORE">
 			SELECT MAX(COMP_CODE)+1 FROM COMPANION
 		</selectKey>
+
 		INSERT INTO COMPANION (COMP_CODE, ID,
 		COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE,
 		COMP_CONTENT,IMG_GRO_CODE)
 
-		VALUES (#{compCode},#{id},#{compGroup}, #{compTitle},
-		#{compCount},#{compStartDate},#{compEndDate}, #{compContent},
+		VALUES (#{compCode},#{id},#{compGroup},
+		#{compTitle},
+		#{compCount},#{compStartDate},#{compEndDate},
+		#{compContent},
 		#{imgGroCode})
 	</insert>
 
@@ -25,14 +28,15 @@
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
 
-		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+		VALUES
+		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
 
 
 	<select id="getCompanionList"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		select * from(  select rownum rn, a.*  from(
-		select c.COMP_CODE,
+		select * from( select rownum rn, a.* from(
+	select DISTINCT c.COMP_CODE,
 		m.ID,
 		c.AGE,
 		c.COMP_GROUP,
@@ -42,13 +46,16 @@
 		c.COMP_START_DATE,
 		c.COMP_END_DATE,
 		c.COMP_CONTENT,
-		c.IMG_GRO_CODE,
 		c.COU_CODE,
+        c.img_gro_code,
 		m.TEL,
 		m.NAME,
-		m.GENDER
-		from companion c ,member m
+		m.GENDER,
+        i.img_Name,
+        i.img_Path
+		from companion c ,member m, image i
 		where c.id= m.id
+        and c.img_gro_code = i.img_gro_code
 		order by comp_code desc
 <![CDATA[
 		) a  where rownum <=#{last} ) b where rn >=#{first}
@@ -69,11 +76,11 @@
 		resultType="int">
 		select count(*)
 		from companion
-</select>
-	
-<update id="companionUpdate">
-UPDATE COMPANION
-<set>
+	</select>
+
+	<update id="companionUpdate">
+		UPDATE COMPANION
+		<set>
 			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
 			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
 			<if test="compGroup != null">COMP_GROUP = #{compGroup},</if>
@@ -81,12 +88,18 @@ UPDATE COMPANION
 			<if test="compEndDate != null">COMP_END_DATE = #{compEndDate},</if>
 			<if test="compContent != null">COMP_CONTENT = #{compContent}</if>
 		</set>
-WHERE COMP_CODE=#{compCode}
-</update>	
+		WHERE COMP_CODE=#{compCode}
+	</update>
 
-<delete id="companionDelete">
-	DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
+	<delete id="companionDelete">
+		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
+
+	<select id="imageSelect"
+		resultType="co.admin.wh.common.vo.ImageVO">
+		select *
+		from image
+	</select>
 
 </mapper>
 

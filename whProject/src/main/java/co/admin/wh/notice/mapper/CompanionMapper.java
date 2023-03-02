@@ -22,4 +22,6 @@ public interface CompanionMapper {
 	
 	int companionDelete(CompanionVO vo);
 	
+	int imageSelect(ImageVO ivo);
+	
 }

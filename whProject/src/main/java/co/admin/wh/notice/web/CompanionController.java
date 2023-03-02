@@ -39,7 +39,7 @@ public class CompanionController {
 	private String saveimg;
 	
 	@RequestMapping("/companion")
-	public String companion(Model model ,@ModelAttribute("fcvo")CompanionSearchVO cvo ,Paging paging) {
+	public String companion(Model model ,@ModelAttribute("fcvo")CompanionSearchVO cvo ,Paging paging, ImageVO ivo) {
 		paging.setPageUnit(2);
 		paging.setPageSize(5);
 		
@@ -48,6 +48,7 @@ public class CompanionController {
 		
 		paging.setTotalRecord(companionMapper.getCountTotal(cvo));
 		
+//		model.addAttribute("i", companionService.imageSelect(ivo));
 		model.addAttribute("companionList", companionService.getCompanionList(cvo)); 
 		return "notice/companion";
 	}
@@ -72,7 +73,7 @@ public class CompanionController {
 				e.printStackTrace();
 			}
 			ivo.setImgName(imgFile.getOriginalFilename()); //저장할때는 원본파일명
-			ivo.setImgPath(saveFolder + fileName); //물리적 위치 디렉토리포함원본파일명
+			ivo.setImgPath(fileName); //물리적 위치 디렉토리포함원본파일명
 		}
 		
 		companionMapper.companionInsert(vo);

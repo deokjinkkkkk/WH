@@ -27,4 +27,7 @@ public class CompanionVO  {
 	private String name;
 	private String gender;
 	
+	private String imgPath;
+	private String imgName;
+	
 }
