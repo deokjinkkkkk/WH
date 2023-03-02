@@ -26,4 +26,5 @@ public interface FoodMapper {
 	int foodDelete(FoodVO vo); //삭제ㅇ
 	
 	int foodUpdate(FoodVO vo); //수정ㅇ
+	
 }

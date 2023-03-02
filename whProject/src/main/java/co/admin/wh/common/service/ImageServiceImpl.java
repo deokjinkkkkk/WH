@@ -38,6 +38,12 @@ public class ImageServiceImpl implements ImageService {
 		return fileName;
 	}
 
+	@Override
+	public String foodImage(ImageVO ivo) {
+		return imageMapper.foodImage(ivo);
+	}
+
+
 
 
 }

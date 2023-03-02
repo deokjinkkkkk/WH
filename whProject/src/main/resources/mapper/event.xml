@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.notice.mapper.EventMapper">
+
+	<!-- 전체 리스트 조회  -->
+	<select id="getEventList" 
+			resultType="co.admin.wh.notice.vo.EventVO">
+		SELECT * FROM (select rownum rn, a.*
+				from(select * from event
+				
+				 order by event_code desc
+		<![CDATA[
+ 			) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+				]]>	
+	</select>
+	
+	<!-- 상세보기  -->
+	<select id="detailSelect"
+			resultType="co.admin.wh.notice.vo.EventVO">
+		SELECT *
+		FROM EVENT
+		WHERE EVENT_CODE = #{eventCode}
+	</select>
+	
+	<!-- 글등록  -->
+	<insert id="eventInsert"
+			parameterType="co.admin.wh.notice.vo.EventVO">
+	<selectKey keyProperty="eventCode" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(EVENT_CODE),0)+1 FROM EVENT
+	</selectKey>
+		INSERT INTO EVENT
+		VALUES(#{eventCode},#{eventTitle},#{eventContent},#{eventStartDate},#{imgGroCode},#{eventYn},#{eventEndDate},0)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="eventUpdate">
+		UPDATE EVENT
+		<set>
+			<if test="eventTitle !=null">EVENT_TITLE = #{eventTitle},</if>
+			<if test="eventContent !=null">EVENT_CONTENT = #{eventContent},</if>
+			<if test="eventStartDate !=null">EVENT_START_DATE =#{eventStartDate},</if>
+			<if test="eventEndDate !=null">EVENT_END_DATE -#{eventEndDate}</if>
+		</set>
+		WHERE EVENT_CODE = #{event_code}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="eventDelete">
+		DELETE FROM WHERE EVENT_CODE = #{eventCode}
+	</delete>
+	
+	<!-- 이미지등록 -->
+	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+		</selectKey>
+		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
+
+		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+	</insert>
+	
+	<!-- 총게시글 -->
+	<select id="getCountTotal" 
+			parameterType="co.admin.wh.notice.vo.EventSearchVO"
+			resultType="int">
+		SELECT COUNT(*)
+		FROM EVENT
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="hitUpdate"
+			parameterType="co.admin.wh.notice.vo.EventVO">
+		UPDATE EVENT
+			SET EVENT_HIT = EVENT_HIT + 1
+		WHERE EVENT_CODE = #{eventCode}
+	</update>
+</mapper>

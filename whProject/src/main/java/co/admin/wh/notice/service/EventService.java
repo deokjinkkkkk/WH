@@ -1,4 +1,4 @@
-package co.admin.wh.notice.mapper;
+package co.admin.wh.notice.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.vo.EventSearchVO;
 import co.admin.wh.notice.vo.EventVO;
 
-public interface EventMapper {
+public interface EventService {
 	
 	List<EventVO> getEventList(EventSearchVO svo); //전체조회
 	EventVO detailSelect(EventVO evo); //상세보기
