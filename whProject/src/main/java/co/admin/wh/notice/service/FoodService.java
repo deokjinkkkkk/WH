@@ -1,8 +1,7 @@
 package co.admin.wh.notice.service;
 
 import java.util.List;
-
-import co.admin.wh.notice.vo.FoodImgVO;
+import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 
@@ -18,7 +17,7 @@ public interface FoodService {
 	
 	int foodInsert(FoodVO vo); //게시글 등록
 	
-	int imgInsert(FoodImgVO ivo);
+	int imgInsert(ImageVO ivo);
 	
 	int hitUpdate(int foodCode); //조회수증가
 

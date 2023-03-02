@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.FoodMapper;
-import co.admin.wh.notice.vo.FoodImgVO;
 import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 
@@ -49,7 +49,7 @@ private FoodMapper mapper;
 	}
 
 	@Override
-	public int imgInsert(FoodImgVO ivo) {
+	public int imgInsert(ImageVO ivo) {
 		//이미지 조
 		return mapper.imgInsert(ivo);
 	}
