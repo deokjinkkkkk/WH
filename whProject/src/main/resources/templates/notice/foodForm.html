@@ -34,7 +34,7 @@
 		<section>
 			<div class="container">
 
-				<form id="frm" action="foodInsert.do" method="post">
+				<form id="frm" action="foodJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-12">
 							*제목<input type="text" name="foodTitle" id="foodTitle">
@@ -63,11 +63,13 @@
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							첨부파일<input type="file" name="imgGroCode" id="imgGroCode">
+								<input type="file" name="imgFile" id="imgFile">
 						</div>
 
-						<input type="hidden" name="id" id="id" value="1"> <input
-							type="hidden" name="imgGroCode" id="imgGroCode" value="1">
+						<input type="hidden" name="id" id="id" value="1"> 
+						<input type="hidden" name="imgGroCode" id="imgGroCode" value="1">
+						<input type="hidden" name="imgCode" id="imgCode" value="1">
+						<input type="hidden" name="imgPath" id="imgPath">
 					</div>
 				
 					<input type="submit" value="완료">
