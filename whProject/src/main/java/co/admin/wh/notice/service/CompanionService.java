@@ -22,4 +22,6 @@ public interface CompanionService {
 	int companionUpdate(CompanionVO vo);
 	
 	int companionDelete(CompanionVO vo);
+	
+	int imageSelect(ImageVO ivo);
 }

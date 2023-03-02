@@ -57,4 +57,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.companionDelete(vo);
 	}
 
+	@Override
+	public int imageSelect(ImageVO ivo) {
+		// TODO Auto-generated method stub
+		return map.imageSelect(ivo);
+	}
+
 }
