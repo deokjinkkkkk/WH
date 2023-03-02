@@ -1,6 +1,9 @@
 package co.admin.wh.hotel.web;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,6 +17,7 @@ import org.xml.sax.SAXException;
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
 import co.admin.wh.hotel.vo.HotelVO;
+import co.admin.wh.hotel.vo.RoomVO;
 
 @Controller
 public class HotelController {
@@ -25,42 +29,54 @@ public class HotelController {
         this.hotelInfoService = InfoService;
     }
 	
-	@GetMapping("/hotel") // 숙소 첫 페이지
+	@GetMapping("/hotel") // 숙소 첫 페이지(별점순 정렬)
 	public String hotel(Model model) {
 		model.addAttribute("hotelList",hotelInfoService.hotelList());
 		return "hotel/hotelMain";
 	}
 	
-	@GetMapping("/hotelCommand")
+	@GetMapping("/hotelToday") // 오늘 예약 가능한 숙소
 	public String hotelCommand(Model model) {
 		
 		System.out.println("파싱되나용!!");
 		
+		//날짜 구하기
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); //원하는 데이터 포맷 지정
+		
+		//오늘 날짜
+		String today = simpleDateFormat.format(cal.getTime()); //지정한 포맷으로 변환 
+		
+		//내일 날짜
+		cal.add(cal.DATE, +1); //날짜를 하루 더한다.
+		String tomorrow = simpleDateFormat.format(cal.getTime());
+		
+		//오늘 예약 가능한 숙소 크롤링
 		HotelCrawler crawler = new HotelCrawler();
+		String url = "https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn="+today+"&checkOut="+tomorrow+"&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1";
+		List<HotelVO> hotelList = crawler.hotelCrawling(url); // HotelCrawler.java
+		List<RoomVO> roomList = crawler.roomCrawling(url);
 		
-		String url = "https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn=2023-03-24&checkOut=2023-03-25&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1";
-
-		List<HotelVO> list = crawler.crawling(url); // HotelCrawler.java
-		
-		for (HotelVO hotelVO : list) {
+		for (HotelVO hotelVO : hotelList) {
 			try {
-				hotelInfoService.insertInfo(hotelVO);
+				hotelInfoService.insertHotelInfo(hotelVO);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
-		model.addAttribute("hotelList",hotelInfoService.hotelList());
+		for(RoomVO roomVO : roomList) {
+			hotelInfoService.insertRoomInfo(roomVO);
+		}
+		
+		model.addAttribute("hotelList",hotelInfoService.CrawlingList());
 		
 		System.out.println("파싱 정보 입력 완!");
 		
-		return "hotel/hotelMain";
+		return "hotel/hotelToday";
 	}
 }

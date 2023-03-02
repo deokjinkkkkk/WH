@@ -2,16 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.hotel.mapper.HotelMapper">
 
-   <insert id="insertInfo">
+   <insert id="insertHotelInfo">
 	   	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
 	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL        
 	    </selectKey>
-         	insert into HOTEL
-         	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelContent}, #{hotelRegion})
+       	insert into HOTEL
+    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelContent}, #{hotelRegion})
+   </insert>
+   
+     <insert id="insertRoomInfo">
+       	insert into ROOM
+    	values (#{hotelId}, #{roomGrade}, #{roomCount}, #{roomRegion}, #{roomPrice}, #{imgGroCode}, #{roomLimit})
    </insert>
    
    <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
        select *
        from hotel
+       where star = 5
+   </select>
+   
+   <select id="CrawlingList" resultType="co.admin.wh.hotel.vo.HotelVO">
+       select *
+       from hotel
+       order by hotel_id desc
    </select>
 </mapper>
