@@ -46,5 +46,13 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		return hotelMapper.CrawlingList();
 	}
 
+	@Override
+	public void updatehotelId() {
+		hotelMapper.updatehotelId();
+	}
 
+	@Override
+	public HotelVO detailSelect(HotelVO vo) {
+		return hotelMapper.detailSelect(vo);
+	}
 }

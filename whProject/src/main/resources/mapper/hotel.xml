@@ -11,19 +11,43 @@
    </insert>
    
      <insert id="insertRoomInfo">
+     	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
+	        SELECT NVL(MAX(hotel_Id),0)+1 FROM ROOM        
+	    </selectKey>
        	insert into ROOM
-    	values (#{hotelId}, #{roomGrade}, #{roomCount}, #{roomRegion}, #{roomPrice}, #{imgGroCode}, #{roomLimit})
+    	values (#{hotelId}, #{roomGrade}, #{roomCount}, #{roomRegion}, #{roomPrice}, #{imgGroCode}, #{roomLimit}, #{hotelName})
    </insert>
    
    <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
        select *
        from hotel
-       where star = 5
+       order by star desc
    </select>
    
    <select id="CrawlingList" resultType="co.admin.wh.hotel.vo.HotelVO">
-       select *
-       from hotel
-       order by hotel_id desc
+       select a.*
+       from (
+            select * from hotel order by hotel_id desc) a
+       <![CDATA[
+       where rownum <= 20
+       ]]>
    </select>
+   
+   <update id="updatehotelId">
+	   UPDATE room
+		SET hotel_id = (
+	    			SELECT hotel_id
+	    			FROM hotel
+	    			WHERE hotel_name = room.hotel_name
+	        		AND ROWNUM = 1
+					)
+   </update>
+   
+   	<select id="detailSelect"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		select *
+		from hotel h inner join room r
+		on h.hotel_id = r.hotel_id
+		where h.hotel_id = #{hotelId}
+	</select>
 </mapper>
