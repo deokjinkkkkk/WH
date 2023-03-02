@@ -32,7 +32,6 @@
         <section class="blogs">
             <div class="container">
                 <div class="row">
-
                     <!--  start blog left-->
                     <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
                         <div class="posts">
@@ -69,19 +68,17 @@
                                         </li>
                                     </ul>
                                     <div class="margin-30px-bottom">
-                                        <p class="margin-30px-bottom">내용을 집어넣읍시다</p>
                                         <p class="font-size20 xs-font-size18 margin-30px-bottom line-height-30 text-theme-color padding-40px-lr xs-no-padding">"추워질수록 생각나는 그곳"</p>
                                     </div>
                                     <div class="row margin-30px-bottom">
                                         <div class="col-6">
-                                            <img src="img/blog/blog-10.jpg" class="rounded" alt="" />
+                                            <img th:src="${trip.imgGroCode}" class="rounded" alt="" />
                                         </div>
                                         <div class="col-6">
                                             <img src="img/blog/blog-11.jpg" class="rounded" alt="" />
                                         </div>
                                     </div>
-                                    <p>나도 목욕탕 가고싶다</p>
-                                    <p>내용내용내용요요요요용용용</p>
+                                    <p th:text="${trip.tripSumm}"></p>
                                 </div>
                             </div>
                             <!--  start post-->

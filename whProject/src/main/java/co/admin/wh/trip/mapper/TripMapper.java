@@ -2,6 +2,8 @@ package co.admin.wh.trip.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import co.admin.wh.trip.vo.TripSearchVO;
 import co.admin.wh.trip.vo.TripVO;
 
@@ -14,6 +16,7 @@ public interface TripMapper {
 	int getCountTotla(TripSearchVO svo); // 페이지수 관리
 	
 	TripVO detailSelect(TripVO tvo); //상세보기 페이지
+	
 	
 	
 }
