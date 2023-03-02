@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<body>
+	<!-- 각자 내용 -->
+	<div layout:fragment="content" class="content">
+		<!-- start page title section -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background: url('img/banner/bg4.jpg')|">
+			<div class="container">
+				<h1 class="text-white font-weight-600">Hotel</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">Hotel</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- end page title section -->
+		<!-- start tour details section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div
+						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+						<div class="posts">
+							<!--  start post-->
+							<div class="post">
+								<div class="content">
+									<div class="blog-list-simple-text post-meta margin-20px-bottom">
+										<div class="post-title margin-20px-bottom">
+											<h5 th:text=${h.hotelName}></h5>
+										</div>
+
+									</div>
+									<div
+										class="row margin-40px-bottom border-bottom padding-30px-bottom">
+										<div class="col-md-6">
+											<p class="margin-10px-bottom text-extra-dark-gray">
+												<span class="ti-time text-theme-color margin-10px-right"></span>5
+												Days 4 Nights
+											</p>
+											<p
+												class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
+												<span class="ti-stamp text-theme-color margin-10px-right"></span>Min
+												Age: 15+
+											</p>
+										</div>
+										<div class="col-md-6">
+											<p class="margin-10px-bottom text-extra-dark-gray">
+												<span class="ti-user text-theme-color margin-10px-right"></span>Group:
+												5 - 10 People
+											</p>
+											<p class="no-margin-bottom text-extra-dark-gray">
+												<span
+													class="ti-location-pin text-theme-color margin-10px-right"></span>Nepal
+											</p>
+										</div>
+									</div>
+									<div class="margin-40px-bottom">
+										<h5>Information</h5>
+										<p class="margin-30px-bottom">It is a long established
+											fact that a reader will be distracted by the readable content
+											of a page when looking at its layout. The point of using
+											Lorem Ipsum is that it has a more-or-less normal distribution
+											of letters, as opposed to using 'Content here, content here',
+											making it look like readable English. Many desktop publishing
+											packages and web page editors now use Lorem Ipsum as their.</p>
+										<div class="owl-carousel owl-theme tour">
+											<div>
+												<img src="img/content/tour-detail.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+											<div>
+												<img src="img/content/tour-detail-1.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+											<div>
+												<img src="img/content/tour-detail-2.jpg"
+													class="border-radius-4" alt="" />
+											</div>
+										</div>
+									</div>
+									<div>
+										<ul class="tour-inner">
+											<li>
+												<div class="row align-items-center">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Departure</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Kathmandu
+															International Airport</p>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row align-items-center">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Departure
+															Time</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">5.00AM</p>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row align-items-center">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Return Time</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Nearly
+															7.30PM</p>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row align-items-center">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Dress Code</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Casual,
+															comfortable and light</p>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Price
+															Includes</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span class="ti-check text-info margin-5px-right"></span>Accommondatio
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span class="ti-check text-info margin-5px-right"></span>Porter
+															& Personal Guide
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span class="ti-check text-info margin-5px-right"></span>Insurance
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span class="ti-check text-info margin-5px-right"></span>Breakfast
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span class="ti-check text-info margin-5px-right"></span>Tranportation
+															/ Car
+														</p>
+													</div>
+												</div>
+											</li>
+											<li class="border-bottom">
+												<div class="row">
+													<div class="col-md-6">
+														<h6 class="font-size17 no-margin-bottom">Price
+															Includes</h6>
+													</div>
+													<div>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span
+																class="ti-close text-danger font-size12 margin-5px-right"></span>Flights
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span
+																class="ti-close text-danger font-size12 margin-5px-right"></span>Lunch
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span
+																class="ti-close text-danger font-size12 margin-5px-right"></span>Typical
+															Souvenir
+														</p>
+														<p
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+															<span
+																class="ti-close text-danger font-size12 margin-5px-right"></span>Sunscreen
+															and personal items
+														</p>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="margin-30px-top">
+										<div id="map" class="map-height"></div>
+									</div>
+								</div>
+							</div>
+							<!--post-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
+</body>
+</html>

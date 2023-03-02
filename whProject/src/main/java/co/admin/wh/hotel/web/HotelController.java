@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.service.HotelCrawler;
@@ -57,6 +58,7 @@ public class HotelController {
 		List<HotelVO> hotelList = crawler.hotelCrawling(url); // HotelCrawler.java
 		List<RoomVO> roomList = crawler.roomCrawling(url);
 		
+		//for문 돌면서 리스트에서 vo 하나씩 인서트.
 		for (HotelVO hotelVO : hotelList) {
 			try {
 				hotelInfoService.insertHotelInfo(hotelVO);
@@ -69,9 +71,13 @@ public class HotelController {
 			}
 		}
 		
+		//for문 돌면서 리스트에서 vo 하나씩 인서트.
 		for(RoomVO roomVO : roomList) {
 			hotelInfoService.insertRoomInfo(roomVO);
 		}
+		
+		//hotel_name 같으면 hotel_id도 같게 update.
+		hotelInfoService.updatehotelId();
 		
 		model.addAttribute("hotelList",hotelInfoService.CrawlingList());
 		
@@ -79,4 +85,10 @@ public class HotelController {
 		
 		return "hotel/hotelToday";
 	}
+	
+	@GetMapping("/hotelDetail/{hotelId}")
+    public String openPostView(HotelVO vo, Model model) {
+        model.addAttribute("h", hotelInfoService.detailSelect(vo));
+        return "hotel/hotelDetail";
+    }
 }

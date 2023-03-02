@@ -153,11 +153,10 @@ public class HotelCrawler implements Crawler {
 //                    System.out.println(roomInfo);
                     
                     // 호텔 룸 정보 vo에 넣기.
-                    RoomVO roomVO = new RoomVO((String)roomInfo.get("roomName"),
-                    		(long)roomInfo.get("availableRoomCnt"),
-                    		(String)tmp.get("city"),
-                    		5,
-                    		"HO",2);
+                    RoomVO roomVO = new RoomVO((String)tmp.get("hotelName"),
+                    		(String)roomInfo.get("roomName"),
+                    		(long)2,(String)tmp.get("city"),
+                    		(long)5,"HO",(long)2);
                     
                     roomList.add(roomVO);
 				}
