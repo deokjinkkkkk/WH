@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.member.mapper.MemberMapper">
-
-	<select id="getMemberList" 
-			resultType="map">
-			SELECT * FROM member 
-	</select>
 	
 	<select id="memberSelect"
 			resultType="co.admin.wh.member.vo.MemberVO">
@@ -14,5 +9,10 @@
 			<if test="password != null">
 			AND PASSWORD = #{password}
 			</if>
-	</select>	
+	</select>
+	
+	<insert id="memberInsert">
+		insert into member(id,password,name,gender,tel,email,perm,state)
+		values(#{id},#{password},#{name},#{gender},#{tel},#{email},USER,0)
+	</insert>	
 </mapper>

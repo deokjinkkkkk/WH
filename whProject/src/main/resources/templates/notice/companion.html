@@ -72,6 +72,8 @@
 						th:text="${c.compGroup}"></span><br> 여행기간 : <span
 						th:text="${c.compStartDate}"> </span> ~ <span
 						th:text="${c.compEndDate}"></span><br> 
+						<span th:text="${c.imgName}"></span>
+					<img th:src="'/image/'+${c.imgPath}"/>
 						<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
 				</div>
 			</div>

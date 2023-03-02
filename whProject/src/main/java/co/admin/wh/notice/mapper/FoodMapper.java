@@ -1,8 +1,7 @@
 package co.admin.wh.notice.mapper;
 
 import java.util.List;
-
-import co.admin.wh.notice.vo.FoodImgVO;
+import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.vo.FoodSearchVO;
 import co.admin.wh.notice.vo.FoodVO;
 
@@ -19,7 +18,7 @@ public interface FoodMapper {
 	
 	int foodInsert(FoodVO vo); //게시글 등록
 	
-	int imgInsert(FoodImgVO ivo);
+	int imgInsert(ImageVO ivo);
 	
 	int hitUpdate(int foodCode);
 	

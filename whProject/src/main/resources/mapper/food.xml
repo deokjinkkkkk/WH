@@ -6,14 +6,35 @@
 
 	<select id="getFoodList"
 		resultType="co.admin.wh.notice.vo.FoodVO">
-		select * from ( select rownum rn, a.* from(
-		SELECT * FROM FOOD order by
-		food_code desc
+		select * from (select rownum rn, a.*  
+               from(select f.food_code,
+               m.id,
+               f.food_name,
+               f.food_addr,
+               f.food_content,
+               f.food_hit,
+               f.food_date,
+               f.img_gro_code,
+               f.food_title
+               from food f, member m
+               where f.id = m.id
+		order by food_code desc
 		<![CDATA[
 	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
 	]]>
 
 	</select>
+	
+	<insert id="imgInsert"
+		parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int"
+			order="BEFORE">
+			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+		</selectKey>
+		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
+
+		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+	</insert>
 
 	<!-- 총 게시글 갯수 출력 -->
 	<!-- <select id="countFood" resultType="int"> SELECT COUNT(*) FROM FOOD 
@@ -39,7 +60,7 @@
 
 	</insert>
 
-	<insert id="imgInsert"
+<!-- 	<insert id="imgInsert"
 		parameterType="co.admin.wh.notice.vo.FoodImgVO">
 		<selectKey keyProperty="imgCode" resultType="int"
 			order="BEFORE">
@@ -49,7 +70,7 @@
 
 		VALUES
 		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
-	</insert>
+	</insert> -->
 
 	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
 		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->

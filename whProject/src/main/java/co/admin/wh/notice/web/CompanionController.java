@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,8 +35,11 @@ public class CompanionController {
 	@Autowired
 	ServletContext servletContext;
 	
+	@Value("${wh.saveimg}")
+	private String saveimg;
+	
 	@RequestMapping("/companion")
-	public String companion(Model model ,@ModelAttribute("fcvo")CompanionSearchVO cvo ,Paging paging) {
+	public String companion(Model model ,@ModelAttribute("fcvo")CompanionSearchVO cvo ,Paging paging, ImageVO ivo) {
 		paging.setPageUnit(2);
 		paging.setPageSize(5);
 		
@@ -44,6 +48,7 @@ public class CompanionController {
 		
 		paging.setTotalRecord(companionMapper.getCountTotal(cvo));
 		
+//		model.addAttribute("i", companionService.imageSelect(ivo));
 		model.addAttribute("companionList", companionService.getCompanionList(cvo)); 
 		return "notice/companion";
 	}
@@ -56,11 +61,10 @@ public class CompanionController {
 	@RequestMapping("/companionJoin.do")
 	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo, MultipartFile imgFile) {
 		
-		String saveFolder = servletContext.getRealPath("/img/"); // 파일저장위치
+		String saveFolder = saveimg; // 파일저장위치
 
 		if (!imgFile.isEmpty()) {//첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼 
-			String fileName = UUID.randomUUID().toString();
-			fileName = fileName + imgFile.getOriginalFilename();
+			String fileName = UUID.randomUUID().toString() + imgFile.getOriginalFilename();
 			File uploadFile = new File(saveFolder, fileName);
 			
 			try {
@@ -69,7 +73,7 @@ public class CompanionController {
 				e.printStackTrace();
 			}
 			ivo.setImgName(imgFile.getOriginalFilename()); //저장할때는 원본파일명
-			ivo.setImgPath(saveFolder); //물리적 위치 디렉토리포함원본파일명
+			ivo.setImgPath(fileName); //물리적 위치 디렉토리포함원본파일명
 		}
 		
 		companionMapper.companionInsert(vo);
