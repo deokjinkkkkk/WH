@@ -6,4 +6,8 @@
 	select 'WT'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
 	</select>
 
+	<select id="imgNotice" resultType="String">
+	select 'NO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+	</select>
+	
 </mapper>

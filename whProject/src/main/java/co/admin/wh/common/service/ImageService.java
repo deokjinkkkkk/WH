@@ -10,5 +10,6 @@ public interface ImageService {
 
 	String saveImage(MultipartFile[] file, String saveFolder);
 	
+	String imgNotice(ImageVO ivo);
 	
 }
