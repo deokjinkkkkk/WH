@@ -34,10 +34,10 @@ public class TripController {
 		this.tripService = apiService;
 	}
 	
+	// 상세페이지 보기
 	@RequestMapping(value = "/tripDetail/{tripCode}", method=RequestMethod.GET)
 	public String tripDetail(@PathVariable("tripCode") int tripCode, TripVO vo, Model model) { // 상세페이지 보기		
-		vo.setTripCode(tripCode);
-		
+		vo.setTripCode(tripCode);		
 		model.addAttribute("trip", tripService.detailSelect(vo));
 		return "trip/tripDetail";
 	}
@@ -71,20 +71,19 @@ public class TripController {
 		svo.setLast(paging.getLast());
 		
 		paging.setTotalRecord(tripMapper.getCountTotla(svo));
-		model.addAttribute("tripLittleList", tripMapper.tripList(svo));
+		//model.addAttribute("tripLittleList", tripMapper.tripList(svo));
 		
 		
 		TripInfoExplorer apiExplorer = new TripInfoExplorer();
 		
 		// 파싱하여 리턴한 데이터 값들을 list에 담아주기 위해 사용
 		List<TripVO> list = apiExplorer.parsingData("");
-		System.out.println("list = " + list);
 		
-		// List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
-//		for (TripVO tripVO : list) {
-//		tripService.insertInfo(tripVO);						
-//		}
-		
+		 //List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
+		for (TripVO tripVO : list) {
+		tripService.insertInfo(tripVO);						
+		}
+
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
 		System.out.println("파싱 끝");

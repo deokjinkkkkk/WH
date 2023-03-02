@@ -11,10 +11,9 @@
    <script>
    		function gopage(page) {
    			location.href = "trip?page=" + page;
-   			frmSearch.page.value = page;
-   			frmSearch.submit();
-   		}
-   		
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
    </script>
    <!-- 페이징 끝-->
    
@@ -44,15 +43,28 @@
                   <div class="row margin-30px-bottom">
                      <div class="col-12 margin-40px-bottom">
                      
+                     <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search font-size9 text-white" type="submit"></button>
+                                </span>
+                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off">
+                                <span class="input-group-addon close-search"></span>
+                            </div>
+                        </form>
+                     
+                     
                         <div class="card card-list">
                                  <ul class="no-margin-bottom">
-                                    <li><a href="javascript:void(0);" onclick="testapi(); return false;" class="font-size20 text-theme-color">여행지</a>
+                                    <li><a href="javascript:void(0);" class="font-size20 text-theme-color">여행지</a>
                                        <a class="font-size20 text-theme-color">|</a>
                                        <a href="#" class="font-size20 text-theme-color">코스</a>
                                     
+                                    <!-- 게시물 최신순으로 정렬 기능 -->
                                        <a href="#" class="font-size20 text-theme-color" >검색 옵션</a>
                                        <a class="font-size20 text-theme-color">|</a>
-                                       <a href="#" class="font-size20 text-theme-color">최신순</a>
+                                       <a href="#" 
+                                       	class="font-size20 text-theme-color">최신순</a>
                                        <a class="font-size20 text-theme-color">|</a>
                                        <a href="#" class="font-size20 text-theme-color">인기순</a>
                                        <a class="font-size20 text-theme-color">|</a>      
@@ -80,10 +92,10 @@
                    <div class="col-md-7 col-lg-8" id="trip">
                       <div
                          class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-                         <div th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"
+                         <div
                             class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title no-margin-bottom font-size22">
-                               <a class="text-extra-dark-gray">[[${t.tripName}]]</a>
+                               <a th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}" class="text-extra-dark-gray">[[${t.tripName}]]</a>
                             </h5>
                          </div>
                          <p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
@@ -144,6 +156,8 @@
       </section>
    </div>
       <!-- end tour-list section -->
+      
+
 
 </body>
 </html>

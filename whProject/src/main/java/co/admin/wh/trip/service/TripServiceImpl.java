@@ -44,5 +44,6 @@ public class TripServiceImpl implements TripService{
 		// 상세페이지 보기
 		return tripMapper.detailSelect(tvo);
 	}
+
 	
 }
