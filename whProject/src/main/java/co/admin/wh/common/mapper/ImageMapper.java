@@ -7,5 +7,10 @@ import co.admin.wh.common.vo.ImageVO;
 public interface ImageMapper {
 	
 	String imageSelect(ImageVO ivo);
+
+	
+	String foodImage(ImageVO ivo);
+
 	String imgNotice(ImageVO ivo);
+
 }

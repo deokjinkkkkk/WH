@@ -41,7 +41,7 @@
 		</select> -->
 
 	<!-- 전체 건수 조회 -->
-	<select id="getCountTotal" parameterType="FoodSearchVO"
+	<select id="getCountTotal" parameterType="co.admin.wh.notice.vo.FoodSearchVO"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM FOOD
@@ -53,28 +53,12 @@
 		parameterType="co.admin.wh.notice.vo.FoodVO">
 		<selectKey keyProperty="foodCode" resultType="int"
 			order="BEFORE">
-			SELECT MAX(FOOD_CODE)+1 FROM FOOD
+			SELECT NVL(MAX(FOOD_CODE),0)+1 FROM FOOD
 		</selectKey>
 		INSERT INTO FOOD
 		VALUES(#{foodCode},#{id},#{foodName},#{foodAddr},#{foodContent},0,#{foodFile},sysdate,#{imgGroCode},#{foodTitle})
 
 	</insert>
-
-<!-- 	<insert id="imgInsert"
-		parameterType="co.admin.wh.notice.vo.FoodImgVO">
-		<selectKey keyProperty="imgCode" resultType="int"
-			order="BEFORE">
-			SELECT MAX(IMG_CODE)+1 FROM IMAGE
-		</selectKey>
-		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
-
-		VALUES
-		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
-	</insert> -->
-
-	<!-- <select id="getFoodList" resultType="co.admin.wh.notice.vo.FoodVO"> 
-		SELECT * FROM FOOD F JOIN MEMBER M ON F.ID= M.ID </select> -->
-
 
 	<!-- 상세보기 -->
 	<select id="detailSelect"

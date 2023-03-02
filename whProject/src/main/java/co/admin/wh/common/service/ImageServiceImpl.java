@@ -39,30 +39,18 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
+
+	public String foodImage(ImageVO ivo) {
+		return imageMapper.foodImage(ivo);
+	}
+
+
 	public String imgNotice(ImageVO ivo) {
 		return imageMapper.imgNotice(ivo);
 	}
 	
 	
 	
-	public String imgNotice(MultipartFile[] file, String saveFolder) {
-		String fileName = null;
-		for (MultipartFile file1 : file) {
-			try {
-				if (!file1.isEmpty()) {
-					fileName = UUID.randomUUID().toString() + file1.getOriginalFilename();
-					File uploadFile = new File(saveFolder, fileName);
-					file1.transferTo(uploadFile);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return fileName;
-	}
-
-	
-
 
 
 }

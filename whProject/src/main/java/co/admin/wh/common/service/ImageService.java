@@ -10,6 +10,10 @@ public interface ImageService {
 
 	String saveImage(MultipartFile[] file, String saveFolder);
 	
+
+	String foodImage(ImageVO ivo);
+
 	String imgNotice(ImageVO ivo);
+
 	
 }

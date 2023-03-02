@@ -39,14 +39,15 @@
 	 <td colspan="3" th:text="${food.foodName}"></td>
 	 </tr>
 	 <tr>
+	 <th width=20% class="text-center warning">
+	  <img th:src="'/image/'+${food.imgPath}">
+	 </th>
 	 <td colspan="4" class="text-left" valign="top" height="200">
 	 <pre th:text="${food.foodTitle}" style="white-space: pre-wrap;border:none; background-color:white;"> </pre>
-	 <pre th:text="${food.imgGroCode}" style="white-space: pre-wrap;border:none; background-color:white;"> </pre>
+	
 	 </td>
-	  <tr>
-	 <th width=20% class="text-center warning">파일</th>
-	 <td colspan="3" th:text="${food.foodFile}"></td>
 	 </tr>
+	
 	 
 	 <tr>
 	 <td colspan="4" class="text-right">

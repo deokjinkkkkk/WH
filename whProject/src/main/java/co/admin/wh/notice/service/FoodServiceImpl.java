@@ -18,19 +18,19 @@ private FoodMapper mapper;
 	
 	
 
-	//조회
-	@Override
-	public FoodVO getFoodSelect(FoodVO vo) {
-		return mapper.getFoodSelect(vo);
-	}
-	
+/*
+ * //조회
+ * 
+ * @Override public FoodVO getFoodSelect(FoodVO vo) { return
+ * mapper.getFoodSelect(vo); }
+ */
 	//게시글 등
 	@Override
 	public int foodInsert(FoodVO vo) {
 		return mapper.foodInsert(vo);
 	}
 
-	//페이징
+	//전체보기,페이징
 	@Override
 	public List<FoodVO> getFoodList(FoodSearchVO svo) {
 		return mapper.getFoodList(svo);
@@ -71,6 +71,8 @@ private FoodMapper mapper;
 		// 수정
 		return mapper.foodUpdate(vo);
 	}
+
+	
 
 	
 	

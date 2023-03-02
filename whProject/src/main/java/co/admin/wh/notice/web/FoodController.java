@@ -2,10 +2,9 @@ package co.admin.wh.notice.web;
 
 
 
-import java.io.File;
-import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.FoodMapper;
 import co.admin.wh.notice.service.FoodService;
@@ -28,7 +29,11 @@ public class FoodController {
 	
 	@Autowired FoodMapper foodMapper;
 	@Autowired FoodService foodService;
+	@Autowired ImageService imageService;
 	@Autowired ServletContext servletContext;
+	
+	@Value("${wh.saveimg}")
+	private String saveimg;
 	
 	//게시글 리스트 처리
 	@RequestMapping("/food")
@@ -54,28 +59,27 @@ public class FoodController {
 	
 	//파일첨부
 	@RequestMapping("/foodJoin.do")
-	public String foodJoin(FoodVO vo, Model model, ImageVO ivo, MultipartFile imgFile) {
+	public String foodJoin(FoodVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
 		
-		String saveFolder = servletContext.getRealPath("/img/");
+		String saveFolder = saveimg;//파일저장위치
 		
-		if(!imgFile.isEmpty()) {
-			String fileName = UUID.randomUUID().toString();
-			fileName = fileName + imgFile.getOriginalFilename();
-			File uploadFile = new File(saveFolder, fileName);
-			
-			try {
-				imgFile.transferTo(uploadFile);
-			}catch(Exception e) {
-				e.printStackTrace();
+		//그룹번호 조회
+		String image = imageService.foodImage(ivo);
+		
+		//for문
+		for(MultipartFile file : imgFile) {
+			String fileName = imageService.saveImage(imgFile, saveFolder);
+		
+			if(fileName != null) {
+				ivo.setImgGroCode(image);
+				ivo.setImgName(file.getOriginalFilename()); //원본파일명으로 저장
+				ivo.setImgPath(fileName);//물리적 위치 디렉토리포함 원본파일명
 			}
-			ivo.setImgName(imgFile.getOriginalFilename());
-			ivo.setImgPath(saveFolder);
+			ivo.getImgGroCode();
+			foodMapper.imgInsert(ivo);
+			vo.setImgGroCode(ivo.getImgGroCode());
+			foodMapper.foodInsert(vo);
 		}
-		
-		foodMapper.foodInsert(vo);
-		foodMapper.imgInsert(ivo);
-		
-			
 		return "redirect:food";
 	}
 	
