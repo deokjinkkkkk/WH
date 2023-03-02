@@ -95,11 +95,7 @@
 		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
 
-	<select id="imageSelect"
-		resultType="co.admin.wh.common.vo.ImageVO">
-		select *
-		from image
-	</select>
+
 
 </mapper>
 

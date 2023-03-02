@@ -67,17 +67,14 @@
 				<div class="card-body">
 					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
 					<h4 class="card-title">[[${c.compTitle}]]</h4>
-					게시글 순서 : <span th:text="${c.compCode}"></span> <br> 인원수 : <span
-						th:text="${c.compCount}"></span> <br> 그룹유형 : <span
-						th:text="${c.compGroup}"></span><br> 여행기간 : <span
-						th:text="${c.compStartDate}"> </span> ~ <span
-						th:text="${c.compEndDate}"></span><br> 
-						<span th:text="${c.imgName}"></span>
+						인원수 : <span th:text="${c.compCount}"></span> <br> 
+						그룹유형 : <span th:text="${c.compGroup}"></span><br> 
+						여행기간 : <span th:text="${c.compStartDate}"> </span> ~ <span th:text="${c.compEndDate}"></span><br> 
 					<img th:src="'/image/'+${c.imgPath}" width="50px" height="50px"/>
-						<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
+					<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
 				</div>
 			</div>
-
+			
 				<a href="companionForm" class="btn btn-danger">신청하기</a>
 
 
