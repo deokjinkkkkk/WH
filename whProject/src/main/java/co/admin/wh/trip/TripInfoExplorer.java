@@ -1,22 +1,29 @@
 package co.admin.wh.trip;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import co.admin.wh.trip.vo.TripVO;
+
 
 public class TripInfoExplorer {
 
@@ -37,33 +44,14 @@ public class TripInfoExplorer {
         String str = "";    //return을 위해서
         String parsingUrl = "";//Parsing할 URL
         String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-
-                "&pageNo=1" + "&numOfRows=15" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
-        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=33" + "&cat1=A01";
+                "&pageNo=1" + "&numOfRows=50" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
+        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=39" + "&cat1=A01";
 			
         URL url = new URL(urlBuilder);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode()); // Response code : 200 (성공)
-        BufferedReader rd;
-        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString()); // api에서 끌어온 정보 출력됨
 
         parsingUrl = url.toString();
         System.out.println(parsingUrl); // api 주소 출력
-
+        
         //페이지에 접근해줄 Document객체 생성
         //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
         //doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
@@ -85,12 +73,12 @@ public class TripInfoExplorer {
 
         for (int i = 0; i < nList.getLength(); i++) {
             Node nNode = nList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element eElement = (Element) nNode;
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {            	
+                
+            	Element eElement = (Element) nNode;
 
                 TripVO vo = new TripVO();
-
+                          
                 System.out.println("=================================");
                 System.out.println(getTagValue("title", eElement)); // 관광지 제목
                 System.out.println(getTagValue("addr1", eElement)); // 관광지 주소
@@ -98,14 +86,28 @@ public class TripInfoExplorer {
                 System.out.println(getTagValue("mapx", eElement)); // 경도
                 System.out.println(getTagValue("mapy", eElement)); // 위도
                 System.out.println(getTagValue("firstimage2", eElement)); // 관광지 사진
+                System.out.println(getTagValue("modifiedtime", eElement).substring(0,8)); // 수정일 -> yyyymmdd 로 출력
                 
+                        
+                DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");              
+				java.util.Date tempDate = null;
+				
+				
+				try {
+					tempDate = sdFormat.parse(getTagValue("modifiedtime", eElement).substring(0,8));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); // java.util.Date로 변환한 데이터를 java.sql.Date로 변환해주기.
+                           
                 vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
                 vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
                 vo.setTripTel(getTagValue("tel", eElement)); // 관광지 전화번호
                 vo.setTripLon(getTagValue("mapx", eElement)); // 경도
                 vo.setTripLat(getTagValue("mapy", eElement)); // 위도
                 vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 관광지 사진
-        
+                vo.setTripDate(sqlDate); // 등록일       
 
                 assert false;
                 list.add(vo);

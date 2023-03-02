@@ -7,6 +7,18 @@
 
    <div layout:fragment="content" class="content">
    
+   <!-- 페이징 -->
+   <script>
+   		function gopage(page) {
+   			location.href = "trip?page=" + page;
+   			frmSearch.page.value = page;
+   			frmSearch.submit();
+   		}
+   		
+   </script>
+   <!-- 페이징 끝-->
+   
+   
    <!-- 배너시작 -->  
 		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
  			<div class="container">
@@ -28,7 +40,7 @@
       <section>
          <div class="container">
             <div class="row">
-               <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
                   <div class="row margin-30px-bottom">
                      <div class="col-12 margin-40px-bottom">
                      
@@ -54,26 +66,51 @@
 	
 					
                 </div>
-                     
-                     
-				<div id="tripList"></div>
-
-                    
-
                 
-                     <div
-                        class="pagination text-small text-uppercase text-extra-dark-gray col-12">
-                        <ul>
-                           <li><a href="javascript:void(0);"><i
-                                 class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
-                                 Prev</a></li>
-                           <li class="active"><a href="javascript:void(0);">1</a></li>
-                           <li><a href="javascript:void(0);">2</a></li>
-                           <li><a href="javascript:void(0);">3</a></li>
-                           <li><a href="javascript:void(0);">Next <i
-                                 class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
-                        </ul>
-                     </div>
+                <div  th:each="t, nStat: ${tripList}" class="card card-list margin-15px-bottom">
+                   <div class="row align-items-center">
+                   <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
+                   <div class="card-list-img">
+                         <img class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"
+                            alt="" />
+                      </div>
+                      <div class="card-list-img">
+                      </div>
+                   </div>
+                   <div class="col-md-7 col-lg-8" id="trip">
+                      <div
+                         class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
+                         <div th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"
+                            class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title no-margin-bottom font-size22">
+                               <a class="text-extra-dark-gray">[[${t.tripName}]]</a>
+                            </h5>
+                         </div>
+                         <p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
+                         <!-- 해시태그 -->
+                         <ul class="tags">
+                         <li><a href="#">#대구</a></li>
+                         </ul>
+                      </div>
+
+                   </div>
+                </div>
+             </div>
+
+								<!-- 페이징 TEST -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+												<li class="page-item"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|"
+													th:class="${paging.page}==${num} ? 'active'">
+														[[${num}]] </a>
+												</li>
+											</ul>
+										</nav>
+									</div> 
+                   				<!-- 페이징 끝 -->
 
                   </div>
                </div>
@@ -105,62 +142,6 @@
                
             </div>
       </section>
-   <script type="text/javascript">
-function testapi() {
-   // code : 지역번호 (일단 1-8번)
-   // title: 제목, addr1 : 주소 일단? 가져와보기?
-   fetch(
-         `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D&numOfRows=40&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=CA&areaCode=32&cat1=`
-         )
-         .then(res => res.json())
-         .then(data => {
-            let tripList = data.response.body.items.item;
-            console.log(tripList);
-   
-            for (let trip of tripList) {
-               let tr = ` <div class="card card-list margin-15px-bottom">
-                   <div class="row align-items-center">
-                   <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-                      <div class="card-list-img">
-                         <img class="border-radius-5" src="${trip.firstimage2}" style="width:300; height:200px;"
-                            alt="" />
-                      </div>
-                   </div>
-                   <div class="col-md-7 col-lg-8" id="trip">
-                      <div
-                         class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-                         <div
-                            class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title no-margin-bottom font-size22">
-                               <a id="title" href="tripDetail" class="text-extra-dark-gray">${trip.title}</a>
-                            </h5>
-                         </div>
-                         <p class="margin-20px-tb sm-margin-10px-top">${trip.addr1}</p>
-                         <!-- 해시태그 -->
-                         <ul class="tags">
-                         <li><a href="#">#대구</a></li>
-                         </ul>
-                      </div>
-
-                   </div>
-                </div>
-             </div>`
-            
-               
-    
-               $("#tripList").append(tr);
-             
-
-            }
-         
-         })
-         .catch(data => console.log(data));
-    }
-    
-	testapi();
-               
-	
-</script >   
    </div>
       <!-- end tour-list section -->
 

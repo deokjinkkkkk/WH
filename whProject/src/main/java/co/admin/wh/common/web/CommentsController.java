@@ -21,7 +21,8 @@ public class CommentsController {
 	
 	
 	@RequestMapping("/comments") //댓글 창이동
-	public String commentsForm() {
+	public String commentsForm(Model model) {
+		model.addAttribute("com", commentsMapper.commentsList());
 		return "comments/commentsForm";
 	}
 
@@ -54,7 +55,14 @@ public class CommentsController {
 		commentsMapper.commentsDelete(vo);
 		return "success";
 	}
-//	
+	
+	@RequestMapping("/comCount")
+	@ResponseBody
+	public int commentsCounter(CommentsVO vo) {
+		
+		int count = commentsMapper.commentsCount(vo);
+		return count;
+	}
 //	@PutMapping("") //댓글 수정
 //	public int commentsUpdate() {
 //		return 1;

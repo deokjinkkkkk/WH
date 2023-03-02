@@ -13,7 +13,7 @@
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('img/banner/bg1.jpg')|">
+			th:style="|background: url('/img/banner/bg2.jpg')|">
 			<h1 class="text-white font-weight-600">공지사항</h1>
 			<ul>
 				<li><a href="index.html">Home</a></li>
@@ -24,45 +24,58 @@
 
 
 		<!-- 내용 찐시 -->
-		<section>
-			<div class="container">
-				<div class="row">
-					<a href="/notice" class="btn btn-primary">목록</a>&nbsp;&nbsp;&nbsp;
-					<table class="table table-striped"
-						style="text-align: center; border: 1px solid #dddddd">
-						<thead>
-							<tr>
-								<th colspan="3"
-									style="backgrosund-color: #eeeeee; text-align: center;">게시판
-									글내용</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="width: 20%;">제목</td>
-								<td colspan="2" th:text="${n.noticeTitle}"></td>
-							</tr>
-							<tr>
-								<td>조회수</td>
-								<td colspan="2" th:text="${n.noticeHit}"></td>
-							</tr>
-							<tr>
-								<td>첨부파일</td>
-								<td colspan="2" th:text="${n.noticeFile}"></td>
-							</tr>
-							<tr>
-								<td>등록일자</td>
-								<td colspan="2" th:text="${n.noticeRegDate}"></td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td colspan="2" style="min-height: 200px; text-align: center;"
-									th:utext="${n.noticeContent}"></td>
-							</tr>
 
-						</tbody>
-					</table>
-					<!-- 관리자시 권한 주는것 
+
+		<form method="post"  action="/noticeDelete">
+			<br> <br>
+			<div class="container">
+				<table class="table">
+				
+					<a href="/notice" class="btn btn-primary">목록</a><br> <br>
+					<tr>
+						<td width="20%" class="text-center warning">번호</td>
+						<td width=30% class="text-center" th:text="${n.noticeCode}"></td>
+						<td width="20%" class="text-center warning">작성일</td>
+						<td width=30% class="text-center" th:text="${n.noticeRegDate}"></td>
+					</tr>
+					<tr>
+						<th width=20% class="text-center warning">조회수</th>
+						<td width=30% class="text-center" th:text="${n.noticeHit}"></td>
+						<td width=20% class="text-center warning">수정일</td>
+						<td width=30% class="text-center" th:text="${n.noticeModDate}"></td>
+					<tr>
+						<th width=20% class="text-center warning">제목</th>
+						<td colspan="3" th:text="${n.noticeTitle}"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-left" valign="top" height="200">
+							<pre th:utext="${n.noticeContent}"
+								style="white-space: pre-wrap; border: none; background-color: white;"> </pre>
+						</td>
+					<tr>
+						<th width=20% class="text-center warning">파일</th>
+						<td colspan="3" th:text="${n.imgName}"></td><br>
+					</tr>
+
+					<tr>
+						<td>
+							<a th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
+								class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
+					
+							<input type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
+							<button type="submit" class="btn btn-danger">삭제</button>
+						
+						</td>
+				</table>
+
+			</div>
+
+		</form>
+
+	</div>
+
+	
+				<!-- 관리자시 권한 주는것 
 						<div
 							th:if="${#session.getAttribute('member') != null and #session.getAttribute('member').admin}">
 							<a th:href="@{/noticeUpdateForm(noticeCode=${n.noticeCode})}"
@@ -71,19 +84,6 @@
 								class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 						</div>
 						
-						-->
-					<div>
-						<a th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
-							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
-					</div>
-					<form method="post" action="/noticeDelete">
-						<input type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
-						<button type="submit" class="btn btn-danger">삭제</button>
-					</form>
-				</div>
-			</div>
-		</section>
-	</div>
 	<!-- 내용 끝 -->
 </body>
 </html>

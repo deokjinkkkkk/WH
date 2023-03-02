@@ -1,12 +1,19 @@
 package co.admin.wh.trip.mapper;
 
 import java.util.List;
-import java.util.Map;
 
-import co.admin.wh.trip.TripVO;
+import co.admin.wh.trip.vo.TripSearchVO;
+import co.admin.wh.trip.vo.TripVO;
 
 public interface TripMapper {
 	
-	void insertInfo(TripVO tripVO);
-	List<TripVO> tripList();
+	List<TripVO> tripList(TripVO vo); // 전체조회(페이징)
+
+	void insertInfo(TripVO tripVO); // api DB 저장
+	
+	int getCountTotla(TripSearchVO svo); // 페이지수 관리
+	
+	TripVO detailSelect(TripVO tvo); //상세보기 페이지
+	
+	
 }

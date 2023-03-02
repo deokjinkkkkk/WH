@@ -6,6 +6,6 @@ import java.util.Map;
 import co.admin.wh.member.vo.MemberVO;
 
 public interface MemberMapper {
-	List<Map> getMemberList();
 	MemberVO memberSelect(MemberVO vo);
+	int memberInsert(MemberVO vo);
 }

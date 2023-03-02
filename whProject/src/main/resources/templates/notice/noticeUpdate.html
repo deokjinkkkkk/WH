@@ -1,7 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -30,8 +29,6 @@
 .ck-toolbar__items {
 	width: 300px;
 }
-
-
 </style>
 <body>
 	<!-- 헤더 시작 -->
@@ -39,25 +36,31 @@
 	<!-- 헤더 끝 -->
 
 	<!-- 각자 내용 -->
-	
-	
-	
-	<form action="noticeUpdate" method="POST" id="frm">
-	
-		<input type="text" name="noticeTitle" id="noticeTitle" class="form-control" th:value="${n.noticeTitle }"><br>
-		<input type="file" name="file" id="noticeFile" class="form-control" th:value="${n.noticeFile }"><br>
-		<textarea class="editor" id="noticeContent" name="noticeContent" th:text="${n.noticeContent }"></textarea>
-		<br>
-		<div class="pull-right" style="width: 100px; margin-right: 800px;">
-			<input type="submit" class="btn btn-primary btn-block" value="수정저장" >
-		</div>
-		<br>
-	</form>
-	<script
-		src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-	<script
-		src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-	<script>
+
+	<section>
+		<!-- 내용 시작 -->
+		<div layout:fragment="content" class="content">
+
+			<form action="noticeUpdate" method="POST" id="frm">
+				<input type="hidden" name="noticeCode" th:value="${n.noticeCode}">
+				<input type="text" name="noticeTitle" id="noticeTitle"
+					class="form-control" th:value="${n.noticeTitle }"><br>
+				<input type="file" name="imgName" id="imgName" class="form-control"><br> <input
+					type="hidden" name="imgGroCode" id="imgGroCode" value="no">
+				<input type="hidden" name="imgPath" id="imgPath" value="no">
+				<textarea class="editor" id="noticeContent" name="noticeContent"
+					th:text="${n.noticeContent }"></textarea>
+				<br>
+				<div class="pull-right" style="width: 100px; margin-right: 800px;">
+					<input type="submit" class="btn btn-primary btn-block" value="수정저장">
+				</div>
+				<br>
+			</form>
+			<script
+				src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+			<script
+				src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+			<script>
       ClassicEditor.create( document.querySelector( '.editor' ),{
       language: 'ko' //언어설정
       })
@@ -66,11 +69,11 @@
       } );
     
     </script>
-  
-
+		</div>
+	</section>
 
 	<!-- 내용 끝 -->
 
-	
+
 </body>
 </html>

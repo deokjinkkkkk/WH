@@ -17,7 +17,8 @@ public class CommentsVO {
 	String comOrder;
 	String comGroup;
 	String block;
-	int comFlag;
+	String comFlag;
+	int comBoardCode;
 	
 	String name;
 }

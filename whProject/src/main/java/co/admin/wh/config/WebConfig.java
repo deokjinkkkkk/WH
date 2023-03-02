@@ -1,4 +1,4 @@
-package co.admin.wh;
+package co.admin.wh.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

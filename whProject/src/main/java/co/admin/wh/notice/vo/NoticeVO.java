@@ -15,11 +15,11 @@ public class NoticeVO {
 	String noticeTitle;   //제목 
 	String noticeContent;  //내용 
 	int noticeHit;         //조회수 
-	String noticeFile;    //파일 
-	@JsonFormat(pattern = "yyyy/mm/dd")
-	Date noticeRegDate;   //등록날짜 
-	@JsonFormat(pattern = "yyyy/mm/dd")
+	String imgGroCode;    //
+	@JsonFormat(pattern = "yyyy/MM/dd")
+	Date noticeRegDate; //등록날짜
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	Date noticeModDate;    //수정날짜 
-	
-	
+	String imgPath;
+	String imgName;
 }

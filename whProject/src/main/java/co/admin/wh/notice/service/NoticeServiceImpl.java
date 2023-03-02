@@ -1,13 +1,13 @@
 package co.admin.wh.notice.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.NoticeMapper;
-import co.admin.wh.notice.vo.FoodSearchVO;
+
 import co.admin.wh.notice.vo.NoticeSearchVO;
 import co.admin.wh.notice.vo.NoticeVO;
 
@@ -15,7 +15,8 @@ import co.admin.wh.notice.vo.NoticeVO;
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired 
 	private NoticeMapper mapper;
-	
+	 @Autowired
+	   private NoticeMapper imageMapper;
 
 	@Override
 	public List<NoticeVO> getNoticeList(NoticeSearchVO svo) {
@@ -59,9 +60,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
+	@Override
+	public int imgInsert(ImageVO ivo) {
+		return mapper.imgInsert(ivo);
+	}
 
 
-	
-	
-
-}
+	}
