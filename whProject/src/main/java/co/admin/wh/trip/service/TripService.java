@@ -19,5 +19,6 @@ public interface TripService {
 	
 	int getCountTotla(TripSearchVO svo); // 페이지수 관리
 
-	TripVO detailSelect(TripVO tvo); //상세보기 페이지
+	TripVO detailSelect(TripVO vo); //상세보기 페이지
+	
 }
