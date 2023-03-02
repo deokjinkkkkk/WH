@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.notice.vo.Paging;
@@ -32,9 +34,11 @@ public class TripController {
 		this.tripService = apiService;
 	}
 	
-	@RequestMapping("/tripDetail")
-	public String tripDetail(Model model, TripVO vo) {		
-		model.addAttribute("board", tripService.tripList());
+	@RequestMapping(value = "/tripDetail/{tripCode}", method=RequestMethod.GET)
+	public String tripDetail(@PathVariable("tripCode") int tripCode, TripVO vo, Model model) { // 상세페이지 보기		
+		vo.setTripCode(tripCode);
+		
+		model.addAttribute("trip", tripService.detailSelect(vo));
 		return "trip/tripDetail";
 	}
 	
@@ -56,7 +60,7 @@ public class TripController {
 	
 	// 검색시 데이터가 없으면 db에 추가하도록 처리
 	// + 페이지 리스트 처리 페이징
-	@GetMapping("/tripSearch")
+	@GetMapping("/trip")
 	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo, Paging paging) throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("파싱 시작");;
 		
@@ -66,7 +70,8 @@ public class TripController {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		
-		model.addAttribute("tripLittleList");
+		paging.setTotalRecord(tripMapper.getCountTotla(svo));
+		model.addAttribute("tripLittleList", tripMapper.tripList(svo));
 		
 		
 		TripInfoExplorer apiExplorer = new TripInfoExplorer();
@@ -80,7 +85,7 @@ public class TripController {
 //		tripService.insertInfo(tripVO);						
 //		}
 		
-		model.addAttribute("tripList", tripService.tripList());
+		model.addAttribute("tripList", tripService.tripList(svo));
 		
 		System.out.println("파싱 끝");
 		return "trip/tripSearch";
