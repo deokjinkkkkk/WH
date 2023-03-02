@@ -105,10 +105,22 @@
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
-	
 
 
-		<!-- ckeditor 시도중-->
+		<!-- 첨부파일 START 시도중...-->
+		<!-- MultipartHttpServletRequset -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
+		<!-- 첨부파일 END -->
 		<!-- security-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

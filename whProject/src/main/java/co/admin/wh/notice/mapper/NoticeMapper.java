@@ -14,7 +14,6 @@ public interface NoticeMapper {
 	int imgInsert(ImageVO ivo);
 	int noticeUpdate(NoticeVO vo); //수정int imgInsert(ImgVO ivo); //이미지 저장
 	int noticeDelete(NoticeVO vo);
-	
 	int getCountTotal(NoticeSearchVO svo); //페이징
 	int noticeHit(int noticeCode);//게시글 조회수 
 	

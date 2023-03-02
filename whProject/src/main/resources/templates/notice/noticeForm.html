@@ -1,7 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- 뭐야.. CSS -->
 <th:block layout:fragment="head" th:include="@{head}"></th:block>
@@ -30,8 +29,6 @@
 .ck-toolbar__items {
 	width: 300px;
 }
-
-
 </style>
 <body>
 
@@ -40,18 +37,20 @@
 	<!-- 헤더 끝 -->
 
 	<!-- 각자 내용 -->
-	<form action="noticeInsert" method="POST" id="frm">
+	<form action="noticeInsert" method="POST" id="frm"
+		enctype="multipart/form-data">
 		<input type="text" name="noticeTitle" id="noticeTitle"
-		class="form-control" placeholder="[필수]제목을 입력하세요"><br>
-		<input type="file" name="imgName" id="imgName" class="form-control" ><br>
-		<input type="hidden" name="id" id="id" value="no">
-		<input type="hidden" name="imgGroCode" id="imgGroCode" value="no">
-		<input type="hidden" name="imgPath" id="imgPath" value="no">
-		<textarea class="editor" id="noticeContent" name="noticeContent" 
+			class="form-control" placeholder="[필수]제목을 입력하세요"><br>
+		<div>
+			<input type="file" name="imgFile" id="imgFile" class="form-control"><br>
+			<input type="hidden" name="imgGroCode" id="imgGroCode" value="no">
+			<input type="hidden" name="imgPath" id="imgPath">
+		</div>
+		<textarea class="editor" id="noticeContent" name="noticeContent"
 			placeholder="[필수]내용을 입력하세요"></textarea>
 		<br>
 		<div class="pull-right" style="width: 100px; margin-right: 800px;">
-			<input type="submit" class="btn btn-primary btn-block" value="등록"  >
+			<input type="submit" class="btn btn-primary btn-block" value="등록">
 		</div>
 		<br>
 	</form>
@@ -68,13 +67,30 @@
           console.error( error );
       } );
       
-      
-      
     </script>
-  
+
+
+
+	<script>
+	let imgGroCodeNumber = 0;
+
+	function getNextImgGroCode() {
+	  const nextImgGroCode = "no" + (++imgGroCodeNumber);
+	  const imgGroCodeInput = document.getElementById("imgGroCode");
+	  imgGroCodeInput.value = nextImgGroCode;
+	}
+
+
+
+
+
+</script>
+
+
+
+
 
 	<!-- 내용 끝 -->
 
-	
 </body>
 </html>

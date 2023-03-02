@@ -19,6 +19,7 @@ body>.container {
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
+		<!-- 페이징 -->
 		<script>
 			function gopage(page) {
 				location.href = "notice?page=" + page;
@@ -31,13 +32,13 @@ body>.container {
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-      th:style="|background: url('/img/banner/bg2.jpg')|">
-      <h1 class="text-white font-weight-600">공지사항</h1>
-      <ul>
-         <li><a href="main">Home</a></li>
-         <li><span class="active">공지사항</span></li>
-      </ul>
-   </section>
+			th:style="|background: url('/img/banner/bg2.jpg')|">
+			<h1 class="text-white font-weight-600">공지사항</h1>
+			<ul>
+				<li><a href="main">Home</a></li>
+				<li><span class="active">공지사항</span></li>
+			</ul>
+		</section>
 		<!-- 배너끝 -->
 
 
@@ -57,12 +58,12 @@ body>.container {
 													<a href="noticeForm" class="btn btn-primary btn-block">등록</a>
 												</div>
 												<br>
-						 						<thead>
+												<thead>
 													<tr>
 														<th class="col-md-2">번호</th>
-														<th class="col-md-4">제목</th>
-														<th class="col-md-4">등록일</th>
-														<th class="col-md-5">첨부파일 건수</th>
+														<th class="col-md-5">제목</th>
+														<th class="col-md-3">등록일</th>
+														<th class="col-md-3">수정일</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -71,19 +72,28 @@ body>.container {
 														<td><a th:text="${n.noticeTitle}"
 															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
 														<td th:text="${n.noticeRegDate}"></td>
-														<td th:text="${n.noticeCount}"></td>
+														<td th:text="${n.noticeModDate}"></td>
 													</tr>
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
-								<div>
-									<a
-										th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
-										th:href="|javascript:gopage(${num})|"
-										th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
+								<br> <br>
+								<!--  페이징 bootstrap 적용 -->
+								<div class="gopage" align="center">
+									<nav aria-label="Page navigation example" class="gopage">
+										<ul class="pagination">
+											<li class="page-item"
+												th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+												<a class="page-link" th:href="|javascript:gopage(${num})|"
+												th:class="${paging.page}==${num} ? 'active'"> [[${num}]]
+											</a>
+											</li>
+										</ul>
+									</nav>
 								</div>
+								<!--  페이징 bootstrap 끝 -->
 							</div>
 						</div>
 					</div>
