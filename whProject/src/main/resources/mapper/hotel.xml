@@ -7,15 +7,7 @@
 	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL        
 	    </selectKey>
        	insert into HOTEL
-    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelContent}, #{hotelRegion})
-   </insert>
-   
-     <insert id="insertRoomInfo">
-     	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
-	        SELECT NVL(MAX(hotel_Id),0)+1 FROM ROOM        
-	    </selectKey>
-       	insert into ROOM
-    	values (#{hotelId}, #{roomGrade}, #{roomCount}, #{roomRegion}, #{roomPrice}, #{imgGroCode}, #{roomLimit}, #{hotelName})
+    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{hotelContent}, #{hotelRegion},#{roomGrade}, #{roomCount}, #{roomPrice}, #{roomLimit}, #{img1}, #{img2},#{img3},#{img4},#{img5})
    </insert>
    
    <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
@@ -33,21 +25,9 @@
        ]]>
    </select>
    
-   <update id="updatehotelId">
-	   UPDATE room
-		SET hotel_id = (
-	    			SELECT hotel_id
-	    			FROM hotel
-	    			WHERE hotel_name = room.hotel_name
-	        		AND ROWNUM = 1
-					)
-   </update>
-   
-   	<select id="detailSelect"
-		resultType="co.admin.wh.hotel.vo.HotelVO">
+   	<select id="detailSelect" resultType="co.admin.wh.hotel.vo.HotelVO">
 		select *
-		from hotel h inner join room r
-		on h.hotel_id = r.hotel_id
-		where h.hotel_id = #{hotelId}
+		from hotel
+		where hotel_id = #{hotelId}
 	</select>
 </mapper>
