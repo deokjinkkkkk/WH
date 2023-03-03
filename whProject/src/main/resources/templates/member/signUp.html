@@ -155,7 +155,20 @@
 			passchk = $("#password2").val()
 			contChk = $("#terms-condition").is(':checked');
 			
+			if(pass != passchk){
+				alert("패스워드가 일치하지 않습니다.")
+				return false
+			}
+			
+			if(contChk != false){
+				return false				
+			}
+			
+			
 		})
+		
+		
+		
 	</script>
 </body>
 </html>
