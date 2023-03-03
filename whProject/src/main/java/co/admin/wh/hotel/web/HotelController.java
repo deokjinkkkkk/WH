@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.service.HotelCrawler;
@@ -78,5 +79,11 @@ public class HotelController {
     public String hotelDetail(HotelVO vo, Model model) {
         model.addAttribute("h", hotelInfoService.detailSelect(vo));
         return "hotel/hotelDetail";
+    }
+	
+	@PostMapping("/reservation")
+    public String reservation(HotelVO vo, Model model) {
+        model.addAttribute("h", hotelInfoService.detailSelect(vo));
+        return "hotel/reservation";
     }
 }
