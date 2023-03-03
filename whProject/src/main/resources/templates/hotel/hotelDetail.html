@@ -7,7 +7,7 @@
 	<div layout:fragment="content" class="content">
 		<!-- start page title section -->
 		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('img/banner/bg4.jpg')|">
+			th:style="|background: url('img/banner/bg3.jpg')|">
 			<div class="container">
 				<h1 class="text-white font-weight-600">Hotel</h1>
 				<ul>
@@ -37,8 +37,8 @@
 										class="row margin-40px-bottom border-bottom padding-30px-bottom">
 										<div class="col-md-6">
 											<p class="margin-10px-bottom text-extra-dark-gray">
-												<span class="ti-time text-theme-color margin-10px-right"></span>5
-												Days 4 Nights
+												<span class="ti-time text-theme-color margin-10px-right"></span>
+												<a th:text="${h.star}"></a>
 											</p>
 											<p
 												class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
@@ -48,36 +48,35 @@
 										</div>
 										<div class="col-md-6">
 											<p class="margin-10px-bottom text-extra-dark-gray">
-												<span class="ti-user text-theme-color margin-10px-right"></span>Group:
-												5 - 10 People
+												<span class="ti-user text-theme-color margin-10px-right"></span>
+												최대수용인원 : <a th:text="${h.roomLimit}"></a>명
+
 											</p>
 											<p class="no-margin-bottom text-extra-dark-gray">
 												<span
-													class="ti-location-pin text-theme-color margin-10px-right"></span>Nepal
+													class="ti-location-pin text-theme-color margin-10px-right"></span>
+												<a th:text="${h.hotelRegion}">서울</a>
 											</p>
 										</div>
 									</div>
 									<div class="margin-40px-bottom">
-										<h5>Information</h5>
-										<p class="margin-30px-bottom">It is a long established
-											fact that a reader will be distracted by the readable content
-											of a page when looking at its layout. The point of using
-											Lorem Ipsum is that it has a more-or-less normal distribution
-											of letters, as opposed to using 'Content here, content here',
-											making it look like readable English. Many desktop publishing
-											packages and web page editors now use Lorem Ipsum as their.</p>
+										<!-- 										<h5>Information</h5> -->
+										<!-- 										<p th:text="${h.hotelInfo}" class="margin-30px-bottom">It is a long established -->
+										<!-- 											fact that a reader will be distracted by the readable content -->
+										<!-- 											of a page when looking at its layout. The point of using -->
+										<!-- 											Lorem Ipsum is that it has a more-or-less normal distribution -->
+										<!-- 											of letters, as opposed to using 'Content here, content here', -->
+										<!-- 											making it look like readable English. Many desktop publishing -->
+										<!-- 											packages and web page editors now use Lorem Ipsum as their.</p> -->
 										<div class="owl-carousel owl-theme tour">
 											<div>
-												<img src="img/content/tour-detail.jpg"
-													class="border-radius-4" alt="" />
+												<img th:src="${h.img1}" class="border-radius-4" alt="" />
 											</div>
 											<div>
-												<img src="img/content/tour-detail-1.jpg"
-													class="border-radius-4" alt="" />
+												<img th:src="${h.img4}" class="border-radius-4" alt="" />
 											</div>
 											<div>
-												<img src="img/content/tour-detail-2.jpg"
-													class="border-radius-4" alt="" />
+												<img th:src="${h.img5}" class="border-radius-4" alt="" />
 											</div>
 										</div>
 									</div>
@@ -86,10 +85,10 @@
 											<li>
 												<div class="row align-items-center">
 													<div class="col-md-6">
-														<h6 class="font-size17 no-margin-bottom">Departure</h6>
+														<h6 class="font-size17 no-margin-bottom">Room Type</h6>
 													</div>
 													<div>
-														<p
+														<p th:text="${h.roomGrade}"
 															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Kathmandu
 															International Airport</p>
 													</div>
@@ -98,36 +97,35 @@
 											<li>
 												<div class="row align-items-center">
 													<div class="col-md-6">
-														<h6 class="font-size17 no-margin-bottom">Departure
-															Time</h6>
+														<h6 class="font-size17 no-margin-bottom">check In</h6>
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">5.00AM</p>
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오후
+															3시</p>
 													</div>
 												</div>
 											</li>
 											<li>
 												<div class="row align-items-center">
 													<div class="col-md-6">
-														<h6 class="font-size17 no-margin-bottom">Return Time</h6>
+														<h6 class="font-size17 no-margin-bottom">check Out</h6>
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Nearly
-															7.30PM</p>
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오전
+															11시</p>
 													</div>
 												</div>
 											</li>
 											<li>
 												<div class="row align-items-center">
 													<div class="col-md-6">
-														<h6 class="font-size17 no-margin-bottom">Dress Code</h6>
+														<h6 class="font-size17 no-margin-bottom">Address</h6>
 													</div>
 													<div>
-														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Casual,
-															comfortable and light</p>
+														<p th:text="${h.hotelAddr}"
+															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
 													</div>
 												</div>
 											</li>
@@ -205,10 +203,60 @@
 							<!--post-->
 						</div>
 					</div>
+					<div
+						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+						<div class="side-bar">
+							<div class="widget">
+								<div class="widget-title">
+									<h3>Reservation</h3>
+								</div>
+								<form action="/reservation" method="post">
+									<div class="form-group">
+										<label class="margin-5px-bottom">checkin</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											data-provide="datepicker" placeholder="Date">
+									</div>
+									<div class="form-group">
+										<label class="margin-5px-bottom">checkout</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											data-provide="datepicker" placeholder="Date">
+									</div>
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">인원</label> <select
+											class="form-control padding-10px-tb"
+											id="exampleFormControlSelect2">
+											<option>1</option>
+											<option selected>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
+											class="form-control padding-10px-tb"
+											id="exampleFormControlSelect2">
+											<option selected>0</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+									<button class="butn btn-block" type="submit">
+										<i class="fa fa-search"></i> Check
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
-
+		<!-- end tour details section -->
 	</div>
 </body>
 </html>
