@@ -24,6 +24,6 @@ public class TripVO {
 	String imgGroCode; //이미지그룹번호
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date tripDate; //등록일자
+	Date tripDate; //등록일자(수정일자로 일단 변경)
 	
 }

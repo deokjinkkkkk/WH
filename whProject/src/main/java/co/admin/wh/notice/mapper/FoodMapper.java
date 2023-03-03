@@ -14,9 +14,6 @@ public interface FoodMapper {
 	
 	FoodVO detailSelect(FoodVO fvo); //상세보기페이지ㅇ
 	
-	/*
-	 * FoodVO getFoodSelect(FoodVO vo); //글쓰기
-	 */	
 	int foodInsert(FoodVO vo); //게시글 등록ㅇ
 	
 	int imgInsert(ImageVO ivo);//이미지 넣기ㅇ

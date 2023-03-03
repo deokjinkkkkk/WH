@@ -32,6 +32,12 @@ public class MemberServiceImpl implements MemberService {
 		return member.memberList();
 	}
 
+	@Override
+	public boolean idChk(String id) {
+		// TODO Auto-generated method stub
+		return member.idChk(id);
+	}
+
 
 	
 	

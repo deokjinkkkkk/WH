@@ -37,13 +37,13 @@
 				<form id="frm" action="foodJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-12">
-							*제목<input type="text" name="foodTitle" id="foodTitle">
+							*제목<input type="text" name="foodTitle" id="foodTitle" required/>
 						</div>
 						<div class="form-group col-md-12">
-							*주소<input type="text" name="foodAddr" id="foodAddr">
+							*주소<input type="text" name="foodAddr" id="foodAddr" required/>
 						</div>
 						<div class="form-group col-md-12">
-							*상호명<input type="text" name="foodName" id="foodName">
+							*상호명<input type="text" name="foodName" id="foodName" required/>
 						</div>
 						<div class="form-group col-md-12">
 							<table class="table border">
@@ -63,7 +63,7 @@
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-								<input type="file" name="imgFile" id="imgFile">
+								<input type="file" name="imgFile" id="imgFile" required/>
 						</div>
 
 						<input type="hidden" name="id" id="id" value="ADMIN"> 

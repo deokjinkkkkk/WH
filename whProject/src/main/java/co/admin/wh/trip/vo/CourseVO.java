@@ -25,5 +25,7 @@ public class CourseVO {
 	String couLat; //위도
 	String couLon; //경도
 	String imgGroCode; //이미지그룹번호
+	int areaCode; // + 추가, 지역코드
+	String contentId; // + 추가, 코스 고유번호(여기에서 밑에 파생됨)
 	
 }

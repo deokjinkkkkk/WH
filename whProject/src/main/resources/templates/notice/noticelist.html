@@ -5,7 +5,6 @@
 
 
 <style>
-/*html{position:relative;min-height:100%;}*/
 body {
 	margin-bottom: 60px;
 }
@@ -14,6 +13,15 @@ body>.container {
 	padding: 60px 15px 0;
 }
 
+.gopage {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.pagination {
+		margin: 0;
+	}
 
 </style>
 <body>
@@ -83,7 +91,7 @@ body>.container {
 								</div>
 								<br> <br>
 								<!--  페이징 bootstrap 적용 -->
-								<div class="gopage" align="center">
+								<div class="gopage">
 									<nav aria-label="Page navigation example" class="gopage">
 										<ul class="pagination">
 											<li class="page-item"
