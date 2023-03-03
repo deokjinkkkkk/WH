@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.trip.mapper.CourseMapper">
+
+	<select id="courseList" resultType="co.admin.wh.trip.vo.CourseVO">
+	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
+		SELECT * FROM COURSE
+		ORDER BY COU_CODE DESC;
+	</select>
+	
+	<!-- api DB 등록 -->
+	<insert id="insertInfo">
+	<selectKey resultType="string" keyProperty="couCode" order="BEFORE">
+		SELECT NVL(MAX(COU_CODE),0)+1 FROM COURSE
+	</selectKey>
+		INSERT INTO COURSE 		
+			(COU_CODE, TRIP_CODE, COU_NAME, COU_DIST, SIDO, TIME, COU_CONTENT,
+			COU_REG_DATE, COU_MOD_DATE, COU_LAT, COU_LON, IMG_GRO_CODE, AREA_CODE, CONTENT_ID)
+			VALUES(#{couCode}, #{tripCode}, #{couName}, #{couDist}, #{sido}, #{time}, #{couContent}, 
+			#{couRegDate}, #{couModDate}, #{couLat}, #{couLon}, #{imgGroCode}, #{areaCode}, #{contentId})
+	</insert>
+
+
+</mapper>
