@@ -22,6 +22,7 @@ body>.container {
 	.pagination {
 		margin: 0;
 	}
+
 </style>
 <body>
 
@@ -95,7 +96,7 @@ body>.container {
 										<ul class="pagination">
 											<li class="page-item"
 												th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-												<a class="page-link" th:href="|javascript:gopage(${num})|"
+												<a class="page-link" th:href="|javascript:gopage(${num})|" 
 												th:class="${paging.page}==${num} ? 'active'"> [[${num}]]
 											</a>
 											</li>
