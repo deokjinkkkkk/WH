@@ -17,5 +17,10 @@
 	</insert>
 	<select id="memberList" resultType="co.admin.wh.member.vo.MemberVO">
 		select * from member
-	</select>	
+	</select>
+	
+	<select id="idChk" resultType="boolean">
+		SELECT CASE WHEN COUNT(id) = 1 THEN 0 ELSE 1 END AS ID 
+		FROM MEMBER WHERE id = #{id}
+	</select>
 </mapper>

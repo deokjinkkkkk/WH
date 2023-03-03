@@ -40,26 +40,27 @@
 							sysdate,
 							#{comLock},
 							#{comOrder},
-							#{comGroup},
+							<if test="comGroup == null">com_group_seq.NEXTVAL</if>
+							<if test="comGroup != null">#{comGroup}</if>,
 							#{block},
 							#{comFlag},
 							#{comBoardCode}
-							<!--#{comLock},
-							#{comOrder},
-							#{comGroup},
-							#{block},
-							#{comFlag}  -->
-							
 							)
 	</insert>
 	
 	<delete id="commentsDelete">
 		Delete from comments
-		where com_code =#{comCode}
+		where com_code = #{comCode}
 	</delete>
 	
 	<update id="commentsUpdate">
-	
+	 update comments
+	 	<set>
+			<if test="comContent != null">com_content = #{comContent},</if>
+			block =#{block},
+			com_date = sysdate	 
+	 	</set>
+	 		where com_code = #{comCode}
 	</update>
 
 </mapper>

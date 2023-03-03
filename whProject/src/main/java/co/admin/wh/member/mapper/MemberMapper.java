@@ -7,6 +7,7 @@ import co.admin.wh.member.vo.MemberVO;
 
 public interface MemberMapper {
 	MemberVO memberSelect(MemberVO vo);
+	boolean idChk(String id);
 	int memberInsert(MemberVO vo);
 	List<MemberVO> memberList();
 }
