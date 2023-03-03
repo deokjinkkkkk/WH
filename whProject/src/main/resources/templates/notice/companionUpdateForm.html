@@ -36,12 +36,13 @@
 						[필수]성별<input type="text" name="gender" id="gender">
 					</div>
 					<div class="form-group col-md-12">
-						함께 여행하고 싶은 그룹 유형<br> 
-						<input type="radio" id="compA" name="compGroup" value="누구든지 그룹" th:checked="|${compA}=='누구든지 그룹|"> 누구든지 그룹<br> 
-						<input type="radio" id="compB" name="compGroup" value="여자끼리 그룹" th:checked="|${compB}=='여자끼리 그룹|">여자끼리 그룹<br> 
-						<input type="radio" id="compC" name="compGroup" value="남자끼리 그룹" th:checked="|${compC}=='남자끼리 그룹|"> 남자끼리 그룹<br> 
-						<input type="radio" id="compD" name="compGroup" value="가족동반 그룹" th:checked="|${compD}=='가족동반 그룹|"> 가족동반 그룹<br> 
-					</div>
+							함께 여행하고 싶은 그룹 유형<br>
+							<div th:each="c : ${gr}">
+								<input type="radio" th:value="${c.comCode}"
+									th:text="${c.comName}" name="${c.comName}" id="{c.comGroCode}">
+							</div>
+							<br>
+						</div>
 					<div class="form-group col-md-7">
 						제목<input type="text" name="compTitle" id="compTitle" th:value="${c.compTitle}" >
 						
@@ -62,12 +63,35 @@
 									th:text="${c.comName}"></option>
 							</select>
 					</div>
-					<div class="form-group col-md-7">
-						시작날짜<input type="date" name="compStartDate" id="compStartDate" th:value="${c.compStartDate}">
-					</div>
-					<div class="form-group col-md-7">
-						끝나는날짜<input type="date" name="compEndDate" id="compEndDate" th:value="${c.compEndDate}">
-					</div>
+					
+					
+						<div class="form-group col-md-11">
+							<form autocomplete="off">여행기간
+								<div class="flex-row d-flex justify-content-center">
+										<div class="input-group input-daterange"><br>
+											<input type="date" class="form-control input1" placeholder="Start Date" name="compStartDate" id="compStartDate" th:value="${c.compStartDate}"> 
+												<input type="date" class="form-control input2" placeholder="End Date" name="compEndDate" id="compEndDate" th:value="${c.compEndDate}">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+				<script>
+							$(function() {
+								$(document).ready(function() {
+
+									$('.input-daterange').datepicker({
+										format : "yyyy-mm-dd",
+										startDate : '0d',
+										language : "ko",
+										todayHighlight : true,
+										autoclose : true
+									});
+
+								});
+
+							});
+						</script>
 					<div class="form-group col-md-12">
 						<table class="table border">
 							<tr>
@@ -85,6 +109,16 @@
 							</tr>
 						</table>
 					</div>
+					<div class="form-group col-md-12">
+							<input type="file" name="imgFile" id="imgFile" >
+						</div>
+						<div class="form-group col-md-12">
+							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
+						</div>
+						<input type="hidden" name="id" id="id" value="ADMIN">
+						 <input
+							type="hidden" name="imgGroCode" id="imgGroCode" value="WT">
+						<input type="hidden" name="imgPath" id="imgPath" >
 					<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}">
 					<input type="submit" value="수정완료">
 			</form>

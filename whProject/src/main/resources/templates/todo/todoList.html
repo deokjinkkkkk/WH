@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
 
+<head>
+
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+	<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background: url('/img/banner/bg1.jpg')|">
+			<h1 class="text-white font-weight-600">todolist</h1>
+			<ul>
+				<li><a href="/main">Home</a></li>
+				<li><a href="/">todolist</a></li>
+			</ul>
+		</section>
+		<!-- 배너끝 -->
+		
+		<div class="container">
+		
+		<input type="text" id="doList" style="width: 50vw;">
+    <button type="button" onclick="saveList()">ListUp</button>
+    <!-- 체크된 항목을 삭제 하는 버튼 -->
+    <button type="button" onclick="deleteElements()">DeleteAll</button>
+    <br>
+    <br>
+    <h2>LIST</h2>
+    <div id="list">
+
+    </div>
+
+    <h2>HISTORY</h2>
+
+    <div id="history">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    	
+    function getTodoList() {
+        // AJAX 요청 보내기
+        $.ajax({
+            url: '/todolist', // 요청할 URL (서버에서 요청을 처리할 컨트롤러의 URL)
+            method: 'GET', // 요청 메소드 (GET, POST, PUT, DELETE 등)
+            dataType: 'json', // 응답 데이터 타입 (JSON)
+            success: function (data) { // 요청 성공 시 실행되는 콜백 함수
+                // 서버에서 받아온 TodoList 데이터를 이용하여 HTML을 동적으로 생성하여 추가
+                let list = document.getElementById('list');
+                list.innerHTML = '';
+                data.forEach(function (todo) {
+                    let p = document.createElement('p');
+                    let ckb = document.createElement('input');
+                    ckb.setAttribute('type', 'checkbox');
+                    ckb.setAttribute('value', todo.todoCode);
+                    p.prepend(ckb);
+                    p.textContent = todo.todoContent;
+                    let btn = document.createElement('button');
+                    btn.textContent = 'Complete';
+                    btn.setAttribute('type', 'button');
+                    btn.addEventListener('click', function () {
+                        completeTodoItem(todo.todoCode);
+                    });
+                    p.appendChild(btn);
+                    list.appendChild(p);
+                });
+            },
+            error: function (xhr, status, error) { // 요청 실패 시 실행되는 콜백 함수
+                console.log('AJAX 요청 실패', xhr, status, error);
+            }
+        });
+    }
+   	</script>
+   
+		</div>
+	</div>
 </body>
 </html>

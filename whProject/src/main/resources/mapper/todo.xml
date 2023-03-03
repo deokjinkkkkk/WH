@@ -1,3 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.admin.wh.todo.mapper.todoMapper"></mapper>
+<mapper namespace="co.admin.wh.todo.mapper.TodoMapper">
+
+<select id="getTodoList"
+		resultType="co.admin.wh.todo.vo.TodoVO">
+	SELECT * FROM (select rownum rn,a.*
+		from(select t.to_do_code,
+			m.id,
+			t.to_do_content,
+			t.to_do_date,
+			t.to_do_flag
+			from TO_DO_LIST t, MEMBER m
+			where t.id = m.id
+		order by to_do_code desc
+		<![CDATA[
+	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>
+</select>
+
+
+</mapper>
