@@ -38,7 +38,7 @@ public class FoodController {
 	//게시글 리스트 처리
 	@RequestMapping("/food")
 	public String foodList(Model model, @ModelAttribute("fsvo")FoodSearchVO svo, Paging paging ) {
-		paging.setPageUnit(5);//한 페이지에 풀력할 레코드 건수
+		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(10); //한 페이지에 보여질 페이지 갯수
 		
 		svo.setFirst(paging.getFirst());
