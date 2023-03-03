@@ -17,7 +17,6 @@
 	</section>
 	<!--  start comment-->
 	<section class="blogs">
-		
 			<div class="posts">
 				<div class="container">
 					<div class="row">
@@ -81,6 +80,18 @@
 	</section>
 	<!-- end comment-->
 	<script>
+	/*  남은 기능
+		1.비밀댓글 구현 (체크박스 체크시 비밀글로 등록) 귀찮...
+		2.댓글 대댓글 수정(참고한 사이트는 수정기능이 없음)
+		3.댓글이 삭제되면 대댓글은 어떻게 될건지?
+			3-1 댓글은 삭제된 댓글이라고 뜨고 대댓글은 남는다.(삭제 컬럼이 있어야하나?)
+			3-2 댓글과 함께 대댓글이 다 삭제된다. (comGroup조건으로 다삭제)
+		4.답글창 열면 다 뜨는 문제
+		
+	*/
+	
+	
+	
 	//댓글 번호 자동증가(시퀀스)
 	//댓글 비밀 0=모두보기 ,댓글 비밀 1=비밀댓글
 	//댓글 순서 1,2...(댓글달기로 작성시 1 고정 답글로 달시 자동증가)
@@ -112,6 +123,7 @@
 			type:"POST",
 			data: JSON.stringify(
 				{
+					"block" : comBlock, //댓글계층
 					"comContent" :comContent,
 					"id" :comId,
 					"comLock" : comLock,
@@ -149,8 +161,9 @@
 						str += '<div class="comment-info">'
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
 						str	+= '<p>'+item.comContent+'</p>'
+						//if(item.perm == "ADMIN" || item.id == 세션아이디){
 						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
-						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						//}
 						str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					}else{
 						str += "<div class='comment-box' id='"+item.comCode+"' style='margin-left: 100px;'>"
@@ -159,11 +172,11 @@
 						str += '<div class="comment-info"> '
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
 						str	+= '<p>'+item.comContent+'</p>'
+						//if(item.perm == "ADMIN" || item.id == 세션아이디){
 						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
-						str += '<button type="button" class="btnUp" onclick="comUpdate()">수정</button>'
-						str += '</div> </div> </div>'
+						//}
 					}
-				if(item.block == 1){
+				//if(item.block == 1){
 					str += '<div class="reply">'
 					str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
 					str += '</div> </div> </div>'
@@ -171,16 +184,17 @@
 					str += 	'<form id="reply-form " method="post">'
 					str +=  '<div class="controls">'
 					str +=  '<div class="row">'
-					str +=  '<input type="hidden" name="id" value="USER" id="id">'
+					str +=  '<input type="hidden" name="id" value="ADMIN" id="id">'
 					str += '<div class="col-md-12 form-group">'
 					str += '<textarea id="comRep" name="comContent" class="comRep"'
-					str += 'placeholder="답글" rows="2" required="required"></textarea>'
+					str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'
+					str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()">답글등록</button>'
-					str +=	'</div>'	
+					str +=	'</div>'
 					str += '<div class="col-md-12">'
 					str += '<input type="hidden" name="comGroup" value="'+item.comGroup+'"'
 					str += '</div></div></div></form></div></div>'
-					}
+					//}
 				})
 				comArea.html(str);
 			}
@@ -189,9 +203,12 @@
 	
 	function comDelete(){ //댓글 삭제
 		let comBox = $(event.target).closest(".comment-box")
+		let reply = comBox.next()
 		console.log($(event.target).text())
 		let comCode = comBox.attr('id')
 		console.log(comCode)
+		//alert 후 true 일경우 삭제 누른 댓글 삭제
+		//false 후 
 		$.ajax({
 			url:"/comDelete",
 			type:"delete",
@@ -200,7 +217,9 @@
 			,
 			success : function(data){
 				console.log(data)
-				comBox.remove();
+				comBox.remove()
+				reply.remove()
+				getComList()
 			}
 		})
 	}
@@ -208,23 +227,25 @@
 	function comReply(){ //답글창 on,off
 		let comBox = $(event.target).closest(".comment-box")
 		let recom = comBox.next()
-		if(recom.is(':visible') != true){
-			recom.show();	
+		if(recom.is(':visible') != true){	
+			recom.show();
 		}else{
 			recom.hide();
 		}
+		
 	}
 	//대댓글 댓글 그룹,  
 	function comReplyInsert(){
 		let rep = $(event.target).closest(".rep-form").attr('id')
-		let reContent =$(event.target).prev().val()
+		let reContent =$(event.target).prev().prev().val()
 		
 		let comId =$("#id").val();
-		let comGroup = $(event.target).closest(".rep-form").prev().find("#comGroup").val()
-		let comBlock = 2
+		let comGroup = $(event.target).prev().val()
+		console.log(comGroup)
+		let comBlock = '2'
 		let comFlag = $("#comFlag").val();
 		let comBoardCode = $("#comBoardCode").val();
-		let comLock = 1
+		let comLock = '1'
 		$.ajax({
 			url:"/reComInsert",
 			type:"POST",
@@ -245,7 +266,6 @@
 			success : function(data){
 				console.log("답글등록")
 				$(event.target).prev().val("")
-				console.log("====")
 				getComList()
 			},
 			error:function(){
@@ -254,9 +274,9 @@
 		});
 	}
 	$(".btnUp").on("click")
-	function comUpdate(){
-		
-	}
+	/* function comUpdate(){
+		$
+	} */
 	
 </script>
 </body>
