@@ -43,7 +43,7 @@
 			class="form-control" placeholder="[필수]제목을 입력하세요"><br>
 		<div>
 			<input type="file" name="imgFile" id="imgFile" class="form-control"><br>
-			<input type="hidden" name="imgGroCode" id="imgGroCode" value="no">
+			<input type="hidden" name="imgGroCode" id="imgGroCode" value="NO">
 			<input type="hidden" name="imgPath" id="imgPath">
 		</div>
 		<textarea class="editor" id="noticeContent" name="noticeContent"
@@ -69,22 +69,6 @@
       
     </script>
 
-
-
-	<script>
-	let imgGroCodeNumber = 0;
-
-	function getNextImgGroCode() {
-	  const nextImgGroCode = "no" + (++imgGroCodeNumber);
-	  const imgGroCodeInput = document.getElementById("imgGroCode");
-	  imgGroCodeInput.value = nextImgGroCode;
-	}
-
-
-
-
-
-</script>
 
 
 

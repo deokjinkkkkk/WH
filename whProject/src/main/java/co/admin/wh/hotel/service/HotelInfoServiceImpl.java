@@ -11,7 +11,6 @@ import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.mapper.HotelMapper;
 import co.admin.wh.hotel.vo.HotelVO;
-import co.admin.wh.hotel.vo.RoomVO;
 
 @Service
 public class HotelInfoServiceImpl implements HotelInfoService {
@@ -28,12 +27,6 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	public void insertHotelInfo(HotelVO hotelVO) throws IOException, ParserConfigurationException, SAXException {
 		hotelMapper.insertHotelInfo(hotelVO);
 	}
-
-	@Override
-	public void insertRoomInfo(RoomVO roomVO) {
-		hotelMapper.insertRoomInfo(roomVO);
-		
-	}
 	
 	@Override
 	public List<HotelVO> hotelList() {
@@ -46,5 +39,13 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		return hotelMapper.CrawlingList();
 	}
 
+	@Override
+	public void updatehotelId() {
+		hotelMapper.updatehotelId();
+	}
 
+	@Override
+	public HotelVO detailSelect(HotelVO vo) {
+		return hotelMapper.detailSelect(vo);
+	}
 }

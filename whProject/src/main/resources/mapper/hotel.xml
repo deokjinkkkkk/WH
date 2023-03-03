@@ -7,23 +7,27 @@
 	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL        
 	    </selectKey>
        	insert into HOTEL
-    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{imgGroCode}, #{hotelContent}, #{hotelRegion})
-   </insert>
-   
-     <insert id="insertRoomInfo">
-       	insert into ROOM
-    	values (#{hotelId}, #{roomGrade}, #{roomCount}, #{roomRegion}, #{roomPrice}, #{imgGroCode}, #{roomLimit})
+    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{hotelContent}, #{hotelRegion},#{roomGrade}, #{roomCount}, #{roomPrice}, #{roomLimit}, #{img1}, #{img2},#{img3},#{img4},#{img5})
    </insert>
    
    <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
        select *
        from hotel
-       where star = 5
+       order by star desc
    </select>
    
    <select id="CrawlingList" resultType="co.admin.wh.hotel.vo.HotelVO">
-       select *
-       from hotel
-       order by hotel_id desc
+       select a.*
+       from (
+            select * from hotel order by hotel_id desc) a
+       <![CDATA[
+       where rownum <= 20
+       ]]>
    </select>
+   
+   	<select id="detailSelect" resultType="co.admin.wh.hotel.vo.HotelVO">
+		select *
+		from hotel
+		where hotel_id = #{hotelId}
+	</select>
 </mapper>

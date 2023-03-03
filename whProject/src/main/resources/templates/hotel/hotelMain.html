@@ -28,7 +28,7 @@
 							<div th:each="h : ${hotelList}"
 								class="col-md-6 margin-30px-bottom">
 								<div class="border border-radius-4 package h-100">
-									<img th:src="${h.imgGroCode}"/>
+									<img th:src="${h.img1}"/>
 									<div class="padding-30px-all">
 										<div
 											class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
@@ -42,7 +42,7 @@
 												<!--<span class="font-size30 text-dark">549$</span> -->
 											</div>
 										</div>
-										<a href="tour-detail.html" class="butn">Details</a>
+										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn">Details</a>
 									</div>
 								</div>
 							</div>

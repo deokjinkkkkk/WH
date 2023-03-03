@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.great">
+
+
+	<select id="myGreatList"
+		resultType="co.admin.wh.common.vo.GreatVO">
+		SELECT g.great_code,g.great_n_code
+		FROM great g, member m
+		WHERE g.id = m.id
+		ORDER BY great_code
+	</select>
+
+	<delete id="greatDelete">
+
+
+
+	</delete>
+
+</mapper>

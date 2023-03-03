@@ -3,7 +3,6 @@ package co.admin.wh.hotel.web;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,7 +16,6 @@ import org.xml.sax.SAXException;
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
 import co.admin.wh.hotel.vo.HotelVO;
-import co.admin.wh.hotel.vo.RoomVO;
 
 @Controller
 public class HotelController {
@@ -55,8 +53,8 @@ public class HotelController {
 		HotelCrawler crawler = new HotelCrawler();
 		String url = "https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn="+today+"&checkOut="+tomorrow+"&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1";
 		List<HotelVO> hotelList = crawler.hotelCrawling(url); // HotelCrawler.java
-		List<RoomVO> roomList = crawler.roomCrawling(url);
 		
+		//for문 돌면서 리스트에서 vo 하나씩 인서트.
 		for (HotelVO hotelVO : hotelList) {
 			try {
 				hotelInfoService.insertHotelInfo(hotelVO);
@@ -69,14 +67,16 @@ public class HotelController {
 			}
 		}
 		
-		for(RoomVO roomVO : roomList) {
-			hotelInfoService.insertRoomInfo(roomVO);
-		}
-		
 		model.addAttribute("hotelList",hotelInfoService.CrawlingList());
 		
 		System.out.println("파싱 정보 입력 완!");
 		
 		return "hotel/hotelToday";
 	}
+	
+	@GetMapping("/hotelDetail/{hotelId}")
+    public String hotelDetail(HotelVO vo, Model model) {
+        model.addAttribute("h", hotelInfoService.detailSelect(vo));
+        return "hotel/hotelDetail";
+    }
 }

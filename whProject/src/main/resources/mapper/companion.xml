@@ -6,7 +6,7 @@
 		parameterType="co.admin.wh.notice.vo.CompanionVO">
 		<selectKey keyProperty="compCode" resultType="int"
 			order="BEFORE">
-			SELECT MAX(COMP_CODE)+1 FROM COMPANION
+			SELECT NVL(MAX(COMP_CODE),0)+1 FROM COMPANION
 		</selectKey>
 
 		INSERT INTO COMPANION (COMP_CODE, ID,
@@ -24,7 +24,7 @@
 		parameterType="co.admin.wh.common.vo.ImageVO">
 		<selectKey keyProperty="imgCode" resultType="int"
 			order="BEFORE">
-			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
 
@@ -95,11 +95,7 @@
 		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
 
-	<select id="imageSelect"
-		resultType="co.admin.wh.common.vo.ImageVO">
-		select *
-		from image
-	</select>
+
 
 </mapper>
 

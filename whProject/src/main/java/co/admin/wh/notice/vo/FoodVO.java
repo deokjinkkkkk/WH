@@ -19,6 +19,8 @@ public class FoodVO {
 	private Date foodDate;	//등록일자
 	private String imgGroCode;	//이미지그룹번호
 	
+	private String imgPath;
+	private String imgName;
 	
 	
 }

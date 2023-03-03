@@ -13,8 +13,9 @@ public interface FoodService {
 	
 	FoodVO detailSelect(FoodVO fvo); //상세보기페이지
 	
-	FoodVO getFoodSelect(FoodVO vo); //글쓰기
-	
+	/*
+	 * FoodVO getFoodSelect(FoodVO vo); //글쓰기
+	 */	
 	int foodInsert(FoodVO vo); //게시글 등록
 	
 	int imgInsert(ImageVO ivo);
@@ -24,5 +25,6 @@ public interface FoodService {
 	int foodDelete(FoodVO vo);//삭제
 	
 	int foodUpdate(FoodVO vo); //수정
+	
 	
 }
