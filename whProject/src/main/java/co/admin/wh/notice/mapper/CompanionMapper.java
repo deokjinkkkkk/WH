@@ -12,6 +12,8 @@ public interface CompanionMapper {
 	
 	CompanionVO detailSelect(CompanionVO cvo);
 	
+	CompanionVO imgSelect(CompanionVO cvo);
+	
 	int companionInsert(CompanionVO vo);
 	
 	int imgInsert(ImageVO ivo);

@@ -29,9 +29,8 @@
 				<div class="container">
 
 					<div class="col-lg-6 mb-5 ftco-animate">
-						
-						<img src="/img/banner/bg4.jpg" class="img-fluid"
-							alt="Colorlib Template">
+						<img th:src="'/image/'+${i.imgPath}" 
+							alt="Colorlib Template" width="400px" height="auto">
 					</div>
 
 					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
@@ -84,7 +83,7 @@
 									<label class="rad-label"> <input type="radio"
 										class="rad-input" name="rad">
 										<div class="rad-design"></div>
-										<div class="rad-text">욕설 또는 타인 비방</div>
+										<div class="rad-text">스팸, 도용 또는 저작권 위배</div>
 									</label> <label class="rad-label"> <input type="radio"
 										class="rad-input" name="rad">
 										<div class="rad-design"></div>
