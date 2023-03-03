@@ -15,4 +15,5 @@ public class MemberVO {
 	String email;
 	String perm;
 	int state;
+
 }

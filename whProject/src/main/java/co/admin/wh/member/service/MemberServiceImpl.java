@@ -1,5 +1,7 @@
 package co.admin.wh.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,12 @@ public class MemberServiceImpl implements MemberService {
 	public int memberInsert(MemberVO vo) {
 		// TODO Auto-generated method stub
 		return member.memberInsert(vo);
+	}
+
+	@Override
+	public List<MemberVO> memberList() {
+		// TODO Auto-generated method stub
+		return member.memberList();
 	}
 
 

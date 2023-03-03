@@ -3,6 +3,7 @@ package co.admin.wh.member.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,12 @@ public class MemberController {
 		return "member/login";
 	}
 	@PostMapping("/memberLogin")
-	public String login(HttpSession session,MemberVO vo) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		vo.setPassword(passwordEncoder.encode(vo.getPassword()));
+	public String login(HttpSession session,MemberVO vo,UserDetailsService user) {
 		vo = memberMapper.memberSelect(vo);
 		
 		return "content/main";
 	}
-	@RequestMapping("/memberLogout.do")
+	@RequestMapping("/logout")
 	public String memberLogout(HttpSession session) {
 		session.invalidate();
 		return "member/login";
@@ -52,5 +51,6 @@ public class MemberController {
 		memberMapper.memberInsert(vo);
 		return "content/main";
 	}
+
 }
 

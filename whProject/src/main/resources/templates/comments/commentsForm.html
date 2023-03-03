@@ -56,7 +56,7 @@
 										
 										<div class="controls">
 											<div class="row">
-												<input type="hidden" name="id" value="USER" id="id">
+												<input type="hidden" name="id" value="ADMIN" id="id">
 												<div class="col-md-12 form-group">
 													<textarea id="comContent" name="comContent"
 														placeholder="댓글 내용" rows="4" required="required"></textarea>
@@ -87,20 +87,20 @@
 	//댓글 계층 1(댓글),2(대댓글)
 	//댓글 그룹 1,2...(댓글달기로 작성시 자동 증가)(시퀀스)(답글로 달시 댓글 번호다라가기)
 	//게시물 구분 게시판공통코드(게시판 별 mapper에서 default로 넣기)
-	//게시문 번호 게시판코드
+	//게시물 번호 게시판코드
 	
 	$(document).ready(function(){
 		getComList()
 	})
 	
 	$("#butn").click(function(){ //댓글 등록
-		let comContent =$("#comContent").val();
-		let comId =$("#id").val();
-		let comOrder = 1
-		let comBlock = 1
-		let comFlag = $("#comFlag").val();
-		let comBoardCode = $("#comBoardCode").val();
-		let comLock = 1
+		let comContent =$("#comContent").val(); //댓글내용
+		let comId =$("#id").val(); //회원아이디
+		let comOrder = 1 //댓글순서
+		let comBlock = 1 //댓글계층
+		let comFlag = $("#comFlag").val();  //게시물구분
+		let comBoardCode = $("#comBoardCode").val(); //게시물번호
+		let comLock = 1 //비밀댓글
 	
 		if(comId == ""){
 			alert("로그인 후 이용하세요")
@@ -118,8 +118,6 @@
 					"comOrder" : comOrder,
 					"comFlag" : comFlag, //게시물 구분
 					"comBoardCode" : comBoardCode// 게시물 번호
-
-
 				}
 			),
 			contentType:'application/json',
@@ -144,14 +142,28 @@
 			url:"/comGetList",
 			success : function(result){
 				$(result).each(function(index,item){
-					str += "<div class='comment-box' id='"+item.comCode+"'>"
-					str += '<div class="author-thumb">'
-					str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
-					str += '<div class="comment-info">'
-					str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
-					str	+= '<p>'+item.comContent+'</p>'
-					str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
-					str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+					if(item.block == 1){
+						str += "<div class='comment-box' id='"+item.comCode+"'>"
+						str += '<div class="author-thumb">'
+						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+						str += '<div class="comment-info">'
+						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+						str	+= '<p>'+item.comContent+'</p>'
+						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
+					}else{
+						str += "<div class='comment-box' id='"+item.comCode+"' style='margin-left: 100px;'>"
+						str += '<div class="author-thumb">'
+						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+						str += '<div class="comment-info"> '
+						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+						str	+= '<p>'+item.comContent+'</p>'
+						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+						str += '<button type="button" class="btnUp" onclick="comUpdate()">수정</button>'
+						str += '</div> </div> </div>'
+					}
+				if(item.block == 1){
 					str += '<div class="reply">'
 					str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
 					str += '</div> </div> </div>'
@@ -159,14 +171,16 @@
 					str += 	'<form id="reply-form " method="post">'
 					str +=  '<div class="controls">'
 					str +=  '<div class="row">'
-				  	str +=  '<input type="hidden" name="id" value="USER" id="id">'
-				  	str += '<div class="col-md-12 form-group">'
-				  	str += '<textarea id="comRep'+item.comCode+'" name="comContent"'
-				  	str += 'placeholder="답글" rows="2" required="required"></textarea>'
+					str +=  '<input type="hidden" name="id" value="USER" id="id">'
+					str += '<div class="col-md-12 form-group">'
+					str += '<textarea id="comRep" name="comContent" class="comRep"'
+					str += 'placeholder="답글" rows="2" required="required"></textarea>'
+					str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()">답글등록</button>'
 					str +=	'</div>'	
 					str += '<div class="col-md-12">'
-					str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()"><span>답글등록</span>'
-					str += '</button></div></div></div></form></div>'
+					str += '<input type="hidden" name="comGroup" value="'+item.comGroup+'"'
+					str += '</div></div></div></form></div></div>'
+					}
 				})
 				comArea.html(str);
 			}
@@ -203,23 +217,34 @@
 	//대댓글 댓글 그룹,  
 	function comReplyInsert(){
 		let rep = $(event.target).closest(".rep-form").attr('id')
-		console.log(rep)
+		let reContent =$(event.target).prev().val()
 		
+		let comId =$("#id").val();
+		let comGroup = $(event.target).closest(".rep-form").prev().find("#comGroup").val()
+		let comBlock = 2
+		let comFlag = $("#comFlag").val();
+		let comBoardCode = $("#comBoardCode").val();
+		let comLock = 1
 		$.ajax({
-			url:"/comInsert",
+			url:"/reComInsert",
 			type:"POST",
 			data: JSON.stringify(
 				{
-					"comContent" :comContent,
-					"id" :comId
-//					게시물 번호
-//					댓글 비밀여부
+					"comContent" :reContent,
+					"id" :comId,
+					"comGroup" : comGroup,
+					"comLock" : comLock,
+					"block" : comBlock,
+					"comFlag" : comFlag, //게시물 구분
+					"comBoardCode" : comBoardCode// 게시물 번호
+					//게시물 번호
+				   //댓글 비밀여부
 				}
 			),
 			contentType:'application/json',
 			success : function(data){
-				console.log("댓글등록")
-				$("#comContent").val("")
+				console.log("답글등록")
+				$(event.target).prev().val("")
 				console.log("====")
 				getComList()
 			},
@@ -228,6 +253,11 @@
 			}
 		});
 	}
+	$(".btnUp").on("click")
+	function comUpdate(){
+		
+	}
+	
 </script>
 </body>
 </html>

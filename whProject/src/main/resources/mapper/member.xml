@@ -14,5 +14,8 @@
 	<insert id="memberInsert">
 		insert into member(id,password,name,gender,tel,email,perm,state)
 		values(#{id},#{password},#{name},#{gender},#{tel},#{email},USER,0)
-	</insert>	
+	</insert>
+	<select id="memberList" resultType="co.admin.wh.member.vo.MemberVO">
+		select * from member
+	</select>	
 </mapper>

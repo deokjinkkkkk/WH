@@ -1,5 +1,7 @@
 package co.admin.wh.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import co.admin.wh.member.mapper.MemberMapper;
+import co.admin.wh.member.vo.MemberVO;
+import lombok.Setter;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecirityConfig{
@@ -19,18 +25,21 @@ public class WebSecirityConfig{
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/myPage").hasAnyRole("USER","ADMIN")
-				.antMatchers("/admin**").hasRole("ADMIN")
+				.antMatchers("/myPage/**").hasAnyRole("USER","ADMIN")
+				.antMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().permitAll()
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")
 				.loginProcessingUrl("/login")
-				.usernameParameter("id")
 				.passwordParameter("password")
+				.usernameParameter("id")
 				.permitAll()
 			)
-			.logout((logout) -> logout.permitAll())
+			.logout((logout) -> logout
+				.permitAll()
+				.logoutUrl("/logout")
+			)
 			.csrf().disable();
 		
 
@@ -42,16 +51,19 @@ public class WebSecirityConfig{
 		
 		UserDetails user =
 			 User.withDefaultPasswordEncoder()
-				.username("user")
+				.username("USER")
 				.password("1234")
 				.roles("ADMIN")
 				.build();
-		return new InMemoryUserDetailsManager(user);
+		UserDetails admin =
+				 User.withDefaultPasswordEncoder()
+					.username("ADMIN")
+					.password("1234")
+					.roles("ADMIN")
+					.build();
+		System.out.println(admin.getPassword());
+		return new InMemoryUserDetailsManager(user,admin);
 	}
 	
 	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 }

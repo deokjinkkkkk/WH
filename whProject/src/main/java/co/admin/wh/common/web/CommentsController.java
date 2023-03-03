@@ -44,6 +44,16 @@ public class CommentsController {
 		commentsMapper.commentsInsert(vo);
 		return "success";
 	}
+	@PostMapping("/reComInsert") //댓글 등록
+	@ResponseBody
+	public String reCommentsInsert(@RequestBody CommentsVO vo) {
+		System.out.println("댓글 등록하자");
+//		if(id == null) {
+//		 로그인 안하면 댓글 달지 못하게 하기	
+//		}
+		commentsMapper.commentsInsert(vo);
+		return "success";
+	}
 //	
 //	
 	@DeleteMapping("/comDelete") //댓글 삭제

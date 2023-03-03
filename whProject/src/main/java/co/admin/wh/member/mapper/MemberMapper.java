@@ -8,4 +8,5 @@ import co.admin.wh.member.vo.MemberVO;
 public interface MemberMapper {
 	MemberVO memberSelect(MemberVO vo);
 	int memberInsert(MemberVO vo);
+	List<MemberVO> memberList();
 }

@@ -12,10 +12,17 @@
 		select c.*,m.name 
 		from comments c ,member m
 		where c.id = m.id
-		order By com_code ASC
+		<!--and c.com_flag = '게시물구분코드'  -->
+		<!--and c.com_board_code = '게시물코드(조인)'  -->
+		order By c.com_group ,c.com_code ASC
 	</select>
 	
 	<insert id="commentsInsert">
+	<selectKey keyProperty="comOrder" resultType="int" order="BEFORE">
+		select NVL(max(com_order),1)
+		from comments
+		where com_group = #{comGroup}
+	</selectKey>
 		insert into comments(com_code,
 							id,
 							com_content,
@@ -33,12 +40,8 @@
 							sysdate,
 							#{comLock},
 							#{comOrder},
-							<if test="comGroup != null">com_group_seq.NEXTVAL</if>
-							<if test="comGroup == null">'1'</if>
-							,
-							<if test="comGroup != null">1</if>
-							<if test="comGroup == null">2</if>
-							,
+							#{comGroup},
+							#{block},
 							#{comFlag},
 							#{comBoardCode}
 							<!--#{comLock},
