@@ -26,7 +26,4 @@ public class TripVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date tripDate; //등록일자
 	
-	// Search
-	private String key;
-	private String val;
 }

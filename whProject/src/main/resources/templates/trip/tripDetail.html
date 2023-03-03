@@ -68,7 +68,7 @@
                                         </li>
                                     </ul>
                                     <div class="margin-30px-bottom">
-                                        <p class="font-size20 xs-font-size18 margin-30px-bottom line-height-30 text-theme-color padding-40px-lr xs-no-padding">"추워질수록 생각나는 그곳"</p>
+                                    
                                     </div>
                                     <div class="row margin-30px-bottom">
                                         <div class="col-6">
@@ -79,6 +79,8 @@
                                         </div>
                                     </div>
                                     <p th:text="${trip.tripSumm}"></p>
+                                    <p>* 홈페이지 : [[${trip.homepage}]]</p>
+                                    <a th:href="@{trip.hompage}"></a>
                                 </div>
                             </div>
                             <!--  start post-->
