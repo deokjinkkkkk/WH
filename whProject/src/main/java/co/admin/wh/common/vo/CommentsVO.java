@@ -14,7 +14,7 @@ public class CommentsVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	Date comDate;
 	int comLock;
-	String comOrder;
+	int comOrder;
 	String comGroup;
 	String block;
 	String comFlag;

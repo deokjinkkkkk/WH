@@ -1,7 +1,5 @@
 package co.admin.wh.notice.web;
 
-import java.io.File;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
@@ -14,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.admin.wh.common.service.CommonService;
 import co.admin.wh.common.service.ImageService;
+import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
 import co.admin.wh.notice.service.CompanionService;
@@ -25,13 +25,16 @@ import co.admin.wh.notice.vo.Paging;
 @Controller
 public class CompanionController {
 	@Autowired
-	private CompanionMapper companionMapper;
+	CompanionMapper companionMapper;
 
 	@Autowired
 	CompanionService companionService;
 
 	@Autowired
 	ImageService imageService;
+	
+	@Autowired
+	CommonService commomService;
 
 	@Autowired
 	ServletContext servletContext;
@@ -41,7 +44,7 @@ public class CompanionController {
 
 	@RequestMapping("/companion")
 	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo) {
-		paging.setPageUnit(2);
+		paging.setPageUnit(5);
 		paging.setPageSize(5);
 
 		cvo.setFirst(paging.getFirst());
@@ -49,18 +52,19 @@ public class CompanionController {
 
 		paging.setTotalRecord(companionMapper.getCountTotal(cvo));
 
-//		model.addAttribute("i", companionService.imageSelect(ivo));
 		model.addAttribute("companionList", companionService.getCompanionList(cvo));
 		return "notice/companion";
 	}
 
 	@RequestMapping("/companionForm")
-	public String companionForm(Model model) {
+	public String companionForm(Model model, CommonVO cvo) {
+		 model.addAttribute("co", commomService.commonLocal());
+		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionForm";
 	}
 
 	@RequestMapping("/companionJoin.do")
-	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
+	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile, CommonVO cvo) {
 
 		String saveFolder = saveimg; // 파일저장위치
 
@@ -80,14 +84,16 @@ public class CompanionController {
 			companionMapper.imgInsert(ivo);
 			vo.setImgGroCode(ivo.getImgGroCode());
 			companionMapper.companionInsert(vo);
+			
 		}
 		return "redirect:companion";
 	}
 
 	@RequestMapping("/companionDetail/{compCode}")
-	public String companionDetail(Model model, CompanionVO compVO) {
+	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo) {
 
 		model.addAttribute("c", companionService.detailSelect(compVO));
+		model.addAttribute("i", companionService.imgSelect(compVO));
 		return "notice/companionDetail";
 	}
 
