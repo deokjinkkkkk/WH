@@ -10,12 +10,12 @@
 		</selectKey>
 
 		INSERT INTO COMPANION (COMP_CODE, ID,
-		COMP_GROUP,COMP_TITLE,COMP_COUNT, COMP_START_DATE, COMP_END_DATE,
+		COMP_GROUP,COMP_TITLE,COMP_COUNT, comp_local, COMP_START_DATE, COMP_END_DATE,
 		COMP_CONTENT,IMG_GRO_CODE)
 
 		VALUES (#{compCode},#{id},#{compGroup},
 		#{compTitle},
-		#{compCount},#{compStartDate},#{compEndDate},
+		#{compCount},#{compLocal},#{compStartDate},#{compEndDate},
 		#{compContent},
 		#{imgGroCode})
 	</insert>
@@ -35,58 +35,58 @@
 
 	<select id="getCompanionList"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		select * from( select rownum rn, a.* from(
-	select DISTINCT c.COMP_CODE,
-		m.ID,
-		c.AGE,
-		c.COMP_GROUP,
-		c.COMP_TITLE,
-		c.COMP_COUNT,
-		c.COMP_LOCAL,
-		c.COMP_START_DATE,
-		c.COMP_END_DATE,
-		c.COMP_CONTENT,
-		c.COU_CODE,
-        c.img_gro_code,
-		m.TEL,
-		m.NAME,
-		m.GENDER,
-        i.img_Name,
-        i.img_Path
-		from companion c ,member m, image i
-		where c.id= m.id
-        and c.img_gro_code = i.img_gro_code
-		order by comp_code desc
+		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
+		SELECT DISTINCT C.COMP_CODE,
+		M.ID,
+		C.AGE,
+		C.COMP_GROUP,
+		C.COMP_TITLE,
+		C.COMP_COUNT,
+		C.COMP_LOCAL,
+		C.COMP_START_DATE,
+		C.COMP_END_DATE,
+		C.COMP_CONTENT,
+		C.COU_CODE,
+		C.IMG_GRO_CODE,
+		M.TEL,
+		M.NAME,
+		M.GENDER,
+		I.IMG_NAME,
+		I.IMG_PATH
+		FROM COMPANION C ,MEMBER M, IMAGE I
+		WHERE C.ID= M.ID
+		AND C.IMG_GRO_CODE = I.IMG_GRO_CODE
+		ORDER BY COMP_CODE DESC
 <![CDATA[
-		) a  where rownum <=#{last} ) b where rn >=#{first}
+		) A  WHERE ROWNUM <=#{last} ) B WHERE RN >=#{first}
 	]]>
 	</select>
 
 
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		select *
-		from companion
-		where comp_code = #{compCode}
+		SELECT *
+		FROM COMPANION
+		WHERE COMP_CODE = #{compCode}
 	</select>
 
 	<!-- 전체건수조회 -->
 	<select id="getCountTotal"
 		parameterType="co.admin.wh.notice.vo.CompanionSearchVO"
 		resultType="int">
-		select count(*)
-		from companion
+		SELECT COUNT(*)
+		FROM COMPANION
 	</select>
 
 	<update id="companionUpdate">
 		UPDATE COMPANION
 		<set>
-			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
-			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
-			<if test="compGroup != null">COMP_GROUP = #{compGroup},</if>
-			<if test="compStartDate != null">COMP_START_DATE = #{compStartDate},</if>
-			<if test="compEndDate != null">COMP_END_DATE = #{compEndDate},</if>
-			<if test="compContent != null">COMP_CONTENT = #{compContent}</if>
+			<if test="compTitle != NULL">COMP_TITLE = #{compTitle},</if>
+			<if test="compCount != NULL">COMP_COUNT = #{compCount},</if>
+			<if test="compGroup != NULL">COMP_GROUP = #{compGroup},</if>
+			<if test="compStartDate != NULL">COMP_START_DATE = #{compStartDate},</if>
+			<if test="compEndDate != NULL">COMP_END_DATE = #{compEndDate},</if>
+			<if test="compContent != NULL">COMP_CONTENT = #{compContent}</if>
 		</set>
 		WHERE COMP_CODE=#{compCode}
 	</update>
@@ -95,7 +95,13 @@
 		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
 
-
+	<select id="imgSelect" resultType="co.admin.wh.notice.vo.CompanionVO" >
+		SELECT *
+		FROM COMPANION c
+		JOIN IMAGE i
+		ON c.IMG_GRO_CODE = i.IMG_GRO_CODE
+		WHERE c.COMP_CODE = #{compCode}
+	</select>
 
 </mapper>
 
