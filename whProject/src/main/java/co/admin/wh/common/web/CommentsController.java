@@ -56,6 +56,16 @@ public class CommentsController {
 	}
 //	
 //	
+	@DeleteMapping("/reComDelete") //댓글 삭제
+	@ResponseBody
+	public String reCommentsDelete(CommentsVO vo) {
+		System.out.println("삭제");
+		System.out.println(vo.getComCode());
+		
+		commentsMapper.reCommentsDelete(vo);
+		return "success";
+	}
+	
 	@DeleteMapping("/comDelete") //댓글 삭제
 	@ResponseBody
 	public String commentsDelete(CommentsVO vo) {
