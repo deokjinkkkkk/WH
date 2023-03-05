@@ -10,7 +10,7 @@
    <!-- 페이징 -->
    <script>
    		function gopage(page) {
-   			location.href = "trip?page=" + page;
+   			location.href = "course?page=" + page;
 			frmSearch.page.value = page;
 			frmSearch.submit();
    		}   		
@@ -22,13 +22,13 @@
 		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
  			<div class="container">
                
-                <h1 class="text-white font-weight-600">여행 지역</h1>
+                <h1 class="text-white font-weight-600">여행 코스</h1>
                 <ul>
                     <li>
                         <a href="index.html">Home</a>
                     </li>
                     <li>
-                        <span class="active">여행 지역</span>
+                        <span class="active">여행 코스</span>
                     </li>
                 </ul>
                </div>
@@ -59,11 +59,11 @@
 					
                 </div>
                 
-                <div class="card card-list margin-15px-bottom">
+                <div th:each="c, nStat: ${courseList}" class="card card-list margin-15px-bottom">
                    <div class="row align-items-center">
                    <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
                    <div class="card-list-img">
-                         <img class="border-radius-5" style="width:300; height:200px;"
+                         <img class="border-radius-5" th:src="${c.imgGroCode}"  style="width:300; height:200px;"
                             alt="" />
                       </div>
                       <div class="card-list-img">
@@ -75,10 +75,10 @@
                          <div
                             class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title no-margin-bottom font-size22">
-                               <a class="text-extra-dark-gray">ddd</a>
+                               <a th:href="@{/courseDetail/{couCode}(couCode=${c.couCode})}" class="text-extra-dark-gray">[[${c.couName}]]</a>
                             </h5>
                          </div>
-                         <p class="margin-20px-tb sm-margin-10px-top">맘마마마</p>
+                         <p class="margin-20px-tb sm-margin-10px-top"></p>
                          <!-- 해시태그 -->
                          <ul class="tags">
                          <li><a href="#">#대구</a></li>
@@ -89,7 +89,7 @@
                 </div>
              </div>
 
-								<!-- 페이징 TEST 
+								<!-- 페이징 TEST -->
 									<div class="gopage" align="center">
 										<nav aria-label="Page navigation example" class="gopage">
 											<ul class="pagination">
@@ -101,7 +101,7 @@
 												</li>
 											</ul>
 										</nav>
-									</div> -->
+									</div> 
                    				<!-- 페이징 끝 -->
 
                   </div>

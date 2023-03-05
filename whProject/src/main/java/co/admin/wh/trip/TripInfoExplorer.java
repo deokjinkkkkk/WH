@@ -40,15 +40,15 @@ public class TripInfoExplorer {
 
         List<TripVO> list = new ArrayList<TripVO>();
         // "&pageNo=100&numOfRows=100"  갯수와 로우 100까지는 테스트 10000은 404에러
-        // 추천코스(C01) 에 있는 자료들을 가져와서 여행지에 입력하기.
+        // 일단은 각 지역의 여행지를 끌어와보자.
         String str = "";    //return을 위해서
         String parsingUrl = "";//Parsing할 URL
-        String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?"
+        String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" // 해당 여행지에 대한 상세정보
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=5" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01)
+				"&pageNo=1" + "&numOfRows=100" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=33" + "&cat1=A01";
 			
         URL url = new URL(urlBuilder);
 
@@ -83,11 +83,9 @@ public class TripInfoExplorer {
                 TripVO vo = new TripVO();
                           
                 System.out.println("=================================");
-                System.out.println(getTagValue("title", eElement)); // 코스 제목
-                System.out.println(getTagValue("mapx", eElement)); // 경도
-                System.out.println(getTagValue("mapy", eElement)); // 위도
+                System.out.println(getTagValue("title", eElement)); // 코스 제목     
                 System.out.println(getTagValue("firstimage2", eElement)); // 사진
-                                           
+                System.out.println(getTagValue("areacode", eElement)); //지역코드
                 
                 DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");              
 				java.util.Date tempDate = null;
@@ -100,11 +98,15 @@ public class TripInfoExplorer {
 				
 				java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); // java.util.Date로 변환한 데이터를 java.sql.Date로 변환해주기.
                            
+				// 담을 정보 : 이름(title), 주소(addr1), 고유번호(contentid), 이미지(firstimage2), 수정일(modifiedtime), 연락처(tel), 경도/위도, 지역코드(areacode)
 				vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElement))); // 고유코드번호
-                vo.setTripName(getTagValue("title", eElement)); // 코스 제목
+				vo.setRegionCode(Integer.valueOf(getTagValue("areacode", eElement))); // 지역코드
+                vo.setTripName(getTagValue("title", eElement)); // 제목
+                vo.setTripTel(getTagValue("tel", eElement)); // 연락처
                 vo.setTripLon(getTagValue("mapx", eElement)); // 경도
                 vo.setTripLat(getTagValue("mapy", eElement)); // 위도
-                vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 코스 대표 사진
+                vo.setTripAddr(getTagValue("addr1", eElement));
+                vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 대표 사진
                 vo.setTripDate(sqlDate); // 수정일       
                 
                 
@@ -112,9 +114,10 @@ public class TripInfoExplorer {
                 contentid = getTagValue("contentid", eElement);
                 
                 String parsingUrl1 = "";//Parsing할 URL
-                String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailInfo?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-                        "&MobileOS=ETC" + "&MobileApp=AppTest" +"&contentId=" + contentid
-                		+ "&&contentTypeId=25";
+                String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailCommon?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" +
+                "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + "&MobileOS=ETC" + "&MobileApp=AppTest"
+                + "&contentId="  + contentid + "&defaultYN=Y" + "&firstImageYN=Y" + "&areacodeYN=Y" 
+                + "&catcodeYN=Y" + "&addrinfoYN=Y" + "&mapinfoYN=Y" + "&overviewYN=Y";
         			
                 URL url1 = new URL(urlBuilder1);
 
@@ -140,20 +143,11 @@ public class TripInfoExplorer {
                     Node nNode1 = nList1.item(j);
                     if (nNode1.getNodeType() == Node.ELEMENT_NODE) {
                     	Element eElement1 = (Element) nNode1;
-                    	
-                    	TripVO vo1 = new TripVO();
-                    	
-                        System.out.println(getTagValue("contentid", eElement1)); //코스 id
-                    	System.out.println(getTagValue("subname", eElement1)); // 코스 안 여행지 제목
-                        System.out.println(getTagValue("subdetailoverview", eElement1)); // 코스 안 여행지 개요
+                    	                    	
+                    	// 가져와야할 정보 : 개요 (overview)
+                        System.out.println(getTagValue("overview", eElement1)); // 코스 안 여행지 개요
+                    	vo.setTripSumm(getTagValue("overview", eElement1)); // 개요        	
 
-                        vo1.setTripCode(Integer.valueOf(getTagValue("subcontentid", eElement1))); // 코스 고유 id
-                        vo1.setTripName(getTagValue("subname", eElement1));
-                    	vo1.setTripSumm(getTagValue("subdetailoverview", eElement1)); // 개요
-        	
-                    	assert false;
-                    	list.add(vo1);
-                    	
                     }
                 }
                 

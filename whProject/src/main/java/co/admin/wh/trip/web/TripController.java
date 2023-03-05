@@ -42,10 +42,6 @@ public class TripController {
 		return "trip/tripDetail";
 	}
 	
-	@RequestMapping("/tripCourse")
-	public String tripCourse(Model model) {
-		return "trip/tripCourse";
-	}
 	
 	@RequestMapping("/memberCourse")
 	public String memberCourse(Model model) {
@@ -80,9 +76,9 @@ public class TripController {
 		List<TripVO> list = apiExplorer.parsingData("");
 		
 		 //List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
-		for (TripVO tripVO : list) {
-		tripService.insertInfo(tripVO);						
-		}
+//		for (TripVO tripVO : list) {
+//		tripService.insertInfo(tripVO);						
+//		}
 
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
