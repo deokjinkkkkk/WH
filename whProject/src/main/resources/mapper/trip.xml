@@ -3,11 +3,11 @@
 <mapper namespace="co.admin.wh.trip.mapper.TripMapper">
 
 	<select id="tripList" resultType="co.admin.wh.trip.vo.TripVO">
-	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
+	<!-- 페이징 시도 : 일단 지역코드 순으로 정렬. 이미지가 없는 데이터는 출력하지 않는다. -->
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM TRIP 
 		WHERE LENGTH(img_gro_code)>=1
-		ORDER BY trip_code DESC
+		ORDER BY TRIP_CODE DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
@@ -15,18 +15,11 @@
 
 	<!-- api DB 등록 -->
 	<insert id="insertInfo">
-	<selectKey resultType="int" keyProperty="tripCode" order="BEFORE">
-		SELECT NVL(MAX(trip_Code),0)+1 FROM TRIP
-	</selectKey>
-
 			INSERT INTO TRIP (TRIP_CODE, TRIP_NAME, TRIP_TEL, TRIP_ADDR,
 			TRIP_LAT, TRIP_LON,
-			TRIP_SUMM, TRIP_CONTENT, HOMEPAGE, TRIP_REGION, IMG_GRO_CODE, TRIP_DATE)
-			VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat},
-			#{tripLon},
-			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode},
-			#{tripDate})
-
+			TRIP_SUMM, TRIP_CONTENT, HOMEPAGE, TRIP_REGION, IMG_GRO_CODE, TRIP_DATE, COU_CODE, REGION_CODE)
+			VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
+			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{regionCode})
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
@@ -38,7 +31,7 @@
 	<select id="detailSelect"
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM TRIP
-		WHERE trip_code = #{tripCode}
+		WHERE TRIP_CODE = #{tripCode}
 	</select>
 	
 

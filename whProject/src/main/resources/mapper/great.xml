@@ -3,18 +3,43 @@
 <mapper namespace="mapper.great">
 
 
-	<select id="myGreatList"
-		resultType="co.admin.wh.common.vo.GreatVO">
-		SELECT g.great_code,g.great_n_code
-		FROM great g, member m
-		WHERE g.id = m.id
-		ORDER BY great_code
+	<select id="greatCheck" resultType="int">
+		SELECT count(*)
+		FROM GREAT
+		WHERE GREAT_N_CODE = #{great_n_code}
 	</select>
 
-	<delete id="greatDelete">
 
 
+	<insert id="greatUP">
+		<selectKey keyProperty="greatCode" resultType="int" order="BEFORE">
+		select MAX(GREAT_CODE)+1 FROM GREAT
+		</selectKey>
+		INSERT INTO GREAT
+		VALUES(#{greatFlag},#{greatNcode}, #{id})
+	</insert>
 
+
+	<delete id="greatDown"
+		parameterType="co.admin.wh.common.vo.GreatVO">
+		DELETE FROM GREAT
+		WHERE GREAT_N_CODE = #{greatNcode} AND
+		id = #{id}
 	</delete>
+
+
+	<select id="greatTotal">
+		SELECT g.great_code, g.great_flag, g.great_n_code,
+		COUNT(g.GREAT_CODE) AS
+		great_count
+		FROM notice n
+		JOIN great g ON
+		n.NOTICE_CODE = g.GREAT_N_CODE
+		JOIN member m ON g.ID = m.ID AND
+		n.IMG_GRO_CODE = m.ID
+		GROUP BY g.great_code, g.great_flag,
+		g.great_n_code
+	</select>
+
 
 </mapper>

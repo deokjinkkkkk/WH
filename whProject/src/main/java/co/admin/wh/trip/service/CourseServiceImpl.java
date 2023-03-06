@@ -1,13 +1,10 @@
 package co.admin.wh.trip.service;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
 import co.admin.wh.trip.mapper.CourseMapper;
 import co.admin.wh.trip.vo.CourseSearchVO;
@@ -21,18 +18,30 @@ public class CourseServiceImpl implements CourseService{
 	@Autowired
 	public CourseServiceImpl(CourseMapper courseMapper) {
 		this.courseMapper = courseMapper;
-	}
-
-	@Override
-	public List<CourseVO> courseList(CourseSearchVO cvo) {
-		// 페이징
-		return courseMapper.courseList(cvo);
-	}
+	}	
 
 	@Override
 	public void insertInfo(CourseVO courseVO) {
 		// api DB 등록
 		courseMapper.insertInfo(courseVO);
 		
+	}
+
+	@Override
+	public List<CourseVO> courseList() {
+		// 페이징
+		return courseMapper.courseList();
+	}
+
+	@Override
+	public int getCountTotal(CourseSearchVO svo) {
+		// 페이지 수 관리
+		return courseMapper.getCountTotal(svo);
+	}
+
+	@Override
+	public CourseVO detailSelect(CourseVO cvo) {
+		// 상세페이지 보기
+		return courseMapper.detailSelect(cvo);
 	}
 }

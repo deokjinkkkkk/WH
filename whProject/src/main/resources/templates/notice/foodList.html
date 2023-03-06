@@ -54,131 +54,50 @@ body>.container {
 		</section>
 		<!-- 배너끝 -->
 		<div class="container">
-				
-		
-<div class="card d-flex flex-row align-items-center overflow-hidden"
-     style="height: 200px;"
-     th:each="f, nStat: ${foodList}"
-     onmouseover='this.style.background="#fcecae";'
-     onmouseleave='this.style.background="#FFFFFF";'>
-     <span th:text="${f.foodCode}"></span> <br>
-    <a th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}" class="d-flex flex-row align-items-center" style="width:100%">
-        <div class="card-image w-25" style="height:100%">
-            <img class="card-img-top h-100 w-auto" th:src="'/image/'+${f.imgPath}"
-            width="50px" height="50px" >
-        </div>
-        <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 200px; flex:1;">
-            <h4 class="card-title">[[${f.foodName}]]</h4>
-            <div>
-                제목: <span th:text="${f.foodTitle}"></span><br>
-                작성일 : <span th:value="${#dates.format(f.foodDate, 'yyyy-MM-dd')}"></span><span th:text="${f.foodDate}"></span><br>
-                조회수 : <span th:text="${f.foodHit}"></span><br>
-            </div>
-        </div>
-    </a>
-</div>
 
-<!-- 페이징 bootstrap 적용 --> 
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-												<li class="page-item"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|"
-													th:class="${paging.page}==${num} ? 'active'">
-														[[${num}]] </a>
-												</li>
-											</ul>
-										</nav>
-									</div>
-									<!-- 페이징 bootstrap 적용 끝  -->
-<div class="pull-right" style="width: 100px; margin: 10px 0;">
-    <a href="foodForm" class="btn btn-primary btn-block">글쓰기</a>
-</div>
-		</div>
 
-		<!--  start faq section  -->
-		<!-- <section>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10 center-col">
-						<div class="accordion" id="accordionOne">
-							<div class="card">
-								<div class="card-header" id="headingOne">
-									<div class="mb-0">
-										<div id="mainHide">
-											<table class="table table-hover">
-
-												<thead>
-													<tr>
-														<th class="col-md-1">번호</th>
-														<th class="col-md-3">썸네일</th>
-														<th class="col-md-4">제목</th>
-														<th class="col-md-3">작성일</th>
-														<th class="col-md-4">조회수</th>
-
-													</tr>
-												</thead>
-												<tbody>
-													<tr th:each="f ,nStat: ${foodList}"
-														onmouseover='this.style.background="#fcecae";'
-														onmouseleave='this.style.background="#FFFFFF";'>
-														<td th:text="${f.foodCode}"></td>
-														<td th="{f.imgGroCode}"></td>
-														<td><a th:text="${f.foodTitle}"
-															th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"></a>
-														</td>
-
-														<td th:value="${#dates.format(f.foodDate, 'yyyy-MM-dd')}"></td>
-														<td th:text="${f.foodDate}"></td>
-														<td th:text="${f.foodHit}"></td>
-
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-								<div>
-									<br>
-									<br>
-
-									페이징 bootstrap 적용 
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-												<li class="page-item"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|"
-													th:class="${paging.page}==${num} ? 'active'">
-														[[${num}]] </a>
-												</li>
-											</ul>
-										</nav>
-									</div>
-									페이징 bootstrap 적용 끝 
-
-								</div>
-								<div class="pull-right" style="width: 100px; margin: 10px 0;">
-									<a href="foodForm" class="btn btn-primary btn-block">등록</a>
-								</div>
-
-							</div>
+			<div class="card d-flex flex-row align-items-center overflow-hidden"
+				style="height: 200px;" th:each="f, nStat: ${foodList}"
+				onmouseover='this.style.background="#fcecae";'
+				onmouseleave='this.style.background="#FFFFFF";'>
+				<span th:text="${f.foodCode}"></span> <br> <a
+					th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"
+					class="d-flex flex-row align-items-center" style="width: 100%">
+					<div class="card-image w-25" style="height: 100%">
+						<img class="card-img-top h-100 w-auto"
+							th:src="'/image/'+${f.imgPath}" width="50px" height="50px">
+					</div>
+					<div
+						class="card-body d-flex flex-column justify-content-center align-items-center"
+						style="height: 200px; flex: 1;">
+						<h4 class="card-title">[[${f.foodName}]]</h4>
+						<div>
+							제목: <span th:text="${f.foodTitle}"></span><br> 작성일 : <span
+								th:value="${#dates.format(f.foodDate, 'yyyy-MM-dd')}"></span><span
+								th:text="${f.foodDate}"></span><br> 조회수 : <span
+								th:text="${f.foodHit}"></span><br>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
-		</section> -->
 
-	</div>
-
-	<!-- end faq section -->
-	<!--  내용 끝  -->
-
-
-
-
-
+			<!-- 페이징 bootstrap 적용 -->
+			<div class="gopage" align="center">
+				<nav aria-label="Page navigation example" class="gopage">
+					<ul class="pagination">
+						<li class="page-item"
+							th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+							<a class="page-link" th:href="|javascript:gopage(${num})|"
+							th:class="${paging.page}==${num} ? 'active'"> [[${num}]] </a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<!-- 페이징 bootstrap 적용 끝  -->
+			<div class="pull-right" style="width: 100px; margin: 10px 0;">
+				<a href="foodForm" class="btn btn-primary btn-block">글쓰기</a>
+			</div>
+		</div>
 </body>
 
 </html>

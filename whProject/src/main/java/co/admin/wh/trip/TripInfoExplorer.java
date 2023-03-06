@@ -40,11 +40,15 @@ public class TripInfoExplorer {
 
         List<TripVO> list = new ArrayList<TripVO>();
         // "&pageNo=100&numOfRows=100"  갯수와 로우 100까지는 테스트 10000은 404에러
+        // 일단은 각 지역의 여행지를 끌어와보자.
         String str = "";    //return을 위해서
         String parsingUrl = "";//Parsing할 URL
-        String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-                "&pageNo=1" + "&numOfRows=10" + "&MobileOS=ETC" + "&MobileApp=AppTest" 
-        		+ "&listYN=Y" + "&arrange=CA" + "&areaCode=39" + "&cat1=A01";
+        String urlBuilder = "https://apis.data.go.kr/B551011/KorService/areaBasedList?" // 해당 여행지에 대한 상세정보
+				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
+				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
+				+ /* Service Key */
+				"&pageNo=1" + "&numOfRows=100" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=33" + "&cat1=A01";
 			
         URL url = new URL(urlBuilder);
 
@@ -79,12 +83,9 @@ public class TripInfoExplorer {
                 TripVO vo = new TripVO();
                           
                 System.out.println("=================================");
-                System.out.println(getTagValue("title", eElement)); // 관광지 제목
-                System.out.println(getTagValue("addr1", eElement)); // 관광지 주소
-                System.out.println(getTagValue("tel", eElement)); // 관광지 전화번호
-                System.out.println(getTagValue("mapx", eElement)); // 경도
-                System.out.println(getTagValue("mapy", eElement)); // 위도
-                                           
+                System.out.println(getTagValue("title", eElement)); // 코스 제목     
+                System.out.println(getTagValue("firstimage2", eElement)); // 사진
+                System.out.println(getTagValue("areacode", eElement)); //지역코드
                 
                 DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");              
 				java.util.Date tempDate = null;
@@ -97,27 +98,31 @@ public class TripInfoExplorer {
 				
 				java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); // java.util.Date로 변환한 데이터를 java.sql.Date로 변환해주기.
                            
-                vo.setTripName(getTagValue("title", eElement)); // 관광지 제모
-                vo.setTripAddr(getTagValue("addr1", eElement)); // 관광지 주소
-                vo.setTripTel(getTagValue("tel", eElement)); // 관광지 전화번호
+				// 담을 정보 : 이름(title), 주소(addr1), 고유번호(contentid), 이미지(firstimage2), 수정일(modifiedtime), 연락처(tel), 경도/위도, 지역코드(areacode)
+				vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElement))); // 고유코드번호
+				vo.setRegionCode(Integer.valueOf(getTagValue("areacode", eElement))); // 지역코드
+                vo.setTripName(getTagValue("title", eElement)); // 제목
+                vo.setTripTel(getTagValue("tel", eElement)); // 연락처
                 vo.setTripLon(getTagValue("mapx", eElement)); // 경도
                 vo.setTripLat(getTagValue("mapy", eElement)); // 위도
-                vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 관광지 사진
-                vo.setTripDate(sqlDate); // 등록일       
+                vo.setTripAddr(getTagValue("addr1", eElement));
+                vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 대표 사진
+                vo.setTripDate(sqlDate); // 수정일       
                 
                 
                 // contentid를 입력해서 api 주소 출력...
                 contentid = getTagValue("contentid", eElement);
                 
                 String parsingUrl1 = "";//Parsing할 URL
-                String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailCommon?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
-                        "&MobileOS=ETC" + "&MobileApp=AppTest" +"&contentId=" + contentid
-                		+ "&defaultYN=Y" + "&addrinfoYN=Y" + "&overviewYN=Y";
+                String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailCommon?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" +
+                "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + "&MobileOS=ETC" + "&MobileApp=AppTest"
+                + "&contentId="  + contentid + "&defaultYN=Y" + "&firstImageYN=Y" + "&areacodeYN=Y" 
+                + "&catcodeYN=Y" + "&addrinfoYN=Y" + "&mapinfoYN=Y" + "&overviewYN=Y";
         			
                 URL url1 = new URL(urlBuilder1);
 
                 parsingUrl1 = url1.toString();
-                System.out.println("+++"+parsingUrl1); // 이 주소에 있는 overview(개요)와 hompage(홈페이지 주소)가 필요.
+                System.out.println("+++"+parsingUrl1); // 이 주소에 있는 contentid, overview(개요)와 subname(관광지 주소), 이미지(firstimage2)가 필요.
                 
                 //페이지에 접근해줄 Document객체 생성
                 //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -138,22 +143,13 @@ public class TripInfoExplorer {
                     Node nNode1 = nList1.item(j);
                     if (nNode1.getNodeType() == Node.ELEMENT_NODE) {
                     	Element eElement1 = (Element) nNode1;
-                    	
-                    	// 홈페이지 필요한 부분만 문자 잘라내고 db 입력하기
-                    	String test = null;
-                    	test = getTagValue("homepage", eElement1).substring(getTagValue("homepage", eElement1).lastIndexOf("http"));                	
-                    	int start = test.indexOf("h");
-                    	int end = test.indexOf("<");
-                    	String startToend = test.substring(start, end);
-                    	
-                    	System.out.println(startToend); // 홈페이지 주소
-                    	
-                    	vo.setTripSumm(getTagValue("overview", eElement1)); // 개요
-                    	vo.setHomepage(startToend); // 홈페이지 주소
-                    	         	
+                    	                    	
+                    	// 가져와야할 정보 : 개요 (overview)
+                        System.out.println(getTagValue("overview", eElement1)); // 코스 안 여행지 개요
+                    	vo.setTripSumm(getTagValue("overview", eElement1)); // 개요        	
+
                     }
                 }
-                
                 
                 assert false;
                 list.add(vo);

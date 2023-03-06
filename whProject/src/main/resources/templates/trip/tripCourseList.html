@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{/index}">
+
+<body>
+
+   <div layout:fragment="content" class="content">
+   
+   <!-- 페이징 -->
+   <script>
+   		function gopage(page) {
+   			location.href = "course?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
+   </script>
+   <!-- 페이징 끝-->
+   
+   
+   <!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+               
+                <h1 class="text-white font-weight-600">여행 코스</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">여행 코스</span>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 -->
+	 
+      <!-- start tour-list section -->
+      <section>
+         <div class="container">
+            <div class="row">
+               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+                  <div class="row margin-30px-bottom">
+                     <div class="col-12 margin-40px-bottom">
+                     
+                     <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search font-size9 text-white" type="submit"></button>
+                                </span>
+                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off">
+                                <span class="input-group-addon close-search"></span>
+                            </div>
+                        </form>
+
+
+                     </div>
+	
+					
+                </div>
+                
+                <div th:each="c, nStat: ${courseList}" class="card card-list margin-15px-bottom">
+                   <div class="row align-items-center">
+                   <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
+                   <div class="card-list-img">
+                         <img class="border-radius-5" th:src="${c.imgGroCode}"  style="width:300; height:200px;"
+                            alt="" />
+                      </div>
+                      <div class="card-list-img">
+                      </div>
+                   </div>
+                   <div class="col-md-7 col-lg-8" id="trip">
+                      <div
+                         class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
+                         <div
+                            class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title no-margin-bottom font-size22">
+                               <a th:href="@{/courseDetail/{couCode}(couCode=${c.couCode})}" class="text-extra-dark-gray">[[${c.couName}]]</a>
+                            </h5>
+                         </div>
+                         <p class="margin-20px-tb sm-margin-10px-top"></p>
+                         <!-- 해시태그 -->
+                         <ul class="tags">
+                         <li><a href="#">#대구</a></li>
+                         </ul>
+                      </div>
+
+                   </div>
+                </div>
+             </div>
+
+								<!-- 페이징 TEST -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+												<li class="page-item"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|"
+													th:class="${paging.page}==${num} ? 'active'">
+														[[${num}]] </a>
+												</li>
+											</ul>
+										</nav>
+									</div> 
+                   				<!-- 페이징 끝 -->
+
+                  </div>
+               </div>
+               <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+                        <div class="side-bar">
+                       <div class="widget">
+                                   <div class="widget-title">
+                                       <h3>태그</h3>
+                                   </div>
+                                   <p>지역</p>
+                                   <ul class="tags">
+                                       <li><a href="#">#전체</a></li>
+                                       <li><a href="#">#1월</a></li>
+                                       <li><a href="#">#2월</a></li>
+                                       <li><a href="#">#3월</a></li>
+                                       <li><a href="#">#4월</a></li>
+                                       <li><a href="#">#5월</a></li>
+                                       <li><a href="#">#6월</a></li>
+                                       <li><a href="#">#7월</a></li>
+                                       <li><a href="#">#8월</a></li>
+                                       <li><a href="#">#9월</a></li>
+                                       <li><a href="#">#10월</a></li>
+                                       <li><a href="#">#11월</a></li>
+                                       <li><a href="#">#12월</a></li>                                       
+                                   </ul>
+                               </div>
+                         </div>
+                   </div>
+               
+            </div>
+      </section>
+   </div>
+      <!-- end tour-list section -->
+      
+
+
+</body>
+</html>

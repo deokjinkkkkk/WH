@@ -6,9 +6,7 @@
 			resultType="co.admin.wh.member.vo.MemberVO">
 			SELECT * FROM member
 			where id = #{id}
-			<if test="password != null">
 			AND PASSWORD = #{password}
-			</if>
 	</select>
 	
 	<insert id="memberInsert">
@@ -23,4 +21,21 @@
 		SELECT CASE WHEN COUNT(id) = 1 THEN 0 ELSE 1 END AS ID 
 		FROM MEMBER WHERE id = #{id}
 	</select>
+	
+	<update id="memberUpdate">
+	update member 
+	<set>
+	
+	</set>
+	where 
+	</update>
+	
+	<delete id="memberDelete">
+	delete from member
+	where id = {id}
+	</delete>
+	
+	<insert id="memDel">
+	insert into member
+	</insert>
 </mapper>

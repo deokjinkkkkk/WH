@@ -42,10 +42,6 @@ public class TripController {
 		return "trip/tripDetail";
 	}
 	
-	@RequestMapping("/tripCourse")
-	public String tripCourse(Model model) {
-		return "trip/tripCourse";
-	}
 	
 	@RequestMapping("/memberCourse")
 	public String memberCourse(Model model) {
@@ -83,7 +79,7 @@ public class TripController {
 //		for (TripVO tripVO : list) {
 //		tripService.insertInfo(tripVO);						
 //		}
-//
+
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
 		System.out.println("파싱 끝");

@@ -30,4 +30,18 @@
 		from hotel
 		where hotel_id = #{hotelId}
 	</select>
+	
+	<insert id="insertReservInfo" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+	   	<selectKey resultType="int" keyProperty="resId" order="BEFORE">
+	        SELECT NVL(MAX(res_Id),0)+1 FROM RESERVATION        
+	    </selectKey>
+		insert into Revervation
+		values (#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn},#{checkOut},#{id},sysdate,#{totalPay},#{payState},#{hotelId})
+	</insert>
+	
+	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO">
+		select *
+		from Reservation
+		where res_id = #{resId}
+	</select>
 </mapper>

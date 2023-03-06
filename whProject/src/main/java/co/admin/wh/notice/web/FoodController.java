@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import co.admin.wh.common.service.CommonService;
 import co.admin.wh.common.service.ImageService;
+import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.FoodMapper;
 import co.admin.wh.notice.service.FoodService;
@@ -31,6 +33,7 @@ public class FoodController {
 	@Autowired FoodService foodService;
 	@Autowired ImageService imageService;
 	@Autowired ServletContext servletContext;
+	@Autowired 	CommonService commomService;
 	
 	@Value("${wh.saveimg}")
 	private String saveimg;
@@ -38,7 +41,7 @@ public class FoodController {
 	//게시글 리스트 처리
 	@RequestMapping("/food")
 	public String foodList(Model model, @ModelAttribute("fsvo")FoodSearchVO svo, Paging paging ) {
-		paging.setPageUnit(5);//한 페이지에 풀력할 레코드 건수
+		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(10); //한 페이지에 보여질 페이지 갯수
 		
 		svo.setFirst(paging.getFirst());
@@ -52,14 +55,15 @@ public class FoodController {
 	
 	//글작성
 	@RequestMapping("/foodForm")
-	public String foodForm(Model model) {
-
+	public String foodForm(Model model , CommonVO cvo) {
+		model.addAttribute("co", commomService.commonLocal());
+		model.addAttribute("gr", commomService.commonGroup());
 		return "notice/foodForm";
 	}
 	
 	//파일첨부
 	@RequestMapping("/foodJoin.do")
-	public String foodJoin(FoodVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
+	public String foodJoin(FoodVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile , CommonVO cvo) {
 		
 		String saveFolder = saveimg;//파일저장위치
 		
@@ -100,6 +104,7 @@ public class FoodController {
 		foodService.hitUpdate(foodCode); // 조회수증가
 		
 		model.addAttribute("food",foodService.detailSelect(vo));
+		model.addAttribute("i", foodService.imgSelect(vo));
 		return "notice/foodDetail";
 		
 	}

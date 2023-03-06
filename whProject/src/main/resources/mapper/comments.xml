@@ -50,6 +50,12 @@
 	
 	<delete id="commentsDelete">
 		Delete from comments
+		where com_group = #{comGroup}
+	</delete>
+	
+	<delete id="reCommentsDelete">
+		
+		Delete from comments
 		where com_code = #{comCode}
 	</delete>
 	
