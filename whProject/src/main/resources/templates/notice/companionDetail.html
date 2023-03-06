@@ -65,10 +65,15 @@
 					$("#text-contents.body-contents").html(data);
 				});
 			</script>
+			
+			
 			<div class="modal hide" id="myModal">
+			<form id="frm" action="/report" method="post"
+					enctype="multipart/form-data">
 				<div class="modal-header">
 <!-- 					<button class="close" data-dismiss="modal">x</button> -->
 					<div class="modal-dialog" role="document">
+					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
@@ -78,40 +83,24 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<div>
-
-									<label class="rad-label"> <input type="radio"
-										class="rad-input" name="rad">
-										<div class="rad-design"></div>
-										<div class="rad-text">스팸, 도용 또는 저작권 위배</div>
-									</label> <label class="rad-label"> <input type="radio"
-										class="rad-input" name="rad">
-										<div class="rad-design"></div>
-										<div class="rad-text">스팸, 도용 또는 저작권 위배</div>
-									</label> <label class="rad-label"> <input type="radio"
-										class="rad-input" name="rad">
-										<div class="rad-design"></div>
-										<div class="rad-text">포르노 또는 음란물</div>
-									</label> <label class="rad-label"> <input type="radio"
-										class="rad-input" name="rad">
-										<div class="rad-design"></div>
-										<div class="rad-text">희롱, 괴롭힘 또는 노골적인 폭력</div>
-									</label>
-
+						
+								<div th:each="c: ${r}">
+								<label class="rad-label"> 
+								 <input type="radio" th:text=${c.comName} th:value="${c.comCode.toString()}" name="repReason" id="repReason">
 								</div>
-
 						
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary">삭제하기</button>
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">취소하기</button>
+								<input type="submit" class="btn btn-primary" value="신청하기"></button>
+								<!-- <button type="button" class="btn btn-primary"
+									data-dismiss="modal">취소하기</button> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-	</div>
+	</form>
+	</div></section></div>
 	<!-- 내용 끝 -->
 
 

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.admin.wh.common.mapper.ReportMapper;
 import co.admin.wh.common.service.CommonService;
 import co.admin.wh.common.service.ImageService;
+import co.admin.wh.common.service.ReportService;
 import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
@@ -35,6 +37,12 @@ public class CompanionController {
 	
 	@Autowired
 	CommonService commomService;
+	
+	@Autowired
+	ReportMapper reportMapper;
+	
+	@Autowired
+	ReportService reportService;
 
 	@Autowired
 	ServletContext servletContext;
@@ -94,22 +102,23 @@ public class CompanionController {
 
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		model.addAttribute("i", companionService.imgSelect(compVO));
+		model.addAttribute("r", commomService.commonReport());
 		return "notice/companionDetail";
 	}
 
 	@RequestMapping("/companionUpdateForm")
-	public String companionUpdateForm(CompanionVO compVO, Model model) {
+	public String companionUpdateForm(CompanionVO compVO, Model model, CommonVO cvo) {
 		model.addAttribute("c", companionService.detailSelect(compVO));
+		 model.addAttribute("co", commomService.commonLocal());
+		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionUpdateForm";
 	}
 
-//	 @RequestMapping("/companionUpdate") public String companionUpdate(CompanionVO compVO, Model model) { 
-//		 model.addAttribute("c",companionService.companionUpdate(compVO)); 
-//		 return "redirect:noticeDetail/"+compVO.getCompCode(); }
-
 	@PostMapping("/companionUpdate")
-	public String companionUpdate(CompanionVO compVO, Model model) {
-		model.addAttribute("c", companionService.companionUpdate(compVO));
+	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo) {
+//		 model.addAttribute("co", commomService.commonLocal());
+//		 model.addAttribute("gr", commomService.commonGroup());
+		 model.addAttribute("c", companionService.companionUpdate(compVO));
 		return "redirect:companionDetail/" + compVO.getCompCode();
 	}
 

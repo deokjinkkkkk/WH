@@ -11,7 +11,9 @@ public class CompanionVO  {
 	private int compCode;
 	private String id;
 	private String age;
+	
 	private String compGroup;
+	
 	private String compTitle;
 	private String compCount;
 	private String compLocal;
@@ -30,4 +32,6 @@ public class CompanionVO  {
 	private String imgPath;
 	private String imgName;
 	
+	String comCode;
+	String comName;
 }

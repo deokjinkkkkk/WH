@@ -9,4 +9,6 @@ public interface CommonMapper {
 	List<CommonVO> commonLocal();
 	
 	List<CommonVO> commonGroup();
+	
+	List<CommonVO> commonReport();
 }
