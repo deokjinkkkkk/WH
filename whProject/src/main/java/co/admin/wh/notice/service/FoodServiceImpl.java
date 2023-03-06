@@ -72,6 +72,12 @@ private FoodMapper mapper;
 		return mapper.foodUpdate(vo);
 	}
 
+	@Override
+	public FoodVO imgSelect(FoodVO fvo) {
+		
+		return mapper.imgSelect(fvo);
+	}
+
 	
 
 	
