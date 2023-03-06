@@ -6,7 +6,7 @@
 			resultType="co.admin.wh.member.vo.MemberVO">
 			SELECT * FROM member
 			where id = #{id}
-			AND PASSWORD = #{password}
+			AND PASSWORD = #{pass}
 	</select>
 	
 	<insert id="memberInsert">
@@ -25,9 +25,12 @@
 	<update id="memberUpdate">
 	update member 
 	<set>
-	
+	<if test="password != null">password = #{password},</if>
+	<if test="password != null">name = #{name},</if>
+	<if test="password != null">tel = #{tel},</if>
+	<if test="password != null">email = #{email}</if>
 	</set>
-	where 
+	where id =#{id}
 	</update>
 	
 	<delete id="memberDelete">
@@ -36,6 +39,7 @@
 	</delete>
 	
 	<insert id="memDel">
-	insert into member
+	insert into quit
+	values(#{id},#{password},#{name},#{gender},#{tel},#{email})
 	</insert>
 </mapper>

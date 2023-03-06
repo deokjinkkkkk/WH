@@ -19,7 +19,7 @@
 						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
 						<h3
 							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">회원가입</h3>
-						<form method="post" action="#!">
+						<form method="post" action="/memberSignUp" id="frm">
 							<div class="row">
 								<div class="col-md-9">
 									<div class="form-group">
@@ -158,7 +158,9 @@
 				alert("이용약관에 동의하여 주세요")
 				return false	
 			}
+			$("#frm").submit()				
 		})
+	
 		
 		
 		

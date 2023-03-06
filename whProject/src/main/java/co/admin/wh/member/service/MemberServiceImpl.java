@@ -14,11 +14,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired 
 	private MemberMapper member;
 
-	@Override
-	public MemberVO memberSelect(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return member.memberSelect(vo);
-	}
 
 	@Override
 	public int memberInsert(MemberVO vo) {
@@ -55,9 +50,5 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return member.memDel(vo);
 	}
-
-
-	
-	
 
 }
