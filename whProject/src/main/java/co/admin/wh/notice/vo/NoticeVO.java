@@ -22,4 +22,5 @@ public class NoticeVO {
 	Date noticeModDate;    //수정날짜 
 	String imgPath;
 	String imgName;
+	
 }
