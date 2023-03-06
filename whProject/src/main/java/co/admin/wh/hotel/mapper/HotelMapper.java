@@ -18,6 +18,6 @@ public interface HotelMapper {
     List<HotelVO> CrawlingList(); // 오늘 예약 가능 리스트 출력
     HotelVO detailSelect(HotelVO vo); // 호텔 상세페이지
     
-    void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
+    String insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
     ReservationVO readReservInfo(ReservationVO vo); // 예약정보 출력
 }
