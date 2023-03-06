@@ -12,5 +12,24 @@
     ORDER BY t.to_do_code ASC
 </select>
 
+<insert id="todoInsert">
+	<selectKey keyProperty="todoCode" resultType="int" order="BEFORE">
+	select NVL(max(to_do_code),0) + 1 
+	from to_do_list
+	</selectKey>
+		INSERT INTO TO_DO_LIST
+		VALUES(#{todoCode},
+				#{id},
+				#{todoContent},
+				#{todoDate},
+				#{todoFlag})
+</insert>
+
+
+<delete id="todoDelete">
+	DELETE FROM to_do_list
+	WHERE to_do_code = #{todoCode}
+</delete>
+
 
 </mapper>

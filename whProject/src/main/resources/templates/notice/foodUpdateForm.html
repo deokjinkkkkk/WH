@@ -57,7 +57,8 @@
 									<td>
 										<form id="foodContent" name="foodContent">
 											<textarea rows="10" class="form-control"
-												id="textArea_byteLimit" name="textArea_byteLimit"
+												th:text="${food.foodContent}"
+												id="foodContent" name="foodContent"
 												onkeyup="fn_checkByte(this,'1000')"></textarea>
 										</form>
 									</td>
@@ -65,7 +66,8 @@
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							첨부파일<input type="file" name="imgGroCode" id="imgGroCode">
+							첨부파일<input type="file" name="imgGroCode" id="imgGroCode"
+							th:value ="${food.imgGroCode}">
 						</div>
 
 						<input type="hidden" name="id" id="id" value="1"> <input

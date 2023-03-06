@@ -39,6 +39,13 @@
 		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
 
+	<select id="imgSelect" resultType="co.admin.wh.notice.vo.FoodVO">
+		SELECT *
+		FROM FOOD f
+		JOIN IMAGE i
+		ON f.IMG_GRO_CODE = i.IMG_GRO_CODE
+		WHERE f.FOOD_CODE = #{foodCode}
+	</select>
 	<!-- 총 게시글 갯수 출력 -->
 	<!-- <select id="countFood" resultType="int"> SELECT COUNT(*) FROM FOOD 
 		</select> -->

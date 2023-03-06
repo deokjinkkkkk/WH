@@ -18,12 +18,14 @@ public interface FoodMapper {
 	
 	int imgInsert(ImageVO ivo);
 	
-	FoodVO imgSelect(FoodVO fvo);
+	FoodVO imgSelect(FoodVO vo);
 	
 	int hitUpdate(int foodCode); //조회수증가
 
 	int foodDelete(FoodVO vo);//삭제
 	
 	int foodUpdate(FoodVO vo); //수정
+	
+	int imageSelect (ImageVO ivo);
 	
 }
