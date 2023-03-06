@@ -6,7 +6,7 @@
 			resultType="co.admin.wh.member.vo.MemberVO">
 			SELECT * FROM member
 			where id = #{id}
-			AND PASSWORD = #{pass}
+			AND PASS = #{pass}
 	</select>
 	
 	<insert id="memberInsert">

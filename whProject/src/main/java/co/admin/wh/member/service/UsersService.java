@@ -1,6 +1,7 @@
 package co.admin.wh.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,13 +23,11 @@ public class UsersService implements UserDetailsService {
 		if(vo == null) {
 			throw new UsernameNotFoundException("유저 없음");
 		}
+		return User.builder()
+	                .username(vo.getId())
+	                .password(vo.getPass())
+	                .authorities(vo.getAuthorities())
+	                .build();
 		
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		return new org 
-			.springframework
-	        .security
-	        .core
-	        .userdetails
-	        .User(vo.getId(), vo.getPass(), vo.getAuthorities());
 	}
 }
