@@ -12,5 +12,7 @@ public interface ImageMapper {
 	String foodImage(ImageVO ivo);
 
 	String imgNotice(ImageVO ivo);
+	
+	int imageDelete(ImageVO ivo);
 
 }

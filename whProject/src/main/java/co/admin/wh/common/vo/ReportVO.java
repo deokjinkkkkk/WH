@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
+
+@Data
 public class ReportVO {
 	int repCode;
 	String id;

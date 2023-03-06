@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.common.mapper.ImageMapper">
-	
+
 	<select id="imageSelect" resultType="String">
-	select 'WT'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		select 'WT'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
 	</select>
 
 
-<select id="foodImage" resultType="String">
-	select 'FO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+	<select id="foodImage" resultType="String">
+		select 'FO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
 	</select>
 
 	<select id="imgNotice" resultType="String">
-	select 'NO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		select 'NO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
 	</select>
+
+	<delete id="imageDelete">
+		DELETE FROM image
+		WHERE img_gro_code IN (
+		SELECT
+		img_gro_code
+		FROM companion
+		WHERE img_gro_code = #{imgGroCode}
+		)
+	</delete>
 
 </mapper>

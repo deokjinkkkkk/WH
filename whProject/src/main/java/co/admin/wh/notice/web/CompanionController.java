@@ -102,12 +102,14 @@ public class CompanionController {
 
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		model.addAttribute("i", companionService.imgSelect(compVO));
+		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
 		return "notice/companionDetail";
 	}
-
+	
 	@RequestMapping("/companionUpdateForm")
 	public String companionUpdateForm(CompanionVO compVO, Model model, CommonVO cvo) {
+		
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
@@ -115,15 +117,21 @@ public class CompanionController {
 	}
 
 	@PostMapping("/companionUpdate")
-	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo) {
+	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo, CompanionSearchVO csvo) {
 //		 model.addAttribute("co", commomService.commonLocal());
 //		 model.addAttribute("gr", commomService.commonGroup());
 		 model.addAttribute("c", companionService.companionUpdate(compVO));
+		 model.addAttribute("com", companionService.getCompanionList(csvo));
 		return "redirect:companionDetail/" + compVO.getCompCode();
 	}
 
 	@RequestMapping("/companionDelete")
-	public String companionDelete(CompanionVO compVO, Model model) {
+	public String companionDelete(CompanionVO compVO, Model model, ImageVO ivo) {
+		
+		/*
+		 * File file = new File(ivo.getImgPath()); file.delete();
+		 */
+		imageService.imageDelete(ivo);
 		companionService.companionDelete(compVO);
 		return "redirect:companion";
 	}
