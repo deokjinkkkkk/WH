@@ -11,4 +11,7 @@ public interface MemberService {
 	boolean idChk(String id);
 	int memberInsert(MemberVO vo);
 	List<MemberVO> memberList();
+	int memberUpdate(MemberVO vo);
+	int memberDelete(MemberVO vo);
+	int memDel(MemberVO vo);
 }

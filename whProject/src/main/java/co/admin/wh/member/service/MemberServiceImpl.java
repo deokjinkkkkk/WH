@@ -38,6 +38,24 @@ public class MemberServiceImpl implements MemberService {
 		return member.idChk(id);
 	}
 
+	@Override
+	public int memberUpdate(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.memberUpdate(vo);
+	}
+
+	@Override
+	public int memberDelete(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.memberDelete(vo);
+	}
+
+	@Override
+	public int memDel(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.memDel(vo);
+	}
+
 
 	
 	

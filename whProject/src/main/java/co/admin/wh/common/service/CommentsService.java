@@ -10,6 +10,6 @@ public interface CommentsService {
 	public List<CommentsVO> commentsList(); //댓글목록
 	public int commentsUpdate(CommentsVO vo); //댓글 수정
 	public int commentsDelete(CommentsVO vo); //댓글 삭제
-	
+	public int reCommentsDelete(CommentsVO vo);
 	
 }

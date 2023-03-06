@@ -2,20 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.todo.mapper.TodoMapper">
 
-<select id="getTodoList"
+<select id="TodoList"
 		resultType="co.admin.wh.todo.vo.TodoVO">
-	SELECT * FROM (select rownum rn,a.*
-		from(select t.to_do_code,
-			m.id,
-			t.to_do_content,
-			t.to_do_date,
-			t.to_do_flag
-			from TO_DO_LIST t, MEMBER m
-			where t.id = m.id
-		order by to_do_code desc
-		<![CDATA[
-	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
-	]]>
+	SELECT t.*, tag.tag_name
+    	FROM TO_DO_LIST t
+    	INNER JOIN member m ON t.id = m.id
+    	LEFT JOIN todo_tag todoTag ON t.to_do_code = todoTag.todo_tag_code
+    	LEFT JOIN tag ON todoTag.tag_code = tag.tag_code
+    ORDER BY t.to_do_code ASC
 </select>
 
 
