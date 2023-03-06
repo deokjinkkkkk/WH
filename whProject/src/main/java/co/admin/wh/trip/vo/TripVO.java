@@ -25,5 +25,8 @@ public class TripVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date tripDate; //등록일자(수정일자로 일단 변경)
+	String couCode; // + 추가, 코스고유번호
+	int regionCode; // + 추가, 지역코드
+
 	
 }
