@@ -47,16 +47,17 @@
 					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
 					<h4 class="card-title">[[${c.compTitle}]]</h4>
 					인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
-						th:text="${c.compGroup}"></span><br> 여행기간 : <span
+						th:text="${c.comName}"></span><br> 여행기간 : <span
 						th:text="${c.compStartDate}"> </span> ~ <span
 						th:text="${c.compEndDate}"></span><br> <a
-						th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">젭알</a>
+						th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}"><h4 style="color:#9D8BD1;">상세페이지</h4></a>
+						
 				</div>
 			</div>
-
-			<a href="companionForm" class="btn btn-danger">신청하기</a>
+			<br>
+			<a href="companionForm" class="btn btn-danger" style="float: right;;">신청하기</a>
 		</div>
-
+	<br>
 		<!-- 페이징 버튼 부분 -->
 		<div>
 			<div class="gopage" align="center">

@@ -27,5 +27,6 @@ public class CourseVO {
 	String imgGroCode; //이미지그룹번호
 	int regionCode; // + 추가, 지역코드
 	String contentId; // + 추가, 코스 고유번호(밑에 파생된 여행지에 붙이기)
+	String tripSumm; // + 추가, 여행 개요... ㅇㄴ
 	
 }

@@ -23,8 +23,7 @@
         text-align: left;
         vertical-align: middle;
 }
-/* MAIN */
-/* =============================================== */
+
 .rad-label {
   display: flex;
   align-items: center;
@@ -92,9 +91,16 @@
 .rad-input:checked~.rad-text {
   color: hsl(0, 0%, 40%);
 }
+
 .gopage {
-margin: 0 auto;
-}
+      width: 100%;
+      display: flex;
+      justify-content: center;
+   }
+
+   .pagination {
+      margin: 0;
+   }
 
 
 	</style>
@@ -132,6 +138,9 @@ margin: 0 auto;
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
+	
+	<!-- 결제 api -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
 

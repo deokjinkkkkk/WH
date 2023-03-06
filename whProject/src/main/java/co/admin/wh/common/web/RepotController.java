@@ -15,6 +15,7 @@ public class RepotController {
 	
 	@RequestMapping("/report")
 	public String reportInsert(ReportVO rvo) {
+		System.out.println(rvo);
 		reportMapper.reportInsert(rvo);
 		return "redirect:companion";
 	}

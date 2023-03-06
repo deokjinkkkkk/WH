@@ -73,16 +73,16 @@ private FoodMapper mapper;
 	}
 
 	@Override
-	public FoodVO imgSelect(FoodVO fvo) {
-		
-		return mapper.imgSelect(fvo);
+	public FoodVO imgSelect(FoodVO vo) {
+		return mapper.imgSelect(vo);
+	}
+
+	@Override
+	public int imageSelect(ImageVO ivo) {
+		return mapper.imageSelect(ivo);
 	}
 
 	
-
-	
-	
-
 
 
 }

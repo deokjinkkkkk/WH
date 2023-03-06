@@ -14,6 +14,8 @@ public interface ImageService {
 	String foodImage(ImageVO ivo);
 
 	String imgNotice(ImageVO ivo);
+	
+	int imageDelete(ImageVO ivo);
 
 	
 }

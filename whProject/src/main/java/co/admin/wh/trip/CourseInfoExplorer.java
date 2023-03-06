@@ -96,6 +96,9 @@ public class CourseInfoExplorer {
 				// contentid를 입력해서 api 주소 출력...
                 contentid = getTagValue("contentid", eElement);
                 
+                // if else ..
+               
+                
                 String parsingUrl1 = "";//Parsing할 URL
                 String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailInfo?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
                         "&MobileOS=ETC" + "&MobileApp=AppTest" +"&contentId=" + contentid
@@ -131,11 +134,13 @@ public class CourseInfoExplorer {
                         System.out.println(getTagValue("contentid", eElement1)); //코스 id
                     	System.out.println(getTagValue("subname", eElement1)); // 코스 안 여행지 제목
                         System.out.println(getTagValue("subdetailoverview", eElement1)); // 코스 안 여행지 개요
+                        System.out.println(getTagValue("subnum", eElement1)); // 코스 순서
                         
                         // 가져올 데이터 : 코스 고유번호(contentid), 여행지 id(subcontentid), 여행지 이름 : (subname), 여행지 개요(subdetailoverview)
                         vo1.setTripCode(Integer.valueOf(getTagValue("subcontentid", eElement1))); // 코스 여행지 고유 id
                         vo1.setCouCode(getTagValue("contentid", eElement1)); // 코스 고유 아이디 넣기
                         vo1.setCouName(getTagValue("subname", eElement1)); // 코스 여행지 이름
+                        vo1.setRegionCode(Integer.valueOf(getTagValue("subnum", eElement1))); // 코스 순서 번호
                     	// 개요
         	
                     	assert false;

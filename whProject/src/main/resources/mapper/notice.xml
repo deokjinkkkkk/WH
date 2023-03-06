@@ -22,13 +22,12 @@
 	<!-- 상세페이지 -->
 	<select id="noticendetil"
 		resultType="co.admin.wh.notice.vo.NoticeVO">
-		SELECT
+		SELECT DISTINCT
 		n.NOTICE_CODE,
 		n.NOTICE_TITLE,
 		n.NOTICE_REG_DATE,
 		n.NOTICE_CONTENT,
 		n.NOTICE_MOD_DATE,
-		n.NOTICE_HIT,
 		n.img_gro_code,
 		i.IMG_Name,
 		i.IMG_PATH

@@ -24,71 +24,115 @@
 		</section>
 		<!-- 배너끝 -->
 
-		<div class="container">
-			<form id="todo" method='post'>
+		<div class="todoForm">
+			<form id="todoForm" method='post'>
 				<div class="controls">
 					<div class="row">
 						<input type="hidden" name="id" value="ADMIN" id="id">
 						<div class="col-md-12 form-group">
-							<textarea id="todoContent" name="todoContent" placeholder="리스트를 입력하세요."
-								rows="1" required="required"></textarea>
+							<textarea id="todoContent" name="todoContent"
+								placeholder="리스트를 입력하세요." rows="1" required="required"></textarea>
+							<div class="input-group input-daterange">
+								<input id="todoDate" type="date">
+							</div>
 						</div>
 						<div class="col-md-12">
 							<button type="button" id="butn" class="butn">
-								<span>넣기</span>
+								<span>담기</span>
 							</button>
 						</div>
 					</div>
 				</div>
+				<input type="hidden" id="todoFlag" name="todoFlag" value="1">
+				<input type="hidden" id="id" name="id" >
+				
+				<br>
+				<br>
+
+
+				<!-- Nav tabs -->
+				<div class="golist">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active"
+						data-bs-toggle="tab">전체</a></li>
+					<li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
+						href="#menu1">완료</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div class="tab-pane container active" id="home"></div>
+					<div class="tab-pane container fade" id="menu1">완료</div>
+				</div>
+				</div>
+
+
 			</form>
+			
 
-			<input type="text" id="doList" style="width: 50vw;">
-			<button type="button" onclick="saveList()">ListUp</button>
-			<!-- 체크된 항목을 삭제 하는 버튼 -->
-			<button type="button" onclick="deleteElements()">DeleteAll</button>
-			<br> <br>
-			<h2>LIST</h2>
-			<div id="list"></div>
-
-			<h2>HISTORY</h2>
-
-			<div id="history"></div>
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js">
-				function getTodoList() {
-					// AJAX 요청 보내기
-					$.ajax({
-						url : '/todolist', // 요청할 URL (서버에서 요청을 처리할 컨트롤러의 URL)
-						method : 'GET', // 요청 메소드 (GET, POST, PUT, DELETE 등)
-						dataType : 'json', // 응답 데이터 타입 (JSON)
-						success : function(data) { // 요청 성공 시 실행되는 콜백 함수
-							// 서버에서 받아온 TodoList 데이터를 이용하여 HTML을 동적으로 생성하여 추가
-							let list = document.getElementById('list');
-							list.innerHTML = '';
-							data.forEach(function(todo) {
-								let p = document.createElement('p');
-								let ckb = document.createElement('input');
-								ckb.setAttribute('type', 'checkbox');
-								ckb.setAttribute('value', todo.todoCode);
-								p.prepend(ckb);
-								p.textContent = todo.todoContent;
-								let btn = document.createElement('button');
-								btn.textContent = 'Complete';
-								btn.setAttribute('type', 'button');
-								btn.addEventListener('click', function() {
-									completeTodoItem(todo.todoCode);
-								});
-								p.appendChild(btn);
-								list.appendChild(p);
-							});
-						},
-						error : function(xhr, status, error) { // 요청 실패 시 실행되는 콜백 함수
-							console.log('AJAX 요청 실패', xhr, status, error);
-						}
-					});
+				
+				<script>
+				// input에 오늘날짜 기본값으로 넣기
+				window.onload = function() {
+					today = new Date();
+					console
+							.log("today.toISOString() >>>"
+									+ today.toISOString());
+					today = today.toISOString().slice(0, 10);
+					console.log("today >>>> " + today);
+					bir = document.getElementById("todoDate");
+					bir.value = today;
 				}
+				
+				$(document).ready(function(){
+					getComList()
+				})
+				
+				$("butn").click(function(){ //리스트 담기
+					let todoContent = $("#todoContent").val(); //내용
+					let todoId = $("#id").val(); //회원아이디
+					let todoDate = $("#todoDate").val(); //날짜
+					let todoCode = 1 //리스트 순서
+					let todoFlag = $("#todoFlag").val();//구분(1.todolist - 2.완료)
+					
+				
+				
+				$.ajax({
+					url : "/todoInsert",
+					type : "POST",
+					data : JSON.stringify({
+						"todoContent" : todoContent,
+						"id" : todoId,
+						"todoDate" : todoDate,
+						"todoCode" : todoCode,
+						"todoFlag" : todoFlag
+					}),
+					
+					contentType : 'application./json',
+					Success : function(data) {
+						console.log("todolist등록")
+						$("#todoContent").val("")
+						console.log("========")
+						getTodoList()
+					},
+					error:function(){
+						alert('등록 실패');
+					}
+				});
+		
+				});
+				////////////
+				function getTodoList(){ //리스트 가져오기
+					let str = '<div class="title-g margin-30px-bottom">'
+						str += '<h3>댓글</h3>'
+							str +='<h3>댓글</h3>'
+								str +='</div>'
+							let comArea =$(".comments-area");
+				}
+				
 			</script>
 
+			</div>
 		</div>
-	</div>
 </body>
 </html>

@@ -48,6 +48,12 @@ public class ImageServiceImpl implements ImageService {
 	public String imgNotice(ImageVO ivo) {
 		return imageMapper.imgNotice(ivo);
 	}
+
+	@Override
+	public int imageDelete(ImageVO ivo) {
+		// TODO Auto-generated method stub
+		return imageMapper.imageDelete(ivo);
+	}
 	
 	
 	

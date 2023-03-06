@@ -21,6 +21,7 @@ import co.admin.wh.trip.mapper.CourseMapper;
 import co.admin.wh.trip.service.CourseService;
 import co.admin.wh.trip.vo.CourseSearchVO;
 import co.admin.wh.trip.vo.CourseVO;
+import co.admin.wh.trip.vo.TripVO;
 
 @Controller
 public class CourseController {
@@ -52,16 +53,15 @@ public class CourseController {
 		
 		// 파싱하여 리턴한 데이터 값들을 list에 담아주기 위해 사용
 		List<CourseVO> list = apiExplorer.parsingDate("");
+		//model.addAttribute("courseLitleList", courseMapper.courseList(svo));
 		
 		//List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
 //		for (CourseVO courseVO : list) {
 //		courseService.insertInfo(courseVO);						
 //		}
 
-		model.addAttribute("courseList", courseService.courseList());
-		
-		System.out.println("파싱 끝");
-		
+		model.addAttribute("courseList", courseService.courseList(svo));		
+		System.out.println("파싱 끝");		
 		return "trip/tripcourseList";
 		
 	}

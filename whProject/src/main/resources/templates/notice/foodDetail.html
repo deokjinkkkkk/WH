@@ -4,6 +4,7 @@
 	layout:decorate="~{index}">
 
 <body>
+
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
 <!-- 배너시작 -->
@@ -16,51 +17,49 @@
       </ul>
    </section>
 		<!-- 배너끝 -->
-	 <form method="post" action="/foodDelete"><br><br>
-<div class="container">
-	<table class="table">
-	<tr>
-	<td width="20%" class="text-center warning">번호</td>
-	 <td width=30% class="text-center" th:text="${food.foodCode}"></td>
-	 <td width="20%" class="text-center warning">작성일</td>
-	 <td width=30% class="text-center" th:text="${food.foodDate}"></td>
-	 </tr>
-	 <tr>
-	 <th width=20% class="text-center warning">작성자</th>
-	 <td width=30% class="text-center" th:text="${food.id}"></td>
-	 <th width=20% class="text-center warning">조회수</th>
-	 <td width=30% class="text-center" th:text="${food.foodHit}"></td>
-	 <tr>
-	 <th width=20% class="text-center warning">제목</th>
-	 <td colspan="3" th:text="${food.foodTitle}"></td>
-	 </tr>
-	 <tr>
-	 <th width=20% class="text-center warning">상호명</th>
-	 <td colspan="3" th:text="${food.foodName}"></td>
-	 </tr>
-	 <tr>
-	 <th width=20% class="text-center warning">
-	  <img th:src="'/image/'+${food.imgPath}">
-	 </th>
-	 <td colspan="4" class="text-left" valign="top" height="200">
-	 <pre th:text="${food.foodTitle}" style="white-space: pre-wrap;border:none; background-color:white;"> </pre>
-	
-	 </td>
-	 </tr>
-	
-	 
-	 <tr>
-	 <td colspan="4" class="text-right">
-	 <a th:href="@{/foodUpdateForm(foodCode=${food.foodCode})}" class="btn btn-xs btn-info">수정</a>
-	 <input type="hidden" name="foodCode" th:value="${food.foodCode}" />
-								<button type="submit" class="btn btn-xs btn-warning">삭제</button>
-	 <a href="/food" class="btn btn-xs btn-success">목록</a>
-	 
-	</table>
-	
-</div>
-
-		 </form> 
+	 <form id="frm" method="post" action="/foodDelete">
+	<div class="container">
+		<table class="table">
+			<tr>
+				<td width="20%" class="text-center warning">번호</td>
+				<td width=30% class="text-center" th:text="${food.foodCode}"></td>
+				<td width="20%" class="text-center warning">작성일</td>
+				<td width=30% class="text-center" th:text="${food.foodDate}"></td>
+			</tr>
+			<tr>
+				<th width=20% class="text-center warning">작성자</th>
+				<td width=30% class="text-center" th:text="${food.id}"></td>
+				<th width=20% class="text-center warning">조회수</th>
+				<td width=30% class="text-center" th:text="${food.foodHit}"></td>
+			</tr>
+			<tr>
+				<th width=20% class="text-center warning">제목</th>
+				<td colspan="3" th:text="${food.foodTitle}"></td>
+			</tr>
+			<tr>
+				<th width=20% class="text-center warning">상호명</th>
+				<td colspan="3" th:text="${food.foodName}"></td>
+			</tr>
+			<tr>
+				<td colspan="4" class="text-left" valign="top" height="200">
+					<pre th:text="${food.foodTitle}" style="white-space: pre-wrap;border:none; background-color:white;"> </pre>
+					<div class="col-lg-6 mb-5 ftco-animate">
+						<img th:src="'/image/'+${food.imgPath}" 
+							alt="Colorlib Template" width="400px" height="auto">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="text-right">
+					<a th:href="@{/foodUpdateForm(foodCode=${food.foodCode})}" class="btn btn-xs btn-info">수정</a>
+					<input type="hidden" name="foodCode" th:value="${food.foodCode}" />
+					<button type="submit" class="btn btn-xs btn-warning">삭제</button>
+					<a href="/food" class="btn btn-xs btn-success">목록</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
 
 </div>
 	<!-- 내용 끝 -->
