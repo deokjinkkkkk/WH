@@ -7,7 +7,7 @@
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM TRIP 
 		WHERE LENGTH(img_gro_code)>=1
-		ORDER BY TRIP_CODE DESC
+		ORDER BY TRIP_REGION DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
@@ -17,7 +17,7 @@
 	<insert id="insertInfo">
 			INSERT INTO TRIP
 			VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
-			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{regionCode})
+			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{cou_order})
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
