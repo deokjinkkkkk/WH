@@ -79,7 +79,6 @@ public class CommentsController {
 	@RequestMapping("/comCount")
 	@ResponseBody
 	public int commentsCounter(CommentsVO vo) {
-		
 		int count = commentsMapper.commentsCount(vo);
 		return count;
 	}
