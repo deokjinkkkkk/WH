@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import co.admin.wh.trip.mapper.CourseMapper;
 import co.admin.wh.trip.vo.CourseSearchVO;
 import co.admin.wh.trip.vo.CourseVO;
+import co.admin.wh.trip.vo.TripVO;
 
 @Service
 public class CourseServiceImpl implements CourseService{
@@ -28,9 +29,9 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public List<CourseVO> courseList() {
+	public List<CourseVO> courseList(CourseSearchVO svo) {
 		// 페이징
-		return courseMapper.courseList();
+		return courseMapper.courseList(svo);
 	}
 
 	@Override
@@ -39,9 +40,10 @@ public class CourseServiceImpl implements CourseService{
 		return courseMapper.getCountTotal(svo);
 	}
 
+
 	@Override
-	public CourseVO detailSelect(CourseVO cvo) {
+	public List<CourseVO> detailSelect(CourseVO vo) {
 		// 상세페이지 보기
-		return courseMapper.detailSelect(cvo);
+		return courseMapper.detailSelect(vo);
 	}
 }
