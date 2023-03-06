@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.service.HotelCrawler;
@@ -88,4 +90,19 @@ public class HotelController {
 		model.addAttribute("h",hotelInfoService.detailSelect(hvo));
 		return "hotel/reservation";
     }
-}
+	
+	@GetMapping("/resIng")
+	public String resIng(ReservationVO vo, Model model) {
+		String result = hotelInfoService.insertReservInfo(vo);
+		if(result != null) {
+			return "y";			
+		}else {
+			return "n";
+		}
+	}
+	
+	@GetMapping("/resComplete")
+	public String resComplete() {
+		return "hotel/resComplete";
+	}
+};
