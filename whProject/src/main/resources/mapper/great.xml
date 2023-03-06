@@ -7,23 +7,39 @@
 		SELECT count(*)
 		FROM GREAT
 		WHERE GREAT_N_CODE = #{great_n_code}
-		AND ID = #{id}
 	</select>
+
+
 
 	<insert id="greatUP">
-	INSERT INTO GREAT(GREAT_CODE, GREAT_N_CODE, id)
-	VALUES((SELECT * FROM (SELECT MAX(GREAT_N_CODE)+1 FROM GREAT) NEXT),#{GREAT_N_CODE},#{id})
+		<selectKey keyProperty="greatCode" resultType="int" order="BEFORE">
+		select MAX(GREAT_CODE)+1 FROM GREAT
+		</selectKey>
+		INSERT INTO GREAT
+		VALUES(#{greatFlag},#{greatNcode}, #{id})
 	</insert>
 
-	<delete id="greatDown">
-	DELETE FROM GREAT 
-	WHERE GREAT_N_CODE = #{greatNcode} AND id = #{id}
+
+	<delete id="greatDown"
+		parameterType="co.admin.wh.common.vo.GreatVO">
+		DELETE FROM GREAT
+		WHERE GREAT_N_CODE = #{greatNcode} AND
+		id = #{id}
 	</delete>
-	
+
+
 	<select id="greatTotal">
-	SELECT COUNT(*) 
-	FROM GREAT
-	WHERE GREAT_N_CODE = #{greatNcode}
+		SELECT g.great_code, g.great_flag, g.great_n_code,
+		COUNT(g.GREAT_CODE) AS
+		great_count
+		FROM notice n
+		JOIN great g ON
+		n.NOTICE_CODE = g.GREAT_N_CODE
+		JOIN member m ON g.ID = m.ID AND
+		n.IMG_GRO_CODE = m.ID
+		GROUP BY g.great_code, g.great_flag,
+		g.great_n_code
 	</select>
-	
+
+
 </mapper>
