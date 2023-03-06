@@ -23,11 +23,9 @@ public class UsersService implements UserDetailsService {
 		if(vo == null) {
 			throw new UsernameNotFoundException("유저 없음");
 		}
-		return User.builder()
-	                .username(vo.getId())
-	                .password(vo.getPass())
-	                .authorities(vo.getAuthorities())
-	                .build();
+		
+
+		return vo;
 		
 	}
 }
