@@ -57,12 +57,21 @@
 						<div class="form-group col-md-12">
 							함께 여행하고 싶은 그룹 유형<br>
 							<div th:each="c : ${gr}">
-								<input type="radio" th:value="${c.comCode}"
-									th:text="${c.comName}" name="comCode" id="comCode"> <input
-									type="hidden" th:value="${c.comName}" name="comName">
-							</div>
+								<input type="radio" th:value="${c.comCode}" th:text="${c.comName}" 
+									   name="comCode" id="comCode" onclick="setComName(this)"> 
 							<br>
 						</div>
+									<input type="hidden" name="comName" id="comName"> </div>
+
+						<script>
+							function setComName(radio) {
+								var comName = radio.nextSibling.textContent;
+								document.getElementById("comName").value = comName;
+							}
+						</script>
+						
+						
+						
 						<div class="form-group col-md-7">
 							제목<input type="text" name="compTitle" id="compTitle">
 						</div>

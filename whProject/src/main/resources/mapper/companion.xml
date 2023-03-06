@@ -10,8 +10,10 @@
 		</selectKey>
 
 		INSERT INTO COMPANION (COMP_CODE, ID,
-		com_Name,COMP_TITLE,COMP_COUNT, comp_local, COMP_START_DATE, COMP_END_DATE,
-		COMP_CONTENT,IMG_GRO_CODE, com_code)
+		com_Name,COMP_TITLE,COMP_COUNT,
+		comp_local, COMP_START_DATE, COMP_END_DATE,
+		COMP_CONTENT,IMG_GRO_CODE,
+		com_code)
 
 		VALUES (#{compCode},#{id},#{comName},
 		#{compTitle},
@@ -53,23 +55,38 @@
 		M.GENDER,
 		I.IMG_NAME,
 		I.IMG_PATH
-		FROM COMPANION C ,MEMBER M, IMAGE I
+		FROM
+		COMPANION C ,MEMBER M, IMAGE I
 		WHERE C.ID= M.ID
-		AND C.IMG_GRO_CODE = I.IMG_GRO_CODE
+		AND C.IMG_GRO_CODE =
+		I.IMG_GRO_CODE
 		ORDER BY COMP_CODE DESC
 <![CDATA[
 		) A  WHERE ROWNUM <=#{last} ) B WHERE RN >=#{first}
 	]]>
 	</select>
 
-
+	
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT *
 		FROM COMPANION c inner join common co
-        on c.com_Code = co.com_Code
+		on c.com_Code = co.com_Code
 		WHERE c.COMP_CODE = #{compCode}
 	</select>
+	
+	
+	<select id="localSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+		 SELECT co.com_Name
+		FROM COMPANION c inner join common co
+		on c.comp_Local = co.com_Code
+		WHERE c.COMP_CODE = #{compCode}
+	</select>
+
+
+	
+	
 
 	<!-- 전체건수조회 -->
 	<select id="getCountTotal"
@@ -84,7 +101,8 @@
 		<set>
 			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
 			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
-			<if test="comName != null">COM_NAME = #{comName},</if>
+			<if test="comCode != null">COM_Code = #{comCode},</if>
+			<if test="comName != null">COM_Name = #{comName},</if>
 			<if test="compStartDate != null">COMP_START_DATE = #{compStartDate},</if>
 			<if test="compEndDate != null">COMP_END_DATE = #{compEndDate},</if>
 			<if test="compContent != null">COMP_CONTENT = #{compContent}</if>
@@ -96,12 +114,15 @@
 		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
 
-	<select id="imgSelect" resultType="co.admin.wh.notice.vo.CompanionVO" >
+	<select id="imgSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT *
-		FROM COMPANION c
+		FROM COMPANION
+		c
 		JOIN IMAGE i
 		ON c.IMG_GRO_CODE = i.IMG_GRO_CODE
-		WHERE c.COMP_CODE = #{compCode}
+		WHERE c.COMP_CODE =
+		#{compCode}
 	</select>
 
 </mapper>
