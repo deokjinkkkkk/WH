@@ -2,17 +2,17 @@ package co.admin.wh.common.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.admin.wh.common.mapper.GreatMapper;
+
+import co.admin.wh.common.service.GreatService;
+
 @Controller
 public class GreatController {
-	@Autowired GreatMapper mapper;
+	@Autowired GreatService service;
 	
-	@RequestMapping("/great") //마이페이지에서 좋아요리스트 창으로 이동하기 만들기 
-	public String greatForm(Model model) {
-		model.addAttribute("g", mapper.myGreatList());
-		return "comments/greatForm";
-	}
+	//좋아요 check
+	//좋아요 등록 
+	//좋아요 취소
+	//좋아요 Total
+	
 }

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body layout:fragment="content">
 	<section class="page-title-section bg-img cover-background"
 		th:style="|background: url('img/banner/bg4.jpg')|">
@@ -64,6 +65,7 @@
 													<button type="button" id="butn" class="butn">
 														<span>댓글 달기</span>
 													</button>
+													<label><input type="checkbox" id="lockChk"class="secChk" value="1">비밀</label>
 												</div>
 											</div>
 										</div>
@@ -81,13 +83,7 @@
 	<!-- end comment-->
 	<script>
 	/*  남은 기능
-		1.비밀댓글 구현 (체크박스 체크시 비밀글로 등록) 귀찮...
 		2.댓글 대댓글 수정(참고한 사이트는 수정기능이 없음)
-		3.댓글이 삭제되면 대댓글은 어떻게 될건지?
-			3-1 댓글은 삭제된 댓글이라고 뜨고 대댓글은 남는다.(삭제 컬럼이 있어야하나?)
-			3-2 댓글과 함께 대댓글이 다 삭제된다. (comGroup조건으로 다삭제)
-		4.답글창 열면 다 뜨는 문제
-		
 	*/
 	
 	
@@ -111,8 +107,11 @@
 		let comBlock = 1 //댓글계층
 		let comFlag = $("#comFlag").val();  //게시물구분
 		let comBoardCode = $("#comBoardCode").val(); //게시물번호
-		let comLock = 1 //비밀댓글
 	
+		let comLock = $("#lockChk").val() //비밀댓글
+		if($("#lockChk").is(':checked') == true){
+			comLock = 0
+		}
 		if(comId == ""){
 			alert("로그인 후 이용하세요")
 			return;
@@ -160,9 +159,14 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info">'
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+						if(item.comLock != '0' || item.id == 'ADMIN'){
 						str	+= '<p>'+item.comContent+'</p>'
-						//if(item.perm == "ADMIN" || item.id == 세션아이디){
+						}else{
+						str += 	'<p>비밀 댓글입니다.</p>'
+						}
+						//if(item.perm == "ADMIN" /*|| item.id == 세션아이디*/){
 						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+
 						//}
 						str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					}else{
@@ -171,9 +175,13 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info"> '
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+						if(item.comLock != '0' || item.id == 'ADMIN'/*세션값*/){
 						str	+= '<p>'+item.comContent+'</p>'
+						}else{
+						str += 	'<p>비밀 댓글입니다.</p>'
+						}
 						//if(item.perm == "ADMIN" || item.id == 세션아이디){
-						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+						str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
 						//}
 					}
 				//if(item.block == 1){
@@ -190,6 +198,7 @@
 					str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'
 					str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()">답글등록</button>'
+					str += '<label><input type="checkbox" class="secChk" value="1">비밀</label>'
 					str +=	'</div>'
 					str += '<div class="col-md-12">'
 					str += '<input type="hidden" name="comGroup" value="'+item.comGroup+'"'
@@ -201,10 +210,42 @@
 		})
 	}
 	
+	function reComDelete(){ //댓글 삭제
+		let comBox = $(event.target).closest(".comment-box")
+		let reply = comBox.next()
+		console.log($(event.target).text())
+		let comGroup = $(event.target).find("#comGroup").val()
+		let comOrder = 1
+		let comCode = comBox.attr('id')
+		console.log(comCode)
+		//alert 후 true 일경우 삭제 누른 댓글 삭제
+		//false 후 
+		$.ajax({
+			url:"/reComDelete",
+			type:"delete",
+			data:{
+							
+							
+					 comCode
+							//게시물 번호
+						    //댓글 비밀여부
+						}
+			,
+			success : function(data){
+				console.log(data)
+				comBox.remove()
+				reply.remove()
+				getComList()
+			}
+		})
+	}
+	
 	function comDelete(){ //댓글 삭제
 		let comBox = $(event.target).closest(".comment-box")
 		let reply = comBox.next()
 		console.log($(event.target).text())
+		let comGroup = $(event.target).next().val()
+		let comOrder = 1
 		let comCode = comBox.attr('id')
 		console.log(comCode)
 		//alert 후 true 일경우 삭제 누른 댓글 삭제
@@ -212,8 +253,12 @@
 		$.ajax({
 			url:"/comDelete",
 			type:"delete",
-			data:
-				{comCode}
+			data:{
+							
+							 comGroup,
+							
+							//게시물 번호
+			}	    //댓글 비밀여부
 			,
 			success : function(data){
 				console.log(data)
@@ -245,7 +290,11 @@
 		let comBlock = '2'
 		let comFlag = $("#comFlag").val();
 		let comBoardCode = $("#comBoardCode").val();
-		let comLock = '1'
+		
+		let comLock = $(event.target).next().val() //비밀댓글
+		if($(event.target).next().is(':checked') == true){
+			comLock = 0
+		}
 		$.ajax({
 			url:"/reComInsert",
 			type:"POST",

@@ -42,4 +42,10 @@ public class CommentsServiceImpl implements CommentsService {
 		return commentsMapper.commentsDelete(vo);
 	}
 
+	@Override
+	public int reCommentsDelete(CommentsVO vo) {
+		// TODO Auto-generated method stub
+		return commentsMapper.reCommentsDelete(vo);
+	}
+
 }

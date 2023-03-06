@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.admin.wh.common.service.ImageService;
+import co.admin.wh.common.vo.GreatVO;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.notice.mapper.NoticeMapper;
 import co.admin.wh.notice.service.NoticeService;
@@ -39,6 +40,8 @@ public class NoticeController {
 	@Autowired
 	ImageService imageService;
 
+	
+	
 	@RequestMapping("/notice")
 	public String notice(Model model, @ModelAttribute("svo") NoticeSearchVO svo, Paging paging) {
 
@@ -88,6 +91,7 @@ public class NoticeController {
 		vo.setNoticeCode(noticeCode);
 		noticeService.noticeHit(noticeCode); // 조회수
 		model.addAttribute("n", noticeService.noticendetil(vo));
+		
 		return "notice/noticeDetail";
 
 	}

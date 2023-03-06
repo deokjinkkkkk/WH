@@ -18,206 +18,294 @@
 		</section>
 		<!-- end page title section -->
 		<section>
-            <div class="container">
-                <div id="main-wrapper">
+			<div class="container">
+				<div id="main-wrapper">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-white border-0">
-                                <div class="card-body booking no-padding">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-white border-0">
+								<div class="card-body booking no-padding">
 
-                                    <div id="rootwizard">
-                                        <ul class="nav mb-4  nav-pills nav-fill" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="home-pills-tab" data-toggle="tab" href="#home3" role="tab" aria-controls="home3" aria-selected="true"><span class="fas fa-user display-block margin-10px-bottom"></span> 1. Personal info</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="profile-pills-tab" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile3" aria-selected="false"><span class="fas fa-dollar-sign display-block margin-10px-bottom"></span>2. Payment info</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="contact-pills-tab" data-toggle="tab" href="#finish3" role="tab" aria-controls="finish3" aria-selected="false"><span class="fas fa-check display-block margin-10px-bottom"></span>3. Confirmation</a>
-                                            </li>
+									<div id="rootwizard">
+										<ul class="nav mb-4  nav-pills nav-fill" role="tablist">
+											<li class="nav-item"><a class="nav-link active"
+												id="home-pills-tab" data-toggle="tab" href="#home3"
+												role="tab" aria-controls="home3" aria-selected="true"><span
+													class="fas fa-user display-block margin-10px-bottom"></span>
+													1. 숙소 정보</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="profile-pills-tab" data-toggle="tab" href="#profile3"
+												role="tab" aria-controls="profile3" aria-selected="false"><span
+													class="fas fa-dollar-sign display-block margin-10px-bottom"></span>2.
+													예약자 정보 & 결제</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="contact-pills-tab" data-toggle="tab" href="#finish3"
+												role="tab" aria-controls="finish3" aria-selected="false"><span
+													class="fas fa-check display-block margin-10px-bottom"></span>3.
+													예약 확인</a></li>
 
-                                        </ul>
-                                        <div class="progress progress-sm m-t-sm">
-                                            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                            </div>
-                                        </div>
-                                        <form id="wizardForm">
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="home3" role="tabpanel">
-                                                    <div class="row margin-40px-bottom">
-                                                        <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName" class="margin-10px-bottom">First Name</label>
-                                                                    <input type="text" class="form-control" name="exampleInputName" id="exampleInputName">
+										</ul>
+										<div class="progress progress-sm m-t-sm">
+											<div
+												class="progress-bar progress-bar-info progress-bar-striped active"
+												role="progressbar" aria-valuenow="20" aria-valuemin="0"
+												aria-valuemax="100" style="width: 0%"></div>
+										</div>
+										<form id="wizardForm">
+											<div class="tab-content" id="myTabContent">
+												<div class="tab-pane fade show active" id="home3"
+													role="tabpanel">
+													<div class="row margin-40px-bottom">
+														<div class="col-md-12">
+															<div class="row">
+																<div
+																	class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+																	<div class="posts">
+																		<!--  start post-->
+																		<div class="post">
+																			<div class="content">
+																				<ul class="tour-inner">
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Hotel</h6>
+																							</div>
+																							<div>
+																								<p th:text="${h.hotelName}"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Room
+																									Type</h6>
+																							</div>
+																							<div>
+																								<p th:text="${h.roomGrade}"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">check
+																									In</h6>
+																							</div>
+																							<div>
+																								<p th:text="|${#dates.format(res.checkIn, 'yyyy년 MM월 dd일')} 오후 3시|"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오후
+																									3시</p>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">check
+																									Out</h6>
+																							</div>
+																							<div>
+																								<p th:text="|${#dates.format(res.checkOut, 'yyyy년 MM월 dd일')} 오전 11시|"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Address</h6>
+																							</div>
+																							<div>
+																								<p th:text="${h.hotelAddr}"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Personnel</h6>
+																							</div>
+																							<div>
+																								<p th:text="|성인 ${res.humanCount}명, 유아 ${res.childCount}명|"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																							</div>
+																						</div>
+																					</li>																			
+																					<li>
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Price</h6>
+																							</div>
+																							<div>
+																								<p th:text="|${h.roomPrice}원|"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																							</div>
+																						</div>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="profile3" role="tabpanel">
+													<div class="row">
+														<div class="col-md-12">
+															<div class="row">
+																<div class="form-group col-md-6">
+																	<label for="exampleInputName8"
+																		class="margin-10px-bottom">예약자명</label> <input
+																		type="text" class="form-control"
+																		name="resName" id="resName">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputEmail1"
+																		class="margin-10px-bottom">예약자 이메일</label> <input
+																		type="email" class="form-control"
+																		name="resEmail" id="resEmail">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputAddress1"
+																		class="margin-10px-bottom">예약자 전화번호</label> <input
+																		type="tel" class="form-control"
+																		name="resTel" id="resTel">
+																</div>
+																<div class="form-group col-md-12">
+                                                                    <label for="exampleInputTextarea1" class="margin-10px-bottom">요청사항</label>
+                                                                    <textarea class="form-control" id="resRequest" name="resRequest" rows="5"></textarea>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName2" class="margin-10px-bottom">Last Name</label>
-                                                                    <input type="text" class="form-control" name="exampleInputName2" id="exampleInputName2">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputEmail" class="margin-10px-bottom">Email address</label>
-                                                                    <input type="email" class="form-control" name="exampleInputEmail" id="exampleInputEmail">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputAddress" class="margin-10px-bottom">Address 2</label>
-                                                                    <input type="text" class="form-control" name="exampleInputAddress" id="exampleInputAddress">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCity" class="margin-10px-bottom">City</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCity" id="exampleInputCity">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCode" class="margin-10px-bottom">Zip Code</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCode" id="exampleInputCode">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputState" class="margin-10px-bottom">State/Region</label>
-                                                                    <input type="text" class="form-control" name="exampleInputState" id="exampleInputState">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCountry" class="margin-10px-bottom">Country</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCountry" id="exampleInputCountry">
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputTextarea1" class="margin-10px-bottom">Requirements</label>
-                                                                    <textarea class="form-control" id="exampleInputTextarea1" rows="5"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="profile3" role="tabpanel">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName8" class="margin-10px-bottom">First Name</label>
-                                                                    <input type="text" class="form-control" name="exampleInputName8" id="exampleInputName8">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName9" class="margin-10px-bottom">Last Name</label>
-                                                                    <input type="text" class="form-control" name="exampleInputName9" id="exampleInputName9">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputEmail1" class="margin-10px-bottom">Email address</label>
-                                                                    <input type="text" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputAddress1" class="margin-10px-bottom">Address 2</label>
-                                                                    <input type="text" class="form-control" name="exampleInputAddress1" id="exampleInputAddress1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCity1" class="margin-10px-bottom">City</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCity1" id="exampleInputCity1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCode1" class="margin-10px-bottom">Zip Code</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCode1" id="exampleInputCode1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputState1" class="margin-10px-bottom">State/Region</label>
-                                                                    <input type="text" class="form-control" name="exampleInputState1" id="exampleInputState1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCountry1" class="margin-10px-bottom">Country</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCountry1" id="exampleInputCountry1">
-                                                                </div>
-                                                            </div>
-                                                            <div class="margin-30px-top">
-                                                                <h5>Card Info</h5>
-                                                            </div>
-                                                            <div class="row margin-40px-bottom">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCard1" class="margin-10px-bottom">Card Name</label>
-                                                                    <input type="text" class="form-control" name="exampleInputCard1" id="exampleInputCard1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputCard2" class="margin-10px-bottom">Card Number</label>
-                                                                    <input type="number" class="form-control" name="exampleInputCard2" id="exampleInputCard2">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName7" class="margin-10px-bottom">CVV</label>
-                                                                    <input type="number" class="form-control" name="exampleInputName7" id="exampleInputName7">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <p class="margin-10px-bottom">Pay With</p>
-                                                                    <a href="#" class="margin-10px-right"><img src="img/content/pay-1.png" alt="" /></a>
-                                                                    <a href="#" class="margin-10px-right"><img src="img/content/pay-2.png" alt="" /></a>
-                                                                    <a href="#"><img src="img/content/pay-3.png" alt="" /></a>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputName7" class="margin-10px-bottom">Expiration Date</label>
-                                                                    <input type="text" class="form-control date no-margin-bottom" data-provide="datepicker" placeholder="Date">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputPassword1" class="margin-10px-bottom">Password</label>
-                                                                    <input type="password" class="form-control" name="exampleInputPassword1" id="exampleInputPassword1" placeholder="Password">
-                                                                </div>
-                                                            </div>
+															</div>
+															<div class="margin-30px-top">
+																<h5>Card Info</h5>
+															</div>
+															<div class="row margin-40px-bottom">
+																<div class="form-group col-md-6">
+																	<label for="exampleInputCard1"
+																		class="margin-10px-bottom">Card Name</label> <input
+																		type="text" class="form-control"
+																		name="exampleInputCard1" id="exampleInputCard1">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputCard2"
+																		class="margin-10px-bottom">Card Number</label> <input
+																		type="number" class="form-control"
+																		name="exampleInputCard2" id="exampleInputCard2">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputName7"
+																		class="margin-10px-bottom">CVV</label> <input
+																		type="number" class="form-control"
+																		name="exampleInputName7" id="exampleInputName7">
+																</div>
+																<div class="form-group col-md-6">
+																	<p class="margin-10px-bottom">Pay With</p>
+																	<a href="#" class="margin-10px-right"><img
+																		src="img/content/pay-1.png" alt="" /></a> <a href="#"
+																		class="margin-10px-right"><img
+																		src="img/content/pay-2.png" alt="" /></a> <a href="#"><img
+																		src="img/content/pay-3.png" alt="" /></a>
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputName7"
+																		class="margin-10px-bottom">Expiration Date</label> <input
+																		type="date" class="form-control date no-margin-bottom"
+																		placeholder="Date">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="exampleInputPassword1"
+																		class="margin-10px-bottom">Password</label> <input
+																		type="password" class="form-control"
+																		name="exampleInputPassword1"
+																		id="exampleInputPassword1" placeholder="Password">
+																</div>
+															</div>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="finish3" role="tabpanel">
-                                                    <h3 style="margin-top:25px;">Thank You!</h3>
-                                                    <div class="alert alert-success m-t-sm m-b-lg" role="alert">
-                                                        Thank you! Your booking is confirmed. Invoice Sent in your email address
-                                                    </div>
-                                                    <h5>Booking Details</h5>
-                                                    <img src="img/content/booking-complete.jpg" alt="" class="rounded" />
-                                                    <div class="padding-30px-top">
-                                                        <h6>Booking Details</h6>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                                        <div class="row margin-30px-top margin-40px-bottom">
-                                                            <div class="col-md-4">
-                                                                <ul class="list-style-1 no-margin">
-                                                                    <li>
-                                                                        <span class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i class="ti-calendar margin-10px-right"></i>From:</span>
-                                                                        <span class="d-inline-block padding-10px-left">25 Mar, 2019</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i class="ti-calendar margin-10px-right"></i>To:</span>
-                                                                        <span class="d-inline-block padding-10px-left">30 Mar, 2019</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i class="ti-user margin-10px-right"></i>Guests:</span>
-                                                                        <span class="d-inline-block padding-10px-left">2 Adults, 1 Child</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <ul class="list-style-1">
-                                                                    <li>
-                                                                        <span class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i class="ti-calendar margin-10px-right"></i>Address:</span>
-                                                                        <span class="d-inline-block width-65 sm-width-85 vertical-align-top padding-10px-left">74 Guild Street 542B, Great North Town MT.</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <h5 class="no-margin-bottom">Total: <span class="text-theme-color">$6,500</span></h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="pagination wizard">
-                                                    <li class="previous"><a href="#" class="butn">Previous</a></li>
-                                                    <li class="next ml-auto"><a href="#" class="butn">Next</a></li>
-                                                </ul>
-                                            </div>
-                                        </form>
-                                    </div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="finish3" role="tabpanel">
+													<h3 style="margin-top: 25px;">Thank You!</h3>
+													<div class="alert alert-success m-t-sm m-b-lg" role="alert">
+														Thank you! Your booking is confirmed. Invoice Sent in your
+														email address</div>
+													<h5>Booking Details</h5>
+													<img src="img/content/booking-complete.jpg" alt=""
+														class="rounded" />
+													<div class="padding-30px-top">
+														<h6>Booking Details</h6>
+														<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+															elit, sed do eiusmod tempor incididunt ut labore et
+															dolore magna aliqua. Ut enim ad minim veniam, quis
+															nostrud exercitation ullamco laboris nisi ut aliquip ex
+															ea commodo consequat. Duis aute irure dolor in
+															reprehenderit in voluptate velit esse cillum dolore eu
+															fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+															non proident, sunt in culpa qui officia deserunt mollit
+															anim id est laborum. Sed ut perspiciatis unde omnis iste
+															natus error sit voluptatem accusantium doloremque
+															laudantium, totam rem aperiam, eaque ipsa quae ab illo
+															inventore veritatis et quasi architecto beatae vitae
+															dicta sunt explicabo.</p>
+														<div class="row margin-30px-top margin-40px-bottom">
+															<div class="col-md-4">
+																<ul class="list-style-1 no-margin">
+																	<li><span
+																		class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i
+																			class="ti-calendar margin-10px-right"></i>From:</span> <span
+																		class="d-inline-block padding-10px-left">25
+																			Mar, 2019</span></li>
+																	<li><span
+																		class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i
+																			class="ti-calendar margin-10px-right"></i>To:</span> <span
+																		class="d-inline-block padding-10px-left">30
+																			Mar, 2019</span></li>
+																	<li><span
+																		class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i
+																			class="ti-user margin-10px-right"></i>Guests:</span> <span
+																		class="d-inline-block padding-10px-left">2
+																			Adults, 1 Child</span></li>
+																</ul>
+															</div>
+															<div class="col-md-4">
+																<ul class="list-style-1">
+																	<li><span
+																		class="d-inline-block font-size14 font-weight-600 text-extra-dark-gray"><i
+																			class="ti-calendar margin-10px-right"></i>Address:</span> <span
+																		class="d-inline-block width-65 sm-width-85 vertical-align-top padding-10px-left">74
+																			Guild Street 542B, Great North Town MT.</span></li>
+																</ul>
+															</div>
+															<div class="col-md-4">
+																<h5 class="no-margin-bottom">
+																	Total: <span class="text-theme-color">$6,500</span>
+																</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+												<ul class="pagination wizard">
+													<li class="previous"><a href="#" class="butn">Previous</a></li>
+													<li class="next ml-auto"><a href="#" class="butn">Next</a></li>
+												</ul>
+											</div>
+										</form>
+									</div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row -->
-                </div>
-            </div>
-        </section>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Row -->
+				</div>
+			</div>
+		</section>
 	</div>
 </body>
 </html>

@@ -213,42 +213,43 @@
 								<form action="/reservation" method="post">
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkin</label> <input
-											type="text"
+											type="date"
 											class="form-control date no-margin-bottom padding-10px-tb"
-											data-provide="datepicker" placeholder="Date">
+											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
 									</div>
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkout</label> <input
-											type="text"
+											type="date"
 											class="form-control date no-margin-bottom padding-10px-tb"
-											data-provide="datepicker" placeholder="Date">
+											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
 									</div>
 									<div class="form-group margin-30px-bottom">
-										<label class="margin-5px-bottom">인원</label> <select
+										<label class="margin-5px-bottom">성인</label> <select
 											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect2">
-											<option>1</option>
-											<option selected>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
+											id="humanCount" name="humanCount">
+											<option value="1">1명</option>
+											<option value="2" selected>2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
 										</select>
 									</div>
 									<div class="form-group margin-30px-bottom">
 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
 											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect2">
-											<option selected>0</option>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
+											id="childCount" name="childCount">
+											<option value="0" selected>해당 없음</option>
+											<option value="1">1명</option>
+											<option value="2">2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
 										</select>
 									</div>
 									<button class="butn btn-block" type="submit">
-										<i class="fa fa-search"></i> Check
+										<i class="fa fa-search"></i> 예약하기
 									</button>
+									<input type="hidden" id="hotelId" name="hotelId" th:value="${h.hotelId}">
 								</form>
 							</div>
 						</div>
