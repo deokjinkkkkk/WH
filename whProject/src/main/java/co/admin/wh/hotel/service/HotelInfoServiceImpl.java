@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.mapper.HotelMapper;
 import co.admin.wh.hotel.vo.HotelVO;
+import co.admin.wh.hotel.vo.ReservationVO;
 
 @Service
 public class HotelInfoServiceImpl implements HotelInfoService {
@@ -40,12 +41,17 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public void updatehotelId() {
-		hotelMapper.updatehotelId();
+	public HotelVO detailSelect(HotelVO vo) {
+		return hotelMapper.detailSelect(vo);
 	}
 
 	@Override
-	public HotelVO detailSelect(HotelVO vo) {
-		return hotelMapper.detailSelect(vo);
+	public void insertReservInfo(ReservationVO vo) {
+		hotelMapper.insertReservInfo(vo);
+	}
+
+	@Override
+	public ReservationVO readReservInfo(ReservationVO vo) {
+		return hotelMapper.readReservInfo(vo);
 	}
 }

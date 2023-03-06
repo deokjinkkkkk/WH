@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
 import co.admin.wh.hotel.vo.HotelVO;
+import co.admin.wh.hotel.vo.ReservationVO;
 
 @Controller
 public class HotelController {
@@ -82,8 +83,9 @@ public class HotelController {
     }
 	
 	@PostMapping("/reservation")
-    public String reservation(HotelVO vo, Model model) {
-        model.addAttribute("h", hotelInfoService.detailSelect(vo));
-        return "hotel/reservation";
+    public String reservation(ReservationVO vo, HotelVO hvo, Model model) {
+		model.addAttribute("res",vo);
+		model.addAttribute("h",hotelInfoService.detailSelect(hvo));
+		return "hotel/reservation";
     }
 }
