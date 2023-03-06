@@ -37,6 +37,17 @@ public class TodoServiceImpl implements TodoService	{
 		return mapper.todoUpdate(vo);
 	}
 
+	@Override
+	public int tagInsert(TodoVO vo) {
+		return mapper.tagInsert(vo);
+	}
+
+	@Override
+	public int todoCount(TodoVO vo) {
+		
+		return mapper.todoCount(vo);
+	}
+
 
 	
 
