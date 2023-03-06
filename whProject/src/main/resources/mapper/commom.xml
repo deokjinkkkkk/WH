@@ -9,5 +9,8 @@
 	<select id="commonGroup" resultType="co.admin.wh.common.vo.CommonVO">
 		SELECT * FROM COMMON where com_gro_code='WG'
 	</select>
-
+	
+	<select id="commonReport" resultType="co.admin.wh.common.vo.CommonVO">
+		SELECT * FROM COMMON where com_gro_code='RR'
+	</select>
 </mapper>

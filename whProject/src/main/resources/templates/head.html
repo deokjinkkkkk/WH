@@ -5,9 +5,23 @@
 <title>Insert title here</title>
 
 	<style>
-	#myModal {
-  top: 30%;
-  margin-top: 0px;
+
+.modal {
+        text-align: center;
+}
+ 
+@media screen and (min-width: 768px) { 
+        .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+        }
+}
+ 
+.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
 }
 /* MAIN */
 /* =============================================== */
