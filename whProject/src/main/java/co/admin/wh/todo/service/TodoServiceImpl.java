@@ -14,26 +14,30 @@ public class TodoServiceImpl implements TodoService	{
 	@Autowired TodoMapper mapper;
 
 	@Override
-	public List<TodoVO> getTodoList(TodoVO vo) {
-		  return mapper.getTodoList(vo);
+	public List<TodoVO> TodoList() {
+		
+		return mapper.TodoList();
 	}
 
 	@Override
 	public int todoInsert(TodoVO vo) {
+		
 		return mapper.todoInsert(vo);
 	}
 
 	@Override
-	public int todoDelete(int todoCode) {
-	
-		return mapper.todoDelete(todoCode);
+	public int todoDelete(TodoVO vo) {
+		
+		return mapper.todoDelete(vo);
 	}
 
 	@Override
-	public int todoUpdate(int todoCode) {
-		 return todoCode;
+	public int todoUpdate(TodoVO vo) {
+		
+		return mapper.todoUpdate(vo);
 	}
-	
+
+
 	
 
 }

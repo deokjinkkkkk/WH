@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.notice.vo.Paging;
@@ -34,16 +37,16 @@ public class CourseController {
 	// 검색시 데이터가 없으면 db에 추가하도록 처리
 	// + 페이지 리스트 처리 페이징
 	@GetMapping("/course")
-	public String courseSearch(Model model) throws ParserConfigurationException, SAXException, IOException {
+	public String courseSearch(Model model, @ModelAttribute("csvo")CourseSearchVO svo, Paging paging) throws ParserConfigurationException, SAXException, IOException {
 		System.out.println("파싱 시작");
 		
-//		paging.setPageUnit(5); // 한 페이지에 출력할 레코드 건수
-//		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
-//		
-//		svo.setFirst(paging.getFirst());
-//		svo.setLast(paging.getLast());
-//		
-//		paging.setTotalRecord(courseMapper.getCountTotal(svo));
+		paging.setPageUnit(5); // 한 페이지에 출력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(courseMapper.getCountTotal(svo));
 		
 		CourseInfoExplorer apiExplorer = new CourseInfoExplorer();
 		
@@ -51,14 +54,24 @@ public class CourseController {
 		List<CourseVO> list = apiExplorer.parsingDate("");
 		
 		//List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
-		for (CourseVO courseVO : list) {
-		courseService.insertInfo(courseVO);						
-		}
+//		for (CourseVO courseVO : list) {
+//		courseService.insertInfo(courseVO);						
+//		}
 
 		model.addAttribute("courseList", courseService.courseList());
 		
 		System.out.println("파싱 끝");
 		
 		return "trip/tripcourseList";
+		
+	}
+	
+	
+	// 상세페이지 보기
+	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
+	public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
+		vo.setCouCode(couCode);
+		model.addAttribute("course", courseService.detailSelect(vo));
+		return "trip/tripCourseDetail";
 	}
 }

@@ -5,20 +5,30 @@
 	<select id="courseList" resultType="co.admin.wh.trip.vo.CourseVO">
 	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
 		SELECT * FROM COURSE
-		ORDER BY COU_CODE DESC;
+		WHERE TRIP_CODE = '0'
+		ORDER BY COU_CODE DESC
 	</select>
 	
 	<!-- api DB 등록 -->
 	<insert id="insertInfo">
-	<selectKey resultType="string" keyProperty="couCode" order="BEFORE">
-		SELECT NVL(MAX(COU_CODE),0)+1 FROM COURSE
-	</selectKey>
 		INSERT INTO COURSE 		
-			(COU_CODE, TRIP_CODE, COU_NAME, COU_DIST, SIDO, TIME, COU_CONTENT,
-			COU_REG_DATE, COU_MOD_DATE, COU_LAT, COU_LON, IMG_GRO_CODE, AREA_CODE, CONTENT_ID)
-			VALUES(#{couCode}, #{tripCode}, #{couName}, #{couDist}, #{sido}, #{time}, #{couContent}, 
-			#{couRegDate}, #{couModDate}, #{couLat}, #{couLon}, #{imgGroCode}, #{areaCode}, #{contentId})
+		VALUES(#{couCode}, #{tripCode}, #{couName}, #{couDist}, #{sido}, #{time}, #{couContent}, 
+			#{couRegDate}, #{couModDate}, #{couLat}, #{couLon}, #{imgGroCode}, #{regionCode}, #{contentId})
 	</insert>
+	
+	<!-- 전체 건수 조회 -->
+	<select id="getCountTotal" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
+		SELECT COUNT(*) FROM COURSE	
+		WHERE TRIP_CODE = '0'
+	</select>
+	
+	<!-- 상세페이지 보기 -->
+	<select id="detailSelect"
+		resultType="co.admin.wh.trip.vo.CourseVO">
+		SELECT c.cou_name, t.trip_addr, t.trip_lat, t.trip_lon, t.img_gro_code
+		FROM course c, trip t 
+		WHERE c.trip_code = t.trip_code
+	</select>
 
 
 </mapper>

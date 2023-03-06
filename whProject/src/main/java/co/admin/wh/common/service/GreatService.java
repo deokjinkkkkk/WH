@@ -17,5 +17,7 @@ public interface GreatService {
 	
 	//좋아요 total
 	public int greatTotal(int greatNcode);
+
+	
 	
 }

@@ -18,5 +18,10 @@ public class TodoVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date todoDate;//날짜
 	
-	private int todoFlag;//구분(1.todolist - 2.완료)
+	private int todoFlag; //구분(1.todolist - 2.완료)
+	
+	//join을 위한
+	private String tagName; //태그
+	
+	private int todoTagCode;//태그코드
 }

@@ -33,15 +33,15 @@ public class CourseServiceImpl implements CourseService{
 		return courseMapper.courseList();
 	}
 
-//	@Override
-//	public int getCountTotal(CourseSearchVO svo) {
-//		// 페이지 수 관리
-//		return courseMapper.getCountTotal(svo);
-//	}
-//
-//	@Override
-//	public CourseVO detailSelect(CourseVO cvo) {
-//		// 상세페이지 보기
-//		return courseMapper.detailSelect(cvo);
-//	}
+	@Override
+	public int getCountTotal(CourseSearchVO svo) {
+		// 페이지 수 관리
+		return courseMapper.getCountTotal(svo);
+	}
+
+	@Override
+	public CourseVO detailSelect(CourseVO cvo) {
+		// 상세페이지 보기
+		return courseMapper.detailSelect(cvo);
+	}
 }

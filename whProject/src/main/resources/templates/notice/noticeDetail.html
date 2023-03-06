@@ -2,48 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/index}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css?aa">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css?aa">
 <body>
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		<!--좋아요 버튼 css-->	
-		<style>
-			a{
-			  text-decoration:none; color:inherit; cursor: pointer;
-			}
-			 .right_area .icon{
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: calc(100vw * (45 / 1920));
-				height: calc(100vw * (45 / 1920));
-				border-radius: 50%;
-				border: solid 2px #eaeaea;
-				background-color: #fff;
-			}
-			
-			.icon.heart img{
-				width: calc(100vw * (24 / 1920));
-				height: calc(100vw * (24 / 1920));
-			}
-			
-			.icon.heart.fas{
-			  color:red
-			}
-			.heart{
-				transform-origin: center;
-			}
-			.heart.active img{
-				animation: animateHeart .3s linear forwards;
-			}
-			
-			@keyframes animateHeart{
-				0%{transform:scale(.2);}
-				40%{transform:scale(1.2);}
-				100%{transform:scale(1);}
-			  }
-			</style>
-			<!--좋아요 버튼 css-종료-->	
+		<!--좋아요 버튼 css-->
+<style>
+a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+.right_area .icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(100vw * ( 45/ 1920));
+	height: calc(100vw * ( 45/ 1920));
+	border-radius: 50%;
+	border: solid 2px #eaeaea;
+	background-color: #fff;
+}
+
+.icon.heart img {
+	width: calc(100vw * ( 24/ 1920));
+	height: calc(100vw * ( 24/ 1920));
+}
+
+.icon.heart.fas {
+	color: red
+}
+
+.heart {
+	transform-origin: center;
+}
+
+.heart.active img {
+	animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart { 0%{
+	transform: scale(.2);
+}
+40%
+{
+transform:scale(1.2);
+}
+100%
+{
+transform:scale(1);
+}
+}
+</style>
+		<!--좋아요 버튼 css-종료-->
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
@@ -63,15 +76,16 @@
 				<table class="table">
 					<a href="/notice" class="btn btn-primary">목록</a>
 					<br>
-					<!--좋아요 버튼 기능html-->	
+					<!--좋아요 버튼 기능html-->
 					<div class="right_area" id="greatBtn">
-						<a href="javascript:;" class="icon heart"> 
-						<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="greatImg">
+						<a href="javascript:;" class="icon heart" onclick="great()"> <img
+							src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+							id="greatImg">
 						</a>
 					</div>
-						<!--좋아요 버튼 기능html 종료-->	
-						<!--좋아요 버튼 기능 시작-->	
-					
+					<!--좋아요 버튼 기능html 종료-->
+					<!--좋아요 버튼 기능 시작-->
+
 					<tr>
 						<td width="20%" class="text-center warning">번호</td>
 						<td width=30% class="text-center" th:text="${n.noticeCode}"></td>
@@ -79,11 +93,13 @@
 						<td width=30% class="text-center" th:text="${n.noticeRegDate}"></td>
 					</tr>
 					<tr>
-						<th width=20% class="text-center warning"><i class="bi bi-eye"></i></th><!-- 눈모양 이모티콘 (조회수) -->
+						<th width=20% class="text-center warning"><i
+							class="bi bi-eye"></i></th>
+						<!-- 눈모양 이모티콘 (조회수) -->
 						<td width=30% class="text-center" th:text="${n.noticeHit}"></td>
 						<td width=20% class="text-center warning">수정일</td>
 						<td width=30% class="text-center" th:text="${n.noticeModDate}"></td>
-						<tr>
+					<tr>
 						<th width=20% class="text-center warning">제목</th>
 						<td colspan="3" th:text="${n.noticeTitle}"></td>
 					</tr>
@@ -92,7 +108,6 @@
 							<pre th:utext="${n.noticeContent}"
 								style="white-space: pre-wrap; border: none; background-color: white;"> </pre>
 						</td>
-					
 					<tr>
 						<th width=20% class="text-center warning">파일</th>
 						<td colspan="3" th:text="${n.imgName}"></td>
@@ -105,41 +120,68 @@
 							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <input
 							type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
 							<button type="submit" class="btn btn-danger">삭제</button></td>
-				
 				</table>
 
 			</div>
-			<script>
-		
+				<script>
 				//heart 좋아요 클릭시! 하트 뿅
-				$(function(){
-					var $likeBtn =$('.icon.heart');
+				$(function() {
+					var $likeBtn = $('.icon.heart');
 
-						$likeBtn.click(function(){
-						$likeBtn.toggleClass('active');
+					$likeBtn
+							.click(function() {
+								$likeBtn.toggleClass('active');
 
-						if($likeBtn.hasClass('active')){          
-						   $(this).find('img').attr({
-							  'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
-							   alt:'좋아요 완료'
-								});
-						 }else{
-							$(this).find('i').removeClass('fas').addClass('far')
-						   $(this).find('img').attr({
-							  'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
-							  alt:"좋아요 취소인가..?"
-						   })
-						 }
-					 })
+								if ($likeBtn.hasClass('active')) {
+									$(this)
+											.find('img')
+											.attr(
+													{
+														'src' : 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+														alt : '좋아요 완료'
+													});
+								} else {
+									$(this).find('i').removeClass('fas')
+											.addClass('far')
+									$(this)
+											.find('img')
+											.attr(
+													{
+														'src' : 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+														alt : "좋아요 취소인가..?"
+													})
+								}
+							})
 				})
-
-				
-				</script>
+			</script>
+			<script>
+				function great() {
+					var greatNcode = window.location.pathname.split("/").pop();
+					var userId = sessionStorage.getItem("id");
+					var greatFlag = "no"; // greatFlag 값을 설정
 					
-				
+					
+					$.ajax({
+						url : "/great/" + greatNcode + "/" +greatFlag,
+						type : "POST",
+						success : function(result) {
+							alert(result.message);
+						},
+						error : function() {
+							alert("좋아요를 누르는 중 오류가 발생했습니다.");
+						}
+					});
+
+					console.log(greatFlag); // greatFlag 값을 출력
+					console.log(greatNcode); // greatFlag 값을 출력
+				}
+			</script>
+
+
 		</form>
 
 	</div>
+
 
 	<!-- 관리자시 권한 주는것 
 						<div
@@ -151,5 +193,5 @@
 						</div>
 						
 	 내용 끝 -->
-					</body>
+</body>
 </html>

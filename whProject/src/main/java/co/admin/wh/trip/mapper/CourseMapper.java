@@ -11,8 +11,8 @@ public interface CourseMapper {
 	
 	void insertInfo(CourseVO courseVO); // api DB 저장
 	
-//	int getCountTotal(CourseSearchVO svo); // 페이지수 관리
-//	
-//	CourseVO detailSelect(CourseVO vo); //상세보기 페이지
+	int getCountTotal(CourseSearchVO svo); // 페이지수 관리
+	
+	CourseVO detailSelect(CourseVO vo); //상세보기 페이지
 	
 }

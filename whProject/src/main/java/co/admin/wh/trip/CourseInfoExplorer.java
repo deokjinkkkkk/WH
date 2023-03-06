@@ -42,7 +42,7 @@ public class CourseInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=5" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				"&pageNo=1" + "&numOfRows=20" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
 				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01) pair
 
 		URL url = new URL(urlBuilder);
@@ -84,10 +84,14 @@ public class CourseInfoExplorer {
 				System.out.println(getTagValue("createdtime", eElement)); // 코스등록일자
 				System.out.println(getTagValue("modifiedtime", eElement)); // 코스수정일자	
 				System.out.println(getTagValue("firstimage2", eElement)); // 이미지
+				System.out.println(getTagValue("contentid", eElement)); // 코스 고유코드번호
 				
-				vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElement))); // 고유 코드번호
+				vo.setCouCode(getTagValue("contentid", eElement)); // 고유 코드번호
 				vo.setCouName(getTagValue("title", eElement)); // 코스 제목
-				vo.setAreaCode(Integer.valueOf(getTagValue("areacode", eElement))); // 지역코드
+				vo.setRegionCode(Integer.valueOf(getTagValue("areacode", eElement))); // 지역코드
+				vo.setCouLat(getTagValue("mapy", eElement)); //위도
+				vo.setCouLon(getTagValue("mapx", eElement)); //경도
+				vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 이미지
 				
 				// contentid를 입력해서 api 주소 출력...
                 contentid = getTagValue("contentid", eElement);
@@ -127,9 +131,11 @@ public class CourseInfoExplorer {
                         System.out.println(getTagValue("contentid", eElement1)); //코스 id
                     	System.out.println(getTagValue("subname", eElement1)); // 코스 안 여행지 제목
                         System.out.println(getTagValue("subdetailoverview", eElement1)); // 코스 안 여행지 개요
-
-                        vo1.setTripCode(Integer.valueOf(getTagValue("subcontentid", eElement1))); // 코스 고유 id
-                        vo1.setCouName(getTagValue("subname", eElement1));;
+                        
+                        // 가져올 데이터 : 코스 고유번호(contentid), 여행지 id(subcontentid), 여행지 이름 : (subname), 여행지 개요(subdetailoverview)
+                        vo1.setTripCode(Integer.valueOf(getTagValue("subcontentid", eElement1))); // 코스 여행지 고유 id
+                        vo1.setCouCode(getTagValue("contentid", eElement1)); // 코스 고유 아이디 넣기
+                        vo1.setCouName(getTagValue("subname", eElement1)); // 코스 여행지 이름
                     	// 개요
         	
                     	assert false;
