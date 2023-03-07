@@ -195,10 +195,8 @@ public class CourseInfoExplorer {
                     	vo.setCouDist(getTagValue("distance", eElementChildTwo)); // 코스 총거리
                     	
                     }
-                }
+                }             
                 
-                
-				assert false;
 				list.add(vo);
 			}
 		}

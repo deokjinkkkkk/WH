@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class TripVO { 
 	// 여행지
-	int tripCode; //여행번호
+	int tripCode; // 그냥 숫자
 	String tripName; //명칭
 	String tripTel; //연락처
 	String tripAddr; //주소
@@ -27,6 +27,7 @@ public class TripVO {
 	Date tripDate; //등록일자(수정일자로 일단 변경)
 	String couCode; // + 추가, 코스고유번호
 	int couOrder; // + 추가, 코스 순서
+	int tripUniqueNumber; // 추가, 여행고유번호
 
 	
 }

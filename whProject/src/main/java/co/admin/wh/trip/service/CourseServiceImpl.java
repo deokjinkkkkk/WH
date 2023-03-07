@@ -46,4 +46,10 @@ public class CourseServiceImpl implements CourseService{
 		// 상세페이지 보기
 		return courseMapper.detailSelect(vo);
 	}
+
+	@Override
+	public CourseVO oneSelect(CourseVO vo) {
+		// 단건조회
+		return courseMapper.oneSelect(vo);
+	}
 }

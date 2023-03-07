@@ -27,7 +27,7 @@ public class TripServiceImpl implements TripService{
 		tripMapper.insertInfo(tripVO);
 	}
 
-	// 페이징
+	 // 페이징
 	@Override
 	public List<TripVO> tripList(TripSearchVO svo) {
 		return tripMapper.tripList(svo);

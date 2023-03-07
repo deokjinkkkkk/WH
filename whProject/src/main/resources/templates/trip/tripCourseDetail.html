@@ -23,39 +23,32 @@
                                         <h6><a href="javascript:void(0);">쫜덕</a></h6>
                                         </div>
                                     <!-- 작성자 프로필 끝 -->
-
+						
 							<!-- post 시작 -->
-							<div th:each="c, nStat : ${course}" class="post">
+							<div class="post">
 								<div class="content">
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
 									
                                     
 										<div class="post-title-g margin-20px-bottom text-center">
-											<h5>[[${c.couName}]]</h5>
+											<h5 th:text="${onecourse.couName}"></h5>
+											<p th:text="${onecourse.couContent}" class="margin-30px-bottom"></p>
 										</div>
-														
+										
+										
 										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력) -->
-										<div class="owl-carousel owl-theme tour margin-10px-tb">
-											<div>
-												<img th:src="${c.imgGroCode}" style="width:300; height:200px;"
-													class="border-radius-4" alt="" />
-											</div>
-											<div>
-												<img src="img/content/tour-detail-1.jpg"
-													class="border-radius-4" alt="" />
-											</div>
-											<div>
-												<img src="img/content/tour-detail-2.jpg"
-													class="border-radius-4" alt="" />
-											</div>
-										</div>
-
-										<!-- 코스 종류 사진 끝 -->
-																			
-										<div id="">
-										
-										</div>
-										
+                                        <div th:each="c : ${course}" class="owl-carousel owl-theme tour">
+                                            <div>
+                                                <img th:src="${c.imgGroCode}" class="border-radius-4" alt="" />
+                                            </div>
+                                            <div>
+                                                <img src="img/content/tour-detail-1.jpg" class="border-radius-4" alt="" />
+                                            </div>
+                                            <div>
+                                                <img src="img/content/tour-detail-2.jpg" class="border-radius-4" alt="" />
+                                            </div>
+                                        </div>
+										<!-- 코스 종류 사진 끝 -->					
 									</div>
 								</div>
 							</div>

@@ -14,10 +14,15 @@
 	</select>
 
 	<!-- api DB 등록 -->
-	<insert id="insertInfo">
-			INSERT INTO TRIP
-			VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
-			#{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{cou_order})
+	<insert id="insertInfo" parameterType="co.admin.wh.trip.vo.TripVO">
+	<selectKey keyProperty="tripCode" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(TRIP_CODE),0)+1 FROM TRIP
+	</selectKey>
+         INSERT INTO TRIP(trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon,
+               trip_summ, trip_content, homepage, trip_region, img_gro_code, trip_date,
+               cou_code, cou_order, trip_Unique_Number)
+         VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
+               #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber})
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
