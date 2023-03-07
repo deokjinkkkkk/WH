@@ -60,12 +60,12 @@ public class WebSecirityConfig{
 	}
 	  @Bean
 	    public WebSecurityCustomizer webSecurityCustomizer() {
-	        return (web) -> web.ignoring().antMatchers("/css", "/fonts");
+	        return (web) -> web.ignoring().antMatchers("/css/**", "/fonts/**","/img/**","/js/**","/scss/**","/search/**","/vendor/**");
 	    }
 
 	  @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	        // 사용자 인증을 위한 서비스를 설정합니다.
+	       
 	        auth.userDetailsService(usersSerivce);
 	     
 	    }

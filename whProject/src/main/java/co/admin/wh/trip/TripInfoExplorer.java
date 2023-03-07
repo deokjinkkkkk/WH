@@ -110,7 +110,7 @@ public class TripInfoExplorer {
 
 				// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
 				NodeList nListchild = docchild.getElementsByTagName("item");
-				
+
 				for (int j = 0; j < nListchild.getLength(); j++) {
 					Node nNodechild = nListchild.item(j);
 					if (nNodechild.getNodeType() == Node.ELEMENT_NODE) {
@@ -154,45 +154,45 @@ public class TripInfoExplorer {
 
 						// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
 						NodeList nListchildTwo = docchildTwo.getElementsByTagName("item");
-						
-								for (int f = 0; f < nListchildTwo.getLength(); f++) {
-									Node nNodechildTwo = nListchild.item(f);
-									if (nNodechildTwo.getNodeType() == Node.ELEMENT_NODE) {
 
-										Element eElementchildTwo = (Element) nNodechildTwo;
+						for (int f = 0; f < nListchildTwo.getLength(); f++) {
+							Node nNodechildTwo = nListchild.item(f);
+							if (nNodechildTwo.getNodeType() == Node.ELEMENT_NODE) {
 
-										/*
-										 * 가져와야할 정보 : 여행번호(tripCode, contentid), 명칭(title), 연락처(tel), 주소(addr1), 위도/경도,
-										 * 상세정보(tripContent, overview), 수정일자(tripDate, modifiedtime) 지역코드(tripRegion,
-										 * areaCode), 이미지
-										 */
+								Element eElementchildTwo = (Element) nNodechildTwo;
 
-										System.out.println("====================");
-										System.out.println(getTagValue("addr1", eElementchildTwo)); // 주소
-										System.out.println(getTagValue("title", eElementchildTwo)); // 여행지 명칭
+								/*
+								 * 가져와야할 정보 : 여행번호(tripCode, contentid), 명칭(title), 연락처(tel), 주소(addr1), 위도/경도,
+								 * 상세정보(tripContent, overview), 수정일자(tripDate, modifiedtime) 지역코드(tripRegion,
+								 * areaCode), 이미지
+								 */
 
-										vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElementchildTwo))); // 여행지 번호
-										vo.setTripName(getTagValue("title", eElementchildTwo)); // 여행지 명칭
-										vo.setTripTel(getTagValue("tel", eElementchildTwo)); // 연락처
-										vo.setTripAddr(getTagValue("addr1", eElementchildTwo)); // 주소
-										vo.setTripLat(getTagValue("addr1", eElementchildTwo)); // 위도
-										vo.setTripLon(getTagValue("addr1", eElementchildTwo)); // 경도
-										vo.setTripContent(getTagValue("addr1", eElementchildTwo)); // 상세정보
-										vo.setTripRegion(getTagValue("addr1", eElementchildTwo)); // 지역번호
-										vo.setImgGroCode(getTagValue("addr1", eElementchildTwo)); // 이미지
+								System.out.println("====================");
+								System.out.println(getTagValue("addr1", eElementchildTwo)); // 주소
+								System.out.println(getTagValue("title", eElementchildTwo)); // 여행지 명칭
 
-									}
-								}
+								vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElementchildTwo))); // 여행지 번호
+								vo.setTripName(getTagValue("title", eElementchildTwo)); // 여행지 명칭
+								vo.setTripTel(getTagValue("tel", eElementchildTwo)); // 연락처
+								vo.setTripAddr(getTagValue("addr1", eElementchildTwo)); // 주소
+								vo.setTripLat(getTagValue("addr1", eElementchildTwo)); // 위도
+								vo.setTripLon(getTagValue("addr1", eElementchildTwo)); // 경도
+								vo.setTripContent(getTagValue("addr1", eElementchildTwo)); // 상세정보
+								vo.setTripRegion(getTagValue("addr1", eElementchildTwo)); // 지역번호
+								vo.setImgGroCode(getTagValue("addr1", eElementchildTwo)); // 이미지
 
-								assert false;
-										list.add(vo);
-					
+							}
+						}
+
+						assert false;
+						list.add(vo);
+
+					}
+				}
+
+				return list;
+
 			}
 		}
-		
-			
-				return list;
-			
-			
-		}
 	}
+}
