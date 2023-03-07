@@ -37,16 +37,10 @@
 										
 										
 										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력) -->
-                                        <div th:each="c : ${course}" class="owl-carousel owl-theme tour">
-                                            <div>
-                                                <img th:src="${c.imgGroCode}" class="border-radius-4" alt="" />
-                                            </div>
-                                            <div>
-                                                <img src="img/content/tour-detail-1.jpg" class="border-radius-4" alt="" />
-                                            </div>
-                                            <div>
-                                                <img src="img/content/tour-detail-2.jpg" class="border-radius-4" alt="" />
-                                            </div>
+                                        <div class="owl-carousel owl-theme tour">
+                                            <div th:each="c : ${course}" >
+                                                <img th:src="${c.imgGroCode}"  class="border-radius-4" style="width:500; height:300px;"/>
+                                            </div>                                
                                         </div>
 										<!-- 코스 종류 사진 끝 -->					
 									</div>
