@@ -20,6 +20,7 @@ import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.service.ReportService;
 import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
+import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
 import co.admin.wh.notice.service.CompanionService;
@@ -49,12 +50,21 @@ public class CompanionController {
 
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	@Value("${wh.saveimg}")
 	private String saveimg;
 
 	@RequestMapping("/companion")
-	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo) {
+	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo, MemberVO vo, Principal principal) {
+		
+		//id를 가지고 나머지 member값 가져오기
+		vo.setId(principal.getName());
+		model.addAttribute("me", memberMapper.memberSelect(vo));
+		
+		
 		paging.setPageUnit(5);
 		paging.setPageSize(5);
 
@@ -71,6 +81,8 @@ public class CompanionController {
 	public String companionForm(Model model, CommonVO cvo, MemberVO vo, Principal principal) {
 		 vo.setId(principal.getName());
 		 System.out.println(principal.getName()+"+++++++++++++++++++++++++++");
+			//id를 가지고 나머지 member값 가져오기
+			model.addAttribute("me", memberMapper.memberSelect(vo));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionForm";
@@ -116,7 +128,7 @@ public class CompanionController {
 	@RequestMapping("/companionUpdateForm")
 	public String companionUpdateForm(CompanionVO compVO, Model model, CommonVO cvo) {
 		
-		model.addAttribute("c", companionService.detailSelect(compVO));
+		 model.addAttribute("c", companionService.detailSelect(compVO));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionUpdateForm";

@@ -13,13 +13,13 @@
 		com_Name,COMP_TITLE,COMP_COUNT,
 		comp_local, COMP_START_DATE, COMP_END_DATE,
 		COMP_CONTENT,IMG_GRO_CODE,
-		com_code)
+		com_code, TEL, Gender, NAME )
 
 		VALUES (#{compCode},#{id},#{comName},
 		#{compTitle},
 		#{compCount},#{compLocal},#{compStartDate},#{compEndDate},
 		#{compContent},
-		#{imgGroCode}, #{comCode})
+		#{imgGroCode}, #{comCode}, #{tel}, #{gender}, #{name})
 	</insert>
 
 	<insert id="imgInsert"
@@ -128,6 +128,11 @@
 		WHERE c.COMP_CODE =
 		#{compCode}
 	</select>
-
+	
+	<insert id="comListInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
+		INSERT INTO COMPANION_LIST (COMP_CODE, TEL, Gender, NAME )
+		VALUES (#{compCode}, #{tel}, #{gender}, #{name})
+	</insert>
+	
 </mapper>
 
