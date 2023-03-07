@@ -3,10 +3,71 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 
-	
+
 <body>
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
+<!--좋아요 버튼 css-->
+<style>
+a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+.right_area .icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(100vw * ( 45/ 1920));
+	height: calc(100vw * ( 45/ 1920));
+	border-radius: 50%;
+	border: solid 2px #eaeaea;
+	background-color: #fff;
+	
+}
+
+.icon.heart img {
+	width: calc(100vw * ( 24/ 1920));
+	height: calc(100vw * ( 24/ 1920));
+	 
+}
+
+.icon.heart.fas {
+	color: red
+}
+
+.heart {
+	transform-origin: center;
+	
+}
+
+.heart.active img {
+	animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart { 0%{
+	transform: scale(.2);
+}
+40%
+{
+transform:scale(1.2);
+}
+100%
+{
+transform:scale(1);
+}
+}
+#greatBtn{
+position: absolute;
+     left: 700px;
+      top: 50px;
+}
+</style>
+<!--좋아요 버튼 css-종료-->	
+	
+	
+	
 		<!-- start page title section -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background: url('/img/banner/bg3.jpg')|">
@@ -32,9 +93,17 @@
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
 										<div class="post-title margin-20px-bottom">
 											<h5 th:text="${h.hotelName}"></h5>
+											<div class="right_area" id="greatBtn">
+						<!--좋아요 버튼 기능html-->
+												<button type="button" class="icon heart">
+													<img
+														src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+														id="greatImg">
+												</button>
+											</div>
+						<!--좋아요 버튼 기능html 종료-->					
 										</div>
-											
-											
+
 									</div>
 									<div
 										class="row margin-40px-bottom border-bottom padding-30px-bottom">
@@ -42,7 +111,7 @@
 											<p class="margin-10px-bottom text-extra-dark-gray">
 												<span class="ti-time text-theme-color margin-10px-right"></span>
 												<a th:text="${h.star}"></a>
-												
+
 											</p>
 											<p
 												class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
@@ -61,7 +130,7 @@
 													class="ti-location-pin text-theme-color margin-10px-right"></span>
 												<a th:text="${h.hotelRegion}">서울</a>
 											</p>
-											
+
 										</div>
 									</div>
 									<div class="margin-40px-bottom">
@@ -133,7 +202,7 @@
 															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
 													</div>
 												</div>
-												
+
 											</li>
 											<li>
 												<div class="row">
@@ -262,9 +331,111 @@
 						</div>
 					</div>
 				</div>
+
+				<script>
+				//좋아요 기능 시작
+				var greatNcode = window.location.pathname.split("/").pop();
+				var id = sessionStorage.getItem("id");
+				var greatFlag = ("HO");
+				
+				console.log("greatNcode:", greatNcode);
+				
+				
+				$.ajax({
+				  url: "/greatCheck/"  + greatNcode,
+				  async: false,
+				}).then(function(result) { 
+				  if (result) { // greatCheck 메서드에서 반환된 값이 true/false이므로, result로 바로 사용 가능
+				    $likeBtn.addClass("active")
+				    .find("img").attr({
+				      src: "https://cdn-icons-png.flaticon.com/512/803/803087.png", 
+				    })
+				  } else {
+				    $likeBtn.removeClass("active")
+				    .find("img").attr({
+				      src: "https://cdn-icons-png.flaticon.com/512/812/812327.png",
+				    })
+				  }
+				});
+
+
+				$(function() {
+					  var $likeBtn = $('.heart');
+					  var greatNcode; // 로컬 변수로 설정
+
+					  $likeBtn.click(function() {
+					    if (!$likeBtn.hasClass('active')) {
+					      $(this).find('img').attr({
+					        'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+					        alt: '좋아요 꽉찬거'
+					      });
+
+					      greatNcode = 123; // 예시로 임의의 값을 설정
+					      great();
+					    } else {
+					      $(this).find('i').removeClass('active');
+					      $(this).find('img').attr({
+					        'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+					        alt: '좋아요 안한거'
+					      });
+
+					      $.ajax({
+					        url: '/greatDown/' + greatNcode,
+					        type: 'POST',
+					        success: function(result) {
+					          alert(result.message);
+					        },
+					        error: function() {
+					          alert('좋아요 취소 중 오류가 발생했습니다.');
+					        }
+					      });
+					    }
+					  });
+					});
+
+
+			
+					  
+				
+				 function great() {
+				  $.ajax({
+				    url: "/greatUp/" + greatNcode,
+				    type: "POST",
+				    data: { greatFlag: greatFlag }, // greatFlag를 전송합니다.
+				    success: function(result) {
+				      alert(result.message);
+				    },
+				    error: function() {
+				      alert("좋아요를 누르는 중 오류가 발생했습니다.");
+				    }
+				  });
+				}
+/*
+				
+				function greatDown(){
+				      $.ajax({
+				        url: "/greatDown/" + greatNcode,
+				        type: "POST",
+				        success: function(result) {
+				          alert(result.message);
+				        },
+				        error: function() {
+				          alert("좋아요 취소 중 오류가 발생했습니다.");
+				        }
+				      
+				          
+				          });
+				    } */
+				  
+
+				  
+				
+				</script>
+				
 			</div>
 		</section>
 		<!-- end tour details section -->
 	</div>
+	
 </body>
 </html>

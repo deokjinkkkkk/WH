@@ -12,8 +12,8 @@ public class GreatSurviceImpl implements GreatService {
 	@Autowired GreatMapper mapper;
 
 	@Override
-	public int greatCheck(int greatNcode, String id) {
-		return mapper.greatCheck(greatNcode, id);
+	public boolean greatCheck(GreatVO vo) {
+		return mapper.greatCheck(vo);
 	}
 
 	@Override
