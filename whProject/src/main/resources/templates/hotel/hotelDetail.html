@@ -96,9 +96,7 @@ position: absolute;
 											<div class="right_area" id="greatBtn">
 						<!--좋아요 버튼 기능html-->
 												<button type="button" class="icon heart">
-													<img
-														src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
-														id="greatImg">
+													<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="greatImg">
 												</button>
 											</div>
 						<!--좋아요 버튼 기능html 종료-->					
@@ -286,18 +284,48 @@ position: absolute;
 									<h3>Reservation</h3>
 								</div>
 								<form action="/reservation" method="post">
-									<div class="form-group">
-										<label class="margin-5px-bottom">checkin</label> <input
-											type="date"
-											class="form-control date no-margin-bottom padding-10px-tb"
-											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
-									</div>
-									<div class="form-group">
-										<label class="margin-5px-bottom">checkout</label> <input
-											type="date"
-											class="form-control date no-margin-bottom padding-10px-tb"
-											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
-									</div>
+                           <div class="form-group">
+                              <label class="margin-5px-bottom">checkin</label> <input
+                                 type="text"
+                                 class="form-control date no-margin-bottom padding-10px-tb"
+                                 placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
+                           </div>
+                           <div class="form-group">
+                              <label class="margin-5px-bottom">checkout</label> <input
+                                 type="text"
+                                 class="form-control date no-margin-bottom padding-10px-tb"
+                                 placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
+                           </div>
+                           <script>
+                              $(function() {
+                                 $(document).ready(function() {
+         
+                                    $('#checkIn').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        startDate : '0d',
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var startDate = new Date(selected.date.valueOf());
+                                        $('#checkOut').datepicker('setStartDate', startDate);
+                                    });
+         
+                                    $('#checkOut').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var endDate = new Date(selected.date.valueOf());
+                                        $('#checkIn').datepicker('setEndDate', endDate);
+                                    });
+                                    
+                                    
+                                 });
+         
+                              });
+                           </script>
 									<div class="form-group margin-30px-bottom">
 										<label class="margin-5px-bottom">성인</label> <select
 											class="form-control padding-10px-tb" id="humanCount"
@@ -333,17 +361,31 @@ position: absolute;
 				</div>
 
 				<script>
+				
 				//좋아요 기능 시작
-				var greatNcode = window.location.pathname.split("/").pop();
-				var id = sessionStorage.getItem("id");
-				var greatFlag = ("HO");
+
+				//회원 좋아요 있는지 여부 확인 
+				$(document).ready(function(){
+					getGreat()
+				})
 				
-				console.log("greatNcode:", greatNcode);
+				var id = ('user4');
+				var greatNcode = window.location.pathname.split("/").pop(); //상세페이지 번호
+				var greatFlag = ("HT");  //호텔 구분
+				var $likeBtn = $('.heart'); //하트버튼 id값
 				
 				
+				var greatVO = {
+					    id: id,
+					    greatFlag: greatFlag,
+					    greatNcode: greatNcode
+					};
+				
+				//회원 좋아요 있는지 여부 확인 
+				function getGreat(){
 				$.ajax({
-				  url: "/greatCheck/"  + greatNcode,
-				  async: false,
+				  url: "/greatCheck/"  + greatNcode +"/"+ id,
+				  data: greatVO
 				}).then(function(result) { 
 				  if (result) { // greatCheck 메서드에서 반환된 값이 true/false이므로, result로 바로 사용 가능
 				    $likeBtn.addClass("active")
@@ -355,81 +397,66 @@ position: absolute;
 				    .find("img").attr({
 				      src: "https://cdn-icons-png.flaticon.com/512/812/812327.png",
 				    })
+				    
 				  }
-				});
 
+				});
+				}
 
 				$(function() {
-					  var $likeBtn = $('.heart');
-					  var greatNcode; // 로컬 변수로 설정
-
 					  $likeBtn.click(function() {
 					    if (!$likeBtn.hasClass('active')) {
 					      $(this).find('img').attr({
 					        'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
 					        alt: '좋아요 꽉찬거'
 					      });
-
-					      greatNcode = 123; // 예시로 임의의 값을 설정
-					      great();
+					      great(); //좋아요 함수 호출 
 					    } else {
 					      $(this).find('i').removeClass('active');
 					      $(this).find('img').attr({
 					        'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
 					        alt: '좋아요 안한거'
 					      });
-
-					      $.ajax({
-					        url: '/greatDown/' + greatNcode,
-					        type: 'POST',
-					        success: function(result) {
-					          alert(result.message);
-					        },
-					        error: function() {
-					          alert('좋아요 취소 중 오류가 발생했습니다.');
-					        }
-					      });
+					      greatDown(); //좋아요 취소 호출 
 					    }
 					  });
 					});
 
 
-			
-					  
-				
+			  
+				//좋아요 클릭시 효과 
 				 function great() {
 				  $.ajax({
-				    url: "/greatUp/" + greatNcode,
+				    url: "/greatUP/" + greatNcode,
 				    type: "POST",
-				    data: { greatFlag: greatFlag }, // greatFlag를 전송합니다.
+				    data: greatVO,
 				    success: function(result) {
 				      alert(result.message);
+				      getGreat(); //회원 확인 여부 호출
 				    },
 				    error: function() {
 				      alert("좋아요를 누르는 중 오류가 발생했습니다.");
+				      getGreat(); //회원 확인 여부 호출
 				    }
 				  });
+				  console.log(greatVO);
 				}
-/*
-				
+
+				//좋아요 취소시 효과 기능 
 				function greatDown(){
 				      $.ajax({
-				        url: "/greatDown/" + greatNcode,
+				        url: "/greatDown/" + greatFlag + "/" + greatNcode + "/" + id,
 				        type: "POST",
+				        data: greatVO,
 				        success: function(result) {
 				          alert(result.message);
+				          getGreat(); //회원 확인 여부 호출
 				        },
 				        error: function() {
 				          alert("좋아요 취소 중 오류가 발생했습니다.");
 				        }
-				      
-				          
 				          });
-				    } */
-				  
-
-				  
-				
+				    } 
 				</script>
 				
 			</div>
