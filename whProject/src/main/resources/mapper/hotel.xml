@@ -2,34 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.hotel.mapper.HotelMapper">
 
-   <insert id="insertHotelInfo">
-	   	<selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
-	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL        
-	    </selectKey>
-       	insert into HOTEL
-    	values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo}, #{hotelContent}, #{hotelRegion},#{roomGrade}, #{roomCount}, #{roomPrice}, #{roomLimit}, #{img1}, #{img2},#{img3},#{img4},#{img5})
-   </insert>
-   
-   <select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
-       select *
-       from hotel
-       order by star desc
-   </select>
-   
-   <select id="CrawlingList" resultType="co.admin.wh.hotel.vo.HotelVO">
-       select a.*
-       from (
-            select * from hotel order by hotel_id desc) a
+	<insert id="insertHotelInfo">
+		<selectKey resultType="int" keyProperty="hotelId"
+			order="BEFORE">
+			SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL
+		</selectKey>
+		insert into HOTEL
+		values (#{hotelId}, #{hotelName}, #{star}, #{hotelAddr}, #{hotelInfo},
+		#{hotelContent}, #{hotelRegion},#{roomGrade}, #{roomCount},
+		#{roomPrice}, #{roomLimit}, #{img1}, #{img2},#{img3},#{img4},#{img5})
+	</insert>
+
+	<select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+		h.HOTEL_CONTENT,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+		FROM HOTEL h
+		LEFT JOIN GREAT g
+		ON h.HOTEL_ID = g.GREAT_N_CODE
+		GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+		h.HOTEL_CONTENT,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
+		ORDER BY GREAT_COUNT DESC
+	</select>
+
+	<select id="CrawlingList"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		select a.*
+		from (
+		select * from hotel order by hotel_id desc) a
        <![CDATA[
        where rownum <= 20
        ]]>
-   </select>
-   
-   	<select id="detailSelect" resultType="co.admin.wh.hotel.vo.HotelVO">
+	</select>
+
+	<select id="detailSelect"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
 		select *
 		from hotel
 		where hotel_id = #{hotelId}
 	</select>
+
 	
 	<insert id="insertReservInfo" parameterType="co.admin.wh.hotel.vo.ReservationVO">
 	   	<selectKey resultType="int" keyProperty="resId" order="BEFORE">
@@ -38,8 +53,9 @@
 		insert into Reservation
 		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id})
 	</insert>
-	
-	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO">
+
+	<select id="readReservInfo"
+		resultType="co.admin.wh.hotel.vo.ReservationVO">
 		select *
 		from Reservation
 		where res_id = #{resId}

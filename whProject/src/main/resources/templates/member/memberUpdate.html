@@ -22,51 +22,46 @@
 						<form method="post" action="#!"
 						 id="frm">
 							<div class="row">
-								<div class="col-md-9">
+								<div class="col-md-12">
 									<div class="form-group">
 										<input type="text" name="id" id="id" placeholder="아이디"
-											maxlength="70" value="세션 아이디" readonly>
+											maxlength="70" th:value="${session.name}" readonly>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group">
-										<input type="password" name="password" id="password1"
+										<input type="password" name="pass" id="password1"
 											placeholder="비밀번호" maxlength="70">
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group">
-										<input type="password" name="password" id="password2"
+										<input type="password" name="pass" id="password2"
 											placeholder="비밀번호확인" maxlength="70">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="text" name="name" id="name" placeholder="이름"
-											maxlength="70">
+											maxlength="70" th:value="${mem.name}">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" name="gender" value="1" readonly>
+										<input type="text" name="gender" value="1" th:value="${mem.gender}" readonly >
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="tel" name="tel" id="tel" placeholder="전화번호"
-											maxlength="70">
+											maxlength="70"
+											th:value="${mem.tel}">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="email" name="email" id="email" placeholder="이메일"
-											maxlength="70">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<input type="text" name="email" id="email" placeholder="이름" value=""
-											maxlength="70">
+											maxlength="70" th:value="${mem.email}">
 									</div>
 								</div>
 

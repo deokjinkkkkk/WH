@@ -1,6 +1,10 @@
 package co.admin.wh.common.vo;
 
-import java.util.Date;
+
+
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,7 +15,8 @@ public class CommentsVO {
 	int comCode;
 	String id;
 	String comContent;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
 	Date comDate;
 	int comLock;
 	int comOrder;

@@ -12,7 +12,7 @@
 		th:style="|background: url('img/banner/bg4.jpg')|">
 		<h1 class="text-white font-weight-600">Tour Listing</h1>
 		<ul>
-			<li><a href="index.html">Home</a></li>
+			<li><a href="/home">Home</a></li>
 			<li><span class="active">Tour Listing</span></li>
 		</ul>
 	</section>
@@ -56,7 +56,8 @@
 										
 										<div class="controls">
 											<div class="row">
-												<input type="hidden" name="id" value="ADMIN" id="id">
+												<input type="hidden" name="id" th:value="${session.name}" id="id">
+												<input type="hidden" th:value="${session.perm}" id="perm">
 												<div class="col-md-12 form-group">
 													<textarea id="comContent" name="comContent"
 														placeholder="댓글 내용" rows="4" required="required"></textarea>
@@ -81,9 +82,10 @@
 		
 	</section>
 	<!-- end comment-->
-	<script>
+	<script th:inline="javascript">
 	/*  남은 기능
-		2.댓글 대댓글 수정(참고한 사이트는 수정기능이 없음)
+		1.댓글 대댓글 수정(참고한 사이트는 수정기능이 없음)
+		2.페이징
 	*/
 	
 	
@@ -101,7 +103,7 @@
 	})
 	
 	$("#butn").click(function(){ //댓글 등록
-		let comContent =$("#comContent").val(); //댓글내용
+		let comContent = $("#comContent").val(); //댓글내용
 		let comId =$("#id").val(); //회원아이디
 		let comOrder = 1 //댓글순서
 		let comBlock = 1 //댓글계층
@@ -145,13 +147,20 @@
 	});
 	
 	function getComList(){ //댓글 리스트
-		let str = '<div class="title-g margin-30px-bottom">'
+		let str = null
+		id = $("#id").val()
+		author = $("#perm").val()
+		perm = author.slice(1,-1)
+		console.log(perm)
+		console.log(id)
+		    str += '<div class="title-g margin-30px-bottom">'
 			str +='<h3>댓글</h3>'
 			str +='</div>'
 		let comArea =$(".comments-area");
 		$.ajax({
 			url:"/comGetList",
 			success : function(result){
+				$(".title-g margin-30px-bottom").remove()
 				$(result).each(function(index,item){
 					if(item.block == 1){
 						str += "<div class='comment-box' id='"+item.comCode+"'>"
@@ -159,15 +168,15 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info">'
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
-						if(item.comLock != '0' || item.id == 'ADMIN'){
+						if(item.comLock != 0 || item.id == id){
 						str	+= '<p>'+item.comContent+'</p>'
 						}else{
 						str += 	'<p>비밀 댓글입니다.</p>'
 						}
-						//if(item.perm == "ADMIN" /*|| item.id == 세션아이디*/){
+						if( perm == "ADMIN" || item.id == id){
 						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
-
-						//}
+						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						}
 						str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					}else{
 						str += "<div class='comment-box' id='"+item.comCode+"' style='margin-left: 100px;'>"
@@ -175,24 +184,25 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info"> '
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
-						if(item.comLock != '0' || item.id == 'ADMIN'/*세션값*/){
+						if(item.comLock != '0' || item.id == id){
 						str	+= '<p>'+item.comContent+'</p>'
 						}else{
 						str += 	'<p>비밀 댓글입니다.</p>'
 						}
-						//if(item.perm == "ADMIN" || item.id == 세션아이디){
+						if(perm == "ADMIN" || item.id == id){
 						str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
-						//}
+						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						}
 					}
 				//if(item.block == 1){
 					str += '<div class="reply">'
+					str += '<h6>'+item.comDate+'</h6>'
 					str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
 					str += '</div> </div> </div>'
 					str += '<div class="rep-form" id="'+item.comCode+'" style="display:none">'
 					str += 	'<form id="reply-form " method="post">'
 					str +=  '<div class="controls">'
 					str +=  '<div class="row">'
-					str +=  '<input type="hidden" name="id" value="ADMIN" id="id">'
 					str += '<div class="col-md-12 form-group">'
 					str += '<textarea id="comRep" name="comContent" class="comRep"'
 					str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'

@@ -26,21 +26,21 @@
 	<update id="memberUpdate">
 	update member 
 	<set>
-	<if test="password != null">password = #{password},</if>
-	<if test="password != null">name = #{name},</if>
-	<if test="password != null">tel = #{tel},</if>
-	<if test="password != null">email = #{email}</if>
+	<if test="pass != null">pass = #{pass},</if>
+	<if test="name != null">name = #{name},</if>
+	<if test="tel != null">tel = #{tel},</if>
+	<if test="email != null">email = #{email}</if>
 	</set>
 	where id =#{id}
 	</update>
 	
 	<delete id="memberDelete">
 	delete from member
-	where id = {id}
+	where id = #{id}
 	</delete>
 	
 	<insert id="memDel">
 	insert into quit
-	values(#{id},#{password},#{name},#{gender},#{tel},#{email})
+	values(#{id},#{pass},#{name},#{gender},#{tel},#{email})
 	</insert>
 </mapper>

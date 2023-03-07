@@ -14,8 +14,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		
-		response.sendRedirect("/main");
+		request.getSession().setAttribute("id", authentication.getPrincipal());
+		request.getSession().setAttribute("name", authentication.getName());
+		request.getSession().setAttribute("perm", authentication.getAuthorities());
+		System.out.println(request.getSession()+"===================");
+		String path = request.getContextPath();
+		response.sendRedirect(path +"/main");
 		
 	}
 

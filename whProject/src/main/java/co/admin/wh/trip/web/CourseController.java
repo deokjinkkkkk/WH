@@ -59,7 +59,7 @@ public class CourseController {
 //		for (CourseVO courseVO : list) {
 //		courseService.insertInfo(courseVO);						
 //		}
-
+		
 		model.addAttribute("courseList", courseService.courseList(svo));		
 		System.out.println("파싱 끝");		
 		return "trip/tripcourseList";
@@ -71,6 +71,7 @@ public class CourseController {
 	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
 	public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
 		vo.setCouCode(couCode);
+		model.addAttribute("onecourse", courseService.oneSelect(vo));
 		model.addAttribute("course", courseService.detailSelect(vo));
 		return "trip/tripCourseDetail";
 	}
