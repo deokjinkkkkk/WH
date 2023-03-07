@@ -35,8 +35,8 @@
 	   	<selectKey resultType="int" keyProperty="resId" order="BEFORE">
 	        SELECT NVL(MAX(res_Id),0)+1 FROM RESERVATION        
 	    </selectKey>
-		insert into Revervation
-		values (#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn},#{checkOut},#{id},sysdate,#{totalPay},#{payState},#{hotelId})
+		insert into Reservation
+		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id})
 	</insert>
 	
 	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO">

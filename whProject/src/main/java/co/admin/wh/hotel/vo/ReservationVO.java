@@ -1,9 +1,7 @@
 package co.admin.wh.hotel.vo;
 
 import java.sql.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 @Data
@@ -15,12 +13,12 @@ public class ReservationVO {
 	public String resTel;
 	public String resEmail;
 	public String resRequest;
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	public Date checkIn;
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	public Date checkOut;
 	public String id;
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	public Date payDate;
 	public int totalPay;
 	public int payState;

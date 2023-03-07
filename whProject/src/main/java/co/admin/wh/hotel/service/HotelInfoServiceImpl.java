@@ -46,8 +46,8 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public String insertReservInfo(ReservationVO vo) {
-		return hotelMapper.insertReservInfo(vo);
+	public void insertReservInfo(ReservationVO vo) {
+		hotelMapper.insertReservInfo(vo);
 	}
 
 	@Override
