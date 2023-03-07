@@ -66,27 +66,29 @@
 	]]>
 	</select>
 
-	
+
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT *
-		FROM COMPANION c inner join common co
-		on c.com_Code = co.com_Code
+		FROM COMPANION c
+		INNER JOIN common co ON c.com_Code = co.com_Code
+		INNER JOIN image i ON c.img_gro_code = i.img_gro_code
 		WHERE c.COMP_CODE = #{compCode}
 	</select>
-	
-	
+
+
 	<select id="localSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		 SELECT co.com_Name
+		SELECT co.com_Name
 		FROM COMPANION c inner join common co
-		on c.comp_Local = co.com_Code
+		on c.comp_Local =
+		co.com_Code
 		WHERE c.COMP_CODE = #{compCode}
 	</select>
 
 
-	
-	
+
+
 
 	<!-- 전체건수조회 -->
 	<select id="getCountTotal"
@@ -101,6 +103,7 @@
 		<set>
 			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
 			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
+			<if test="compLocal != null">COMP_LOCAL = #{compLocal},</if>
 			<if test="comCode != null">COM_Code = #{comCode},</if>
 			<if test="comName != null">COM_Name = #{comName},</if>
 			<if test="compStartDate != null">COMP_START_DATE = #{compStartDate},</if>
@@ -120,7 +123,8 @@
 		FROM COMPANION
 		c
 		JOIN IMAGE i
-		ON c.IMG_GRO_CODE = i.IMG_GRO_CODE
+		ON c.IMG_GRO_CODE =
+		i.IMG_GRO_CODE
 		WHERE c.COMP_CODE =
 		#{compCode}
 	</select>
