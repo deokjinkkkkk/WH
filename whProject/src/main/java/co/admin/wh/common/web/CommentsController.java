@@ -82,7 +82,9 @@ public class CommentsController {
 		int count = commentsMapper.commentsCount(vo);
 		return count;
 	}
-	//@PostMapping("/comUpdate") //댓글 수정
+	
+	@PostMapping("/comUpdate") //댓글 수정
+	@ResponseBody
 	public String commentsUpdate(CommentsVO vo) {
 		commentsMapper.commentsUpdate(vo);
 		return "";

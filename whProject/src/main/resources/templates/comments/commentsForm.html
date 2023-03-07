@@ -147,7 +147,7 @@
 	});
 	
 	function getComList(){ //댓글 리스트
-		let str = null
+		let str = ""
 		id = $("#id").val()
 		author = $("#perm").val()
 		perm = author.slice(1,-1)
@@ -175,7 +175,7 @@
 						}
 						if( perm == "ADMIN" || item.id == id){
 						str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
-						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
 						}
 						str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
 					}else{
@@ -191,7 +191,7 @@
 						}
 						if(perm == "ADMIN" || item.id == id){
 						str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
-						str += '<button type="button" class="btnDel" onclick="comUpdate()">수정</button>'
+						str += '<button type="button" class="btnDel" onclick="reUpdateForm()">수정</button>'
 						}
 					}
 				//if(item.block == 1){
@@ -253,11 +253,7 @@
 	function comDelete(){ //댓글 삭제
 		let comBox = $(event.target).closest(".comment-box")
 		let reply = comBox.next()
-		console.log($(event.target).text())
 		let comGroup = $(event.target).next().val()
-		let comOrder = 1
-		let comCode = comBox.attr('id')
-		console.log(comCode)
 		//alert 후 true 일경우 삭제 누른 댓글 삭제
 		//false 후 
 		$.ajax({
@@ -293,15 +289,12 @@
 	function comReplyInsert(){
 		let rep = $(event.target).closest(".rep-form").attr('id')
 		let reContent =$(event.target).prev().prev().val()
-		
 		let comId =$("#id").val();
 		let comGroup = $(event.target).prev().val()
-		console.log(comGroup)
+		let comLock = $(event.target).next().val() //비밀댓글
 		let comBlock = '2'
 		let comFlag = $("#comFlag").val();
 		let comBoardCode = $("#comBoardCode").val();
-		
-		let comLock = $(event.target).next().val() //비밀댓글
 		if($(event.target).next().is(':checked') == true){
 			comLock = 0
 		}
@@ -333,9 +326,43 @@
 		});
 	}
 	$(".btnUp").on("click")
-	/* function comUpdate(){
-		$
-	} */
+	
+	 function comUpdate(){
+		let comContent = $("#comContent").val();
+		$.ajax({
+			url:"/comUpdate",
+			type:"POST",
+			data: JSON.stringify(
+				{
+					"comContent" :comContent,
+					"comCode" : comCode,
+				}
+			),
+			contentType:'application/json',
+			success : function(data){
+				console.log("답글등록")
+				$(event.target).prev().val("")
+				getComList()
+			},
+			error:function(){
+				alert('등록실패');
+			}
+		});
+	}
+	
+	function comUpdateForm(){
+		let pTag = $(event.target).prev().prev()
+		let delBtn =  $(event.target).prev()
+		let upBtn = $(event.target)
+		$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">');
+		$(delBtn).replaceWith('<button type="button" class="btnRet" onclick="resetBtn()">취소</button>')
+		$(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
+		$(upBtn).closest($(".comment-info")).append("<label/>").append("<input>").attr({"type":"checkbox","class":"secChk","value":"1"})
+	}
+	
+	function resetBtn(){
+		getComList()
+	}
 	
 </script>
 </body>
