@@ -9,10 +9,11 @@
     	INNER JOIN member m ON t.id = m.id
     	LEFT JOIN todo_tag todoTag ON t.to_do_code = todoTag.todo_tag_code
     	LEFT JOIN tag ON todoTag.tag_code = tag.tag_code
-    ORDER BY t.to_do_code ASC
+    ORDER BY t.to_do_code desc
 </select>
 
-<insert id="todoInsert">
+<!--  id값이 null이면 데이터 담기 불가하므로 order="BEFORE"를 하면 등록실패뜸.. -->
+ <insert id="todoInsert">
 	<selectKey keyProperty="todoCode" resultType="int" order="BEFORE">
 	select NVL(max(to_do_code),0) + 1 
 	from to_do_list
@@ -24,6 +25,24 @@
 				#{todoDate},
 				#{todoFlag})
 </insert>
+ 
+ 
+ <!-- "keyProperty" = 해당 값을 어떤 변수에 저장할 것인지를 지정,
+  "order"= "BEFORE" : "INSERT" 문 실행 전 
+  			"AFTER" : 실행 후에 "SELECT" 문이 실행 -->
+<!-- <insert id="todoInsert">
+	<selectKey keyProperty="todoCode" resultType="int" order="AFTER">
+		SELECT NVL(MAX(to_do_code), 0) + 1 FROM TO_DO_LIST
+	</selectKey>
+	INSERT INTO TO_DO_LIST
+	VALUES(
+		#{todoCode},
+		#{id},
+		#{todoContent},
+		#{todoDate},
+		#{todoFlag}
+	)
+</insert> -->
 
 
 <delete id="todoDelete">
