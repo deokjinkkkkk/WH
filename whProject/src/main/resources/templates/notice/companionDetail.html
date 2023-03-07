@@ -25,11 +25,11 @@
 		<!-- 배너끝 -->
 		<!-- 각자 내용 -->
 		<section>
-			<form id="frm" method="post" action="/companionDelete">
+			<form id="frm" method="post" action="/companionDelete" enctype="multipart/form-data">
 				<div class="container">
 
 					<div class="col-lg-6 mb-5 ftco-animate">
-						<img th:src="'/image/'+${i.imgPath}" 
+						<img th:src="'/image/'+${c.imgPath}" 
 							alt="Colorlib Template" width="400px" height="auto">
 					</div>
 
@@ -55,6 +55,7 @@
 					<a th:href="|/companionUpdateForm?compCode=${c.compCode}|"
 						class="btn btn-primary btn-lg">수정하기</a> <input type="hidden"
 						name="compCode" th:value="${c.compCode}" />
+					<button type="button" class="btn btn-primary btn-lg">신청하기</button>
 					<button type="submit" class="btn btn-danger btn-lg">삭제하기</button>
 					<button type="button" class="btn btn-danger btn-lg"
 						data-toggle="modal" data-target="#myModal">신고해보자고</button>
@@ -94,8 +95,8 @@
 								 </label>
 								</div>
 							
-						</script>
-								 <input type="hidden" name="id" id="id" value="ADMIN">
+					
+								 <input type="hidden" name="id" id="id" th:value="${session.name}">
 								 <input type="hidden" name=repCatCode id="repCatCode" value="RWT">
 						
 							</div>
