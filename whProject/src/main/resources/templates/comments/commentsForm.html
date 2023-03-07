@@ -168,7 +168,7 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info">'
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
-						if(item.comLock != 0 || item.id == id){
+						if(item.comLock != 0 || item.id == id || perm == "ADMIN"){
 						str	+= '<p>'+item.comContent+'</p>'
 						}else{
 						str += 	'<p>비밀 댓글입니다.</p>'
@@ -184,14 +184,14 @@
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info"> '
 						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
-						if(item.comLock != '0' || item.id == id){
+						if(item.comLock != '0' || item.id == id || perm == "ADMIN"){
 						str	+= '<p>'+item.comContent+'</p>'
 						}else{
 						str += 	'<p>비밀 댓글입니다.</p>'
 						}
 						if(perm == "ADMIN" || item.id == id){
 						str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
-						str += '<button type="button" class="btnDel" onclick="reUpdateForm()">수정</button>'
+						str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
 						}
 					}
 				//if(item.block == 1){
@@ -328,7 +328,8 @@
 	$(".btnUp").on("click")
 	
 	 function comUpdate(){
-		let comContent = $("#comContent").val();
+		let comContent =$("#coUpText").val();
+		let comCode =$(event.target).closest(".comment-box").attr('id');
 		$.ajax({
 			url:"/comUpdate",
 			type:"POST",
@@ -341,7 +342,6 @@
 			contentType:'application/json',
 			success : function(data){
 				console.log("답글등록")
-				$(event.target).prev().val("")
 				getComList()
 			},
 			error:function(){
@@ -354,10 +354,10 @@
 		let pTag = $(event.target).prev().prev()
 		let delBtn =  $(event.target).prev()
 		let upBtn = $(event.target)
+		
 		$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">');
 		$(delBtn).replaceWith('<button type="button" class="btnRet" onclick="resetBtn()">취소</button>')
-		$(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
-		$(upBtn).closest($(".comment-info")).append("<label/>").append("<input>").attr({"type":"checkbox","class":"secChk","value":"1"})
+		let up = $(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
 	}
 	
 	function resetBtn(){

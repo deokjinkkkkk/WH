@@ -85,8 +85,8 @@ public class CommentsController {
 	
 	@PostMapping("/comUpdate") //댓글 수정
 	@ResponseBody
-	public String commentsUpdate(CommentsVO vo) {
+	public String commentsUpdate(@RequestBody CommentsVO vo) {
 		commentsMapper.commentsUpdate(vo);
-		return "";
+		return "success";
 	}
 }

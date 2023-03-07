@@ -63,7 +63,7 @@
 	 update comments
 	 	<set>
 			<if test="comContent != null">com_content = #{comContent},</if>
-			block =#{block},
+			<if test="block != null">block =#{block},</if>
 			com_date = sysdate	 
 	 	</set>
 	 		where com_code = #{comCode}
