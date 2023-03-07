@@ -97,6 +97,7 @@ position: absolute;
 						<!--좋아요 버튼 기능html-->
 												<button type="button" class="icon heart">
 													<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="greatImg">
+													<input type="hidden" id="id" name="id" th:value="${session.name}">
 												</button>
 											</div>
 						<!--좋아요 버튼 기능html 종료-->					
@@ -369,7 +370,7 @@ position: absolute;
 					getGreat()
 				})
 				
-				var id = ('user4');
+				var id = $('#id').val();  //id값 들고오기 
 				var greatNcode = window.location.pathname.split("/").pop(); //상세페이지 번호
 				var greatFlag = ("HT");  //호텔 구분
 				var $likeBtn = $('.heart'); //하트버튼 id값
