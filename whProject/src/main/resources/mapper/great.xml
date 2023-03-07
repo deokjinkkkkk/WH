@@ -3,7 +3,7 @@
 <mapper namespace="co.admin.wh.common.mapper.GreatMapper">
 
 
-	<select id="greatCheck" parameterType="co.admin.wh.common.vo.GreatVO">
+	<select id="greatCheck" resultType="boolean">
 		SELECT count(*)
 		FROM GREAT
 		WHERE ID = #{id} and GREAT_N_CODE = #{greatNcode}
@@ -12,30 +12,30 @@
 
 
 	<insert id="greatUP">
-		<selectKey keyProperty="greatCode" resultType="int" order="BEFORE">
-		select NVL(MAX(GREAT_CODE),0)+1 FROM GREAT
+		<selectKey keyProperty="greatCode" resultType="int"
+			order="BEFORE">
+			select NVL(MAX(GREAT_CODE),0)+1 FROM GREAT
 		</selectKey>
 		INSERT INTO GREAT
-		VALUES(#{id},#{greatCode},#{greatFlag},#{greatNcode} )
+		VALUES(#{id},#{greatCode},#{greatFlag},#{greatNcode}
+		)
 	</insert>
 
 	<delete id="greatDown"
 		parameterType="co.admin.wh.common.vo.GreatVO">
 		DELETE FROM GREAT
-		WHERE GREAT_N_CODE = #{greatNcode} AND id = #{id}
+		WHERE GREAT_N_CODE = #{greatNcode} AND
+		id = #{id}
 	</delete>
 
 
 	<select id="greatTotal">
-		SELECT g.great_code, g.great_flag, g.great_n_code,
-		COUNT(g.GREAT_CODE) AS
-		great_count
-		FROM notice n
-		JOIN great g ON
-		n.NOTICE_CODE = g.GREAT_N_CODE
-		JOIN member m ON g.ID = m.ID AND
-		n.IMG_GRO_CODE = m.ID
-		GROUP BY g.great_code, g.great_flag,g.great_n_code
+		SELECT h.HOTEL_NAME,g.GREAT_FLAG, g.GREAT_N_CODE,
+		COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+		FROM GREAT g
+		JOIN HOTEL h ON g.GREAT_N_CODE = h.HOTEL_ID
+		WHERE g.GREAT_N_CODE = #{greatNcode}
+		GROUP BY h.HOTEL_NAME,g.GREAT_FLAG, g.GREAT_N_CODE
 	</select>
 
 

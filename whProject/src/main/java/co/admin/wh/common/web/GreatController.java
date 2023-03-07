@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,34 +17,37 @@ import co.admin.wh.common.service.GreatService;
 import co.admin.wh.common.vo.GreatVO;
 
 
+
 @RestController
 public class GreatController {
   @Autowired
   private GreatService greatService;
   
   
-  @RequestMapping("/greatCheck/{greatNcode}")
+  @RequestMapping("/greatCheck/{greatNcode}/{id}")
   @ResponseBody
-  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo) {
+  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo, @PathVariable("id")String id) {
 	    boolean greatCheck = false; // 좋아요를 누르지 않았다고 가정
-	    vo.setId("user1");
+	    
+	    
+	    vo.setId(id);
 	    vo.setGreatNcode(greatNcode);
 
 	    // 데이터베이스에서 사용자와 코드에 대한 좋아요 여부를 확인합니다.
 	    if (greatService.greatCheck(vo)) {
 	        greatCheck = true;
+	    
 	    }
-
 	    return greatCheck;
 	    
 	   
 	}
 
-  @PostMapping("/greatUp/{greatNcode}")
-  public Map<String, Object> greatUp(@PathVariable("greatNcode") int greatNcode, String greatFlag, GreatVO vo) {
+  @PostMapping("/greatUP/{greatNcode}")
+  public Map<String, Object> greatUP(@PathVariable("greatNcode") int greatNcode, String greatFlag, GreatVO vo,String id) {
       Map<String, Object> resultMap = new HashMap<>();
     
-     vo.setId("user1");
+     vo.setId(id);
       vo.setGreatNcode(greatNcode);
       vo.setGreatFlag(greatFlag);
       
@@ -66,11 +68,11 @@ public class GreatController {
   }
   
   
-  @PostMapping("/greatDown/{greatNcode}")
-  public Map<String, Object> greatDown(@PathVariable("greatNcode") int greatNcode, String greatFlag, GreatVO vo) {
+  @PostMapping("/greatDown/{greatFlag}/{greatNcode}/{id}")
+  public Map<String, Object> greatDown(@PathVariable("greatFlag")String greatFlag,@PathVariable("greatNcode") int greatNcode, GreatVO vo,@PathVariable("id")String id) {
       Map<String, Object> resultMap = new HashMap<>();
     
-      vo.setId("user1");
+      vo.setId(id);
       vo.setGreatNcode(greatNcode);
       vo.setGreatFlag(greatFlag);
       
