@@ -6,8 +6,7 @@
 	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM COURSE 
-		WHERE TRIP_CODE = '0'
-		ORDER BY COU_CODE DESC
+		ORDER BY REGION_CODE DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	

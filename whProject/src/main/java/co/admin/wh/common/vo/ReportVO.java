@@ -14,5 +14,5 @@ public class ReportVO {
 	@JsonFormat(pattern = "yyyy/mm/dd")
 	Date repDate;
 	int repReason;
-	int repCatCode;
+	String repCatCode;
 }

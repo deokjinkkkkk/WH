@@ -1,6 +1,7 @@
 package co.admin.wh.hotel.web;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -91,11 +92,11 @@ public class HotelController {
 		return "hotel/reservation";
     }
 	
-	@GetMapping("/resIng")
+	@PostMapping("/resIng")
 	public String resIng(ReservationVO vo, Model model) {
 		String result = hotelInfoService.insertReservInfo(vo);
 		if(result != null) {
-			return "y";			
+			return "n";			
 		}else {
 			return "n";
 		}

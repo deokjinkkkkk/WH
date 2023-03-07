@@ -263,20 +263,21 @@
 						checkOut: '[[${res.checkOut}]]',
 						id: 'userId',
 						totalPay: rsp.paid_amount,
-						payState: rsp.status,
+// 						payState: rsp.status,
+						payState: 2,
 						hotelId: '[[${h.hotelId}]]'
 						}
 					// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
 	                		// 결제내역을 사용자에게 보여주기 위해 필요함.
 	               			$.ajax({
 						url : "/resIng",
-						type : "GET",
+						type : "POST",
 						data : reservationVO,
 						dataType : "text",
 						success : function(result){
-							if(result == "y") {
+							if(result == "y") { // ㅇ오잉.ㅇ.ㅇ....
 								alert(msg);
-								location.href = "/resComplete"; 
+								location.href = "resComplete.html"; 
 							}else{
 								alert("디비입력실패");
 								return false;

@@ -5,7 +5,7 @@ import co.admin.wh.common.vo.GreatVO;
 public interface GreatMapper {
 
 	//좋아요 눌렀는지 안눌렀는지 확인 
-		public int greatCheck(int greatNcode, String id);
+		public boolean greatCheck(GreatVO vo);
 		
 		//좋아요 insert
 		public int greatUP(GreatVO vo);

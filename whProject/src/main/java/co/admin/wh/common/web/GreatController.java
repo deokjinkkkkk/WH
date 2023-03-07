@@ -24,23 +24,30 @@ public class GreatController {
   private GreatService greatService;
   
   
-  @RequestMapping("/greatCheck/{greatNcode}/{userId}")
+  @RequestMapping("/greatCheck/{greatNcode}")
   @ResponseBody
-  public int greatCheck(@PathVariable String id, @PathVariable("greatNcode") int greatNcode,GreatVO vo) {
-	 vo.setId(id);
-	 vo.setGreatNcode(greatNcode);
-	
-	  return greatService.greatCheck(greatNcode, id);
-	  
-  }
+  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo) {
+	    boolean greatCheck = false; // 좋아요를 누르지 않았다고 가정
+	    vo.setId("user1");
+	    vo.setGreatNcode(greatNcode);
+
+	    // 데이터베이스에서 사용자와 코드에 대한 좋아요 여부를 확인합니다.
+	    if (greatService.greatCheck(vo)) {
+	        greatCheck = true;
+	    }
+
+	    return greatCheck;
+	    
+	   
+	}
 
   @PostMapping("/greatUp/{greatNcode}")
   public Map<String, Object> greatUp(@PathVariable("greatNcode") int greatNcode, String greatFlag, GreatVO vo) {
       Map<String, Object> resultMap = new HashMap<>();
     
-      vo.setId("user1");
+     vo.setId("user1");
       vo.setGreatNcode(greatNcode);
-      vo.setGreatFlag("NO");
+      vo.setGreatFlag(greatFlag);
       
       
       int result = greatService.greatUP(vo);
@@ -65,7 +72,7 @@ public class GreatController {
     
       vo.setId("user1");
       vo.setGreatNcode(greatNcode);
-      
+      vo.setGreatFlag(greatFlag);
       
       
       int result = greatService.greatDown(vo);

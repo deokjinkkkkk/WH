@@ -82,14 +82,28 @@
 							$(function() {
 								$(document).ready(function() {
 
-									$('.input-daterange').datepicker({
-										format : "yyyy-mm-dd",
-										startDate : '0d',
-										language : "ko",
-										todayHighlight : true,
-										autoclose : true
+									$('#compStartDate').datepicker({
+									    format : "yyyy-mm-dd",
+									    startDate : '0d',
+									    language : "ko",
+									    todayHighlight : true,
+									    autoclose : true
+									}).on('changeDate', function(selected){
+									    var startDate = new Date(selected.date.valueOf());
+									    $('#compEndDate').datepicker('setStartDate', startDate);
 									});
 
+									$('#compEndDate').datepicker({
+									    format : "yyyy-mm-dd",
+									    language : "ko",
+									    todayHighlight : true,
+									    autoclose : true
+									}).on('changeDate', function(selected){
+									    var endDate = new Date(selected.date.valueOf());
+									    $('#compStartDate').datepicker('setEndDate', endDate);
+									});
+									
+									
 								});
 
 							});

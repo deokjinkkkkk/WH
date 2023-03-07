@@ -6,13 +6,9 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 </head>
 
-<body>
-	<div layout:fragment="content">
+<body layout:fragment="content">
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background: url('/img/banner/bg1.jpg')|">
@@ -23,12 +19,14 @@
 			</ul>
 		</section>
 		<!-- 배너끝 -->
-
+		
+		
+		<!-- to do list 시작 -->
 		<div class="todoForm">
 			<form id="todoForm" method='post'>
 				<div class="controls">
 					<div class="row">
-						<input type="hidden" name="id" value="ADMIN" id="id">
+						<input type="hidden" name="id"  id="id" value="user1">
 						<div class="col-md-12 form-group">
 							<textarea id="todoContent" name="todoContent"
 								placeholder="리스트를 입력하세요." rows="1" required="required"></textarea>
@@ -61,7 +59,7 @@
 
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<div class="tab-pane container active" id="home"></div>
+					<div class="tab-pane container active" id="home">리스트</div>
 					<div class="tab-pane container fade" id="menu1">완료</div>
 				</div>
 				</div>
@@ -84,55 +82,114 @@
 					bir.value = today;
 				}
 				
-				$(document).ready(function(){
-					getComList()
-				})
-				
-				$("butn").click(function(){ //리스트 담기
-					let todoContent = $("#todoContent").val(); //내용
-					let todoId = $("#id").val(); //회원아이디
-					let todoDate = $("#todoDate").val(); //날짜
-					let todoCode = 1 //리스트 순서
-					let todoFlag = $("#todoFlag").val();//구분(1.todolist - 2.완료)
-					
+				<!--$(document).ready(function(){
+					getList()
+				})-->
 				
 				
-				$.ajax({
-					url : "/todoInsert",
-					type : "POST",
-					data : JSON.stringify({
-						"todoContent" : todoContent,
-						"id" : todoId,
-						"todoDate" : todoDate,
-						"todoCode" : todoCode,
-						"todoFlag" : todoFlag
-					}),
-					
-					contentType : 'application./json',
-					Success : function(data) {
-						console.log("todolist등록")
-						$("#todoContent").val("")
-						console.log("========")
-						getTodoList()
-					},
-					error:function(){
-						alert('등록 실패');
-					}
-				});
-		
-				});
-				////////////
-				function getTodoList(){ //리스트 가져오기
-					let str = '<div class="title-g margin-30px-bottom">'
-						str += '<h3>댓글</h3>'
-							str +='<h3>댓글</h3>'
-								str +='</div>'
-							let comArea =$(".comments-area");
-				}
+				
+				function getList() {
+    $.ajax({
+        url : "/todoGetList",
+        type : "GET",
+        dataType : "json",
+        success : function(data) {
+            console.log("todolist조회")
+            var todolist = "";
+            var done = "";
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.todoFlag == 1) {
+                    todolist += '<tr>';
+                    todolist += '<td>' + item.todoContent + '</td>';
+                    todolist += '<td>' + item.todoDate + '</td>';
+                    todolist += '<td><button type="button" class="btn btn-outline-secondary btn-add-to-list" data-todoContent="' + item.todoContent + '" data-id="' + item.id + '" data-todoDate="' + item.todoDate + '">완료</button></td>';
+                    todolist += '</tr>';
+                } else {
+                    done += '<tr>';
+                    done += '<td>' + item.todoContent + '</td>';
+                    done += '<td>' + item.todoDate + '</td>';
+                    done += '</tr>';
+                }
+            }
+            $("#todolistTable").html(todolist);
+            $("#doneTable").html(done);
+        },
+        error:function(){
+            alert('조회 실패');
+        }
+    });
+}
+				
+				
+				
+				
+				
+				
+				
+				
+		$("#butn").click(function(){ //리스트 담기
+    let todoContent = $("#todoContent").val(); //내용
+    let todoId = $("#id").val(); //회원아이디
+    let todoDate = $("#todoDate").val(); //날짜
+    let todoCode = 1 //리스트 순서
+    let todoFlag = $("#todoFlag").val();//구분(1.todolist - 2.완료)
+    
+    $.ajax({
+        url : "/todoInsert",
+        type : "POST",
+        data : JSON.stringify({
+            "todoContent" : todoContent,
+            "id" : todoId,
+            "todoDate" : todoDate,
+            "todoCode" : todoCode,
+            "todoFlag" : todoFlag
+        }),
+        contentType : 'application/json',
+        success : function(data) {
+            console.log("todolist등록")
+            $("#todoContent").val("")
+            console.log("========")
+            getList()
+        },
+        error:function(){
+            alert('등록 실패');
+        }
+    });
+});
+
+
+
+				$(document).on('click', '.btn-add-to-list', function() {
+					  var todoContent = $(this).data('todoContent');
+					  var id = $(this).data('id');
+					  var todoDate = $(this).data('todoDate');
+					  var todoCode = $('.nav-link.active').attr('href');
+					  $.ajax({
+					    type: 'POST',
+					    url: '/todoGetList',
+					    data: {
+					    	 "todoContent" : todoContent,
+					            "id" : todoId,
+					            "todoDate" : todoDate,
+					            "todoCode" : todoCode,
+					            "todoFlag" : todoFlag
+					    },
+					    success: function(response) {
+					      // 리스트에 추가되었음을 알리는 메시지를 보여줌
+					      alert(response);
+					    },
+					    error: function(xhr) {
+					      // 에러 발생 시 에러 메시지를 보여줌
+					      alert(xhr.responseText);
+					    }
+					  });
+					});
+
 				
 			</script>
 
 			</div>
-		</div>
+	
 </body>
 </html>

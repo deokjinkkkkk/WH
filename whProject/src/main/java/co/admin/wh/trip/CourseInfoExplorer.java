@@ -3,6 +3,10 @@ package co.admin.wh.trip;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class CourseInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=20" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				"&pageNo=1" + "&numOfRows=1" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
 				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01) pair
 
 		URL url = new URL(urlBuilder);
@@ -71,83 +75,128 @@ public class CourseInfoExplorer {
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
+				// 코스 고유번호는 계속 파라미터 파고들어야함...
             	String contentid = null;
 				Element eElement = (Element) nNode;
 
-				CourseVO vo = new CourseVO();
-
-				System.out.println("======================");
-				System.out.println(getTagValue("areacode", eElement)); // 지역코드
-				System.out.println(getTagValue("title", eElement)); // 코스 제목
-				System.out.println(getTagValue("mapx", eElement)); // 경도
-				System.out.println(getTagValue("mapy", eElement)); // 위도
-				System.out.println(getTagValue("createdtime", eElement)); // 코스등록일자
-				System.out.println(getTagValue("modifiedtime", eElement)); // 코스수정일자	
-				System.out.println(getTagValue("firstimage2", eElement)); // 이미지
-				System.out.println(getTagValue("contentid", eElement)); // 코스 고유코드번호
+				CourseVO vo = new CourseVO();		
 				
-				vo.setCouCode(getTagValue("contentid", eElement)); // 고유 코드번호
+				// 코스등록일자
+				DateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+				java.util.Date courseDate = null;
+				
+				try {
+					courseDate = formatDate.parse(getTagValue("createdtime", eElement).substring(0,8));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				// java.util.Date로 변환한 데이터를 java.sql.Date로 변환
+				java.sql.Date createDate = new java.sql.Date(courseDate.getTime());
+				
+				// 코스수정일자
+				DateFormat twoFormatDate = new SimpleDateFormat("yyyyMMdd");
+				java.util.Date couDate = null;
+				
+				try {
+					couDate = twoFormatDate.parse(getTagValue("modifiedtime", eElement).substring(0,8));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				java.sql.Date modifieDate = new java.sql.Date(couDate.getTime());
+				
+				
+				vo.setCouCode(getTagValue("contentid", eElement)); // 코스 고유번호
 				vo.setCouName(getTagValue("title", eElement)); // 코스 제목
 				vo.setRegionCode(Integer.valueOf(getTagValue("areacode", eElement))); // 지역코드
 				vo.setCouLat(getTagValue("mapy", eElement)); //위도
 				vo.setCouLon(getTagValue("mapx", eElement)); //경도
 				vo.setImgGroCode(getTagValue("firstimage2", eElement)); // 이미지
+				vo.setCouRegDate(createDate); // 코스등록일자
+				vo.setCouModDate(modifieDate); // 코스수정일자
 				
-				// contentid를 입력해서 api 주소 출력...
+				// contentid를 입력해서 밑의 주소 출력
                 contentid = getTagValue("contentid", eElement);
                 
-                // if else ..
-               
-                
-                String parsingUrl1 = "";//Parsing할 URL
-                String urlBuilder1 = "https://apis.data.go.kr/B551011/KorService/detailInfo?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
+       
+                // ▼ 각 코스(덩어리) 개요 따오는 api
+                String parsingUrlChild = "";
+                String urlBuilderChild = "https://apis.data.go.kr/B551011/KorService/detailCommon?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
                         "&MobileOS=ETC" + "&MobileApp=AppTest" +"&contentId=" + contentid
-                		+ "&&contentTypeId=25";
+                		+ "&defaultYN=Y" + "&overviewYN=Y";
         			
-                URL url1 = new URL(urlBuilder1);
+                URL urlChild = new URL(urlBuilderChild);
 
-                parsingUrl1 = url1.toString();
-                System.out.println("+++"+parsingUrl1); // 이 주소에 있는 contentid, overview(개요)와 subname(관광지 주소), 이미지(firstimage2)가 필요.
+                parsingUrlChild = urlChild.toString();
+                System.out.println("+++"+parsingUrlChild); // 이 주소에 있는 overview(개요) 필요
                 
                 //페이지에 접근해줄 Document객체 생성
                 //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
                 //doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
-                DocumentBuilderFactory dbFactory1 = DocumentBuilderFactory.newInstance();
+                DocumentBuilderFactory dbFactoryChild = DocumentBuilderFactory.newInstance();
                 
-                DocumentBuilder dBuilder1 = dbFactory1.newDocumentBuilder();
+                DocumentBuilder dBuilderChild = dbFactoryChild.newDocumentBuilder();
                 
-                Document doc1 = dBuilder1.parse(parsingUrl1);       
+                Document docChild = dBuilderChild.parse(parsingUrlChild);       
                 
                 // root tag
-                doc1.getDocumentElement().normalize();
+                docChild.getDocumentElement().normalize();
 
                 //파싱할 데이터  tag에 접근하는데 리스트 수 확인
-                NodeList nList1 = doc1.getElementsByTagName("item");
+                NodeList nListChild = docChild.getElementsByTagName("item");
                 
-                for (int j = 0; j < nList1.getLength(); j++) {
-                    Node nNode1 = nList1.item(j);
-                    if (nNode1.getNodeType() == Node.ELEMENT_NODE) {
-                    	Element eElement1 = (Element) nNode1;
-                    	
-                    	CourseVO vo1 = new CourseVO();
-                    	
-                        System.out.println(getTagValue("contentid", eElement1)); //코스 id
-                    	System.out.println(getTagValue("subname", eElement1)); // 코스 안 여행지 제목
-                        System.out.println(getTagValue("subdetailoverview", eElement1)); // 코스 안 여행지 개요
-                        System.out.println(getTagValue("subnum", eElement1)); // 코스 순서
-                        
-                        // 가져올 데이터 : 코스 고유번호(contentid), 여행지 id(subcontentid), 여행지 이름 : (subname), 여행지 개요(subdetailoverview)
-                        vo1.setTripCode(Integer.valueOf(getTagValue("subcontentid", eElement1))); // 코스 여행지 고유 id
-                        vo1.setCouCode(getTagValue("contentid", eElement1)); // 코스 고유 아이디 넣기
-                        vo1.setCouName(getTagValue("subname", eElement1)); // 코스 여행지 이름
-                        vo1.setRegionCode(Integer.valueOf(getTagValue("subnum", eElement1))); // 코스 순서 번호
-                    	// 개요
-        	
-                    	assert false;
-                    	list.add(vo1);
+                for (int j = 0; j < nListChild.getLength(); j++) {
+                    Node nNodeChild = nListChild.item(j);
+                    if (nNodeChild.getNodeType() == Node.ELEMENT_NODE) {
+                    	Element eElementChild = (Element) nNodeChild;
+                    
+                        vo.setCouContent(getTagValue("overview", eElementChild)); // 코스설명  
                     	
                     }
                 }
+                
+                
+                // 코스 상세정보 api 끌어오기 : 코스길이(distance), 총소요시간(taketime)
+                String parsingUrlChildTwo = "";
+                String urlBuilderChildTwo = "https://apis.data.go.kr/B551011/KorService/detailIntro?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" + /*Service Key*/
+                        "&MobileOS=ETC" + "&MobileApp=AppTest" +"&contentId=" + contentid + "&contentTypeId=25";
+        			
+                URL urlChildTwo = new URL(urlBuilderChildTwo);
+
+                parsingUrlChildTwo = urlChildTwo.toString();
+                System.out.println("---"+parsingUrlChildTwo); // 이 주소에 있는 overview(개요) 필요
+                
+                //페이지에 접근해줄 Document객체 생성
+                //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
+                //doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
+                DocumentBuilderFactory dbFactoryChildTwo = DocumentBuilderFactory.newInstance();
+                
+                DocumentBuilder dBuilderChildTwo = dbFactoryChildTwo.newDocumentBuilder();
+                
+                Document docChildTwo = dBuilderChildTwo.parse(parsingUrlChildTwo);       
+                
+                // root tag
+                docChild.getDocumentElement().normalize();
+
+                //파싱할 데이터  tag에 접근하는데 리스트 수 확인
+                NodeList nListChildTwo = docChildTwo.getElementsByTagName("item");
+                
+                for (int f = 0; f < nListChildTwo.getLength(); f++) {
+                    Node nNodeChildTwo = nListChildTwo.item(f);
+                    if (nNodeChildTwo.getNodeType() == Node.ELEMENT_NODE) {
+                    	
+                    	Element eElementChildTwo = (Element) nNodeChildTwo;
+                    	
+                    	System.out.println("=======================");
+                    	System.out.println(getTagValue("distance", eElementChildTwo)); // 코스총거리
+                    	System.out.println(getTagValue("taketime", eElementChildTwo)); // 코스 총시간
+
+                    	vo.setCouDist(getTagValue("distance", eElementChildTwo)); // 코스 총거리
+                    	
+                    }
+                }
+                
                 
 				assert false;
 				list.add(vo);
