@@ -14,7 +14,7 @@
 		where c.id = m.id
 		<!--and c.com_flag = '게시물구분코드'  -->
 		<!--and c.com_board_code = '게시물코드(조인)'  -->
-		order By c.com_group ,c.com_code ASC
+		order By c.com_group , c.com_code
 	</select>
 	
 	<insert id="commentsInsert">

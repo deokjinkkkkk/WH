@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import co.admin.wh.member.service.LoginSuccessHandler;
 import co.admin.wh.member.service.UsersService;
@@ -21,12 +22,15 @@ import lombok.RequiredArgsConstructor;
 public class WebSecirityConfig{
 	private final UsersService usersSerivce;
 	
+//	@Bean
+//	public AuthenticationSuccessHandler successHandler() {
+//		return new LoginSuccessHandler();
+//	}
 	
-	
-	@Bean
-	public UserDetailsService UserDetailsService() {
-		return usersSerivce;
-	}
+//	@Bean
+//	public UserDetailsService UserDetailsService() {
+//		return usersSerivce;
+//	}
 //	@Bean
 //		public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();

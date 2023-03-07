@@ -1,16 +1,18 @@
 package co.admin.wh.member.web;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.member.mapper.MemberMapper;
-
 import co.admin.wh.member.vo.MemberVO;
 
 @Controller
@@ -42,7 +44,7 @@ public class MemberController {
 	}
 	@RequestMapping("/memberIdChk")
 	@ResponseBody
-	public String idCheck(Model model, MemberVO vo, boolean n) {
+	public String idCheck(MemberVO vo, boolean n) {
 
 		n = memberMapper.idChk(vo.getId());
 		if (n) {
@@ -53,18 +55,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/memberQuitForm")
-	public String memberQuitForm() {
+	public String memberQuitForm(Model model,MemberVO vo, Principal principal) {
+		vo.setId(principal.getName());
+		model.addAttribute("mem",memberMapper.memberSelect(vo));
 		return "member/memberQuit";
 	}
 	
 	@RequestMapping("/memberUpdateForm")
-	public String memberUpdateForm() {
+	public String memberUpdateForm(Model model,MemberVO vo, Principal principal) {
+		vo.setId(principal.getName());
+		System.out.println(principal.getName()+"+++++++++++++++++++++++++++");
+		model.addAttribute("mem",memberMapper.memberSelect(vo));
 		return "member/memberUpdate";
 	}
 	
 	@PostMapping("/memberUpdate")
 	public String memberUpdate(MemberVO vo) {
-		memberMapper.memberDelete(vo);
+		memberMapper.memberUpdate(vo);
 		return "content/main";
 	}
 	
@@ -79,6 +86,10 @@ public class MemberController {
 		
 		return "content/main";
 	}
+	/*
+	 * @GetMapping("/login/kakao") public String kakaoLogin(String code) {
+	 * userService.kakaoLogin(code); return "redirect:/"; }
+	 */
 
 }
 
