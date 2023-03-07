@@ -20,5 +20,7 @@ public interface CourseService {
 	
 	int getCountTotal(CourseSearchVO svo); // 페이지수 관리
 	
-	List<CourseVO> detailSelect(CourseVO vo); // 상세보기 페이지	
+	List<CourseVO> detailSelect(CourseVO vo); // 상세보기 페이지
+	
+	CourseVO oneSelect(CourseVO vo);// 코스 단건조회
 }
