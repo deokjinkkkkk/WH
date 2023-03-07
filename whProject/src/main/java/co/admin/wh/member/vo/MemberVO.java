@@ -24,19 +24,19 @@ public class MemberVO implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		return Collections.singletonList(new SimpleGrantedAuthority(this.perm));
+		return Collections.singletonList(new SimpleGrantedAuthority(perm));
 	}
 
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return this.pass;
+		return pass;
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.id;
+		return id;
 	}
 
 	@Override

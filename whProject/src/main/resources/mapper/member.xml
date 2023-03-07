@@ -4,9 +4,10 @@
 	
 	<select id="memberSelect"
 			resultType="co.admin.wh.member.vo.MemberVO">
-			SELECT * FROM member
+			SELECT id, '{noop}'|| pass pass,name,gender,tel,email,perm,login_way,token,retoken,state
+			FROM member
 			where id = #{id}
-			AND PASSWORD = #{pass}
+	<!-- 		AND PASS = #{pass} -->
 	</select>
 	
 	<insert id="memberInsert">
