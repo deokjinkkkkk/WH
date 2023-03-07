@@ -186,7 +186,7 @@
 		});
 
 		//삭제
-		function todoDel(){
+		  function todoDel(){
 			$(event.target).closest(".golist")
 			let todoBox = $(event.target).closest(".golist")
 			let todoCode = $(event.target).closest(".golist").attr('id')
@@ -194,31 +194,33 @@
 			 $.ajax({
 			 	url : "/todoDelete",
 			 	type : "delete",
-			 	data : JSON.stringify({
-					
-			 	"todoCode" : todoCode
-
-
-			 	}),
-			 	contentType : 'application/json',
+			 	data : {
+			 		todoCode
+			 	},
 			 	success : function(data) {
 			 	console.log("todolist삭제")
 
-			 	 todoBox.remove()
+			 	 todoBox.remove() //삭제 ...
 			 	},
 			 	error : function() {
 			 	alert('삭제 실패');
 		 	}
 			 });
-		}
+		} 
 
-		$(document).on('click', '#del', function() { 
+		
+		
+	 	 $(document).on('click', '#del', function() { 
 			let todoCode = $(event).data('todocode'); //리스트 코드
 			let id = $(this).data('id'); //회원 아이디
 
 			
-			});
+			});  
+			
+			
 
+
+			
 	</script>
 
 
