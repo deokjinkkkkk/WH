@@ -1,20 +1,22 @@
 package co.admin.wh.common.web;
 
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.admin.wh.common.mapper.GreatMapper;
 import co.admin.wh.common.service.GreatService;
 import co.admin.wh.common.vo.GreatVO;
+import co.admin.wh.member.vo.MemberVO;
 
 
 
@@ -26,13 +28,11 @@ public class GreatController {
   
   @RequestMapping("/greatCheck/{greatNcode}/{id}")
   @ResponseBody
-  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo, @PathVariable("id")String id) {
+  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo, @PathVariable("id")String id,MemberVO mvo , Principal principal) {
 	    boolean greatCheck = false; // 좋아요를 누르지 않았다고 가정
+	    mvo.setId(principal.getName());
 	    
-	    
-	    vo.setId(id);
 	    vo.setGreatNcode(greatNcode);
-
 	    // 데이터베이스에서 사용자와 코드에 대한 좋아요 여부를 확인합니다.
 	    if (greatService.greatCheck(vo)) {
 	        greatCheck = true;
