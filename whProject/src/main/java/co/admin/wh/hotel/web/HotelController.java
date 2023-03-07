@@ -2,6 +2,7 @@ package co.admin.wh.hotel.web;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.service.HotelCrawler;
@@ -79,27 +82,25 @@ public class HotelController {
 		return "hotel/hotelToday";
 	}
 	
-	@GetMapping("/hotelDetail/{hotelId}")
+	@GetMapping("/hotelDetail/{hotelId}") // 호텔 상세페이지
     public String hotelDetail(HotelVO vo, Model model) {
         model.addAttribute("h", hotelInfoService.detailSelect(vo));
         return "hotel/hotelDetail";
     }
 	
-	@PostMapping("/reservation")
+	@PostMapping("/reservation") // 예약페이지
     public String reservation(ReservationVO vo, HotelVO hvo, Model model) {
 		model.addAttribute("res",vo);
 		model.addAttribute("h",hotelInfoService.detailSelect(hvo));
 		return "hotel/reservation";
     }
 	
-	@PostMapping("/resIng")
-	public String resIng(ReservationVO vo, Model model) {
-		String result = hotelInfoService.insertReservInfo(vo);
-		if(result != null) {
-			return "n";			
-		}else {
-			return "n";
-		}
+	@PostMapping("/resIng") // 예약정보 인서트
+	@ResponseBody
+	public String resIng(@RequestBody ReservationVO vo) {
+		System.out.println("처음 넘어온 값 =================================="+vo.getCheckIn()); // 2023-03-06(지정날짜보다 하루 적게 들어옴)
+		hotelInfoService.insertReservInfo(vo);
+		return "y";
 	}
 	
 	@GetMapping("/resComplete")
