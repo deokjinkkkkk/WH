@@ -90,6 +90,10 @@ public class MemberController {
 	 * @GetMapping("/login/kakao") public String kakaoLogin(String code) {
 	 * userService.kakaoLogin(code); return "redirect:/"; }
 	 */
-
+	@RequestMapping("/admemList")
+	public String adMemList(MemberVO vo) {
+		memberMapper.adMemberList();
+		return "admin/memberAdmin";
+	}
 }
 

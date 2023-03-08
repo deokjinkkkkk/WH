@@ -4,8 +4,8 @@
 <body>
 <header th:fragment="header">
     <!-- Navigation-->
+    {{name}}
          <div class="navbar-default">
-
                 <!-- start top search -->
                 <div class="top-search bg-black">
                     <div class="container">
@@ -39,7 +39,7 @@
                                     <ul class="navbar-nav ml-auto" id="nav" style="display: none;">
                                         <li><a href="/main">Home</a></li>
                                         <li><a href="/notice">공지사항</a>
-                                        <li><a href="javascript:void(0)">여행지</a>
+                                        <li><a href="/course">여행지</a>
                                             <ul>
                                                 <li><a href="tour-grid.html">여행 지역</a></li>
                                                 <li><a href="tour-listing.html">여행 코스</a></li>
@@ -58,10 +58,10 @@
                                         <li><a href="hotel">숙소</a></li>
                                         <li><a href="contact-us.html">채팅</a></li>
                                         <li><a href="event">이벤트</a></li>
-                                        <li><a href="/myPage">마이페이지</a></li>
-                                        <li><a href="/admin">관리자페이지</a></li>
-                                        <li><a href="/login">로그인</a></li>
-                                        <li><a href="/logout">로그아웃</a></li>
+                                        <li th:if="${session.name != null}"><a href="/myPage">마이페이지</a></li>
+                                        <li th:if="${session.name == 'ADMIN'}"><a href="/admin">관리자페이지</a></li>
+                                        <li th:if="${session.name == null}"><a href="/login">로그인</a></li>
+                                        <li th:if="${session.name != null}"><a href="/logout">로그아웃</a></li>
                                     </ul>
                                     <!-- end menu area -->
 

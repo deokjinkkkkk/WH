@@ -7,13 +7,13 @@
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
-<ul th:replace="~{admin/sidebarAdmin :: adminSidebar}"></ul>
-		
-		
-<div th:replace="~{admin/topbarAdmin :: adminTopbar}"></div>
-				
-			
-			
+		<ul th:replace="~{admin/sidebarAdmin :: adminSidebar}"></ul>
+
+
+		<div th:replace="~{admin/topbarAdmin :: adminTopbar}"></div>
+
+		<section layout:fragment="adminContent"></section>
+
 	</div>
 	<!-- End of Topbar -->
 	<footer th:replace="~{admin/footerAdmin :: adminFooter}"></footer>
