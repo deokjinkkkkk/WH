@@ -20,9 +20,11 @@
 	</selectKey>
          INSERT INTO TRIP(trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon,
                trip_summ, trip_content, homepage, trip_region, img_gro_code, trip_date,
-               cou_code, cou_order, trip_Unique_Number)
+               cou_code, cou_order, trip_Unique_Number, trip_announce, rest_date,
+               use_time, trip_parking, trip_child, trip_pet, trip_chk_card)
          VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
-               #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber})
+               #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber},
+               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard})
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
