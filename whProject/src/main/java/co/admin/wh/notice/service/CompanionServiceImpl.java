@@ -82,9 +82,39 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public List<CompanionVO> comListSelect(CompanionVO vo) {
+	public int  comBtn(CompanionVO vo) {
 		// TODO Auto-generated method stub
-		return map.comListSelect(vo);
+		return map.comBtn(vo);
+	}
+
+	@Override
+	public List<CompanionVO> comSelList(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.comSelList(vo);
+	}
+
+	@Override
+	public List<CompanionVO> comSelMyList(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.comSelMyList(vo);
+	}
+
+	@Override
+	public int approve(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.approve(vo);
+	}
+
+	@Override
+	public int selBtn(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.selBtn(vo);
+	}
+
+	@Override
+	public int reject(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.reject(vo);
 	}
 
 }
