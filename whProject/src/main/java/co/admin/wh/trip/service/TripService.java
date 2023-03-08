@@ -21,4 +21,6 @@ public interface TripService {
 
 	TripVO detailSelect(TripVO vo); //상세보기 페이지
 	
+	
+	
 }

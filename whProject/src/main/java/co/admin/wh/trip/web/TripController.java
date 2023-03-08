@@ -88,4 +88,5 @@ public class TripController {
 		return "trip/tripSearch";
 	}
 	
+	
 }
