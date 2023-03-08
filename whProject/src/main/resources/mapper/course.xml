@@ -3,7 +3,7 @@
 <mapper namespace="co.admin.wh.trip.mapper.CourseMapper">
 
 	<select id="courseList" resultType="co.admin.wh.trip.vo.CourseVO">
-	<!-- 페이징 시도, 이미지가 없는 데이터는 출력하지 않는다. -->
+	<!-- 페이징 시도 -->
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM COURSE 
 		ORDER BY REGION_CODE DESC
@@ -32,7 +32,8 @@
       t.trip_addr, 
       t.trip_summ,
       t.trip_lat, 
-      t.trip_lon, 
+      t.trip_lon,
+      t.trip_code, 
       t.cou_order,
       t.img_gro_code,
       t.trip_unique_number
@@ -47,7 +48,18 @@
 		SELECT * FROM COURSE
         WHERE cou_code = #{couCode}
 	</select>
-
+	
+	<!-- test 지역별 조회 상세-->
+	<select id="regionList" resultType="co.admin.wh.trip.vo.CourseVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		SELECT * FROM COURSE 
+		WHERE REGION_CODE = ${regionCode}
+		<![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+	</select>
+	
+		
 	<!-- <select id="detailSelect" resultType="co.admin.wh.trip.vo.CourseVO">
 	INSERT INTO COURSE (cou_lon, cou_lat, img_gro_code, COU_CONTENT)
 	SELECT trip_Lon, trip_lat, img_gro_code, trip_Summ

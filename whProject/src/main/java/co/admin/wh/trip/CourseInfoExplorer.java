@@ -46,13 +46,13 @@ public class CourseInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=1" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01) pair
+				"&pageNo=1" + "&numOfRows=33" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=34" + "&cat1=C01"; // 추천코스(C01) pair
 
 		URL url = new URL(urlBuilder);
 
 		parsingUrl = url.toString();
-		System.out.println(parsingUrl); // api 주소 출력
+		//System.out.println(parsingUrl); // api 주소 출력
 
 		// 페이지에 접근해줄 Document객체 생성
 		// doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -65,11 +65,11 @@ public class CourseInfoExplorer {
 
 		// root tag
 		doc.getDocumentElement().normalize();
-		System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); // Root element: result
+		//System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); // Root element: result
 
 		// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
 		NodeList nList = doc.getElementsByTagName("item");
-		System.out.println("파싱할 리스트 수 : " + nList.getLength());// 파링할 리스트 수
+		//System.out.println("파싱할 리스트 수 : " + nList.getLength());// 파링할 리스트 수
 
 		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
@@ -129,7 +129,7 @@ public class CourseInfoExplorer {
                 URL urlChild = new URL(urlBuilderChild);
 
                 parsingUrlChild = urlChild.toString();
-                System.out.println("+++"+parsingUrlChild); // 이 주소에 있는 overview(개요) 필요
+                //System.out.println("+++"+parsingUrlChild); // 이 주소에 있는 overview(개요) 필요
                 
                 //페이지에 접근해줄 Document객체 생성
                 //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -165,7 +165,7 @@ public class CourseInfoExplorer {
                 URL urlChildTwo = new URL(urlBuilderChildTwo);
 
                 parsingUrlChildTwo = urlChildTwo.toString();
-                System.out.println("---"+parsingUrlChildTwo); // 이 주소에 있는 overview(개요) 필요
+                //System.out.println("---"+parsingUrlChildTwo); // 이 주소에 있는 overview(개요) 필요
                 
                 //페이지에 접근해줄 Document객체 생성
                 //doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -188,16 +188,16 @@ public class CourseInfoExplorer {
                     	
                     	Element eElementChildTwo = (Element) nNodeChildTwo;
                     	
-                    	System.out.println("=======================");
-                    	System.out.println(getTagValue("distance", eElementChildTwo)); // 코스총거리
-                    	System.out.println(getTagValue("taketime", eElementChildTwo)); // 코스 총시간
+                    	//System.out.println("=======================");
+                    	//System.out.println(getTagValue("distance", eElementChildTwo)); // 코스총거리
+                    	//System.out.println(getTagValue("taketime", eElementChildTwo)); // 코스 총시간
 
                     	vo.setCouDist(getTagValue("distance", eElementChildTwo)); // 코스 총거리
                     	
                     }
                 }             
                 
-				list.add(vo);
+                list.add(vo);
 			}
 		}
 

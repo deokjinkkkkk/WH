@@ -18,4 +18,6 @@ public interface CourseMapper {
 	
 	CourseVO oneSelect(CourseVO vo);// 코스 단건조회
 	
+	List<CourseVO> regionList(CourseVO vo); // 지역별 전체조회
+	
 }
