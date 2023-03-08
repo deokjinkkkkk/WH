@@ -21,7 +21,6 @@ import co.admin.wh.trip.mapper.CourseMapper;
 import co.admin.wh.trip.service.CourseService;
 import co.admin.wh.trip.vo.CourseSearchVO;
 import co.admin.wh.trip.vo.CourseVO;
-import co.admin.wh.trip.vo.TripVO;
 
 @Controller
 public class CourseController {
