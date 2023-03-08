@@ -2,22 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.diary.mapper.DiaryMapper">
 	
-	<select id="getDiaryList">
-	
+	<!-- 전체조회 -->
+	<select id="getDiaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
+	select
+		d.diary_code, m.id, d.diary_content, d.diary_title, d.diary_start_date, d.diary_end_date, d.img_gro_code
+		from diary d, member m
+		where d.id = m.id
+		ORDER by d.diary_code desc
 	</select>
 	
-	<select id="imgSelect">
-	
-	
-	
+	<!-- 이미지 출력 -->
+	<select id="imgSelect" resultType="co.admin.wh.diary.vo.DiaryVO">
+	select *
+	from diary d join image i
+	on d.img_gro_code = i.img_gro_code
+	where d.diary_code = #{diaryCode}
 	</select>
 	
-	<select id="getCountTotal">
 	
-	
-	
-	
-	</select>
 	
 	<insert id="diaryInsert">
 	

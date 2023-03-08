@@ -35,41 +35,26 @@
 
                     <!--  start blog left-->
                     <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    	<title>내 게시글에 신청한 사람들</title>
+                    
                         <div class="posts">
-                        
-                         <table class="table" style="border-top:3px solid #69737C; border-collapse:collapse;" >
+                         <table border="1" class="table">
                          	<thead>
                          		<tr>
                          			<td>글제목</td>
-                         			<td>신청자</td>
-                         			<td>신청자전화번호</td>
-                         			<td>신청자성별</td>
-                         			<td>승인</td>                         			
+                         			<td>승인상태</td>
                          		</tr>
                          	</thead>
                          		<tbody th:each="c : ${se}">
-                  
-                         			<tr  th:if="${c.writer == session.name}">
-                         			
-                         			
+                         			<tr>
                          				<td>[[${c.compTitle}]]</td>
-	                         			<td>[[${c.name}]]</td>
-	                         			<td>[[${c.tel}]]</td>
-	                         			<td>[[${c.gender}]]</td>
-	                         			
-<!-- 	                         			<td><form action="/approve" method="post"><input type="hidden" name="seCode" th:value="${c.seCode}"><input type="hidden" name="compCode" th:value="${c.compCode}"><button th:disabled="${c.coState == 1}or${c.coState == 2}" type="submit" >승인</button></form></td> -->
-<!-- 	                         			<td><form action="/reject" method="post"><input type="hidden" name="seCode" th:value="${c.seCode}"><input type="hidden" name="compCode" th:value="${c.compCode}"><button th:disabled="${c.coState == 1}or${c.coState == 2}" type="submit" >거절</button></form></td> -->
                          			</tr>
                          		</tbody>
                
                          </table>
 
+      
                         </div>
                     </div>
-                    <script>
-                   
-                    </script>
                     <!--  end blog left-->
 
                     <!--  start blog right-->

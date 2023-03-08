@@ -74,17 +74,18 @@
 			</form>
 			<form method="post" action="/comListInsert"
 				enctype="multipart/form-data">
-				<input type="hidden" id="id" name="id" th:value="${session.name}">
+				<input type="hidden" id="id" name="id" th:value="${session.name}" >
 				<input type="hidden" id="compTitle" name="compTitle" th:value="${c.compTitle}"> 
 				<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}"> 
 				<input type="hidden"
 					id="compCode" name="compCode" th:value="${c.compCode}"> <input
 					type="hidden" id="tel" name="tel" th:value="${me.tel}"> <input
 					type="hidden" id="name" name="name" th:value="${me.name}">
+					<input type="hidden" id="coState" name="coState" value="0" >
 				<input type="hidden" id="gender" name="gender"
 					th:value="${me.gender}">
-				<button type="submit" class="btn btn-primary btn-lg" id="submit-btn"
-					onclick="submitForm()">신청하기</button>
+				<button th:if="${se == 0 and c.id != session.name}"  type="submit" class="btn btn-primary btn-lg" id="submit-btn"
+					>신청하기</button>
 			</form>
 		</section>
 		<script type="text/javascript">
@@ -95,64 +96,6 @@
 				});
 				
 				
-			    var form = document.querySelector('form');
-			    var submitBtn = document.getElementById("submit-btn");
-			    
-			    form.addEventListener('submit', function(event) {
-			        var compCode = document.getElementById("compCode").value;
-			        var currentCompCode = "${c.compCode}"; // 현재 게시판의 compCode 값
-			        
-			        if (compCode === currentCompCode) {
-			            var stateInput = document.getElementById("state");
-			            stateInput.value = "1"; // 상태 값을 1로 변경
-			            submitBtn.disabled = true; // 버튼 비활성화
-			        }
-			    });
-		
-				/* function submitForm() {
-				    var compCode = document.getElementById("compCode").value;
-
-				    // compCode가 같은 경우에만 버튼 비활성화 처리
-				    if (compCode === compCode) {
-				        var submitBtn = document.getElementById("submit-btn");
-				        submitBtn.disabled = true;
-
-				        var xhr = new XMLHttpRequest();
-				        xhr.onreadystatechange = function() {
-				            if (this.readyState === XMLHttpRequest.DONE) {
-				                document.getElementById("form-container").innerHTML = this.responseText;
-
-				                // 비활성화된 버튼 활성화 처리
-				                submitBtn.disabled = false;
-				            }
-				        };
-				        xhr.open("POST", "/comListInsert");
-				        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				        xhr.send("id=" + encodeURIComponent(document.getElementById("id").value) +
-				                 "&compTitle=" + encodeURIComponent(document.getElementById("compTitle").value) +
-				                 "&compCode=" + encodeURIComponent(document.getElementById("compCode").value) +
-				                 "&tel=" + encodeURIComponent(document.getElementById("tel").value) +
-				                 "&name=" + encodeURIComponent(document.getElementById("name").value) +
-				                 "&gender=" + encodeURIComponent(document.getElementById("gender").value));
-				    }
-				} */
-			
-				  
-			    //이건 버튼이 사라지면 어떨까해서 해본건데 버튼이 사라지게하면 리로드했을때 다시 나타나서
-			    //삭제됐다고 localStroage에 저장했는데 이건 다른 웹페이지로 들어오면 다시 보여서 취소
-// 				 const submitBtn = document.getElementById('submit-btn');
-// 				 const currentCompCode = "${c.compCode}"; // 게시글의 compCode 값
-// 				 const isButtonHidden = localStorage.getItem('isButtonHidden');
-
-// 					if (isButtonHidden || localStorage.getItem('currentCompCode') === currentCompCode) {
-// 					  submitBtn.style.display = 'none';
-// 					}
-					
-// 					submitBtn.addEventListener('click', (event) => {
-// 					  submitBtn.style.display = 'none';
-// 					  localStorage.setItem('isButtonHidden', true);
-// 					  localStorage.setItem('currentCompCode', currentCompCode);
-// 					});
 			</script>
 
 

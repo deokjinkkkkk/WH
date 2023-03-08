@@ -51,7 +51,7 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public ReservationVO readReservInfo(ReservationVO vo) {
-		return hotelMapper.readReservInfo(vo);
+	public List<ReservationVO> readReservInfo(String sessionId) {
+		return hotelMapper.readReservInfo(sessionId);
 	}
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class ReservationVO {
+public class ReservationVO extends HotelVO{ // join해서 select해야해서 상속받음
 	public int resId;
 	public int childCount;
 	public int humanCount;

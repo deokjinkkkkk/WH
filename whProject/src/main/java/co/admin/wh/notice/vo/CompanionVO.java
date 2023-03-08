@@ -35,5 +35,9 @@ public class CompanionVO  {
 	String comCode;
 	String comName;
 	
-	int state;
+	int coState;
+	int seCode;
+	
+	String writer;
+	String login;
 }

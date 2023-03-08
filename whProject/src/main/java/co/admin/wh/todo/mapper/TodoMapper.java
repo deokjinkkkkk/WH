@@ -14,7 +14,11 @@ public interface TodoMapper {
 	
 	int todoDelete(TodoVO vo);//삭제
 	
-	int todoUpdate(TodoVO vo);//수정
+	int todoComplete(TodoVO vo); //완료
 	
 	int tagInsert(TodoVO vo);
+
+	List<TodoVO> TodoList(int todoFlag);
+
+	int updateTodoFlag(TodoVO vo); // 상태변경 설정
 }

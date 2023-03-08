@@ -15,7 +15,7 @@ public class TodoServiceImpl implements TodoService	{
 
 	@Override
 	public List<TodoVO> TodoList() {
-		
+			
 		return mapper.TodoList();
 	}
 
@@ -31,11 +31,6 @@ public class TodoServiceImpl implements TodoService	{
 		return mapper.todoDelete(vo);
 	}
 
-	@Override
-	public int todoUpdate(TodoVO vo) {
-		
-		return mapper.todoUpdate(vo);
-	}
 
 	@Override
 	public int tagInsert(TodoVO vo) {
@@ -46,6 +41,11 @@ public class TodoServiceImpl implements TodoService	{
 	public int todoCount(TodoVO vo) {
 		
 		return mapper.todoCount(vo);
+	}
+
+	@Override
+	public int todoComplete(TodoVO vo) {
+		return mapper.todoComplete(vo);
 	}
 
 

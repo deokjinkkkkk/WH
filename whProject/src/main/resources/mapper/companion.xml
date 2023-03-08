@@ -130,13 +130,59 @@
 	</select>
 	
 	<insert id="comListInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
-		INSERT INTO COMPANION_LIST (COMP_CODE, COMP_TITLE, TEL, Gender, NAME, state )
-		VALUES (#{compCode},#{compTitle}, #{tel}, #{gender}, #{name}, #{state})
+	<selectKey keyProperty="seCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(se_code),0)+1 FROM COMPANION_LIST
+		</selectKey>
+		INSERT INTO COMPANION_LIST (COMP_CODE, COMP_TITLE, TEL, Gender, NAME, CO_STATE, id , se_code)
+		VALUES (#{compCode},#{compTitle}, #{tel}, #{gender}, #{name}, NVL(#{coState}, 0),#{id},#{seCode})
 	</insert>
 	
-	<select id="comListSelect"
-		resultType="co.admin.wh.notice.vo.CompanionVO">
-	SELECT * FROM COMPANION_LIST
+	<select id="comBtn"
+		resultType="int">
+		
+	 select count(*)
+        from companion_list
+        where comp_code=#{compCode}
+        and id=#{id}
 	</select>
+	
+	<select id="selBtn"
+		resultType="int">
+		
+	 	select *
+        from companion_list
+        where comp_code=#{compCode}
+        and id=#{id}
+	</select>
+	
+	
+	<select id="comSelList" resultType="co.admin.wh.notice.vo.CompanionVO">
+	 SELECT * FROM COMPANION_LIST
+	</select>
+	
+	<select id="comSelMyList" resultType="co.admin.wh.notice.vo.CompanionVO">
+	 SELECT * FROM COMPANION_LIST  where id=#{id}
+	</select>
+	
+	<select id="test" resultType="co.admin.wh.notice.vo.CompanionVO">
+	   SELECT c.id as writer, cl.id as login , c.comp_Title, cl.name, cl.tel, cl.gender
+	   FROM COMPANION_LIST cl  , COMPANION c
+         where cl.comp_code =  c.comp_code 
+	</select>
+	
+	<update id="approve">
+		UPDATE companion_list
+		SET
+		co_state='1'
+		WHERE se_code=#{seCode}
+	</update>
+	
+	<update id="reject">
+		UPDATE companion_list
+		SET
+		co_state='2'
+		WHERE se_code=#{seCode}
+	</update>
 </mapper>
 

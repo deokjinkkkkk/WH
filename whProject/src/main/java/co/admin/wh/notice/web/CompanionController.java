@@ -125,6 +125,9 @@ public class CompanionController {
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
+		
+		compVO.setId(principal.getName());
+		model.addAttribute("se", companionService.comBtn(compVO));
 		return "notice/companionDetail";
 	}
 	
@@ -177,16 +180,46 @@ public class CompanionController {
 		return "redirect:companion";
 	}
 	
-	@RequestMapping("/companionList")
-	public String companionList(Model model, CompanionVO vo) {
-		model.addAttribute("co", companionService.comListSelect(vo));
-		return "notice/companionList";
-	}
 	
 	@RequestMapping("/comListInsert")
 	public String comListInsert(CompanionVO compVO, @RequestParam("compCode") int compCode) {
 		compVO.setCompCode(compCode);
 		companionMapper.comListInsert(compVO);
 		return "redirect:companionDetail/"+compCode;
+	}
+	
+	@RequestMapping("/companionList")
+	public String companionList(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
+		vo.setId(principal.getName());
+	
+		model.addAttribute("se", companionService.test(vo));
+		model.addAttribute("btn", companionService.comBtn(vo));
+		return "notice/companionList";
+	}
+	
+	@RequestMapping("/companionSelList")
+	public String companionSelList(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
+		
+		vo.setId(principal.getName());
+		model.addAttribute("se", companionService.comSelMyList(vo));
+		return "notice/companionSelList";
+	}
+	
+	@RequestMapping("/approve")
+	public String approve(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
+		vo.setId(principal.getName());
+		model.addAttribute("sel", companionService.comSelList(vo));
+		
+		model.addAttribute("up", companionService.approve(vo));
+		return "redirect:companionList";
+	}
+	
+	@RequestMapping("/reject")
+	public String reject(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
+		vo.setId(principal.getName());
+		model.addAttribute("sel", companionService.comSelList(vo));
+		
+		model.addAttribute("up", companionService.reject(vo));
+		return "redirect:companionList";
 	}
 }

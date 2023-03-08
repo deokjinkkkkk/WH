@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+
+<body>
+	<div layout:fragment="content" class="content">
+		<!-- start page title section -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background: url('img/banner/bg3.jpg')|">
+			<div class="container">
+				<h1 class="text-white font-weight-600">Hotel</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">Hotel</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- end page title section -->
+		<!-- 각자 내용 -->
+		<div class="container">
+			<div id="main-wrapper">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row margin-40px-bottom">
+							<div class="col-md-12">
+								<div class="row">
+									<div
+										class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+										<div class="posts">
+											<!--  start post-->
+											<div class="post">
+												<div class="content">
+													<p style="font-size: 30px;">나의 예약내역</p>
+													<div th:each="r : ${res}">
+														<ul class="tour-inner">
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">예약번호</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.resId}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">호텔명</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.hotelName}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">숙박일자</h6>
+																	</div>
+																	<div>
+																		<p
+																			th:text="|${#dates.format(r.checkIn, 'yyyy년 MM월 dd일')} ~
+																			${#dates.format(r.checkOut, 'yyyy년 MM월 dd일')}|"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오후
+																			3시</p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">인원</h6>
+																	</div>
+																	<div>
+																		<p
+																			th:text="|성인 ${r.humanCount}명, 유아 ${r.childCount}명|"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">예약자명</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.resName}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray"></p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">예약자 전화번호</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.resTel}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">예약자 이메일</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.resEmail}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="row align-items-center">
+																	<div class="col-md-6">
+																		<h6 class="font-size17 no-margin-bottom">요청사항</h6>
+																	</div>
+																	<div>
+																		<p th:text="${r.resRequest}"
+																			class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																	</div>
+																</div>
+															</li>
+														</ul>
+														<button id="updateInfo" class="butn" type="button">예약자 정보수정</button>
+														<button id="deleteInfo" class="butn" type="button">예약 취소</button> <!-- 버튼에 이벤트 걸기. 참고 : reservation.html -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

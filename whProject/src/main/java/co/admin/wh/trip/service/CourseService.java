@@ -23,4 +23,7 @@ public interface CourseService {
 	List<CourseVO> detailSelect(CourseVO vo); // 상세보기 페이지
 	
 	CourseVO oneSelect(CourseVO vo);// 코스 단건조회
+	
+	List<CourseVO> regionList(CourseSearchVO svo); // 지역별 전체조회
+
 }

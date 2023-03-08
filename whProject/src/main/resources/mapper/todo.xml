@@ -50,5 +50,18 @@
 	WHERE to_do_code = #{todoCode}
 </delete>
 
+<!-- id 값이 일치하는 행 중에서 to_do_flag ==1 만 업데이트 -->
+<update id="todoComplete" parameterType="map">
+  UPDATE to_do_list 
+  SET to_do_flag = #{todoFlag}
+  WHERE id = #{id}
+   AND to_do_flag = 1
+</update>
 
+ 
+  <update id="updateTodoFlag">
+    UPDATE to_do_list
+    SET to_do_flag = #{todoFlag}
+    WHERE id = #{id}
+</update>
 </mapper>
