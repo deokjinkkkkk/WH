@@ -28,6 +28,17 @@ public class TripVO {
 	String couCode; // + 추가, 코스고유번호
 	int couOrder; // + 추가, 코스 순서
 	int tripUniqueNumber; // 추가, 여행고유번호
+	
+	
+	String tripAnnounce; // 문의 및 안내
+	String restDate; // 쉬는 날
+	String useTime; // 이용시간
+	String tripParking; // 주차시설
+	String tripChild; // 유모차 대여여부
+	String tripPet; // 애완동물 동반가능 여부
+	String tripChkCard; // 신용카드 가능 여부
+	
+	
 
 	
 }

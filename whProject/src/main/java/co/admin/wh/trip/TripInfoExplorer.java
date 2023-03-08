@@ -47,7 +47,7 @@ public class TripInfoExplorer {
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
 				"&pageNo=1" + "&numOfRows=1" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=39" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
+				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
 
 		URL url = new URL(urlBuilder);
 
@@ -187,13 +187,7 @@ public class TripInfoExplorer {
 										 * 상세정보(tripContent, overview), 수정일자(tripDate, modifiedtime) 지역코드(tripRegion,
 										 * areaCode), 이미지
 										 */
-
-										System.out.println("====================");
-										System.out.println(getTagValue("addr1", eElementchildTwo)); // 주소
-										System.out.println(getTagValue("title", eElementchildTwo)); // 여행지 명칭
-										System.out.println(getTagValue("contentid", eElement));
-
-										//vo.setTripCode(Integer.valueOf(getTagValue("contentid", eElementchildTwo))); // 여행지 번호
+										
 										vo.setTripName(getTagValue("title", eElementchildTwo)); // 여행지 명칭
 										vo.setTripTel(getTagValue("tel", eElementchildTwo)); // 연락처
 										vo.setTripAddr(getTagValue("addr1", eElementchildTwo)); // 주소
@@ -204,11 +198,65 @@ public class TripInfoExplorer {
 										vo.setImgGroCode(getTagValue("firstimage2", eElementchildTwo)); // 이미지
 										vo.setTripDate(showDate); // 수정일자
 										vo.setTripUniqueNumber(Integer.valueOf(getTagValue("contentid", eElementchildTwo))); // test 여행지 번호
+										
+										// 각 여행지 이용안내 api
+										String parsingUrlchildThr = "";// Parsing할 URL
+										String urlBuilderchildThr = "https://apis.data.go.kr/B551011/KorService/detailIntro?"
+												+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
+												+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D" /*																													 */
+												+ "&MobileOS=ETC" + "&MobileApp=AppTest" + "&contentId=" + subContentid
+												+ "&&contentTypeId=12";
 
+										URL urlchildThr = new URL(urlBuilderchildThr);
+
+										// 이 주소에 있는 코스여행순서(subnum), 개요 (subdetailoverview) 필요
+										parsingUrlchildThr = urlchildThr.toString();
+										System.out.println("???" + parsingUrlchildThr);
+
+										// 페이지에 접근해줄 Document객체 생성
+										// doc객체를 통해 파싱할 url의 요소를 읽어들인다.
+										// doc.getDocumentElement().getNodeName()을 출력하면 위 xml의 최상위 태그를 가져온다.
+										DocumentBuilderFactory dbFactorychildThr = DocumentBuilderFactory.newInstance();
+
+										DocumentBuilder dBuilderchildThr = dbFactorychildThr.newDocumentBuilder();
+
+										Document docchildThr = dBuilderchildThr.parse(parsingUrlchildThr);
+
+										// root tag
+										docchildThr.getDocumentElement().normalize();
+
+										// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
+										NodeList nListchildThr = docchildThr.getElementsByTagName("item");
+										System.out.println("파싱할 리스트 수 4차 : " + nListchildThr.getLength());// 파링할 리스트 수
+										
+										
+										for (int g = 0; g < nListchildThr.getLength(); g++) {
+											Node nNodechildThr = nListchildThr.item(g);
+											if (nNodechildThr.getNodeType() == Node.ELEMENT_NODE) {
+												
+												Element eElementchildThr = (Element) nNodechildThr;
+												
+												System.out.println("==??????????????????==");
+												System.out.println(getTagValue("infocenter", eElementchildThr)); // 안내
+												System.out.println(getTagValue("parking", eElementchildThr)); // 주차가능
+												
+												vo.setTripAnnounce(getTagValue("infocenter", eElementchildThr)); // 문의 및 안내
+												vo.setRestDate(getTagValue("restdate", eElementchildThr)); // 쉬는 날
+												vo.setUseTime(getTagValue("usetime", eElementchildThr)); // 이용시간
+												vo.setTripParking(getTagValue("parking", eElementchildThr)); // 주차시설
+												vo.setTripChild(getTagValue("chkbabycarriage", eElementchildThr)); // 유모차 대여여부
+												vo.setTripPet(getTagValue("chkpet", eElementchildThr)); // 애완동물 동반가능 여부
+												vo.setTripChkCard(getTagValue("chkcreditcard", eElementchildThr)); // 신용카드 가능 여부
+												
+												
+											}
+										
+										}
+											
+										list.add(vo);
 									}
 								}
 
-								list.add(vo);
 					}
 				}
 
