@@ -11,6 +11,8 @@ public interface CompanionService {
 	
 	List<CompanionVO> getCompanionList(CompanionSearchVO cvo);
 	
+	List<CompanionVO> comListSelect(CompanionVO vo);
+	
 	CompanionVO detailSelect(CompanionVO cvo);
 	
 	CompanionVO localSelect(CompanionVO cvo);

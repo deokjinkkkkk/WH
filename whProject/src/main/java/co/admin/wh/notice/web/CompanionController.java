@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.admin.wh.common.mapper.ReportMapper;
@@ -119,6 +120,8 @@ public class CompanionController {
 	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo, MemberVO vo, Principal principal) {
 		
 		vo.setId(principal.getName());
+		model.addAttribute("me", memberMapper.memberSelect(vo));
+		
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
@@ -175,8 +178,15 @@ public class CompanionController {
 	}
 	
 	@RequestMapping("/companionList")
-	public String companionList() {
-		
+	public String companionList(Model model, CompanionVO vo) {
+		model.addAttribute("co", companionService.comListSelect(vo));
 		return "notice/companionList";
+	}
+	
+	@RequestMapping("/comListInsert")
+	public String comListInsert(CompanionVO compVO, @RequestParam("compCode") int compCode) {
+		compVO.setCompCode(compCode);
+		companionMapper.comListInsert(compVO);
+		return "redirect:companionDetail/"+compCode;
 	}
 }

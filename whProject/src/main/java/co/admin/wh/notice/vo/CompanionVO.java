@@ -34,4 +34,6 @@ public class CompanionVO  {
 	
 	String comCode;
 	String comName;
+	
+	int state;
 }
