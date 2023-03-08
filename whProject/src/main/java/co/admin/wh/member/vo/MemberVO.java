@@ -16,7 +16,7 @@ public class MemberVO implements UserDetails {
 	String id;
 	String pass;
 	String name;
-	int gender;
+	String gender;
 	int tel;
 	String email;
 	String perm;
