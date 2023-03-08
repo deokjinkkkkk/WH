@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-	
-<style>
-	.content{
-		margin: 0 auto;
-	}
-</style>
 
 <body>
 	<div layout:fragment="content" class="content">
@@ -37,17 +31,17 @@
 											<li class="nav-item"><a class="nav-link active"
 												id="home-pills-tab" data-toggle="tab" href="#home3"
 												role="tab" aria-controls="home3" aria-selected="true"><span
-													class="fas fa-user display-block margin-10px-bottom"></span>
+													class="fas fa-check display-block margin-10px-bottom"></span>
 													1. 예약 정보</a></li>
 											<li class="nav-item"><a class="nav-link"
 												id="profile-pills-tab" data-toggle="tab" href="#profile3"
 												role="tab" aria-controls="profile3" aria-selected="false"><span
-													class="fas fa-dollar-sign display-block margin-10px-bottom"></span>2.
+													class="fas fa-user display-block margin-10px-bottom"></span>2.
 													예약자 정보</a></li>
 											<li class="nav-item"><a class="nav-link"
 												id="contact-pills-tab" data-toggle="tab" href="#finish3"
 												role="tab" aria-controls="finish3" aria-selected="false"><span
-													class="fas fa-check display-block margin-10px-bottom"></span>3.
+													class="fas fa-dollar-sign display-block margin-10px-bottom"></span>3.
 													결제</a></li>
 
 										</ul>
@@ -168,19 +162,19 @@
 																<div class="form-group col-md-6">
 																	<label for="exampleInputName8"
 																		class="margin-10px-bottom">예약자명</label> <input
-																		type="text" class="form-control"
+																		type="text" class="form-control" required
 																		name="resName" id="resName">
 																</div>
 																<div class="form-group col-md-6">
 																	<label for="exampleInputEmail1"
 																		class="margin-10px-bottom">예약자 이메일</label> <input
-																		type="email" class="form-control"
+																		type="email" class="form-control" required
 																		name="resEmail" id="resEmail">
 																</div>
 																<div class="form-group col-md-6">
 																	<label for="exampleInputAddress1"
 																		class="margin-10px-bottom">예약자 전화번호</label> <input
-																		type="tel" class="form-control"
+																		type="tel" class="form-control" required
 																		name="resTel" id="resTel">
 																</div>
 																<div class="form-group col-md-12">
@@ -198,16 +192,226 @@
 													</div>
 												</div>
 												<div class="tab-pane fade" id="finish3" role="tabpanel">
-													<h3 style="margin-top: 25px;">Thank You!</h3>
-													<div class="alert alert-success m-t-sm m-b-lg" role="alert">
-														Thank you! Your booking is confirmed. Invoice Sent in your
-														email address</div>
-													<h5>Booking Details</h5>
-													<img src="img/content/booking-complete.jpg" alt=""
-														class="rounded" />
-													<div class="padding-30px-top">
-														<h6>예약정보 확인</h6>
-														<p>여따가 약관넣기<p>
+													<p style="margin-top: 25px; font-size: 30px;">곧 예약이 완료됩니다!</p>
+<!-- 													<div class="alert alert-success m-t-sm m-b-lg" role="alert"> -->
+<!-- 														Thank you! Your booking is confirmed. Invoice Sent in your -->
+<!-- 														email address</div> -->
+<!-- 													<h5>Booking Details</h5> -->
+<!-- 													<img src="img/content/booking-complete.jpg" alt="" -->
+<!-- 														class="rounded" /> -->
+<!-- 													<div class="padding-30px-top"> -->
+<!-- 														<h6>예약정보 확인</h6> -->
+														<div class="checkbox_group">
+														  <p class="scheme-g">숙박 약관</p>
+												            <textarea style="font-size:13px;" rows="7">
+이용규칙
+당 호텔에서는 고객님의 안전과 쾌적한 체재를 위하여 숙박약관 제11조에 의거하여 다음과 같이 이용 규칙을 정하고 있습니다. 이 규칙을 지켜 주시지 않을 경우에는 본 약관 제12조에 의하여 숙박 또는 호텔 내 시설물의 이용을 거절하고 고객님께 그 책임에 대한 부담을 요구할 수 있으니 유의하여주시기 바랍니다.
+
+객실 내에서는 난방용, 취사용 등의 화기 등의 사용을 삼가 주시기 바랍니다.
+
+객실을 호텔의 허가 없이 전시회 등의 영업행위, 사무실로서의 이용, 집회 또는 파티 등 숙박에 반하는 목적으로의 사용을 삼가 주시기 바랍니다.
+
+호텔의 허가 없이 객실 상태를 변경하거나 비품 등의 이동을 삼가 주시기 바랍니다.
+
+객실 이용 중 고객 귀책사유로 인한 호텔 상품의 파손 발생 시, 그 피해에 대한 복구 비용이 청구됨을 유념하여 주시기 바랍니다.
+
+호텔에서는 허가 없이 광고, 선전물의 배포, 물품의 판매 등을 삼가 주시기 바랍니다.
+
+영유아 안전 사항
+
+영유아는 항상 보호자의 보호와 통제가 필요 합니다.
+
+영유아의 안전을 위하여 아이를 객실에 혼자 남겨 두지 마십시오.
+
+호텔에서는 다음과 같은 물건 반입을 삼가 주시기 바랍니다.
+
+개, 고양이, 새 등의 애완용 동물
+
+발화 또는 인화성의 위험물
+
+기타 법규에 의해 휴대가 금지되어 있는 물건
+
+보관품 및 습득물의 보관기간은 특별한 지정이 없는 한 다음과 같습니다.
+
+Store Room에서의 보관품 3개월
+
+분실물(습득물) 3개월
+
+세탁물 퇴숙 후 3개월
+
+상기의 기간이 경과하였음에도 회수되지 않은 물품은 폐기처리합니다.
+
+객실료는 체크인 시 프론트에서 지불하여 주시고, 이후 사용 분은 체크아웃 시 프론트에서 지불하여 주십시오. 또 체재 중이라도 사정에 따라 지불이 요구될 경우에는 지불하여 주시기 바랍니다.
+
+체크인 시에 현금이나 귀중품 등은 객실 내 개인 금고에 보관하여 주시기 바라오며, 이와 같이 손님의 부주의로 인하여 발생한 분실 및 도난 등에 대해서는 호텔이 책임을 지지 않으므로 유의하시기 바랍니다.
+
+제1조 본 약관의 적용
+당 호텔이 체결하는 숙박약관 및 여기에 관련되는 계약은 본 약관이 정하는 바에 의한 것으로 하고 본 약관에 규정되지 않은 사항에 관하여는 법규 또는 관습에 의하는 것으로 합니다.
+
+당 호텔은 신용카드 예약에 관련된 것은 이 규정에 따르되, 그 세부사항은 신용카드사와 호텔 간 가맹점 약관에 따릅니다.
+
+당 호텔은 전항의 규정에 구애됨이 없이 약관의 취지, 법령, 또는 관습에 반하지 않는 범위 내에서 특약에 응할 수 있습니다.
+
+제2조 숙박 거절
+당 호텔은 다음과 같은 경우에 숙박을 거절할 수 있습니다.
+
+만실로 인해 객실의 여유가 없을 경우
+
+숙박 신청이 본 약관에 의하지 않은 경우
+
+숙박하고자 하는 손님께서 숙박에 관한 법규 또는 공공질서나 미풍양속에 위배되는 행위를 할 염려가 있다고 인정되는 경우
+
+고객이 타 고객 또는 당 호텔 직원 및 호텔 관계자에게 언어, 폭력 등의 방법으로 위해를 가하는 행동을 하거나, 혹은 합리적 범위를 넘은 부담을 요구하는 경우
+
+숙박하고자 하는 손님이 전염병자라고 명백히 인정되는 경우 및 정부 및 지자체가 정한 질환(갑작스러운 국내 유입 또는 유행이 예견되어 긴급한 예방, 관리가 필요하여 보건복지부장관이 지정하는 감염병 포함)에 걸린 경우
+
+애완용 동물 또는 위험 물품(마약, 총기류, 도검류, 화약 등 인화성 물질 외 기타 위험하다고 여겨지는 물품)을 소지하고 있다고 인정되는 경우
+
+숙박하고자 하는 분이 만취해 있거나 또는 언동이 현저히 비정상적인 등의 이유로 다른 숙박객에게 피해를 끼칠 우려가 있다고 인정하는 경우
+
+천재지변, 전염병, 시설의 고장, 기타 불가피한 이유로 숙박에 응할 수 없을 때
+
+대한민국 법규 등 규정하는 바에 따라 숙박할 수 없다고 인정되는 경우
+
+객실 내 화재의 원인이 되기 쉬운 흡연 행위를 한 경우
+
+호텔 외부로부터 불쾌함을 주는 음식물을 주문 또는 반입하는 경우
+
+숙박하고자 하는 분이 지불 능력이 없을 것으로 분명히 인정되는 경우 등 기타 정당한 사유가 있는 경우
+
+제3조 성명 등의 제시
+당 호텔은 숙박일에 앞서 숙박 신청(이하 숙박 예약 신청이라 함)을 받을 경우, 예약자에 대하여 다음 각 호에 기재된 사항의 제시를 요구할 수 있습니다.
+
+숙박자의 성명, 성별, 연락처, 국적
+
+기타 당 호텔에서 필요하다고 인정되는 사항
+
+제4조 예약금
+당 호텔의 숙박예약신청을 받을 경우에는 예약금의 지급을 받는 경우에만 예약을 보증합니다. 단, 신용카드를 이용하여 예약한 경우에는 예약금 지급 여부에 관계없이 예약을 보증합니다.
+
+전항의 위약금은 제5조에서 정한 내용에 해당할 때에는 위약금에 충당하고 잔액이 있을 경우에는 반환해 드립니다. 단, 예약금 없이 신용카드를 이용하여 예약할 경우에는 신용카드회사에 제5조에서 정한 내용에 해당되는 위약금을 청구합니다.
+
+당 호텔은 신용카드에 의한 예약 또는 예약 해제 시에는 접수 번호, 접수 일시, 접수자 성명, 위약금 내용을 예약자에게 알려 드립니다.
+
+제5조 예약자에 의한 예약 취소
+당 호텔은 숙박예약 신청자가 숙박예약의 전부 또는 일부를 해제하였을 경우에는 다음에 열거하는 바에 의하여 위약금을 받습니다.
+[글래드 호텔앤리조트 예약 취소 규정]
+- 대상: Third party(온∙오프라인 여행사 등)를 제외한 예약 건
+
+숙박예정일 1일전 18시까지는 위약금 없이 취소 및 변경됩니다.
+
+숙박예정일 1일전 18시 이후 취소 또는 변경 및 노쇼(No-show) 시 최초 1일 숙박 요금의 100%가 위약금으로 부과됩니다. 전항의 규정에 의거하여 취소된 것으로 간주되는 경우에 있어서 숙박자가 연락을 하지 않고 도착하지 않을 경우 이것이 항공기, 여객선 등 공공 운송 수단의 운항 중단, 기타 숙박자의 자신의 책임에 의한 것이 아니라고 인정될 시에는 제1항의 위약금을 받지 않습니다.
+
+제6조 호텔에 의한 예약 취소
+당 호텔은 따로 정하는 바를 제외하고는 다음의 경우에는 숙박 예약을 취소할 수 있습니다.
+
+제2조 제2항에서 제9항에 해당된다고 인정될 경우
+
+제3조 사항의 명시를 요구했을 경우, 기한까지 그 사항이 명시되지 않을 경우
+
+제4조 1항의 예치금을 지불 청구하였으나 기한까지 지불하지 않을 경우
+
+당 호텔은 전항의 규정에 의하여 숙박 계약을 취소했을 시에는 이미 받아들인 예약금이 있을 경우 이를 반환해 드립니다.
+
+제7조 숙박 등록
+숙박자는 도착당일 프론트에서 다음 사항을 당 호텔에 등록하여야 합니다.
+
+제3조 제1항의 사항
+
+연락 전화번호
+
+출발 일자 및 시각
+
+기타 호텔에서 필요하다고 인정되는 사항
+
+제8조 체크인 & 아웃
+숙박자가 당 호텔의 객실을 이용하기 위해 입실하는 시간(Check In Time이라 함)과 숙박자가 당 호텔의 객실을 비워주는 시간(Check Out Time이라 함)은 호텔의 별도 규정과 상품에 따릅니다. (홈페이지 참조)
+
+당 호텔에서는 전항의 규정에도 불구하고 체크아웃 시간을 초과하였을 때에는 다음에 열거하는 바와 같이 추가요금을 받습니다.
+
+오후 4시 까지: 객실료의 50%
+
+오후 4시 이후: 객실료의 100%
+
+제9조 영업시간
+당 호텔의 부대시설 영업시간은 사정에 따라 변경, 운영될 수 있습니다.
+
+제10조 요금의 지불
+요금의 지불은 통용 화폐, 당 호텔에서 인정하는 여행자 수표, 신용카드 또는 쿠폰에 의해 숙박 손님의 체크인 시 또는 당 호텔에서 청구했을 시에 당 호텔 프론트데스크에 지불하여야 합니다.
+
+숙박 손님이 객실을 사용하기 시작한 다음 임의로 숙박을 하지 않은 경우에 있어서도 숙박요금을 받습니다.
+
+제11조 사용 규칙의 준수
+당 호텔 숙박자는 당 호텔에서 정하여 호텔 안에 게시한 사용 규칙을 준수하여야 합니다.
+
+호텔 내 제반 설비 및 비품에 대하여 본래 용도 외 사용 삼가 및 호텔 외부로 반출을 금지합니다.
+
+제12조 숙박 연장의 거절
+당 호텔은 손님을 받아들인 숙박 기간 중이라도 다음과 같은 경우에는 계속 숙박하는 것을 거절할 수가 있습니다.
+
+제2조 제1항에서 제12항에 해당된다고 간주되는 경우
+
+이용 규칙에 위배되는 경우
+
+제13조 숙박 책임
+당 호텔의 숙박에 관하여 책임은 숙박자가 당 호텔 프론트데스크에서 숙박 등록을 하였을 때와 객실에 안내 되었을 때 중 먼저 행위가 이루어 졌을 때부터 책임을 지게 되며, 숙박자가 출발하기 위하여 객실을 비워주었을 때 책임이 끝납니다.
+
+숙박자가 당 호텔 안에 게시한 이용 규칙을 준수하지 않아 야기된 사고에 대하여는 당 호텔에서 책임을 지지 않습니다.
+
+당 호텔 책임에 기인되는 이유로서 숙박예약 보증 후 숙박자에게 객실 제공을 못할 경우에는 천재지변, 기타의 이유로서 곤란한 경우를 제외하고서는 동등 또는 유사한 조건에 의한 다른 숙박시설을 알선해 드립니다.
+
+제14조 객실 키 인수 및 반환
+숙박자는 등록 시 프론트데스크에서 객실 키를 인수하고 퇴실 시에는 요금 지불과 함께 프론트데스크에 키를 반납해야 합니다.
+
+숙박자는 투숙 중에 키를 분실하였을 경우에는 즉시 프론트데스크에 분실신고를 하여야 하며 객실 키 분실 시 재제작 비용을 지불해야 합니다.
+												            </textarea>
+														  <input type="checkbox" id="check_1" class="normal" >
+														  <label for="check_1">숙박 약관을 숙지하였으며 이에 동의합니다.</label><hr>
+														  <p class="scheme-g">예약 대행 약관</p>
+												            <textarea style="font-size:13px" rows="7">
+서비스의 제공 및 변경
+① " Walking Holiday"는 다음과 같은 업무를 수행합니다.
+
+1. 호텔에 대한 정보 제공 및 예약대행 서비스
+
+2. 구매계약이 체결된 재화 또는 용역의 배송
+
+3. 기타 " Walking Holiday"가 정하는 업무
+
+② “Walking Holiday”는 각 숙소별 세부정보를 해당 숙소 또는 전문 공급업체에서 실시간으로 전달받아 참고용으로 제공하고 있으나 일부 부정확한 정보가 포함이 되어 있을 수 있으므로 명확한 정보확인이 필요한 부분은 반드시 Walking Holiday 고객센터를 통하여 확인하신 후 예약을 진행하시기 바라며 미 확인으로 발생된 피해에 대해서 Walking Holiday는 책임을 지지 않습니다.
+
+③ “Walking Holiday”는 FIT(Free Independent Tourism,개별자유여행)고객을 대상으로 판매한다는 조건으로 계약된 Wholesale(도매)가에 대행수수료와 세금, 봉사료가 포함된 요금을 제공합니다. 단, 동일한 일자에 동일한 숙소의 4방 이상 예약 시에는 Group(단체예약)으로 간주되어 Wholesale(도매)요금이 아닌 별도 요금과 취소정책이 적용될 수 있습니다. 이럴 경우 “Walking Holiday”는 고객에게 제 8조항에 의거하여 통보하고 예약 유지 여부를 확인하며 취소를 원할 경우 제 12조에 의거하여 취소 처리를 진행해 드립니다.
+
+④ “Walking Holiday”는 현지숙소 및 전문 공급업체가 정한 요금 카테고리 중 레저 카테고리를 기준으로 한 할인요금을 제공합니다. 단, 학회 및 박람회 참여등과 같은 비즈니스 목적의 숙소예약 시에는 레저 카테고리 요금이 아닌 비즈니스 카테고리의 요금이 적용되므로 비즈니스 카테고리 요금을 제공하지 않는 “Walking Holiday”에서 비즈니스 목적의 호텔예약을 하신 경우에는 현지 호텔에서 예약 불가 또는 추가금액 요구가 있을 수 있으며 “Walking Holiday”는 이에 따른 손해에 대한 책임을 지지 않습니다. 비즈니스 목적의 호텔 예약을 원하실 경우에는 Walking Holiday 고객센터로 문의하시기 바랍니다.
+
+⑤ “Walking Holiday”가 제공하는 요금은 현지숙소에서 보여지는 요금과 다를 수 있으며 최저가를 보장하지 않습니다.
+
+⑥ 숙소에서 제공하는 동일한 유료서비스라 하더라도 “Walking Holiday”에서 제공하는 요금과 해당 숙소에서 제공하는 요금 간 차이가 있을 수 있으며 “Walking Holiday”는 이 차액에 대한 보상을 하지 않습니다.
+												            </textarea>
+														  <input type="checkbox" id="check_2" class="normal" >
+														  <label for="check_2">'Walking Holiday'는 숙박예약 대행업체임을 확인하였습니다.</label><hr>
+														  
+														  <input type="checkbox" id="check_all" >
+														  <label for="check_all">내용을 모두 숙지하였습니다.</label>
+														  
+														</div>
+<script th:inline="javascript">
+	// 체크박스 전체 선택
+	$(".checkbox_group").on("click", "#check_all", function () {
+	    $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
+	});
+	
+	// 체크박스 개별 선택
+	$(".checkbox_group").on("click", ".normal", function() {
+	    var is_checked = true;
+	
+	    $(".checkbox_group .normal").each(function(){
+	        is_checked = is_checked && $(this).is(":checked");
+	    });
+	
+	    $("#check_all").prop("checked", is_checked);
+	});
+</script>
 <!-- 														<p>Lorem ipsum dolor sit amet, consectetur adipisicing -->
 <!-- 															elit, sed do eiusmod tempor incididunt ut labore et -->
 <!-- 															dolore magna aliqua. Ut enim ad minim veniam, quis -->
@@ -251,84 +455,96 @@
 																<h5 class="no-margin-bottom">
 																	Total: <span class="text-theme-color">[[${h.roomPrice}]]원</span>
 																</h5>
+																<br><br>
+													<button id="check_module" class="butn" type="button">결제</button>
 															</div>
 														</div>
 													</div>
-																											    <button id="check_module" class="butn" type="button"><span class="alt-font">결제</span></button>
 <script th:inline="javascript">
-
+    
     $("#check_module").click(function () {
-		let resName = $('#resName').val(); // 예약자명
-		let resEmail = $('#resEmail').val(); // 예약자이메일
-		let resTel = $('#resTel').val(); // 예약자전화번호
-		let resRequest = $('#resRequest').val(); // 요청사항
-		let checkIn = new Date('[[${res.checkIn}]]'); // 체크인날짜
-		let checkOut = new Date('[[${res.checkOut}]]'); // 체크아웃날짜
-		
-	        var IMP = window.IMP; // 생략가능
-	        IMP.init('imp53270324'); 
-	        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-	        
-	        IMP.request_pay({
-	            pg: 'kakaopay', //:카카오페이, 
-	            pay_method: 'card',
-	            merchant_uid: 'merchant_' + new Date().getTime(),
-	            name: '[[${h.hotelName}]]', //결제창에서 보여질 이름
-	            amount: '[[${h.roomPrice}]]',  //가격 
-	            buyer_email: resEmail,
-	            buyer_name: resName,
-	            buyer_tel: resTel,
-// 	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-	            
-	        }, function (rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-// 					msg += '고유ID : ' + rsp.imp_uid;
-// 					msg += '상점 거래ID : ' + rsp.merchant_uid;
-// 					msg += '결제 금액 : ' + rsp.paid_amount;
-// 					msg += '카드 승인번호 : ' + rsp.apply_num;
-					
-					// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-	                // 결제내역을 사용자에게 보여주기 위해 필요함.
-	               	$.ajax({
-						url : "/resIng",
-						type : "POST",
-						data : JSON.stringify(
-							{
-								"childCount": '[[${res.childCount}]]',
-								"humanCount": '[[${res.humanCount}]]',
-								"resName": resName,
-								"resTel": resTel,
-								"resEmail": resEmail,
-								"resRequest": resRequest,
-								"checkIn": checkIn,
-								"checkOut": checkOut,
-								"id": 'userId',
-								"totalPay": rsp.paid_amount,
-//			 					payState: rsp.status,
-								"payState": 2,
-								"hotelId": '[[${h.hotelId}]]'
-							}
-						),
-						contentType:'application/json',
-						success : function(result){
-							if(result == "y") {
-// 								alert("결제가 완료되었습니다!");
-							}else{
-								alert("디비입력실패");
-								return false;
-							}
-						},
-						error : function(a,b,c){}
-					});
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-				}
-			alert(msg);
-			});
+    	// 약관 동의여부 체크
+    	 if($("#check_1").is(":checked") == false){
+             alert("숙박 약관에 동의해주세요.");
+             return;
+         }else if($("#check_2").is(":checked") == false){
+             alert("예약 대행 약관에 동의해주세요.");
+             return;
+         }else{
+        	 // 결제정보 DB에 저장
+			let resName = $('#resName').val(); // 예약자명
+			let resEmail = $('#resEmail').val(); // 예약자이메일
+			let resTel = $('#resTel').val(); // 예약자전화번호
+			let resRequest = $('#resRequest').val(); // 요청사항
+			let checkIn = new Date('[[${res.checkIn}]]'); // 체크인날짜
+			let checkOut = new Date('[[${res.checkOut}]]'); // 체크아웃날짜
+			
+		        var IMP = window.IMP; // 생략가능
+		        IMP.init('imp53270324'); 
+		        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+		        
+		        IMP.request_pay({
+		            pg: 'kakaopay', //:카카오페이, 
+		            pay_method: 'card',
+		            merchant_uid: 'merchant_' + new Date().getTime(),
+		            name: '[[${h.hotelName}]]', //결제창에서 보여질 이름
+		            amount: '[[${h.roomPrice}]]',  //가격 
+		            buyer_email: resEmail,
+		            buyer_name: resName,
+		            buyer_tel: resTel,
+	// 	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+		            
+		        }, function (rsp) {
+					console.log(rsp);
+					if (rsp.success) {
+						var msg = '결제가 완료되었습니다.';
+	// 					msg += '고유ID : ' + rsp.imp_uid;
+	// 					msg += '상점 거래ID : ' + rsp.merchant_uid;
+	// 					msg += '결제 금액 : ' + rsp.paid_amount;
+	// 					msg += '카드 승인번호 : ' + rsp.apply_num;
+						
+						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+		                // 결제내역을 사용자에게 보여주기 위해 필요함.
+		               	$.ajax({
+							url : "/resIng",
+							type : "POST",
+							data : JSON.stringify(
+								{
+									"childCount": '[[${res.childCount}]]',
+									"humanCount": '[[${res.humanCount}]]',
+									"resName": resName,
+									"resTel": resTel,
+									"resEmail": resEmail,
+									"resRequest": resRequest,
+									"checkIn": checkIn,
+									"checkOut": checkOut,
+									"id": 'userId',
+									"totalPay": rsp.paid_amount,
+	//			 					payState: rsp.status,
+									"payState": 2,
+									"hotelId": '[[${h.hotelId}]]'
+								}
+							),
+							contentType:'application/json',
+							success : function(result){
+								if(result == "y") {
+// 									alert(msg);
+								}else{
+									alert("디비입력실패");
+									return false;
+								}
+							},
+							error : function(a,b,c){}
+						});
+					} else {
+						var msg = '결제에 실패하였습니다.';
+						msg += '에러내용 : ' + rsp.error_msg;
+					}
+				alert(msg);
+				location.href="/main";
+				});
+         }
 	});
 </script>
 												</div>
