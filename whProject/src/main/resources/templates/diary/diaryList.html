@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <!-- Required meta tags -->
@@ -21,7 +22,19 @@
 
 <title>Hello, world!</title>
 
+    <!-- 요기에 구글 머티리얼 아이콘 -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+            rel="stylesheet">
+
+    <!-- jquery 사용하기 위해 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style>
+a {
+  text-decoration-line: none;
+   color : black;
+  }
 .navbar {
 	position: fixed;
 	width: 100%;
@@ -175,23 +188,277 @@
 	margin-left: 10px;
 	margin-top: 25px;
 }
+
+ .modal_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .modal_window {
+        background: white;
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 800px;
+        height: 600px;
+        position: relative;
+        padding: 10px;
+    }
+     .modal_title{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .modal_title_side{
+        flex: 0 0 40px;
+        text-align: center;
+    }
+    .modal_image_upload{
+        outline: 2px dashed black ;
+        outline-offset:-10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width:780px;
+        height: 548px;
+    }
+    .main_body {
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+        background-color: #FAFAFA;
+    }
+   
+    .feed_box {
+        background-color: white;
+        width: 580px;
+        margin: 10px;
+        min-height: auto;
+        padding-bottom: 10px;
+    }
+
+    .feed_img {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .feed_content {
+        padding: 0px 10px;
+    }
+
+    .feed_like {
+        padding: 0px 10px;
+    }
+
+    .feed_reply {
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .feed_txt {
+        font-size: 14px;
+    }
+
+
+    .feed_icon {
+        padding: 5px 5px 0px 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    span {
+        padding-right: 5px;
+    }
+
+    .feed_name {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .feed_name_txt {
+        font-size: 14px;
+        padding: 0px 10px;
+        font-weight: bold;
+    }
+
+    .profile_box {
+        width: 40px;
+        height: 40px;
+        border-radius: 70%;
+        overflow: hidden;
+    }
+
+    .profile_img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .name_content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .name_content_txt {
+        font-size: 12px;
+        padding: 0px 10px;
+        font-weight: bold;
+        color: lightgray;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 190px;
+    }
+
+    .big_profile_box {
+        width: 60px;
+        height: 60px;
+        border-radius: 70%;
+        overflow: hidden;
+    }
+
+    .link_txt {
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .recommend_box {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        align-items: center;
+    }
+
+    .comment_box {
+        margin: 40px 0 0 5px;
+        font-size: 12px;
+        font-weight: bold;
+        color: lightgray;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 1280px) {
+        .right_body {
+            display: none;
+        }
+    }
+
+
+    .modal {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .modal_window {
+        background: white;
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 800px;
+        height: 600px;
+        position: relative;
+    }
+
+    .modal_title{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    }
+
+    .modal_title_side{
+        margin: 5px;
+        flex: 0 0 40px;
+        text-align: center;
+    }
+
+    .modal_image_upload{
+        outline: 2px dashed black ;
+        outline-offset:-10px;
+        transition: all .15s ease-in-out;
+        width: 798px;
+        height: 548px;
+        text-align: center;
+        line-height: 548px;
+    }
+
+    .modal_image_upload_content{
+        outline: 2px dashed black ;
+        outline-offset:-10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width:500px;
+        height: 548px;
+    }
+
+    .modal_image_content{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .modal_content_write{
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid rgba(0, 0, 0, 0.18);;
+    }
+
+    .feed_content_textarea{
+        resize: none;
+        width: 294px;
+        border: none;
+    }
+
 </style>
 </head>
 
 <body>
+
 	<!-- 헤더 영역 -->
 	<nav class="navbar">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><img
-				src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
+			<a class="navbar-brand" href="#">
+			<img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
 			<input class="navbar-search form-control me-2" type="search"
 				placeholder="검색" aria-label="Search">
 			<div class="navbar_icons">
-				<span class="material-icons">home</span> <span
-					class="material-icons-outlined">send</span> <span
-					class="material-icons-outlined">add_box</span> <span
-					class="material-icons-outlined">explore</span> <span
-					class="material-icons-outlined">favorite_border</span>
+				<a class="material-icons" href="/main">home</a>  <!-- 홈링크 걸기 -->
+				<a class="material-icons-outlined">send</a> <!-- 채팅기능 걸기 -->
+				<span class="material-icons-outlined" id="add_feed">add_box</span>  <!-- 등록 -->
+				<!--  <span class="material-icons-outlined">favorite_border</span>   좋아요 -->
 			</div>
 		</div>
 	</nav>
@@ -199,21 +466,23 @@
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
-			<div class="feed-box">
+			<div class="feed-box" id="inst">
 				<div class="profile">
 					<div class="profile-img-box">
 						<img class="profile-img"
 							src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
 					</div>
-					<div class="profile-id">jollyn</div>
+					<div class="profile-id"></div>
+					<input type="hidden" id="id" name="id" th:value="${session.name}">
 				</div>
 
-				<div class="feed-img">
+				<div class="feed-img" id="diaryContent" > 
 					<img id="feed-img"
 						src="https://static-storychat.pstatic.net/2020/9/1/47/208797_hm2fj34m3df60.jpg">
 				</div>
 
 				<div class="icon">
+				<!-- 인식이 안됨  
 					<div>
 						<span class="material-icons-outlined"></span> <span
 							class="material-icons-outlined"></span> <span
@@ -222,14 +491,14 @@
 					<div>
 						<span class="material-icons-outlined"></span>
 					</div>
+					-->
+				</div>
+				<div class="like" id="diaryStartDate">
+					<b>여행일정날짜 들어갈것이다 </b>
 				</div>
 
-				<div class="like">
-					django <b>외 19명</b>이 좋아합니다
-				</div>
-
-				<div class="feed-text">
-					<b>jollyn</b> 이건 마치 알고리즘 보는 나의 모습
+				<div class="feed-text" id="">
+					<b></b> 이건 마치 알고리즘 보는 나의 모습
 				</div>
 
 				<div class="comment">
@@ -244,6 +513,7 @@
 					</div>
 				</div>
 
+			
 				<div class="input-comment">
 					<input id="input-comment" type="text" class="form-control"
 						placeholder="댓글 달기...">
@@ -262,6 +532,8 @@
 					<div class="profile-name" style="color: grey;">anneyujeong</div>
 				</div>
 			</div>
+
+
 
 
 <!-- 여기가 안되서 막아둠 키면 오류 뜬다  -->
@@ -329,20 +601,223 @@
 
 		</div>
 	</div>
-
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous">
+	</script>
 
-	<!-- Option 2: Separate Popper and Bootstrap JS -->
-	<!--
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-        -->
-</body>
+<!-- 공유하기 모달 시작  -->
+   <div id="modal_add_feed" class="modal modal_overlay">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div> 새 게시물 </div>
+            <div class="modal_title_side">
+                <span id="close_modal" class="close_modal material-icons-outlined" style="font-size: 30px">
+                    close
+                </span>
+            </div>
+        </div>
+        <div class="modal_image_upload">
+            <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
 
+        </div>
+    </div>
+</div>
+<div id="modal_add_feed_content" class="modal modal_overlay_content">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div style="margin: 5px"> 새 게시물 </div>
+            <div class="modal_title_side">
+                 <span id="close_modal" class="close_modal material-icons-outlined" style="font-size: 30px">
+                    close
+                </span>
+            </div>
+        </div>
+        <div class="modal_image_content">
+            <div id="input_image" class="modal_image_upload_content">
+
+            </div>
+            <div class="modal_content_write">
+                <div class="feed_name">
+                    <div class="profile_box">
+                        <img id="input_profile_image" class="profile_img" src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
+                    </div>
+                    <span id="input_id" class="feed_name_txt"></span>
+                </div>
+                <div style="height: 440px">
+                    <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10"  placeholder="설명을 입력하세요..."></textarea>
+                </div>
+                <div style="width: 100%; text-align: center">
+                    <button id="button_write_feed" type="button" class="btn btn-primary" style="width: 268px"> 공유하기</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 공유하기 모달 종료  -->
+
+<script>
+var id = $('#id').val();  //id값 들고오기 
+$(document).ready(function(){
+	getDiaryList();
+})
+
+
+function getDiaryList(){
+	const feedBox = $("#inst");
+	$.ajax({
+		url:"/getdiary",
+		method: "GET",
+		dataType: "json",
+		success: function(result){
+			console.log("list들고오나?")
+		}
+	})
+}
+
+const modal = document.getElementById("modal_add_feed");
+const buttonAddFeed = document.getElementById("add_feed");
+buttonAddFeed.addEventListener("click", e => {
+    modal.style.display = "flex";
+    document.body.style.overflowY = "hidden"; // 스크롤 없애기
+});
+
+
+// 모달 닫기 코드
+const buttonCloseModal = document.getElementById("close_modal");
+buttonCloseModal.addEventListener("click", e => {
+    modal.style.display = "none";
+    document.body.style.overflowY = "visible";
+});
+
+
+//마우스를 놨을 때, 즉 drop 했을 때 실행되는 함수
+$('.modal_image_upload')
+    .on("dragover", dragOver)
+    .on("dragleave", dragOver)
+    .on("drop", uploadFiles);
+
+function dragOver(e){
+	  console.log(e);
+    e.stopPropagation();
+    e.preventDefault();
+    
+    if (e.type == "dragover") {
+        $(e.target).css({
+            "background-color": "black",
+            "outline-offset": "-20px"
+        });
+    } else {
+        $(e.target).css({
+            "background-color": "white",
+            "outline-offset": "-10px"
+        });
+    }
+}
+
+//파일 올릴때 
+function uploadFiles(e){
+    e.dataTransfer = e.originalEvent.dataTransfer;
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(e.dataTransfer)
+    console.log(e.originalEvent.dataTransfer)
+
+
+    files = e.dataTransfer.files;
+    if (files.length > 1) {
+        alert('하나만 올려주세요.');
+        return;
+    }
+
+    if (files[0].type.match(/image.*/)) {
+        $('#modal_add_feed_content').css({
+            display : 'flex'
+        });
+        $('.modal_image_upload_content').css({
+            "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+            "outline": "none",
+            "background-size": "contain",
+            "background-repeat" : "no-repeat",
+            "background-position" : "center"
+        });
+        $('#modal_add_feed').css({
+            display: 'none'
+        })
+    }else{
+        alert('이미지가 아닙니다.');
+        return;
+    }
+};
+
+$('#button_write_feed').on('click', ()=>{
+    const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+    const content = $('#input_content').val();
+    const profile_image = $('#input_profile_image').attr('src');
+    const id = $('#input_id').text();
+
+    const file = files[0];
+
+    let fd = new FormData();
+	
+    fd.append('file', file);
+    fd.append('image', image);
+    fd.append('diaryContent', diaryContent);
+    fd.append('diaryStartDate', diaryStartDate)
+    fd.append('diaryEndDate', diaryEndDate)
+    fd.append('id', id);
+
+    if(image.length <= 0)
+    {
+        alert("이미지가 비어있습니다.");
+    }
+    else if(diaryContent.length <= 0)
+    {
+        alert("설명을 입력하세요");
+    }
+    else if(diaryStartDate.length <= 0)
+    {
+        alert("여행 시작 날짜 입력해주세요.");
+    }
+    else if(diaryEndDate.length <= 0)
+    {
+        alert("여행 종료 날짜 입력해주세요.");
+    }
+    else if(id.length <= 0)
+    {
+        alert("사용자 id가 없습니다.");
+    }
+    else{
+        writeFeed(fd);
+
+        console.log(files[0]);
+    }
+});
+
+
+//인설트 하는거 같음
+function writeFeed(fd) {
+    $.ajax({
+        url: "/diary",
+        data: fd,
+        method: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            console.log("성공");
+        },
+        error: function (request, status, error) {
+            console.log("에러");
+        }
+    })
+};
+
+</script>
 </html>
