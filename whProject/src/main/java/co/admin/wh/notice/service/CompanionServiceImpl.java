@@ -81,4 +81,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.comListInsert(vo);
 	}
 
+	@Override
+	public List<CompanionVO> comListSelect(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.comListSelect(vo);
+	}
+
 }

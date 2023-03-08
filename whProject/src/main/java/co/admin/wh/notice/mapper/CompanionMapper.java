@@ -10,6 +10,8 @@ public interface CompanionMapper {
 	
 	List<CompanionVO> getCompanionList(CompanionSearchVO cvo);//전체조회
 	
+	List<CompanionVO> comListSelect(CompanionVO vo);
+	
 	CompanionVO detailSelect(CompanionVO cvo);
 	
 	CompanionVO localSelect(CompanionVO cvo);
