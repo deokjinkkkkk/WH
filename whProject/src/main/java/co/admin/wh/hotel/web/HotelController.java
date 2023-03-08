@@ -1,6 +1,7 @@
 package co.admin.wh.hotel.web;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,18 +25,24 @@ import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
+import co.admin.wh.member.mapper.MemberMapper;
+import co.admin.wh.member.vo.MemberVO;
 
 @Controller
 public class HotelController {
 	
+	@Autowired
 	private HotelInfoService hotelInfoService;
 	
 	@Autowired
-    public HotelController(HotelInfoService InfoService) {
-        this.hotelInfoService = InfoService;
-    }
+	private MemberMapper memberMapper;
 	
-	@GetMapping("/hotel") // 숙소 첫 페이지(별점순 정렬)
+//	@Autowired
+//	public HotelController(HotelInfoService InfoService) {
+//		this.hotelInfoService = InfoService;
+//	}
+	
+	@GetMapping("/hotel") // 숙소 첫 페이지(좋아요 순 정렬)
 	public String hotel(Model model) {
 		model.addAttribute("hotelList",hotelInfoService.hotelList());
 		return "hotel/hotelMain";
@@ -89,7 +96,9 @@ public class HotelController {
     }
 	
 	@PostMapping("/reservation") // 예약페이지
-    public String reservation(ReservationVO vo, HotelVO hvo, Model model) {
+    public String reservation(ReservationVO vo, HotelVO hvo, MemberVO mvo, Model model, Principal principal) {
+		mvo.setId(principal.getName());
+		model.addAttribute("m",memberMapper.memberSelect(mvo));
 		model.addAttribute("res",vo);
 		model.addAttribute("h",hotelInfoService.detailSelect(hvo));
 		return "hotel/reservation";
@@ -97,14 +106,19 @@ public class HotelController {
 	
 	@PostMapping("/resIng") // 예약정보 인서트
 	@ResponseBody
-	public String resIng(@RequestBody ReservationVO vo) {
-		System.out.println("처음 넘어온 값 =================================="+vo.getCheckIn()); // 2023-03-06(지정날짜보다 하루 적게 들어옴)
+	public String resIng(@RequestBody ReservationVO vo, Principal principal) {
+		System.out.println("넘어온 체크인날짜 ====="+vo.getCheckIn()); // 2023-03-06(지정날짜보다 하루 적게 들어옴) => 매퍼에서 하루 더 추가
+		//id를 가지고 나머지 member값 가져오기
+		vo.setId(principal.getName()); // 로그인한 id값을 예약vo에 set
 		hotelInfoService.insertReservInfo(vo);
 		return "y";
 	}
 	
-	@GetMapping("/resComplete")
-	public String resComplete() {
-		return "hotel/resComplete";
+	@GetMapping("/myReservation") // 예약내역 조회
+	public String myReservation(ReservationVO vo, Principal principal, Model model) {
+		String sessionId = principal.getName(); // 로그인한 id값
+		model.addAttribute("res",hotelInfoService.readReservInfo(sessionId));
+		// reservationVO의 hotelid로 hotel정보조회
+		return "hotel/myReservation";
 	}
 };

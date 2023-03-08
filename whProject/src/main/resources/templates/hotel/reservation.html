@@ -159,23 +159,24 @@
 													<div class="row">
 														<div class="col-md-12">
 															<div class="row">
+<!-- 세션 id로 조회해서 값 input에 가져오기 -->
 																<div class="form-group col-md-6">
 																	<label for="exampleInputName8"
 																		class="margin-10px-bottom">예약자명</label> <input
 																		type="text" class="form-control" required
-																		name="resName" id="resName">
+																		name="resName" id="resName" th:value="${m.name}">
 																</div>
 																<div class="form-group col-md-6">
 																	<label for="exampleInputEmail1"
 																		class="margin-10px-bottom">예약자 이메일</label> <input
 																		type="email" class="form-control" required
-																		name="resEmail" id="resEmail">
+																		name="resEmail" id="resEmail" th:value="${m.email}">
 																</div>
 																<div class="form-group col-md-6">
 																	<label for="exampleInputAddress1"
 																		class="margin-10px-bottom">예약자 전화번호</label> <input
 																		type="tel" class="form-control" required
-																		name="resTel" id="resTel">
+																		name="resTel" id="resTel" th:value="${m.tel}">
 																</div>
 																<div class="form-group col-md-12">
                                                                     <label for="exampleInputTextarea1" class="margin-10px-bottom">요청사항</label>
@@ -485,11 +486,12 @@ Store Room에서의 보관품 3개월
 		        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 		        
 		        IMP.request_pay({
-		            pg: 'kakaopay', //:카카오페이, 
+		            pg: 'html5_inicis',
 		            pay_method: 'card',
 		            merchant_uid: 'merchant_' + new Date().getTime(),
 		            name: '[[${h.hotelName}]]', //결제창에서 보여질 이름
-		            amount: '[[${h.roomPrice}]]',  //가격 
+// 		            amount: '[[${h.roomPrice}]]',  //가격 
+					amount: 100,
 		            buyer_email: resEmail,
 		            buyer_name: resName,
 		            buyer_tel: resTel,
