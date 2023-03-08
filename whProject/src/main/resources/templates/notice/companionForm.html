@@ -45,13 +45,13 @@
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
-							[필수]연락처<input type="text" name="tel" id="tel">
+							[필수]연락처<input type="text" name="tel" id="tel" th:value="${me.tel}">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]이름<input type="text" name="name" id="name">
+							[필수]이름<input type="text" name="name" id="name" th:value="${me.name}">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]성별<input type="text" name="gender" id="gender">
+							[필수]성별<input type="text" name="gender" id="gender" th:value="${me.gender}">
 						</div>
 
 						<div class="form-group col-md-12">
@@ -153,8 +153,9 @@
 						<div class="form-group col-md-12">
 							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
 						</div>
-						<input type="hidden" name="id" id="id" value="ADMIN"> <input
-							type="hidden" name="imgGroCode" id="imgGroCode" value="WT">
+						<input type="hidden" name="id" id="id" th:value="${session.name}"> <input
+						
+							type="hidden" name="imgGroCode" id="imgGroCode" >
 						<input type="hidden" name="imgPath" id="imgPath">
 					</div>
 					<input type="submit" value="모집">

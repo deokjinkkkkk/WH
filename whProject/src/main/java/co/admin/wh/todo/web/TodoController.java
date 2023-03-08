@@ -21,8 +21,8 @@ import co.admin.wh.todo.vo.TodoVO;
 public class TodoController {
 	@Autowired TodoMapper todoMapper;
 	
-	
-	@RequestMapping("/todolist") //todolist창 이동
+	//todolist 페이지
+	@RequestMapping("/todolist") 
 	public String todoList(Model model) {
 		
 		model.addAttribute("todoList", todoMapper.TodoList());
@@ -32,7 +32,7 @@ public class TodoController {
 	
 	
 	
-	//리스트 띄우기
+	//db에 담긴 todolist 띄우기
 	@GetMapping("/todoGetList")
 	@ResponseBody
 	public List<TodoVO> todoCount(TodoVO vo, Model model) {
@@ -40,7 +40,7 @@ public class TodoController {
 		
 		return todoList;
 	}
-	//리스트 등록하기
+	//리스트 담기
 	@PostMapping("/todoInsert")
 	@ResponseBody
 	public String todoInsert(@RequestBody TodoVO vo) {

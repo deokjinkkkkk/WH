@@ -28,4 +28,6 @@ public interface CompanionMapper {
 	
 	int imageSelect(ImageVO ivo);
 	
+	int comListInsert(CompanionVO vo);
+	
 }

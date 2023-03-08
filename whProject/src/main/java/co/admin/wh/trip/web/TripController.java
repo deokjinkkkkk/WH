@@ -75,6 +75,8 @@ public class TripController {
 		// 파싱하여 리턴한 데이터 값들을 list에 담아주기 위해 사용
 		List<TripVO> list = apiExplorer.parsingData("");
 		
+		System.out.println(list);
+		
 		 //List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
 //		for (TripVO tripVO : list) {
 //		tripService.insertInfo(tripVO);						

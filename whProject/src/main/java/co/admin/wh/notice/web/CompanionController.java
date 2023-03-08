@@ -1,6 +1,8 @@
 package co.admin.wh.notice.web;
 
 
+import java.security.Principal;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.service.ReportService;
 import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
+import co.admin.wh.member.mapper.MemberMapper;
+import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
 import co.admin.wh.notice.service.CompanionService;
 import co.admin.wh.notice.vo.CompanionSearchVO;
@@ -46,12 +50,21 @@ public class CompanionController {
 
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	@Value("${wh.saveimg}")
 	private String saveimg;
 
 	@RequestMapping("/companion")
-	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo) {
+	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo, MemberVO vo, Principal principal) {
+		
+		//id를 가지고 나머지 member값 가져오기
+		vo.setId(principal.getName());
+		model.addAttribute("me", memberMapper.memberSelect(vo));
+		
+		
 		paging.setPageUnit(5);
 		paging.setPageSize(5);
 
@@ -65,13 +78,18 @@ public class CompanionController {
 	}
 
 	@RequestMapping("/companionForm")
-	public String companionForm(Model model, CommonVO cvo) {
+	public String companionForm(Model model, CommonVO cvo, MemberVO vo, Principal principal) {
+		 vo.setId(principal.getName());
+		 System.out.println(principal.getName()+"+++++++++++++++++++++++++++");
+			//id를 가지고 나머지 member값 가져오기
+			model.addAttribute("me", memberMapper.memberSelect(vo));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionForm";
 	}
 
 	@RequestMapping("/companionJoin.do")
+	
 	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile, CommonVO cvo) {
 
 		String saveFolder = saveimg; // 파일저장위치
@@ -98,10 +116,10 @@ public class CompanionController {
 	}
 
 	@RequestMapping("/companionDetail/{compCode}")
-	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo) {
-
+	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo, MemberVO vo, Principal principal) {
+		
+		vo.setId(principal.getName());
 		model.addAttribute("c", companionService.detailSelect(compVO));
-		model.addAttribute("i", companionService.imgSelect(compVO));
 		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
 		return "notice/companionDetail";
@@ -110,18 +128,38 @@ public class CompanionController {
 	@RequestMapping("/companionUpdateForm")
 	public String companionUpdateForm(CompanionVO compVO, Model model, CommonVO cvo) {
 		
-		model.addAttribute("c", companionService.detailSelect(compVO));
+		 model.addAttribute("c", companionService.detailSelect(compVO));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
 		return "notice/companionUpdateForm";
 	}
 
 	@PostMapping("/companionUpdate")
-	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo, CompanionSearchVO csvo) {
-//		 model.addAttribute("co", commomService.commonLocal());
-//		 model.addAttribute("gr", commomService.commonGroup());
+	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo, CompanionSearchVO csvo, ImageVO ivo, MultipartFile[] imgFile) {
+		String saveFolder = saveimg; // 파일저장위치
+
+		// 그룹번호 조회
+		String image = imageService.imageSelect(ivo);
+		
+		 
+		 imageService.imageDelete(ivo);
 		 model.addAttribute("c", companionService.companionUpdate(compVO));
-		 model.addAttribute("com", companionService.getCompanionList(csvo));
+		 
+		 
+		 for (MultipartFile file : imgFile) {
+				String fileName = imageService.saveImage(imgFile, saveFolder);
+				if (fileName != null) {// 첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼
+					// ivo에 담고
+					ivo.setImgGroCode(image);
+					ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
+					ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				}
+				ivo.getImgGroCode();
+				companionMapper.imgInsert(ivo);
+				compVO.setImgGroCode(ivo.getImgGroCode());
+				companionMapper.companionInsert(compVO);
+				
+			}
 		return "redirect:companionDetail/" + compVO.getCompCode();
 	}
 
@@ -134,5 +172,11 @@ public class CompanionController {
 		imageService.imageDelete(ivo);
 		companionService.companionDelete(compVO);
 		return "redirect:companion";
+	}
+	
+	@RequestMapping("/companionList")
+	public String companionList() {
+		
+		return "notice/companionList";
 	}
 }

@@ -16,31 +16,37 @@
 	<insert id="insertInfo">
 		INSERT INTO COURSE 		
 		VALUES(#{couCode}, #{tripCode}, #{couName}, #{couDist}, #{sido}, #{time}, #{couContent}, 
-			#{couRegDate}, #{couModDate}, #{couLat}, #{couLon}, #{imgGroCode}, #{regionCode}, #{contentId}, #{tripSumm})
+			#{couRegDate}, #{couModDate}, #{couLat}, #{couLon}, #{imgGroCode}, #{regionCode}, #{contentId}, #{tripSumm}, #{couOrder})
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
 	<select id="getCountTotal" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
 		SELECT COUNT(*) FROM COURSE	
-		WHERE TRIP_CODE = '0'
 	</select> 
 	
 	<!-- 상세페이지 보기 -->
 	<select id="detailSelect"
 		resultType="co.admin.wh.trip.vo.CourseVO">
-		SELECT 
-		c.cou_name, 
-		c.trip_code,
-		t.trip_addr, 
-		t.trip_lat, 
-		t.trip_lon, 
-		t.img_gro_code,
-		t.trip_summ
-		FROM 
-		COURSE c left join trip t 
-		on c.trip_code = t.trip_code
-		WHERE c.cou_code = #{couCode}
+	  SELECT 
+      t.trip_name,
+      t.trip_addr, 
+      t.trip_summ,
+      t.trip_lat, 
+      t.trip_lon, 
+      t.cou_order,
+      t.img_gro_code,
+      t.trip_unique_number
+      FROM 
+      COURSE c left join trip t 
+      on c.cou_code = t.cou_code
+      WHERE c.cou_code = #{couCode}
 	</select> 
+	
+	<!-- test 단건조회 -->
+	<select id="oneSelect" resultType="co.admin.wh.trip.vo.CourseVO">
+		SELECT * FROM COURSE
+        WHERE cou_code = #{couCode}
+	</select>
 
 	<!-- <select id="detailSelect" resultType="co.admin.wh.trip.vo.CourseVO">
 	INSERT INTO COURSE (cou_lon, cou_lat, img_gro_code, COU_CONTENT)

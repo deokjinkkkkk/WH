@@ -16,4 +16,6 @@ public interface CourseMapper {
 	
 	List<CourseVO> detailSelect(CourseVO vo); //상세보기 페이지
 	
+	CourseVO oneSelect(CourseVO vo);// 코스 단건조회
+	
 }
