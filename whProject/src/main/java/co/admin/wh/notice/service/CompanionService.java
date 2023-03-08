@@ -11,7 +11,13 @@ public interface CompanionService {
 	
 	List<CompanionVO> getCompanionList(CompanionSearchVO cvo);
 	
-	List<CompanionVO> comListSelect(CompanionVO vo);
+	List<CompanionVO> comSelList(CompanionVO vo);
+	
+	List<CompanionVO> comSelMyList(CompanionVO vo);
+	
+	int  comBtn(CompanionVO vo);
+	
+	int  selBtn(CompanionVO vo);
 	
 	CompanionVO detailSelect(CompanionVO cvo);
 	
@@ -32,4 +38,8 @@ public interface CompanionService {
 	int imageSelect(ImageVO ivo);
 	
 	int comListInsert(CompanionVO vo);
+	
+	int approve(CompanionVO vo);
+	
+	int reject(CompanionVO vo);
 }
