@@ -165,6 +165,12 @@
 	 SELECT * FROM COMPANION_LIST  where id=#{id}
 	</select>
 	
+	<select id="test" resultType="co.admin.wh.notice.vo.CompanionVO">
+	   SELECT c.id as writer, cl.id as login , c.comp_Title, cl.name, cl.tel, cl.gender
+	   FROM COMPANION_LIST cl  , COMPANION c
+         where cl.comp_code =  c.comp_code 
+	</select>
+	
 	<update id="approve">
 		UPDATE companion_list
 		SET

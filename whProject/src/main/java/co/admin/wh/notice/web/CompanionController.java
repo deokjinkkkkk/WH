@@ -192,7 +192,7 @@ public class CompanionController {
 	public String companionList(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
 		vo.setId(principal.getName());
 	
-		model.addAttribute("se", companionService.comSelMyList(vo));
+		model.addAttribute("se", companionService.test(vo));
 		model.addAttribute("btn", companionService.comBtn(vo));
 		return "notice/companionList";
 	}

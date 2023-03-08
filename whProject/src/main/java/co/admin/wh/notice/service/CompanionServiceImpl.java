@@ -117,4 +117,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.reject(vo);
 	}
 
+	@Override
+	public List<CompanionVO> test(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.test(vo);
+	}
+
 }
