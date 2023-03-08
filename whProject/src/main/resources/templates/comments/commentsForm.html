@@ -83,8 +83,8 @@
 	</section>
 	<!-- end comment-->
 	<script th:inline="javascript">
-	/*  남은 기능
-		1.댓글 대댓글 수정(참고한 사이트는 수정기능이 없음)
+	/*  문제점
+		1.다른 댓글 수정창 띄운상태에서는 값을 잘못찾는다
 		2.페이징
 	*/
 	
@@ -183,7 +183,7 @@
 						str += '<div class="author-thumb">'
 						str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 						str += '<div class="comment-info"> '
-						str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+						str += '<h6> <a href="javascript:void(0);" >'+item.name+'</a></h6>'
 						if(item.comLock != '0' || item.id == id || perm == "ADMIN"){
 						str	+= '<p>'+item.comContent+'</p>'
 						}else{
@@ -243,8 +243,6 @@
 			,
 			success : function(data){
 				console.log(data)
-				comBox.remove()
-				reply.remove()
 				getComList()
 			}
 		})
@@ -253,23 +251,18 @@
 	function comDelete(){ //댓글 삭제
 		let comBox = $(event.target).closest(".comment-box")
 		let reply = comBox.next()
-		let comGroup = $(event.target).next().val()
+		let comGroup = $(event.target).next().next().val()
 		//alert 후 true 일경우 삭제 누른 댓글 삭제
 		//false 후 
 		$.ajax({
 			url:"/comDelete",
 			type:"delete",
-			data:{
-							
-							 comGroup,
-							
-							//게시물 번호
-			}	    //댓글 비밀여부
+			data:{	
+				comGroup		
+			}	   
 			,
 			success : function(data){
 				console.log(data)
-				comBox.remove()
-				reply.remove()
 				getComList()
 			}
 		})
@@ -328,7 +321,7 @@
 	$(".btnUp").on("click")
 	
 	 function comUpdate(){
-		let comContent =$("#coUpText").val();
+		let comContent =$(event.target).prev().prev().val();
 		let comCode =$(event.target).closest(".comment-box").attr('id');
 		$.ajax({
 			url:"/comUpdate",

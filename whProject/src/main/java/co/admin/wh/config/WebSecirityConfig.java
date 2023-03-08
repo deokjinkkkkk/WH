@@ -58,6 +58,7 @@ public class WebSecirityConfig{
 				.logoutUrl("/logout")
 			)
 			.csrf().disable();
+//			.oauth2Login();
 		
 
 		return http.build();
