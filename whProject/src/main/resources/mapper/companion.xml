@@ -130,9 +130,13 @@
 	</select>
 	
 	<insert id="comListInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
-		INSERT INTO COMPANION_LIST (COMP_CODE, TEL, Gender, NAME )
-		VALUES (#{compCode}, #{tel}, #{gender}, #{name})
+		INSERT INTO COMPANION_LIST (COMP_CODE, COMP_TITLE, TEL, Gender, NAME, state )
+		VALUES (#{compCode},#{compTitle}, #{tel}, #{gender}, #{name}, #{state})
 	</insert>
 	
+	<select id="comListSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+	SELECT * FROM COMPANION_LIST
+	</select>
 </mapper>
 
