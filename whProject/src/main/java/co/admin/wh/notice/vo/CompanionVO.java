@@ -37,4 +37,7 @@ public class CompanionVO  {
 	
 	int coState;
 	int seCode;
+	
+	String writer;
+	String login;
 }
