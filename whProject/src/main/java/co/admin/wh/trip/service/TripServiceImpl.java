@@ -46,6 +46,4 @@ public class TripServiceImpl implements TripService{
 	}
 
 	
-
-	
 }

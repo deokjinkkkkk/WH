@@ -53,12 +53,10 @@ public class TripController {
 		return "trip/memberCourseDetail";
 	}
 	
-	
-	// 검색시 데이터가 없으면 db에 추가하도록 처리
-	// + 페이지 리스트 처리 페이징
+
+	// 여행지 목록
 	@GetMapping("/trip")
-	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo, Paging paging) throws ParserConfigurationException, SAXException, IOException {
-		System.out.println("파싱 시작");;
+	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo, Paging paging) {
 		
 		paging.setPageUnit(5); // 한 페이지에 출력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -68,25 +66,34 @@ public class TripController {
 		
 		paging.setTotalRecord(tripMapper.getCountTotla(svo));
 		//model.addAttribute("tripLittleList", tripMapper.tripList(svo));
+	
+		model.addAttribute("tripList", tripService.tripList(svo));
 		
+		return "trip/tripSearch";
+	}
+	
+	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징
+	// *db 저장용 컨트롤러*
+	@GetMapping("/tripDb")
+	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo) throws ParserConfigurationException, SAXException, IOException {
+		
+		//System.out.println("파싱 시작");
 		
 		TripInfoExplorer apiExplorer = new TripInfoExplorer();
 		
 		// 파싱하여 리턴한 데이터 값들을 list에 담아주기 위해 사용
 		List<TripVO> list = apiExplorer.parsingData("");
-		
-		System.out.println(list);
-		
+				
 		 //List에 담겨있는 정보들은 db에 넣기 위해서 사용, db에 안 넣고 싶을 땐 막아놓기
-//		for (TripVO tripVO : list) {
-//		tripService.insertInfo(tripVO);						
-//		}
+		for (TripVO tripVO : list) {
+		tripService.insertInfo(tripVO);						
+		}
 
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
-		System.out.println("파싱 끝");
-		return "trip/tripSearch";
+		//System.out.println("파싱 끝");
+		return "trip/tripDb";
 	}
-	
+
 	
 }

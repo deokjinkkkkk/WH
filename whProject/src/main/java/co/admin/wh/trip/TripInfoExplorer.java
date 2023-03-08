@@ -46,8 +46,8 @@ public class TripInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=1" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=33" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
+				"&pageNo=1" + "&numOfRows=33" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=34" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
 
 		URL url = new URL(urlBuilder);
 
@@ -145,7 +145,7 @@ public class TripInfoExplorer {
 
 								// 이 주소에 있는 코스여행순서(subnum), 개요 (subdetailoverview) 필요
 								parsingUrlchildTwo = urlchildTwo.toString();
-								System.out.println("---" + parsingUrlchildTwo);
+								//System.out.println("---" + parsingUrlchildTwo);
 
 								// 페이지에 접근해줄 Document객체 생성
 								// doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -161,7 +161,7 @@ public class TripInfoExplorer {
 
 								// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
 								NodeList nListchildTwo = docchildTwo.getElementsByTagName("item");
-								System.out.println("파싱할 리스트 수 3차 : " + nListchildTwo.getLength());// 파링할 리스트 수
+								//System.out.println("파싱할 리스트 수 3차 : " + nListchildTwo.getLength());// 파링할 리스트 수
 
 										
 								for (int f = 0; f < nListchildTwo.getLength(); f++) {
@@ -211,7 +211,7 @@ public class TripInfoExplorer {
 
 										// 이 주소에 있는 코스여행순서(subnum), 개요 (subdetailoverview) 필요
 										parsingUrlchildThr = urlchildThr.toString();
-										System.out.println("???" + parsingUrlchildThr);
+										//System.out.println("???" + parsingUrlchildThr);
 
 										// 페이지에 접근해줄 Document객체 생성
 										// doc객체를 통해 파싱할 url의 요소를 읽어들인다.
@@ -227,7 +227,7 @@ public class TripInfoExplorer {
 
 										// 파싱할 데이터 tag에 접근하는데 리스트 수 확인
 										NodeList nListchildThr = docchildThr.getElementsByTagName("item");
-										System.out.println("파싱할 리스트 수 4차 : " + nListchildThr.getLength());// 파링할 리스트 수
+										//System.out.println("파싱할 리스트 수 4차 : " + nListchildThr.getLength());// 파링할 리스트 수
 										
 										
 										for (int g = 0; g < nListchildThr.getLength(); g++) {
@@ -236,9 +236,9 @@ public class TripInfoExplorer {
 												
 												Element eElementchildThr = (Element) nNodechildThr;
 												
-												System.out.println("==??????????????????==");
-												System.out.println(getTagValue("infocenter", eElementchildThr)); // 안내
-												System.out.println(getTagValue("parking", eElementchildThr)); // 주차가능
+//												System.out.println("==??????????????????==");
+//												System.out.println(getTagValue("infocenter", eElementchildThr)); // 안내
+//												System.out.println(getTagValue("parking", eElementchildThr)); // 주차가능
 												
 												vo.setTripAnnounce(getTagValue("infocenter", eElementchildThr)); // 문의 및 안내
 												vo.setRestDate(getTagValue("restdate", eElementchildThr)); // 쉬는 날

@@ -9,43 +9,44 @@
    <!-- 내용 시작 -->
    <section>
       <div class="container">
+         	<form>
          <div class="row">
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">서울</a>
+               <a href="courseList?regionCode=1" >서울</a>
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="" >인천</a>            
+               <a href="courseList?regionCode=2" >인천</a>            
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">대전</a>               
+               <a href="courseList?regionCode=3">대전</a>               
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">               
-               <a href="">대구</a>
+               <a href="courseList?regionCode=4">대구</a>
             </div>
             <div
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">광주</a>
+               <a href="courseList?regionCode=5">광주</a>
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">부산</a>               
+               <a href="courseList?regionCode=6">부산</a>               
             </div>
 
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">울산</a>               
+               <a href="courseList?regionCode=7">울산</a>               
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">세종</a>               
+               <a href="courseList?regionCode=8">세종</a>               
             </div>
-            <div
+            <div 
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">경기</a>               
+               <a href="courseList?regionCode=31" data-code="31">경기</a>               
             </div>
             <div
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
@@ -82,9 +83,11 @@
             </div>
             <div
                class="col-md-2 border no-margin-bottom padding-10px-tb text-center">
-               <a href="">전체보기</a>               
+               <a href="course">전체보기</a>               
             </div>
+            <input type="hidden" name="regionCode" id="regionCode" value="">
          </div>
+            </form>
       </div>
    </section>
    <!-- 내용 끝 -->
@@ -93,6 +96,12 @@
 						 31(경기도), 32(강원도), 33(충청북도), 34(충청남도), 35(경상북도), 36(경상남도),
 						 37(전라북도), 38(전라남도), 39(제주), All(전체보기) -->
 </div>
+ <script type="text/javascript">
  
+ function setRegionCode() {
+	 
+ }
+ 
+</script>
 </body>
 </html>
