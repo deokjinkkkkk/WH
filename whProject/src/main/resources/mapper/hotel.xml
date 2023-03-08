@@ -54,10 +54,11 @@
 		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id})
 	</insert>
 
-	<select id="readReservInfo"
-		resultType="co.admin.wh.hotel.vo.ReservationVO">
-		select *
-		from Reservation
-		where res_id = #{resId}
+	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
+		parameterType="String">
+		select r.*, h.*
+		from Reservation r, Hotel h
+		where id = #{sessionId}
+	    and h.hotel_id = r.hotel_id
 	</select>
 </mapper>
