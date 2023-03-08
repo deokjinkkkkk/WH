@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.diary.mapper.DiaryMapper">
+	
+	<select id="getDiaryList">
+	
+	</select>
+	
+	<select id="imgSelect">
+	
+	
+	
+	</select>
+	
+	<select id="getCountTotal">
+	
+	
+	
+	
+	</select>
+	
+	<insert id="diaryInsert">
+	
+	
+	</insert>
+
+	<insert id="imgInsert">
+	
+	
+	
+	</insert>
+
+	<update id="diaryUpdate">
+	
+	
+	
+	</update>
+
+	
+	<delete id="diaryDelete">
+	
+	
+	
+	</delete>
+	
+</mapper>
