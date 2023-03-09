@@ -21,6 +21,7 @@ import co.admin.wh.trip.mapper.CourseMapper;
 import co.admin.wh.trip.service.CourseService;
 import co.admin.wh.trip.vo.CourseSearchVO;
 import co.admin.wh.trip.vo.CourseVO;
+import co.admin.wh.trip.vo.MyCourseVO;
 
 @Controller
 public class CourseController {
@@ -96,9 +97,6 @@ public class CourseController {
 		//System.out.println("파싱 끝");
 		return "trip/courseDb";
 	}
-	
-	
-	
 	
 	// 상세페이지 보기
 	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
