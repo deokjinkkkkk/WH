@@ -462,94 +462,94 @@ Store Room에서의 보관품 3개월
 															</div>
 														</div>
 													</div>
-<script th:inline="javascript">
-    
-    $("#check_module").click(function () {
-    	// 약관 동의여부 체크
-    	 if($("#check_1").is(":checked") == false){
-             alert("숙박 약관에 동의해주세요.");
-             return;
-         }else if($("#check_2").is(":checked") == false){
-             alert("예약 대행 약관에 동의해주세요.");
-             return;
-         }else{
-        	 // 결제정보 DB에 저장
-			let resName = $('#resName').val(); // 예약자명
-			let resEmail = $('#resEmail').val(); // 예약자이메일
-			let resTel = $('#resTel').val(); // 예약자전화번호
-			let resRequest = $('#resRequest').val(); // 요청사항
-			let checkIn = new Date('[[${res.checkIn}]]'); // 체크인날짜
-			let checkOut = new Date('[[${res.checkOut}]]'); // 체크아웃날짜
-			
-		        var IMP = window.IMP; // 생략가능
-		        IMP.init('imp53270324'); 
-		        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-		        
-		        IMP.request_pay({
-		            pg: 'html5_inicis',
-		            pay_method: 'card',
-		            merchant_uid: 'merchant_' + new Date().getTime(),
-		            name: '[[${h.hotelName}]]', //결제창에서 보여질 이름
-// 		            amount: '[[${h.roomPrice}]]',  //가격 
-					amount: 100,
-		            buyer_email: resEmail,
-		            buyer_name: resName,
-		            buyer_tel: resTel,
-	// 	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-		            
-		        }, function (rsp) {
-					console.log(rsp);
-					if (rsp.success) {
-						var msg = '결제가 완료되었습니다.';
-	// 					msg += '고유ID : ' + rsp.imp_uid;
-	// 					msg += '상점 거래ID : ' + rsp.merchant_uid;
-	// 					msg += '결제 금액 : ' + rsp.paid_amount;
-	// 					msg += '카드 승인번호 : ' + rsp.apply_num;
-						
-						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-		                // 결제내역을 사용자에게 보여주기 위해 필요함.
-		               	$.ajax({
-							url : "/resIng",
-							type : "POST",
-							data : JSON.stringify(
-								{
-									"childCount": '[[${res.childCount}]]',
-									"humanCount": '[[${res.humanCount}]]',
-									"resName": resName,
-									"resTel": resTel,
-									"resEmail": resEmail,
-									"resRequest": resRequest,
-									"checkIn": checkIn,
-									"checkOut": checkOut,
-									"id": 'userId',
-									"totalPay": rsp.paid_amount,
-	//			 					payState: rsp.status,
-									"payState": 2,
-									"hotelId": '[[${h.hotelId}]]'
-								}
-							),
-							contentType:'application/json',
-							success : function(result){
-								if(result == "y") {
-// 									alert(msg);
-								}else{
-									alert("디비입력실패");
-									return false;
-								}
-							},
-							error : function(a,b,c){}
+					<script th:inline="javascript">
+					    
+					    $("#check_module").click(function () {
+					    	// 약관 동의여부 체크
+					    	 if($("#check_1").is(":checked") == false){
+					             alert("숙박 약관에 동의해주세요.");
+					             return;
+					         }else if($("#check_2").is(":checked") == false){
+					             alert("예약 대행 약관에 동의해주세요.");
+					             return;
+					         }else{
+					        	 // 결제정보 DB에 저장
+								let resName = $('#resName').val(); // 예약자명
+								let resEmail = $('#resEmail').val(); // 예약자이메일
+								let resTel = $('#resTel').val(); // 예약자전화번호
+								let resRequest = $('#resRequest').val(); // 요청사항
+								let checkIn = new Date('[[${res.checkIn}]]'); // 체크인날짜
+								let checkOut = new Date('[[${res.checkOut}]]'); // 체크아웃날짜
+								
+							        var IMP = window.IMP; // 생략가능
+							        IMP.init('imp53270324'); 
+							        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+							        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+							        
+							        IMP.request_pay({
+							            pg: 'html5_inicis',
+							            pay_method: 'card',
+							            merchant_uid: 'merchant_' + new Date().getTime(),
+							            name: '[[${h.hotelName}]]', //결제창에서 보여질 이름
+					// 		            amount: '[[${h.roomPrice}]]',  //가격 
+										amount: 100,
+							            buyer_email: resEmail,
+							            buyer_name: resName,
+							            buyer_tel: resTel,
+						// 	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+							            
+							        }, function (rsp) {
+										console.log(rsp);
+										if (rsp.success) {
+											var msg = '결제가 완료되었습니다.';
+						// 					msg += '고유ID : ' + rsp.imp_uid;
+						// 					msg += '상점 거래ID : ' + rsp.merchant_uid;
+						// 					msg += '결제 금액 : ' + rsp.paid_amount;
+						// 					msg += '카드 승인번호 : ' + rsp.apply_num;
+											
+											// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+							                // 결제내역을 사용자에게 보여주기 위해 필요함.
+							               	$.ajax({
+												url : "/resIng",
+												type : "POST",
+												data : JSON.stringify(
+													{
+														"childCount": '[[${res.childCount}]]',
+														"humanCount": '[[${res.humanCount}]]',
+														"resName": resName,
+														"resTel": resTel,
+														"resEmail": resEmail,
+														"resRequest": resRequest,
+														"checkIn": checkIn,
+														"checkOut": checkOut,
+														"id": 'userId',
+														"totalPay": '[[${h.roomPrice}]]',
+						//			 					payState: rsp.status,
+														"payState": 2,
+														"hotelId": '[[${h.hotelId}]]'
+													}
+												),
+												contentType:'application/json',
+												success : function(result){
+													if(result == "y") {
+					// 									alert(msg);
+													}else{
+														alert("디비입력실패");
+														return false;
+													}
+												},
+												error : function(a,b,c){}
+											});
+										} else {
+											var msg = '결제에 실패하였습니다.';
+											msg += '에러내용 : ' + rsp.error_msg;
+										}
+									alert(msg);
+									location.href="/myReservation";
+									});
+					         }
 						});
-					} else {
-						var msg = '결제에 실패하였습니다.';
-						msg += '에러내용 : ' + rsp.error_msg;
-					}
-				alert(msg);
-				location.href="/main";
-				});
-         }
-	});
-</script>
+					</script>
 												</div>
 												<ul class="pagination wizard">
 													<li class="previous"><a href="#" class="butn">Previous</a></li>
