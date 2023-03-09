@@ -5,11 +5,13 @@ import java.security.Principal;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.member.mapper.MemberMapper;
@@ -95,5 +97,11 @@ public class MemberController {
 		memberMapper.adMemberList();
 		return "admin/memberAdmin";
 	}
-}
+	@RequestMapping("/login/kakao")
+	@ResponseBody
+	public String kakaoLogin(String code) {
+		System.out.println(code+"+++++++++++++++");
+		return code;
+	}
+}	
 
