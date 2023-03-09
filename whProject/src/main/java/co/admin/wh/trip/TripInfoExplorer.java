@@ -46,8 +46,8 @@ public class TripInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=33" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=34" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
+				"&pageNo=1" + "&numOfRows=42" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=35" + "&cat1=C01"; // 추천코스(C01) 에서 여행지 소스 담기.
 
 		URL url = new URL(urlBuilder);
 

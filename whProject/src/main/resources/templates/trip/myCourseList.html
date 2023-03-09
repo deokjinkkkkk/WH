@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/index}">
+
+
+<style>
+body {
+	margin-bottom: 60px;
+}
+
+body>.container {
+	padding: 60px 15px 0;
+}
+
+.gopage {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.pagination {
+		margin: 0;
+	}
+
+</style>
+<body>
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+	
+	<!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+                 <h1 class="text-white font-weight-600">나만의 코스</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">My Page</a>
+                    </li>
+                    <li>
+                        <span class="active">나만의 코스</span>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 -->
+	<!-- start faq section -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 center-col">
+						<div class="accordion" id="accordionOne">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<div class="mb-0">
+										<div id="mainHide">
+											<table class="table table-hover">
+												<div class="pull-right"
+													style="width: 100px; margin: 10px; margin-left: 800px;">
+													<a class="btn btn-primary btn-block">코스만들기</a>												
+												<br>
+												<thead>
+													<tr>
+														<th class="col-md-2">번호</th>
+														<th class="col-md-5">코스명</th>
+														<th class="col-md-3">코스테마</th>
+														<th class="col-md-3">코스일정</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="m : ${test}">
+														<td th:text="${m.myCourseCode}"></td>
+														<td><a th:text="${m.myCouName}"></a></td>
+														<td th:text="${m.theme}"></td>
+														<td th:text=${m.myCouDate}></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<br> <br>
+								<!-- 나중에 히든으로 유저id 넘기기... -->
+							<!-- 페이징? 할려나? 모르겠음 -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+<script type="text/javascript">
+
+/* 버튼 클릭 시 코스명 등록 */
+
+</script>	
+	
+	
+	</div>
+
+</body>
+
+</html>
