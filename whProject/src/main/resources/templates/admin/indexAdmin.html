@@ -8,12 +8,16 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<ul th:replace="~{admin/sidebarAdmin :: adminSidebar}"></ul>
+		<div id="content-wrapper" class="d-flex flex-column">
 
+			<!-- Main Content -->
+			<div id="content">
 
-		<div th:replace="~{admin/topbarAdmin :: adminTopbar}"></div>
+				<div th:replace="~{admin/topbarAdmin :: adminTopbar}"></div>
 
-		<section layout:fragment="adminContent"></section>
-
+				<section layout:fragment="adminContent"></section>
+			</div>
+		</div>
 	</div>
 	<!-- End of Topbar -->
 	<footer th:replace="~{admin/footerAdmin :: adminFooter}"></footer>
