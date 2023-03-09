@@ -11,4 +11,6 @@ public interface CommonService {
 	List<CommonVO> commonGroup();
 	
 	List<CommonVO> commonReport();
+	
+	List<CommonVO> commonState();
 }

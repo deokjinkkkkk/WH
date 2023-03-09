@@ -33,6 +33,12 @@ public class CommonServiceImpl implements CommonService {
 		return commomMapper.commonReport();
 	}
 
+	@Override
+	public List<CommonVO> commonState() {
+		// TODO Auto-generated method stub
+		return commomMapper.commonState();
+	}
+
 
 
 }

@@ -43,4 +43,17 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportMapper.reportComment(rvo);
 	}
+
+	@Override
+	public int durationUpdate(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.durationUpdate(rvo);
+	}
+
+	@Override
+	public ReportVO reportCode(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportCode(rvo);
+	}
+
 }

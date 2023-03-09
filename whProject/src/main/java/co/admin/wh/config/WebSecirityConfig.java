@@ -57,7 +57,8 @@ public class WebSecirityConfig{
 				.permitAll()
 				.logoutUrl("/logout")
 			)
-			.csrf().disable();
+			.csrf().disable()
+		.headers().frameOptions().disable();
 //			.oauth2Login();
 		
 

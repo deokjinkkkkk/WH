@@ -16,6 +16,8 @@ public interface CompanionMapper {
 	
 	List<CompanionVO> test(CompanionVO vo);
 	
+	List<CompanionVO> selTitle(CompanionVO vo);
+	
 	int  comBtn(CompanionVO vo);
 	
 	int  selBtn(CompanionVO vo);

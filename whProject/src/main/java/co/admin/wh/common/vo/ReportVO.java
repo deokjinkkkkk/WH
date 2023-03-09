@@ -19,4 +19,6 @@ public class ReportVO {
 	String comName;
 	int compCode;
 	
+	int state;
+	
 }
