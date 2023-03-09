@@ -62,6 +62,6 @@
   <update id="updateTodoFlag">
     UPDATE to_do_list
     SET to_do_flag = #{todoFlag}
-    WHERE id = #{id}
+    WHERE to_do_code = #{todoCode}
 </update>
 </mapper>
