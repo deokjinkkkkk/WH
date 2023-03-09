@@ -26,7 +26,7 @@ public class TodoController {
 	@RequestMapping("/todolist") 
 	public String todoList(Model model) {
 		
-		model.addAttribute("todoList", todoMapper.TodoList());
+		model.addAttribute("todoList", todoMapper.TodoList(1)); //1을 안넣어주니까 todoFlag 값이 0이였음..
 		return "todo/todoList";
 	}
 	
@@ -67,7 +67,8 @@ public class TodoController {
 	@PostMapping("/updateTodoFlag")
 	@ResponseBody
 	public String updateTodoFlag(@RequestBody TodoVO vo) {
-		todoMapper.updateTodoFlag(vo);
+		
+		todoMapper.todoComplete(vo);
 		return "success";
 	}
 	

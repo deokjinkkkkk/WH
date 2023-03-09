@@ -9,6 +9,7 @@
     	INNER JOIN member m ON t.id = m.id
     	LEFT JOIN todo_tag todoTag ON t.to_do_code = todoTag.todo_tag_code
     	LEFT JOIN tag ON todoTag.tag_code = tag.tag_code
+    	where to_do_Flag = #{todoFlag}
     ORDER BY t.to_do_code desc
 </select>
 
@@ -50,15 +51,23 @@
 	WHERE to_do_code = #{todoCode}
 </delete>
 
-<!-- id 값이 일치하는 행 중에서 to_do_flag ==1 만 업데이트 -->
+ <!-- id 값이 일치하는 행 중에서 to_do_flag ==1 만 업데이트 -->
+<!-- <update id="todoComplete" parameterType="map">
+  UPDATE to_do_list 
+  SET to_do_flag = 2
+   WHERE  
+    AND to_do_flag = 1
+</update> -->
+
+<!--todoFlag값이 1인것을 찾아서 2로 변경시켜주기!  -->
 <update id="todoComplete" parameterType="map">
   UPDATE to_do_list 
   SET to_do_flag = #{todoFlag}
-  WHERE id = #{id}
+  WHERE to_do_code = #{todoCode}
    AND to_do_flag = 1
 </update>
 
- 
+ <!--  -->
   <update id="updateTodoFlag">
     UPDATE to_do_list
     SET to_do_flag = #{todoFlag}
