@@ -118,7 +118,15 @@ public class HotelController {
 	public String myReservation(ReservationVO vo, Principal principal, Model model) {
 		String sessionId = principal.getName(); // 로그인한 id값
 		model.addAttribute("res",hotelInfoService.readReservInfo(sessionId));
+		model.addAttribute("id", sessionId);
 		// reservationVO의 hotelid로 hotel정보조회
 		return "hotel/myReservation";
+	}
+	
+	@PostMapping("/cancel")
+	@ResponseBody
+	public String cancel(@RequestBody ReservationVO vo, Model model) {
+		hotelInfoService.hotelCancel(vo);
+		return "y";
 	}
 };

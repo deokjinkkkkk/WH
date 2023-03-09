@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Repository;
 import org.xml.sax.SAXException;
 
+import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
 
@@ -19,4 +20,6 @@ public interface HotelMapper {
     HotelVO detailSelect(HotelVO vo); // 호텔 상세페이지
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
     List<ReservationVO> readReservInfo(String sessionId); // 예약정보 출력
+    void hotelCancel(ReservationVO vo); // 예약 취소(업데이트문)
+    void ReservUpdate(ReservationVO vo); // 예약자 정보수정(업데이트문)
 }

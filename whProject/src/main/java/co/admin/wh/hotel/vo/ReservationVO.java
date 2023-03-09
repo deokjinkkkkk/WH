@@ -23,6 +23,7 @@ public class ReservationVO extends HotelVO{ // join해서 select해야해서 상
 	public int totalPay;
 	public int payState;
 	public int hotelId;
+	public int resState;
 	
 
 }
