@@ -2,7 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.common.mapper.ReportMapper">
 	<insert id="reportInsert" parameterType="co.admin.wh.common.vo.ReportVO" >
-		INSERT INTO REPORT (id,rep_date, REP_REASON, REP_CAT_CODE)
-		VALUES (#{id}, sysdate, #{repReason}, #{repCatCode})
+	<selectKey keyProperty="repCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(rep_code),0)+1 FROM REPORT
+		</selectKey>
+	
+		INSERT INTO REPORT (rep_code,id,rep_date, REP_REASON, REP_CAT_CODE, comp_code)
+		VALUES (#{repCode},#{id}, sysdate, #{repReason}, #{repCatCode}, #{compCode})
 	</insert>
+	
+	<select id="reportCompanion" resultType="co.admin.wh.common.vo.ReportVO">
+		select * from report r JOIN common c on c.com_code=r.rep_reason where rep_cat_code='RWT'
+	</select>
+	
+	<select id="reportFree" resultType="co.admin.wh.common.vo.ReportVO">
+		select * from report r JOIN common c on c.com_code=r.rep_reason where rep_cat_code='RFR'
+	</select>
+	
+	<select id="reportReview" resultType="co.admin.wh.common.vo.ReportVO">
+		select * from report r JOIN common c on c.com_code=r.rep_reason where rep_cat_code='RRE'
+	</select>
+	
+	<select id="reportComment" resultType="co.admin.wh.common.vo.ReportVO">
+		select * from report r JOIN common c on c.com_code=r.rep_reason where rep_cat_code='RCO'
+	</select>
 </mapper>

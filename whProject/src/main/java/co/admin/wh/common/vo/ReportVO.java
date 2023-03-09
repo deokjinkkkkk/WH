@@ -10,9 +10,13 @@ import lombok.Data;
 public class ReportVO {
 	int repCode;
 	String id;
-	String target_id;
+	String targetId;
 	@JsonFormat(pattern = "yyyy/mm/dd")
 	Date repDate;
-	int repReason;
+	String repReason;
 	String repCatCode;
+	
+	String comName;
+	int compCode;
+	
 }

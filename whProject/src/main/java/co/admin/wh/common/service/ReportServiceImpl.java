@@ -1,5 +1,7 @@
 package co.admin.wh.common.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,29 @@ public class ReportServiceImpl implements ReportService {
 	public int reportInsert(ReportVO rvo) {
 		// TODO Auto-generated method stub
 		return reportMapper.reportInsert(rvo);
+	}
+
+	@Override
+	public List<ReportVO> reportCompanion(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportCompanion(rvo);
+	}
+
+	@Override
+	public List<ReportVO> reportFree(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportFree(rvo);
+	}
+
+	@Override
+	public List<ReportVO> reportReview(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportReview(rvo);
+	}
+
+	@Override
+	public List<ReportVO> reportComment(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportComment(rvo);
 	}
 }
