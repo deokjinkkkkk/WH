@@ -18,8 +18,18 @@
 	</select>
 	
 	<insert id="memberInsert">
-		insert into member(id,password,name,gender,tel,email,perm,state)
-		values(#{id},#{password},#{name},#{gender},#{tel},#{email},USER,0)
+	
+		insert into member(id,pass,name,gender,tel,email,perm, 
+		<if test="login_way !=null">login_way</if>, 
+		<if test="Token != null">token</if>, 
+		<if test="retoken != null">retoken</if>,
+		<if test="state != null">state</if>)
+		values(#{id},#{pass},#{name},#{gender},#{tel},#{email},USER,
+		<if test="login_way !=null">#{login_way}</if>, 
+		<if test="Token != null">#{token}</if>, 
+		<if test="retoken != null">#{retoken}</if>,
+		<if test="state != null">#{state}</if>
+		)
 	</insert>
 	<select id="adMemberList" resultType="co.admin.wh.member.vo.MemberVO">
 		select * from member
