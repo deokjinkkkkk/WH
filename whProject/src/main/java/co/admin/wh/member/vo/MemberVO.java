@@ -2,6 +2,7 @@ package co.admin.wh.member.vo;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,14 +14,17 @@ import lombok.Data;
 
 @Data
 public class MemberVO implements UserDetails {
-	String id;
-	String pass;
-	String name;
-	String gender;
-	int tel;
-	String email;
-	String perm;
-	int state;
+	private String id;
+	private String pass;
+	private String name;
+	private String gender;
+	private int tel;
+	private String email;
+	private String perm;
+	private String loginWay;
+	private String token;
+	private String reToken;
+	private int state;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
@@ -62,6 +66,7 @@ public class MemberVO implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
 
 	
 }
