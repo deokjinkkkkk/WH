@@ -12,7 +12,7 @@ public interface DiaryMapper {
 	
 	int diaryInsert(DiaryVO vo); //등록 
 	
-	DiaryVO diaryDetail(DiaryVO vo); //상세페이지 
+	int diaryDetail(DiaryVO vo); //상세페이지 
 	
 	int diaryUpdate(DiaryVO vo); //수정 
 	
@@ -22,4 +22,5 @@ public interface DiaryMapper {
 	int imgInsert(ImageVO ivo); //이미지 테이 등록 
 	
 	DiaryVO imgSelect(DiaryVO vo);  //이미지 조회
+
 }

@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap CSS -->
 
@@ -472,8 +471,9 @@ a {
 						<img class="profile-img"
 							src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
 					</div>
-					<div class="profile-id"></div>
-					<input type="hidden" id="id" name="id" th:value="${session.name}">
+					<div class="profile-id" ></div>
+					<input type="hidden" name="id" th:value="${session.name}" id="id">
+					<input type="hidden" name="diaryCode" id="diaryCode" value="1">
 				</div>
 
 				<div class="feed-img" id="diaryContent" > 
@@ -664,22 +664,29 @@ a {
 <!-- 공유하기 모달 종료  -->
 
 <script>
-var id = $('#id').val();  //id값 들고오기 
 $(document).ready(function(){
 	getDiaryList();
 })
 
 
-function getDiaryList(){
-	const feedBox = $("#inst");
+function getDiaryList(){ //리스트 출력하기 
+	let str = ""
+	let diaryCode = $("#diaryCode").val(); // diaryCode 변수 수정
+	id = $("#id").val()
+	console.log(id)
+	console.log(diaryCode);
+	 
 	$.ajax({
-		url:"/getdiary",
-		method: "GET",
-		dataType: "json",
-		success: function(result){
-			console.log("list들고오나?")
-		}
+	url: "/getDiaryList",
+	method: "GET",
+    dataType: "json",	
+	  success: function (result) {
+		  console.log("조회되나..?");
+		
+	  }
 	})
+	
+	
 }
 
 const modal = document.getElementById("modal_add_feed");
@@ -802,8 +809,8 @@ $('#button_write_feed').on('click', ()=>{
 });
 
 
-//인설트 하는거 같음
-function writeFeed(fd) {
+//인서트 
+/* function writeFeed(fd) {
     $.ajax({
         url: "/diary",
         data: fd,
@@ -817,7 +824,7 @@ function writeFeed(fd) {
             console.log("에러");
         }
     })
-};
+}; */
 
 </script>
 </html>
