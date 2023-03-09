@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+	layout:decorate="~{/admin/indexAdmin}">
 
 
 <link rel="stylesheet"
@@ -12,103 +12,114 @@
 
 
 <body>
+	<section layout:fragment="adminContent">
+		<!-- 내용 시작 -->
 
-	<!-- 내용 시작 -->
-	<div layout:fragment="content" class="content">
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background:url(img/banner/bg2.jpg)|">
+
+		<!-- 본문 내용 -->
+		<!-- start blog detail section -->
+		<section class="blogs">
 			<div class="container">
+				<div class="row">
 
-				<h1 class="text-white font-weight-600">커뮤니티</h1>
-				<ul>
-					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
-				</ul>
+					<!--  start blog left-->
+					<div>
+
+						<div class="posts">
+							<table class="table"
+								style="border-top: 3px solid #69737C; border-collapse: collapse;">
+								<thead>
+									<tr>
+										<td width="120px">신고한 사람</td>
+										<td width="250px">신고이유</td>
+										<td width="120px">신고날짜</td>
+										<td width="120px">신고된 회원</td>
+										<td width="120px">상세페이지</td>
+										<td width="120px">제재</td>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr th:each="c : ${rvo}" th:id="${c.compCode}" class="code">
+										<td>[[${c.id}]]</td>
+
+										<td>[[${c.comName}]]</td>
+
+										<td>[[${c.repDate}]]</td>
+
+										<td>[[${c.targetId}]]</td>
+
+
+										<td><button type="button" class="btn btn-danger"
+												data-toggle="modal" data-target="#myModal" id="modalForm"
+												onclick="modalForm()">신고된 글</button></td>
+										<td>
+											<form action="/duration" method="post" id="submit">
+												<!-- 										<input type="hidden"  name="state" value="1"> -->
+												<select name="state" id="state">
+													<option th:each="c : ${cs}" th:value="${c.comCode}"
+														th:text="${c.comName}"></option>
+												</select> <input type="hidden" id="targetID" name="targetId"
+													th:value="${c.targetId}">
+												<button>제제하기</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+
+							</table>
+
+							<script>
+								function modalForm() {
+									var compCode = $(event.target).closest(
+											".code").attr("id");
+									console.log(compCode);
+									let str = '<iframe src="/companionDetail/'+compCode+'"></iframe>'
+
+									let s = $("#s")
+									s.html(str)
+								}
+							</script>
+
+						</div>
+					</div>
+					<script type="text/javascript">
+						$(".btn-modal").click(function() {
+							var data = $(this).data('id');
+							$("#contents.body-contents").val(data);
+							$("#text-contents.body-contents").html(data);
+						});
+					</script>
+
+
+					<div class="modal hide" id="myModal">
+						<div class="modal-header">
+							<!-- 					<button class="close" data-dismiss="modal">x</button> -->
+							<div class="modal-dialog" role="document">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div id="s"></div>
+											<div class="modal-footer"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</section>
-		<!-- 배너끝 -->
-		
-		<!-- 본문 내용 -->
-		  <!-- start blog detail section -->
-        <section class="blogs">
-            <div class="container">
-                <div class="row">
-
-                    <!--  start blog left-->
-                    <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    
-                        <div class="posts">
-                         <table class="table" style="border-top:3px solid #69737C; border-collapse:collapse;" >
-                         	<thead>
-                         		<tr>
-                         			<td>신고이유</td>
-                         			<td>신고날짜</td>
-                         			<td>신고된 회원</td>
-                         			<td>상세페이지</td>
-                         		</tr>
-                         	</thead>
-                         		<tbody th:each="c : ${rvo}">
-                         			<tr>
-                         				<td>[[${c.comName}]]</td>
-                         			
-                         				<td>[[${c.repDate}]]</td>
-                         			
-                         				<td>[[${c.targetId}]]</td>
-                         				
-                         				<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}"><h4 style="color:#9D8BD1;">상세페이지</h4></a></td>
-                         			</tr>
-                         		</tbody>
-               
-                         </table>
-
-      
-                        </div>
-                    </div>
-                    <!--  end blog left-->
-
-                    <!--  start blog right-->
-                    <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-                        <div class="side-bar">
-                        
-                            <div class="widget">
-                                <div class="widget-title margin-20px-bottom">
-                                    <h3>Categories</h3>
-                                </div>
-                                <ul class="widget-list">
-                                    <li>
-                                        <a href="/reportCompanion">동행자 신고
-                                        </a>
-
-                                    </li>
-                                    <li>
-                                        <a href="/reportFree">자유 신고
-                                        </a>
-
-                                    </li>
-                                    <li>
-                                        <a href="/reportReview">리뷰 신고
-                                        </a>
-
-                                    </li>
-                                    <li>
-                                        <a href="/reportComment">댓글 신고
-                                        </a>
-
-                                    </li>
-                                </ul>
-                            </div>
-
-                           
-                        </div>
-                    </div>
-                    <!--  end blog right-->
-
-                </div>
-            </div>
-        </section>
-        <!-- end blog detail section -->
-</div>
-		<!-- 내용 끝 -->
+		<!-- end blog detail section -->
+	</section>
+	<!-- 내용 끝 -->
 </body>
 </html>

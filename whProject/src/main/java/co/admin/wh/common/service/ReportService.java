@@ -14,5 +14,9 @@ public interface ReportService {
 	
 	List<ReportVO> reportComment(ReportVO rvo);
 	
+	ReportVO reportCode(ReportVO rvo);
+	
 	int reportInsert(ReportVO rvo);
+	
+	int durationUpdate(ReportVO rvo);
 }

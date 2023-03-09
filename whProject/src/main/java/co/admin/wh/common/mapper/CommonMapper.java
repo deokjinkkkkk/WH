@@ -11,4 +11,6 @@ public interface CommonMapper {
 	List<CommonVO> commonGroup();
 	
 	List<CommonVO> commonReport();
+	
+	List<CommonVO> commonState();
 }

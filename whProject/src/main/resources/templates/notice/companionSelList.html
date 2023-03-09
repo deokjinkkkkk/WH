@@ -46,7 +46,9 @@
                          	</thead>
                          		<tbody th:each="c : ${se}">
                          			<tr>
-                         				<td>[[${c.compTitle}]]</td>
+                         				<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
+                         			
+                         				<td>[[${c.comName}]]</td>
                          			</tr>
                          		</tbody>
                
