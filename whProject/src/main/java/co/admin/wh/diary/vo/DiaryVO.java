@@ -19,6 +19,6 @@ public class DiaryVO {
 	public String diaryContent;  //내용 
 	public String imgGroCode; // 첨부파일 
 	
-	//
+	String name; //회원이름 
 	
 }

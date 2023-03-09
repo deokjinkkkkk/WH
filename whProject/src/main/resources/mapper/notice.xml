@@ -24,6 +24,7 @@
 		resultType="co.admin.wh.notice.vo.NoticeVO">
 		SELECT DISTINCT
 		n.NOTICE_CODE,
+		n.NOTICE_HIT,
 		n.NOTICE_TITLE,
 		n.NOTICE_REG_DATE,
 		n.NOTICE_CONTENT,

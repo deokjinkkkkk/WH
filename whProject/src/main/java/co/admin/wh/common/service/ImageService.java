@@ -17,5 +17,6 @@ public interface ImageService {
 	
 	int imageDelete(ImageVO ivo);
 
+	String diaryImage(ImageVO ivo);
 	
 }
