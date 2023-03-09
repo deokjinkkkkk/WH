@@ -43,12 +43,16 @@ public class TodoController {
 	
 	
 	//리스트 담기
-	@PostMapping("/todoInsert")
-	@ResponseBody
-	public String todoInsert(@RequestBody TodoVO vo) {
-		todoMapper.todoInsert(vo);
-		return "success";
-	}
+		@PostMapping("/todoInsert")
+		@ResponseBody
+		public String todoInsert(@RequestBody TodoVO vo) {
+			int result = todoMapper.todoInsert(vo);
+			String resultValue = "fail";
+			if(result > 0) {
+				resultValue = "success";
+			}
+			return resultValue;
+		}
 	
 	
 	//더블클릭 시 완료 여부 반영

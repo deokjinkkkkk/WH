@@ -168,27 +168,32 @@
       let todoFlag = 1//$("#todoFlag").val();//구분(1.todolist - 2.완료) @@담기 버튼 클릭 시 무조건 1로 들어가게끔 설정함.
 
       $.ajax({
-         url : "/todoInsert",
-         type : "POST",
-         data : JSON.stringify({
-            "todoContent" : todoContent,
-            "id" : todoId,
-            "todoDate" : todoDate,
-            "todoCode" : todoCode,
-            "todoFlag" : todoFlag
-         }),
-         contentType : 'application/json',
-         success : function(data) {
-            console.log("todolist등록")
-            $("#todoContent").val("")
-            console.log("========")
-            getList()
-         },
-         error : function() {
-            alert('등록 실패');
-         }
-      });
-   }); 
+          url : "/todoInsert",
+          type : "POST",
+          data : JSON.stringify({
+             "todoContent" : todoContent,
+             "id" : todoId,
+             "todoDate" : todoDate,
+             "todoCode" : todoCode,
+             "todoFlag" : todoFlag
+          }),
+          contentType : 'application/json',
+          success : function(data) {
+         	 if(data == "success") {
+         		 alert("등록 성공");
+         	 } else {
+         		 alert("등록 실패");
+         	 }
+             console.log("todolist등록")
+             $("#todoContent").val("")
+             console.log("========")
+             getList(1);
+          },
+          error : function() {
+             alert('등록 실패');
+          }
+       });
+    }); 
  
 
        
