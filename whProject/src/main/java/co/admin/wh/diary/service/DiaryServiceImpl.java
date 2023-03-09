@@ -20,7 +20,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public DiaryVO diaryDetail(DiaryVO vo) {
+	public int diaryDetail(DiaryVO vo) {
 		// 상세페이지 
 		return mapper.diaryDetail(vo);
 	}

@@ -9,9 +9,10 @@ public interface DiaryService {
 	
 	List<DiaryVO> getDiaryList(); //리스트 
 	
+	
 	int diaryInsert(DiaryVO vo); //등록 
 	
-	DiaryVO diaryDetail(DiaryVO vo); //상세페이지 
+	int diaryDetail(DiaryVO vo); //상세페이지 
 	
 	int diaryUpdate(DiaryVO vo); //수정 
 	
