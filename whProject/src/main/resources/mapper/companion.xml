@@ -162,11 +162,11 @@
 	</select>
 	
 	<select id="comSelMyList" resultType="co.admin.wh.notice.vo.CompanionVO">
-	 SELECT * FROM COMPANION_LIST  where id=#{id}
+	 SELECT * FROM COMPANION_LIST cl JOIN common c on cl.co_state = c.com_code where id=#{id}
 	</select>
 	
 	<select id="test" resultType="co.admin.wh.notice.vo.CompanionVO">
-	   SELECT c.id as writer, cl.id as login , c.comp_Title, cl.name, cl.tel, cl.gender
+	   SELECT c.id as writer, cl.id as login , c.comp_Title, cl.name, cl.tel, cl.gender, cl.comp_code, cl.se_code, cl.co_state
 	   FROM COMPANION_LIST cl  , COMPANION c
          where cl.comp_code =  c.comp_code 
 	</select>
@@ -174,15 +174,19 @@
 	<update id="approve">
 		UPDATE companion_list
 		SET
-		co_state='1'
+		co_state='111'
 		WHERE se_code=#{seCode}
 	</update>
 	
 	<update id="reject">
 		UPDATE companion_list
 		SET
-		co_state='2'
+		co_state='222'
 		WHERE se_code=#{seCode}
 	</update>
+	
+	<select id="selTitle" resultType="co.admin.wh.notice.vo.CompanionVO">
+		select * FROM COMPANION_LIST where comp_title=#{compTitle}
+	</select>
 </mapper>
 

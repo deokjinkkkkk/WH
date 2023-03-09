@@ -42,17 +42,6 @@ public class TripController {
 		return "trip/tripDetail";
 	}
 	
-	
-	@RequestMapping("/memberCourse")
-	public String memberCourse(Model model) {
-		return "trip/memberCourse";
-	}
-	
-	@GetMapping("/memberCourseDetail")
-	public String memberCourseDetail(Model model) {
-		return "trip/memberCourseDetail";
-	}
-	
 
 	// 여행지 목록
 	@GetMapping("/trip")

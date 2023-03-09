@@ -51,7 +51,7 @@
 	        SELECT NVL(MAX(res_Id),0)+1 FROM RESERVATION        
 	    </selectKey>
 		insert into Reservation
-		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id})
+		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id},0)
 	</insert>
 
 	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
@@ -61,4 +61,23 @@
 		where id = #{sessionId}
 	    and h.hotel_id = r.hotel_id
 	</select>
+	
+	<update id="hotelCancel" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+		update reservation
+		<set>
+			<if test="resState != null">res_state = 1</if>
+		</set>
+		where res_id=#{resId}
+	</update>
+	
+	<update id="ReservUpdate" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+		update reservation
+		<set>
+			<if test="resName != null">res_name = #{resName}</if>
+			<if test="resTel != null">res_tel = #{resTel}</if>
+			<if test="resEmail != null">res_email = #{resEmail}</if>
+			<if test="resRequest != null">res_request = #{resRequest}</if>
+		</set>
+		where res_id=#{resId}
+	</update>
 </mapper>

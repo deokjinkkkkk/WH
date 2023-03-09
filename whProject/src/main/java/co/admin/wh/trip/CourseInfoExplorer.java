@@ -46,8 +46,8 @@ public class CourseInfoExplorer {
 				+ URLEncoder.encode("ServiceKey", "UTF-8") + "="
 				+ "5gtCcmZt9I035nXIlRn1NfxTbfivYkN69cghQlZ5EGLSe%2FvYaLMhXG%2B3bN1fQ%2F2BASibMcSqEouIrIyqNT64Eg%3D%3D"
 				+ /* Service Key */
-				"&pageNo=1" + "&numOfRows=33" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
-				+ "&areaCode=34" + "&cat1=C01"; // 추천코스(C01) pair
+				"&pageNo=1" + "&numOfRows=1" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&listYN=Y" + "&arrange=CA"
+				+ "&areaCode=38" + "&cat1=C01"; // 추천코스(C01) pair
 
 		URL url = new URL(urlBuilder);
 

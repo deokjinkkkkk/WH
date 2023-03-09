@@ -21,6 +21,7 @@ import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.service.ReportService;
 import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ImageVO;
+import co.admin.wh.common.vo.ReportVO;
 import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.mapper.CompanionMapper;
@@ -117,7 +118,7 @@ public class CompanionController {
 	}
 
 	@RequestMapping("/companionDetail/{compCode}")
-	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo, MemberVO vo, Principal principal) {
+	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo, MemberVO vo, Principal principal, ReportVO rvo) {
 		
 		vo.setId(principal.getName());
 		model.addAttribute("me", memberMapper.memberSelect(vo));
@@ -125,7 +126,6 @@ public class CompanionController {
 		model.addAttribute("c", companionService.detailSelect(compVO));
 		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
-		
 		compVO.setId(principal.getName());
 		model.addAttribute("se", companionService.comBtn(compVO));
 		return "notice/companionDetail";
@@ -191,9 +191,11 @@ public class CompanionController {
 	@RequestMapping("/companionList")
 	public String companionList(Model model, CompanionVO vo, MemberVO mvo, Principal principal) {
 		vo.setId(principal.getName());
-	
+		
+		model.addAttribute("aa", companionService.comSelMyList(vo));
 		model.addAttribute("se", companionService.test(vo));
-		model.addAttribute("btn", companionService.comBtn(vo));
+		
+		model.addAttribute("hh", companionService.selTitle(vo));
 		return "notice/companionList";
 	}
 	

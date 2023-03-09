@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.trip.mapper.MyCourseFreeMapper">
+
+<select id="myCourseTripList" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+	SELECT * FROM MY_COURSE_FREE
+</select>
+
+
+<select id="oneSelect" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+		SELECT * FROM MY_COURSE_FREE
+		WHERE my_Course_Code = 22
+</select>
+
+</mapper>

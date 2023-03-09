@@ -54,6 +54,12 @@ public class ImageServiceImpl implements ImageService {
 		// TODO Auto-generated method stub
 		return imageMapper.imageDelete(ivo);
 	}
+
+	@Override
+	public String diaryImage(ImageVO ivo) {
+		// TODO Auto-generated method stub
+		return imageMapper.diaryImage(ivo);
+	}
 	
 	
 	

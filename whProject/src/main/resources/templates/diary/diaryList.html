@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
 
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap CSS -->
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link
@@ -210,10 +211,10 @@ a {
         -webkit-backdrop-filter: blur(13.5px);
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.18);
-        width: 800px;
+        width: 900px;
         height: 600px;
         position: relative;
-        padding: 10px;
+        padding: 13px;
     }
      .modal_title{
         display: flex;
@@ -386,7 +387,7 @@ a {
         -webkit-backdrop-filter: blur(13.5px);
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.18);
-        width: 800px;
+        width: 900px;
         height: 600px;
         position: relative;
     }
@@ -441,7 +442,9 @@ a {
         width: 294px;
         border: none;
     }
-
+	.col-sm-5{
+		width: 500px;
+	}
 </style>
 </head>
 
@@ -466,17 +469,14 @@ a {
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
-			<div class="feed-box" id="inst">
-				<div class="profile">
-					<div class="profile-img-box">
-						<img class="profile-img"
-							src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-					</div>
-					<div class="profile-id"></div>
-					<input type="hidden" id="id" name="id" th:value="${session.name}">
+			<div class="feed-box" id="inst" style="padding: 20px">
+					<input type="hidden" name="id" th:value="${session.name}" id="id">
+			<div th:each="d : ${diarys}" >
+				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
+					<div class="profile-id" ></div>
+					<input type="hidden" name="diaryCode" id="diaryCode" value="1">
 				</div>
-
-				<div class="feed-img" id="diaryContent" > 
+				<div class="feed-img" > 
 					<img id="feed-img"
 						src="https://static-storychat.pstatic.net/2020/9/1/47/208797_hm2fj34m3df60.jpg">
 				</div>
@@ -493,12 +493,11 @@ a {
 					</div>
 					-->
 				</div>
-				<div class="like" id="diaryStartDate">
-					<b>여행일정날짜 들어갈것이다 </b>
-				</div>
-
-				<div class="feed-text" id="">
-					<b></b> 이건 마치 알고리즘 보는 나의 모습
+				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div>
+				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
+				<br><br>
+				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
+				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
 				</div>
 
 				<div class="comment">
@@ -519,87 +518,12 @@ a {
 						placeholder="댓글 달기...">
 				</div>
 			</div>
-		</div>
-
-		<div class="right-body">
-			<div class="profile">
-				<div class="profile-img-box" style="width: 60px; height: 60px;">
-					<img class="profile-img"
-						src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-				</div>
-				<div class="profile-text">
-					<div class="profile-id">jollyn</div>
-					<div class="profile-name" style="color: grey;">anneyujeong</div>
-				</div>
 			</div>
-
-
-
-
-<!-- 여기가 안되서 막아둠 키면 오류 뜬다  -->
-			<!-- 
-            <div class="recommend-msg">
-                <div id="recommend-text">회원님을 위한 추천</div>
-                <a id="recommend-plus" "href="#">모두보기</a>
-            </div>
-
-            <div class="recommend-lst">
-                <div class="profile">
-                    <div class="profile-img-box" style="width: 35px; height: 35px;">
-                        <img class="profile-img"
-                            src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-                    </div>
-
-                    <div class="profile-text">
-                        <div class="profile-id">
-                            jollyn
-                        </div>
-                        <div class="profile-name" style="color: grey;">
-                            민정님 외 4명이 팔로우합니다
-                        </div>
-                    </div>
-                </div>
-                <a id="follow" "href="#">팔로우</a>
-            </div>
-            <div class="recommend-lst">
-                <div class="profile">
-                    <div class="profile-img-box" style="width: 35px; height: 35px;">
-                        <img class="profile-img"
-                            src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-                    </div>
-
-                    <div class="profile-text">
-                        <div class="profile-id">
-                            jollyn
-                        </div>
-                        <div class="profile-name" style="color: grey;">
-                            민정님 외 4명이 팔로우합니다
-                        </div>
-                    </div>
-                </div>
-                <a id="follow" "href="#">팔로우</a>
-            </div>
-            <div class="recommend-lst">
-                <div class="profile">
-                    <div class="profile-img-box" style="width: 35px; height: 35px;">
-                        <img class="profile-img"
-                            src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-                    </div>
-
-                    <div class="profile-text">
-                        <div class="profile-id">
-                            jollyn
-                        </div>
-                        <div class="profile-name" style="color: grey;">
-                            민정님 외 4명이 팔로우합니다
-                        </div>
-                    </div>
-                </div>
-                <a id="follow" "href="#">팔로우</a>
-            </div>
- -->
-
 		</div>
+			<br><br>
+
+	
+		
 	</div>
 	<!-- Optional JavaScript; choose one of the two! -->
 
@@ -622,7 +546,7 @@ a {
                 </span>
             </div>
         </div>
-        <div class="modal_image_upload">
+        <div class="modal_image_upload" id="imgGroCode" name="imgGroCode">
             <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
 
         </div>
@@ -645,17 +569,23 @@ a {
             </div>
             <div class="modal_content_write">
                 <div class="feed_name">
-                    <div class="profile_box">
-                        <img id="input_profile_image" class="profile_img" src="https://pbs.twimg.com/profile_images/1324185005883486208/gOBh4kKR_400x400.jpg">
-                    </div>
                     <span id="input_id" class="feed_name_txt"></span>
                 </div>
+                <div>
+                 <input type="text" id="diaryTitle" name="diaryTitle" class="feed_content_textarea form-control col-sm-5 diaryTitle">
+                </div>
+                <div>
+                여행 기간 : <input type="date" class="diaryStartDate" name="diaryStartDate">
+                </div>
+                <div>
+                <input type="date"  class="diaryEndDate" name="diaryEndDate">
+                </div>
                 <div style="height: 440px">
-                    <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10"  placeholder="설명을 입력하세요..."></textarea>
+                    <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10"  placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
                 </div>
                 <div style="width: 100%; text-align: center">
-                    <button id="button_write_feed" type="button" class="btn btn-primary" style="width: 268px"> 공유하기</button>
-                </div>
+                    <button id="button_write_feed" type="submit" class="btn btn-primary" style="width: 268px">공유하기</button>
+                    </div>
             </div>
         </div>
 
@@ -664,25 +594,19 @@ a {
 <!-- 공유하기 모달 종료  -->
 
 <script>
-var id = $('#id').val();  //id값 들고오기 
+
 $(document).ready(function(){
 	getDiaryList();
 })
-
+const modal = document.getElementById("modal_add_feed");
+const id = $("#id").val();
 
 function getDiaryList(){
-	const feedBox = $("#inst");
-	$.ajax({
-		url:"/getdiary",
-		method: "GET",
-		dataType: "json",
-		success: function(result){
-			console.log("list들고오나?")
-		}
-	})
+console.log(id)	
 }
 
-const modal = document.getElementById("modal_add_feed");
+
+//모달 열기
 const buttonAddFeed = document.getElementById("add_feed");
 buttonAddFeed.addEventListener("click", e => {
     modal.style.display = "flex";
@@ -705,7 +629,7 @@ $('.modal_image_upload')
     .on("drop", uploadFiles);
 
 function dragOver(e){
-	  console.log(e);
+	 console.log(e);
     e.stopPropagation();
     e.preventDefault();
     
@@ -757,67 +681,56 @@ function uploadFiles(e){
     }
 };
 
+
 $('#button_write_feed').on('click', ()=>{
-    const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+    const  imgGroCode= $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
     const content = $('#input_content').val();
-    const profile_image = $('#input_profile_image').attr('src');
-    const id = $('#input_id').text();
+    const diaryTitle = $('.diaryTitle').val();
+    const diaryContent = $('#input_content').val(); 
+    const diaryStartDate = $(".diaryStartDate").val();
+    const diaryEndDate = $(".diaryEndDate").val();
+    const id = $("#id").val();
 
     const file = files[0];
 
     let fd = new FormData();
 	
-    fd.append('file', file);
-    fd.append('image', image);
+    
+    fd.append('imgGroCode', imgGroCode);
+    fd.append('diaryTitle', diaryTitle);
     fd.append('diaryContent', diaryContent);
     fd.append('diaryStartDate', diaryStartDate)
     fd.append('diaryEndDate', diaryEndDate)
     fd.append('id', id);
 
-    if(image.length <= 0)
-    {
-        alert("이미지가 비어있습니다.");
+ // FormData의 key 확인
+    for (let key of fd.keys()) {
+      console.log(key+"key값+++++++++++++++++++++");
     }
-    else if(diaryContent.length <= 0)
-    {
-        alert("설명을 입력하세요");
-    }
-    else if(diaryStartDate.length <= 0)
-    {
-        alert("여행 시작 날짜 입력해주세요.");
-    }
-    else if(diaryEndDate.length <= 0)
-    {
-        alert("여행 종료 날짜 입력해주세요.");
-    }
-    else if(id.length <= 0)
-    {
-        alert("사용자 id가 없습니다.");
-    }
-    else{
-        writeFeed(fd);
 
-        console.log(files[0]);
+    // FormData의 value 확인
+    for (let value of fd.values()) {
+      console.log(value+"밸류=======================");
     }
+ 
+    writeFeed(fd);
 });
 
-
-//인설트 하는거 같음
+ 
 function writeFeed(fd) {
-    $.ajax({
-        url: "/diary",
-        data: fd,
-        method: "POST",
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            console.log("성공");
-        },
-        error: function (request, status, error) {
-            console.log("에러");
-        }
-    })
-};
+	fetch('/diaryInsert', {
+	method: 'POST',
+	body: fd
+	})
+	.then(response => response.json())
+	.then(result => {
+	console.log("성공");
+	})
+	.catch(error => {
+	console.log("에러");
+	});
+	}
+
 
 </script>
 </html>

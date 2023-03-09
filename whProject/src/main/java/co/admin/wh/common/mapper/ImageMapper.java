@@ -14,5 +14,7 @@ public interface ImageMapper {
 	String imgNotice(ImageVO ivo);
 	
 	int imageDelete(ImageVO ivo);
+	
+	String diaryImage(ImageVO ivo);
 
 }

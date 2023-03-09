@@ -26,7 +26,7 @@ public class TodoController {
 	@RequestMapping("/todolist") 
 	public String todoList(Model model) {
 		
-		model.addAttribute("todoList", todoMapper.TodoList());
+		model.addAttribute("todoList", todoMapper.TodoList(1)); //1을 안넣어주니까 todoFlag 값이 0이였음..
 		return "todo/todoList";
 	}
 	
@@ -43,12 +43,16 @@ public class TodoController {
 	
 	
 	//리스트 담기
-	@PostMapping("/todoInsert")
-	@ResponseBody
-	public String todoInsert(@RequestBody TodoVO vo) {
-		todoMapper.todoInsert(vo);
-		return "success";
-	}
+		@PostMapping("/todoInsert")
+		@ResponseBody
+		public String todoInsert(@RequestBody TodoVO vo) {
+			int result = todoMapper.todoInsert(vo);
+			String resultValue = "fail";
+			if(result > 0) {
+				resultValue = "success";
+			}
+			return resultValue;
+		}
 	
 	
 	//더블클릭 시 완료 여부 반영
@@ -63,7 +67,8 @@ public class TodoController {
 	@PostMapping("/updateTodoFlag")
 	@ResponseBody
 	public String updateTodoFlag(@RequestBody TodoVO vo) {
-		todoMapper.updateTodoFlag(vo);
+		
+		todoMapper.todoComplete(vo);
 		return "success";
 	}
 	

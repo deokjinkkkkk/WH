@@ -62,6 +62,7 @@ public class WebSecirityConfig{
 				.logoutSuccessUrl("/main")
 			)
 			.csrf().disable()
+
 			.headers().frameOptions().sameOrigin()
 			.and()
 			.oauth2Login()
@@ -70,6 +71,8 @@ public class WebSecirityConfig{
 				.permitAll()
 				.userInfoEndpoint()
 				.userService(socialUserService);
+
+
 
 		return http.build();
 	}

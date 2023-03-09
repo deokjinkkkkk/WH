@@ -37,6 +37,7 @@
 					</div>
 
 					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+					<span th:text="${c.compCode}"></span>
 						<h1>
 							제목 : <span th:text="${c.compTitle}"></span>
 						</h1>
@@ -69,7 +70,7 @@
 						name="compCode" th:value="${c.compCode}" />
 					<button type="submit" class="btn btn-danger btn-lg">삭제하기</button>
 					<button type="button" class="btn btn-danger btn-lg"
-						data-toggle="modal" data-target="#myModal">신고해보자고</button>
+						data-toggle="modal" data-target="#myModal" th:if="${c.id != session.name}">신고해보자고</button>
 				</div>
 			</form>
 			<form method="post" action="/comListInsert"
@@ -81,7 +82,7 @@
 					id="compCode" name="compCode" th:value="${c.compCode}"> <input
 					type="hidden" id="tel" name="tel" th:value="${me.tel}"> <input
 					type="hidden" id="name" name="name" th:value="${me.name}">
-					<input type="hidden" id="coState" name="coState" value="0" >
+					<input type="hidden" id="coState" name="coState" value="000" >
 				<input type="hidden" id="gender" name="gender"
 					th:value="${me.gender}">
 				<button th:if="${se == 0 and c.id != session.name}"  type="submit" class="btn btn-primary btn-lg" id="submit-btn"
@@ -127,9 +128,10 @@
 									<input type="hidden" name="id" id="id"
 										th:value="${session.name}"> <input type="hidden"
 										name=repCatCode id="repCatCode" value="RWT">
-
 								</div>
 								<div class="modal-footer">
+									<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}">
+									<input type="hidden" id="targetId" name="targetId" th:value="${c.id}">
 									<input type="submit" class="btn btn-primary" value="신청하기">
 
 								</div>
