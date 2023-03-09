@@ -35,13 +35,13 @@ public class WebSecirityConfig{
 //		public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	};
-	
+//	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/login").permitAll()
+				.antMatchers("/login","/login/kakao").permitAll()
 				//.anyRequest().permitAll()
 				.anyRequest().authenticated()
 			)
@@ -71,7 +71,7 @@ public class WebSecirityConfig{
 	  @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	       
-	        auth.userDetailsService(usersSerivce);
+	        auth.userDetailsService(usersSerivce).passwordEncoder(new BCryptPasswordEncoder());
 	     
 	    }
 	
