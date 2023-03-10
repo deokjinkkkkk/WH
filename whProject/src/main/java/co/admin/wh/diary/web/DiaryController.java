@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,11 +51,10 @@ public class DiaryController {
 		return "diary/diaryList";
 	}
 	
-	@GetMapping("/getDiaryList")
+	@PostMapping("/getDiaryList")
 	@ResponseBody
-	public List<DiaryVO> getDiaryList(DiaryVO vo, Model model) {
+	public List<DiaryVO> getDiaryList(DiaryVO vo) {
 	  List<DiaryVO> diaryList = diaryMapper.getDiaryList();
-	  model.addAttribute("diarys", diaryMapper.getDiaryList());
 	  return diaryList;
 	}
 	
@@ -68,40 +68,34 @@ public class DiaryController {
 		String saveFolder = saveimg;//파일저장위치
 
 		//그룹번호 조회
-				String image = imageService.diaryImage(ivo);
-				
-				//for문
-				for(MultipartFile file : imgFile) {
-					String fileName = imageService.saveImage(imgFile, saveFolder);
-				
-					if(fileName != null) {
-						ivo.setImgGroCode(image);
-						ivo.setImgName(file.getOriginalFilename()); //원본파일명으로 저장
-						ivo.setImgPath(fileName);//물리적 위치 디렉토리포함 원본파일명
-					}
-					ivo.getImgGroCode();
-					diaryMapper.imgInsert(ivo);
-					vo.setDiaryCode(ivo.getImgCode());
-					diaryMapper.diaryInsert(vo);
-				}
+		String image = imageService.diaryImage(ivo);
+		
+		//for문
+		for(MultipartFile file : imgFile) {
+			String fileName = imageService.saveImage(imgFile, saveFolder);
+		
+			if(fileName != null) {
+				vo.setImgGroCode(image);
+				//이미지 담기 위한
+				ivo.setImgGroCode(image);
+				ivo.setImgName(file.getOriginalFilename()); //원본파일명으로 저장
+				ivo.setImgPath(fileName);//물리적 위치 디렉토리포함 원본파일명
+				diaryMapper.imgInsert(ivo);
+			}		
+		}
+		diaryMapper.diaryInsert(vo);
 	    return resultMap;
 	}
 	
 	
 
 	@PostMapping("/diaryDelete/{diaryCode}/{id}")
-	public Map<String, Object> diaryDelete(DiaryVO vo) {
+	@ResponseBody
+	public Map<String, Object> diaryDelete(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id,ImageVO ivo ) {
+		  System.out.println("삭제 오나?=============");
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		int result = service.diaryDelete(vo);
-		
-		if (result == 1) {
-	          resultMap.put("result", "success");
-	          resultMap.put("message", "게시글이 삭제되었습니다.");
-	      } else {
-	          resultMap.put("result", "fail");
-	          resultMap.put("message", "게시글이 삭제 실패했습니다.");
-	      }
+		diaryMapper.diaryDelete(vo);
 		
 		
 		return resultMap;

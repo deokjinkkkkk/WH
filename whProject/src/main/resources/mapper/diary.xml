@@ -5,10 +5,11 @@
 	<!-- 전체조회 -->
 	<select id="getDiaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
 	 	select
-		d.diary_code, m.id,m.name, d.diary_content, d.diary_title, d.diary_start_date, d.diary_end_date, d.img_gro_code
-		from diary d, member m
-		where d.id = m.id
-		ORDER by d.diary_code desc
+	d.diary_code, m.id,m.name, d.diary_content, d.diary_title, d.diary_start_date, d.diary_end_date, d.img_gro_code, i.img_path
+	from diary d, member m , image i
+	where d.id = m.id
+    and d.img_gro_code = i.img_gro_code
+	ORDER by d.diary_code desc
 	</select>
 	
 	<!-- 이미지 출력 -->
@@ -47,7 +48,7 @@
 	
 	<delete id="diaryDelete">
 	DELETE FROM DIARY
-		WHERE DIARY_CODE = #{DIARYCODE} AND id = #{id}
+		WHERE DIARY_CODE = #{diaryCode} AND id = #{id}
 	</delete>
 	
 </mapper>
