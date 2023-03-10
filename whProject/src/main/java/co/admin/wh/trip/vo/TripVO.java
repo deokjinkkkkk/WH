@@ -38,6 +38,9 @@ public class TripVO {
 	String tripPet; // 애완동물 동반가능 여부
 	String tripChkCard; // 신용카드 가능 여부
 	
+	String myCouName; // 코스명 들고오기
+	String myCourseCode; // 나만의 코스 게시판 번호...
+	
 	
 
 	

@@ -39,6 +39,7 @@ public class TripController {
 	public String tripDetail(@PathVariable("tripCode") int tripCode, TripVO vo, Model model) { // 상세페이지 보기		
 		vo.setTripCode(tripCode);		
 		model.addAttribute("trip", tripService.detailSelect(vo));
+		model.addAttribute("myCou", tripService.myCouNameSelect(vo));
 		return "trip/tripDetail";
 	}
 	
@@ -58,7 +59,7 @@ public class TripController {
 	
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
-		return "trip/tripSearch";
+		return "trip/tripList";
 	}
 	
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징

@@ -25,6 +25,12 @@ public class MyCourseFreeServiceImpl implements MyCourseFreeService {
 		// 단건조회
 		return map.oneSelect(vo);
 	}
+
+	@Override
+	public int myCourseInsert(MyCourseFreeVO vo) {
+		// 여행지 나만의 코스에 담기
+		return map.myCourseInsert(vo);
+	}
 	
 	
 	

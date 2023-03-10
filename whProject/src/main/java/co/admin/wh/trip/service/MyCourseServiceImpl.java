@@ -25,6 +25,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 		// 코스명 등록
 		return map.titleInsert(vo);
 	}
+
+	@Override
+	public MyCourseVO detailSelect(MyCourseVO vo) {
+		// 상세보기 페이지
+		return map.detailSelect(vo);
+	}
 	
 	
 }

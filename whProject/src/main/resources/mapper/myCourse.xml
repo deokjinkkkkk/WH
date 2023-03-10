@@ -17,4 +17,9 @@
 	VALUES(#{myCourseCode}, #{theme}, #{myCouDate}, #{myCouName}, #{myCouContent}, #{myCouState}, #{myCouId})
 	</insert>
 
+	<!-- 상세보기 페이지 -->
+	<select id="detailSelect" resultType="co.admin.wh.trip.vo.MyCourseVO">
+		SELECT * FROM MY_COURSE
+		WHERE MY_COURSE_CODE = #{myCourseCode}
+	</select>
 </mapper>

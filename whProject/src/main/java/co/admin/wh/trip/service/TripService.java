@@ -21,6 +21,8 @@ public interface TripService {
 
 	TripVO detailSelect(TripVO vo); //상세보기 페이지
 	
+	List<TripVO> myCouNameSelect(TripVO vo); // 여행지 담기 버튼 클릭 -> 코스명 목록
+	
 	
 	
 	
