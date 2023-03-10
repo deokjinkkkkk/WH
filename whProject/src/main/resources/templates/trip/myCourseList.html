@@ -22,7 +22,7 @@ body>.container {
 	.pagination {
 		margin: 0;
 	}
-
+	
 </style>
 <body>
 	<!-- 내용 시작 -->
@@ -59,11 +59,11 @@ body>.container {
 													<a id="Btn" class="btn btn-primary btn-block">코스만들기</a>
 												</div>	
 												
-												 <!-- 코스명 입력 Modal-->
+			<!-- 코스명 입력 Modal-->
             <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                 <div class="modal-dialog">
+                 <div class="modal-dialog modal-dialog modal-dialog-centered">
                <form id="titleForm" method="post">
-                   <div class="modal-content">
+                   <div class="modal-content ">
                      <div class="modal-header">
                        <h5 class="modal-title" id="exampleModalLabel">코스명을 입력하세요</h5>
                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -101,7 +101,8 @@ body>.container {
 												<tbody>
 													<tr th:each="m : ${test}">
 														<td th:text="${m.myCourseCode}"></td>
-														<td><a th:text="${m.myCouName}"></a></td>
+														<td><a th:text="${m.myCouName}"
+														th:href="@{/myCourseDetail/{myCourseCode}(myCourseCode=${m.myCourseCode})}"></a></td>
 														<td th:text="${m.theme}"></td>
 														<td th:text=${m.myCouDate}></td>
 													</tr>
@@ -149,8 +150,9 @@ $("#Reg").click(function(){
 			   if(data == "success") {
 				   alert("등록 성공");
 				   $('#exampleModal').modal("hide"); // 모달 숨기기
+				   location.reload(true);
 			   } else {
-				   alert("등록 실패")
+				   alert("등록 실패");
 			   }
 			   $("#myCouName").val();
 		   },

@@ -45,5 +45,11 @@ public class TripServiceImpl implements TripService{
 		return tripMapper.detailSelect(tvo);
 	}
 
+	@Override
+	public List<TripVO> myCouNameSelect(TripVO vo) {
+		// 여행지 담기 버튼 클릭 -> 코스명 목록
+		return tripMapper.myCouNameSelect(vo);
+	}
+
 	
 }

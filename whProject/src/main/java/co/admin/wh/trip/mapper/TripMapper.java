@@ -16,5 +16,7 @@ public interface TripMapper {
 	int getCountTotla(TripSearchVO svo); // 페이지수 관리
 	
 	TripVO detailSelect(TripVO tvo); //상세보기 페이지	
+	
+	List<TripVO> myCouNameSelect(TripVO vo); // 여행지 담기 버튼 클릭 -> 코스명 목록
 
 }

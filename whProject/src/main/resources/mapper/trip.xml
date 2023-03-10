@@ -21,10 +21,10 @@
          INSERT INTO TRIP(trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon,
                trip_summ, trip_content, homepage, trip_region, img_gro_code, trip_date,
                cou_code, cou_order, trip_Unique_Number, trip_announce, rest_date,
-               use_time, trip_parking, trip_child, trip_pet, trip_chk_card)
+               use_time, trip_parking, trip_child, trip_pet, trip_chk_card, my_Cou_Name, my_Course_Code)
          VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
                #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber},
-               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard})	
+               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard}, ${myCouName}, ${myCourseCode})	
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
@@ -37,6 +37,14 @@
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM TRIP
 		WHERE TRIP_CODE = #{tripCode}
+	</select>
+	
+	<!-- 여행지 담기할 때, 코스명 출력하기 -->
+	<select id="myCouNameSelect"
+		resultType="co.admin.wh.trip.vo.TripVO">
+	SELECT M.MY_COU_NAME, M.MY_COURSE_CODE, T.TRIP_CODE
+	FROM TRIP T, MY_COURSE M
+	WHERE T.TRIP_CODE = #{tripCode}
 	</select>
 	
 
