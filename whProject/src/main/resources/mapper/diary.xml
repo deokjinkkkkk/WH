@@ -21,20 +21,18 @@
 	
 	
 	
-	<insert id="diaryInsert">
+	<insert id="diaryInsert" parameterType="co.admin.wh.diary.vo.DiaryVO">
 	<selectKey keyProperty="diaryCode" resultType="int" order="BEFORE">
-		SELECT NVL(MAX(DIARY_CODE),0) + 1
-		FROM DIARY
+		SELECT NVL(MAX(DIARY_CODE),0) + 1 FROM DIARY
 	</selectKey>
 		INSERT INTO DIARY
 		VALUES (#{diaryCode},#{id},#{diaryTitle},#{diaryStartDate},#{diaryEndDate},#{diaryContent},#{imgGroCode})
 	</insert>
 
-	<insert id="imgInsert"
-		parameterType="co.admin.wh.common.vo.ImageVO">
+	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
 		<selectKey keyProperty="imgCode" resultType="int"
 			order="BEFORE">
-			SELECT MAX(IMG_CODE)+1 FROM IMAGE
+			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
 		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
@@ -48,9 +46,8 @@
 
 	
 	<delete id="diaryDelete">
-	
-	
-	
+	DELETE FROM DIARY
+		WHERE DIARY_CODE = #{DIARYCODE} AND id = #{id}
 	</delete>
 	
 </mapper>
