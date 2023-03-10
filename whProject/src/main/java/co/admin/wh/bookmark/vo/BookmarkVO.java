@@ -8,4 +8,8 @@ public class BookmarkVO {
 	String bookFlag; //좋아요 구분(여행지, 호텔...)
 	int bookCode; // 북마크 번호
 	int bookNcode; //게시글 번호
+	
+	//JOIN
+	String hotelName;
+	String TripName;
 }
