@@ -7,7 +7,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
 
