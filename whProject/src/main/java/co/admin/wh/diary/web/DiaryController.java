@@ -22,12 +22,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.diary.mapper.DiaryMapper;
+import co.admin.wh.diary.service.DiaryService;
 import co.admin.wh.diary.vo.DiaryVO;
 
 
 
 @Controller
 public class DiaryController {
+	@Autowired
+	DiaryService service;
 	
 	@Autowired
 	DiaryMapper diaryMapper;
@@ -58,18 +61,55 @@ public class DiaryController {
 
 	@PostMapping("/diaryInsert")
 	@ResponseBody
-	public Map<String, Object> diaryInsert(@RequestBody Map<String, Object> data) {
-	    Map<String, Object> resultMap = new HashMap<>();
+	public Map<String, Object> diaryInsert(DiaryVO vo, String id,ImageVO ivo, MultipartFile[] imgFile ) {
+		  System.out.println("insert 오나?=============");
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		String saveFolder = saveimg;//파일저장위치
 
-	    DiaryVO vo = new ObjectMapper().convertValue(data.get("vo"), DiaryVO.class);
-	    ImageVO ivo = new ObjectMapper().convertValue(data.get("ivo"), ImageVO.class);
-	    String id = (String) data.get("id");
-	    MultipartFile[] imgFile = (MultipartFile[]) data.get("imgFile");
-
-	    diaryMapper.diaryInsert(vo);
-
+		//그룹번호 조회
+				String image = imageService.diaryImage(ivo);
+				
+				//for문
+				for(MultipartFile file : imgFile) {
+					String fileName = imageService.saveImage(imgFile, saveFolder);
+				
+					if(fileName != null) {
+						ivo.setImgGroCode(image);
+						ivo.setImgName(file.getOriginalFilename()); //원본파일명으로 저장
+						ivo.setImgPath(fileName);//물리적 위치 디렉토리포함 원본파일명
+					}
+					ivo.getImgGroCode();
+					diaryMapper.imgInsert(ivo);
+					vo.setDiaryCode(ivo.getImgCode());
+					diaryMapper.diaryInsert(vo);
+				}
 	    return resultMap;
 	}
+	
+	
+
+	@PostMapping("/diaryDelete/{diaryCode}/{id}")
+	public Map<String, Object> diaryDelete(DiaryVO vo) {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		int result = service.diaryDelete(vo);
+		
+		if (result == 1) {
+	          resultMap.put("result", "success");
+	          resultMap.put("message", "게시글이 삭제되었습니다.");
+	      } else {
+	          resultMap.put("result", "fail");
+	          resultMap.put("message", "게시글이 삭제 실패했습니다.");
+	      }
+		
+		
+		return resultMap;
+		
+	}
+	
+	
+	
 }
 
 

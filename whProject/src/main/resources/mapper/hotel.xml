@@ -73,9 +73,9 @@
 	<update id="ReservUpdate" parameterType="co.admin.wh.hotel.vo.ReservationVO">
 		update reservation
 		<set>
-			<if test="resName != null">res_name = #{resName}</if>
-			<if test="resTel != null">res_tel = #{resTel}</if>
-			<if test="resEmail != null">res_email = #{resEmail}</if>
+			<if test="resName != null">res_name = #{resName},</if>
+			<if test="resTel != null">res_tel = #{resTel},</if>
+			<if test="resEmail != null">res_email = #{resEmail},</if>
 			<if test="resRequest != null">res_request = #{resRequest}</if>
 		</set>
 		where res_id=#{resId}

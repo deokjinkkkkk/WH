@@ -129,4 +129,11 @@ public class HotelController {
 		hotelInfoService.hotelCancel(vo);
 		return "y";
 	}
+	
+	@PostMapping("/updateInfo")
+	@ResponseBody
+	public String updateInfo(@RequestBody ReservationVO vo, Model model) {
+		hotelInfoService.ReservUpdate(vo);
+		return "y";
+	}
 };
