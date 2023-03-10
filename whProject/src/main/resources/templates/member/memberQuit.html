@@ -26,16 +26,17 @@
 								</div>
 								<div class="col-12">
 									<div class="form-group">
-										<input type="password" name="pass" id="password2"
+										<input type="password" name="pass2" id="password2"
 											placeholder="비밀번호확인" maxlength="70">
 									</div>
 								</div>
+								
 								<div class="col-md-12 margin-25px-top">
 								<input type="hidden" name="id" id="id" th:value="${session.name}">
 								<input type="hidden" name="name" id="name" th:value="${mem.name}">
 								<input type="hidden" name="gender" id="id" th:value="${mem.gender}">
 								<input type="hidden" name="email" id="id" th:value="${mem.email}">
-								<input type="hidden" name="tel" id="id" th:value="${mem.tel}">
+								<input type="hidden" name="tel" id="id" th:value="${mem.tel}">					
 									<button type="button" class="butn btn-block" id="del">회원탈퇴</button>
 								</div>
 							</div>
@@ -62,7 +63,25 @@
 					alert("패스워드가 일치하지 않습니다.")
 					return false	
 				}
-				frm.submit();
+				
+				$.ajax({
+					url : "/passChk",
+					data : {
+						"pass" : pass
+					},
+					success : function(data) {
+						console.log(data);
+						if(data == "success"){
+							frm.submit();
+						}else{
+							alert("비밀번호가 일치하지 않습니다.")
+						}
+					},
+					error : function() {
+						alert("오류")
+					}
+				});
+				
 			})
 	</script>
 </body>
