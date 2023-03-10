@@ -4,7 +4,7 @@
 	layout:decorate="~{index}">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <style>
 
 </style>
@@ -25,12 +25,56 @@
 		<!-- 배너끝 -->
 <div class="container">
 
-<i class="fa-regular fa-bookmark"></i> <!-- 북마크 체크 해제  -->
-<i class="fa-solid fa-bookmark"></i> <!-- 북마크 체크 상태  -->
+<script>
+	$(document).ready(function(){
+		getBookmark()
+	})
+	
+	var id= $('#id').val(); //id가 id인 요소의 값을 가져와 변수 id에 저장
+	var bookNcode = location.pathname.split("/").pop(); //현재 페이지의 경로에서 마지막 요소를 추출하여 변수(bookNcode)에 저장
+	var bookFlag = ("HS"); //bookFlag 변수에 HT 문자열 저장
+	var $bmBtn = $('.mark'); //class이름이 mark인 요소를 선택해서 변수 $bmBtn에 저장
+	
+	var BookmarkVO =  {  ///객체 리터럴을 이용하여 
+						//BookmarkVO 변수에 id, bookFlag, bookNcode 속성 값을 가진 객체를 생성
+			id : id,
+			bookFlag : bookFlag,
+			bookNcode : bookNcode
+	};
+	
+	//서버에 get요청을 보내서 북마크 여부 확인하고 결과에 따라 버튼상태 변경
+	function getBookmark(){ 
+		$.ajax({
+			url : "/bookCheck/" + bookNcode + "/" + id,
+			data : BookmarkVO
+		}).then(function(result){
+			if(result) {
+				$bmBtn.addClass("active")
+				.find("")
+			}
+		})
+	}
+	
+</script>
+
+<!-- 
+ <i class="fa-regular fa-bookmark"></i> 북마크 체크 해제 
+ <i class="fa-solid fa-bookmark"></i> 북마크 체크 상태  
+ -->
+ 
+<!-- 북마크 버튼 기능 시작 -->
+<div class="bookmark-area" id="bookBtn">
+	<button type="button" id="nonBtn" class="icon heart">
+		<i class="fa-regular fa-bookmark" id="bmBtn"></i>
+		<input type="hidden" id="id" name="id" th:value="${session.name}">
+	</button>
+</div>
+
+
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid" >
-  
+  <div class="container-fluid  d-flex justify-content-end" >
     <div class="collapse navbar-collapse" id="navbarScroll" >
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item dropdown">
@@ -52,7 +96,6 @@
     </div>
   </div>
 </nav>
-
 </div>
 </div>
 </body>
