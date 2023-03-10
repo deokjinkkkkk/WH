@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,13 @@ import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
+import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
 import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.vo.MemberVO;
+import co.admin.wh.notice.vo.NoticeSearchVO;
+import co.admin.wh.notice.vo.Paging;
 
 @Controller
 public class HotelController {
@@ -43,13 +47,22 @@ public class HotelController {
 //	}
 	
 	@GetMapping("/hotel") // 숙소 첫 페이지(좋아요 순 정렬)
-	public String hotel(Model model) {
-		model.addAttribute("hotelList",hotelInfoService.hotelList());
+	public String hotel(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
+
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+
+		model.addAttribute("hotelList",hotelInfoService.hotelList(vo));
 		return "hotel/hotelMain";
 	}
 	
 	@GetMapping("/hotelToday") // 오늘 예약 가능한 숙소
-	public String hotelCommand(Model model) {
+	public String hotelCommand(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
 		
 		System.out.println("파싱되나용!!");
 		
@@ -82,7 +95,15 @@ public class HotelController {
 			}
 		}
 		
-		model.addAttribute("hotelList",hotelInfoService.CrawlingList());
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		
+		model.addAttribute("hotelList",hotelInfoService.CrawlingList(vo));
 		
 		System.out.println("파싱 정보 입력 완!");
 		
@@ -123,14 +144,23 @@ public class HotelController {
 		return "hotel/myReservation";
 	}
 	
-	@PostMapping("/cancel")
+	@GetMapping("/cancelReservation") // 취소내역 조회
+	public String cancelReservation(ReservationVO vo, Principal principal, Model model) {
+		String sessionId = principal.getName(); // 로그인한 id값
+		model.addAttribute("res",hotelInfoService.readCancelReservInfo(sessionId));
+		model.addAttribute("id", sessionId);
+		// reservationVO의 hotelid로 hotel정보조회
+		return "hotel/cancelReservation";
+	}
+	
+	@PostMapping("/cancel") // 예약취소
 	@ResponseBody
 	public String cancel(@RequestBody ReservationVO vo, Model model) {
 		hotelInfoService.hotelCancel(vo);
 		return "y";
 	}
 	
-	@PostMapping("/updateInfo")
+	@PostMapping("/updateInfo") // 예약자 정보수정
 	@ResponseBody
 	public String updateInfo(@RequestBody ReservationVO vo, Model model) {
 		hotelInfoService.ReservUpdate(vo);
