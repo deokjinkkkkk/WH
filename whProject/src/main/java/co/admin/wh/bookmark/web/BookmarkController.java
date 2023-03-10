@@ -30,10 +30,10 @@ public class BookmarkController {
 	}
 	
 	//즐겨찾기 여부 확인
-	@RequestMapping("/bookCheck/{bookNcode}/{id}") //@RequestMapping을 통해 ("/~")url로 요청이 들어오면
-	@ResponseBody  //반환값을 json형태로 응답
+	@RequestMapping("/bookCheck/{bookNcode}/{id}") // 1.@RequestMapping을 통해 ("/~")url로 요청이 들어오면
+	@ResponseBody  //3. 반환값을 json형태로 응답
 	public boolean bookCheck(@PathVariable("bookCheck") int bookNcode, BookmarkVO vo,
-			@PathVariable("id")String id, MemberVO mvo, Principal principal) { //@PathVariable를 사용하여 bookNcode와id를 추출
+			@PathVariable("id")String id, MemberVO mvo, Principal principal) { // 2.@PathVariable를 사용하여 bookNcode와id를 추출
 		boolean bookCheck = false; //즐겨찾기 하지 않았다고 가정    //Principal --> Spring Security에서 현재 인증된 사용자 정보 제공하는 인터페이스
 		mvo.setId(principal.getName());							//즉, 현재 로그인한 사용자의 id가 무엇인지 파악하기 위한것.				
 		
