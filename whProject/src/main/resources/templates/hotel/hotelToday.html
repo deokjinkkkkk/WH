@@ -6,6 +6,17 @@
 <body>
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
+	
+		<!-- 페이징 -->
+   <script>
+   		function gopage(page) {
+   			location.href = "hotel?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
+   </script>
+   <!-- 페이징 끝-->
+   
 		<!-- start page title section -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background: url('img/banner/bg4.jpg')|">
@@ -47,87 +58,99 @@
 								</div>
 							</div>
 						</div>
+						<!-- 페이징 버튼 -->
 						<div
-							class="pagination text-small text-uppercase text-extra-dark-gray">
+							class="pagination text-small text-uppercase text-extra-dark-gray gopage">
 							<ul>
-								<li><a href="javascript:void(0);"><i
+								<li th:if="${paging.startPage > 1}">
+									<a href="javascript:void(0);" th:href="|javascript:gopage(${paging.startPage-1})|"><i
 										class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
-										Prev</a></li>
-								<li class="active"><a href="javascript:void(0);">1</a></li>
-								<li><a href="javascript:void(0);">2</a></li>
-								<li><a href="javascript:void(0);">3</a></li>
-								<li><a href="javascript:void(0);">Next <i
+										</a></li>
+								<li th:classappend="${paging.page}==${num} ? 'active'"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a th:href="|javascript:gopage(${num})|">[[${num}]]</a></li>
+								<li th:if="${paging.endPage < paging.lastPage}"><a th:href="|javascript:gopage(${paging.endPage+1})|"> <i
 										class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
 							</ul>
 						</div>
+						<!-- 페이징 버튼 끝 -->
 					</div>
 					<div
 						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 						<div class="side-bar">
 							<div class="widget">
-								<div class="widget-title">
-									<h3>Search</h3>
-								</div>
+								<div class="widget">
 								<form action="#!" method="post">
-									<div class="form-group">
-										<label class="margin-5px-bottom">checkin</label> <input
-											type="text"
-											class="form-control date no-margin-bottom padding-10px-tb"
-											data-provide="datepicker" placeholder="Date">
-									</div>
-									<div class="form-group">
-										<label class="margin-5px-bottom">checkout</label> <input
-											type="text" class="form-control date no-margin-bottom padding-10px-tb"
-											data-provide="datepicker" placeholder="Date">
-									</div>
-									<div class="form-group">
-										<label class="margin-5px-bottom">지역</label> <select
-											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect1">
-											<option selected>지역 선택</option>
-											<option>서울</option>
-											<option>경기</option>
-											<option>부산</option>
-											<option>대구</option>
-											<option>인천</option>
-											<option>광주</option>
-											<option>대전</option>
-											<option>울산</option>
-											<option>세종</option>
-											<option>경기</option>
-											<option>강원</option>
-											<option>충북</option>
-											<option>충남</option>
-											<option>전북</option>
-											<option>전남</option>
-											<option>경북</option>
-											<option>경남</option>
-											<option>제주</option>
-										</select>
-									</div>
-									<div class="form-group margin-30px-bottom">
-										<label class="margin-5px-bottom">인원</label> <select
-											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect2">
-											<option>1</option>
-											<option selected>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
-									<div class="form-group margin-30px-bottom">
-										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
-											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect2">
-											<option selected>0</option>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
+<!-- 									<div class="form-group"> -->
+<!-- 										<label class="margin-5px-bottom">checkin</label> <input -->
+<!--                                  type="text" -->
+<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
+<!--                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn"> -->
+<!--                            </div> -->
+                           
+                           <script>
+                              $(function() {
+                                 $(document).ready(function() {
+         
+                                    $('#checkIn').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        startDate : '0d',
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var startDate = new Date(selected.date.valueOf());
+                                        $('#checkOut').datepicker('setStartDate', startDate);
+                                    });
+         
+                                    $('#checkOut').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var endDate = new Date(selected.date.valueOf());
+                                        $('#checkIn').datepicker('setEndDate', endDate);
+                                    });
+                                    
+                                    
+                                 });
+         
+                              });
+                           </script>
+                           
+<!--                            <div class="form-group"> -->
+<!--                               <label class="margin-5px-bottom">checkout</label> <input -->
+<!--                                  type="text" -->
+<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
+<!--                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut"> -->
+<!--                            </div> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<label class="margin-5px-bottom">지역</label> <select -->
+<!-- 											class="form-control padding-10px-tb" -->
+<!-- 											id="exampleFormControlSelect1"> -->
+<!-- 											<option selected>지역 선택</option> -->
+<!-- 											<option>서울</option> -->
+<!-- 											<option>경기</option> -->
+<!-- 											<option>부산</option> -->
+<!-- 											<option>대구</option> -->
+<!-- 											<option>인천</option> -->
+<!-- 											<option>광주</option> -->
+<!-- 											<option>대전</option> -->
+<!-- 											<option>울산</option> -->
+<!-- 											<option>세종</option> -->
+<!-- 											<option>경기</option> -->
+<!-- 											<option>강원</option> -->
+<!-- 											<option>충북</option> -->
+<!-- 											<option>충남</option> -->
+<!-- 											<option>전북</option> -->
+<!-- 											<option>전남</option> -->
+<!-- 											<option>경북</option> -->
+<!-- 											<option>경남</option> -->
+<!-- 											<option>제주</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+									
 									<button class="butn btn-block" type="submit">
 										<i class="fa fa-search"></i> Check
 									</button>

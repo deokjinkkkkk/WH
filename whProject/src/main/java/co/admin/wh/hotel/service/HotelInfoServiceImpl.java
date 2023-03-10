@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.mapper.HotelMapper;
+import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
 
@@ -25,14 +26,14 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 	
 	@Override
-	public List<HotelVO> hotelList() {
-		return hotelMapper.hotelList();
+	public List<HotelVO> hotelList(HotelSearchVO vo) {
+		return hotelMapper.hotelList(vo);
 	}
 
 	@Override
-	public List<HotelVO> CrawlingList() {
+	public List<HotelVO> CrawlingList(HotelSearchVO vo) {
 		// TODO Auto-generated method stub
-		return hotelMapper.CrawlingList();
+		return hotelMapper.CrawlingList(vo);
 	}
 
 	@Override
@@ -58,5 +59,15 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	@Override
 	public void ReservUpdate(ReservationVO vo) {
 		hotelMapper.ReservUpdate(vo);
+	}
+
+	@Override
+	public List<ReservationVO> readCancelReservInfo(String sessionId) {
+		return hotelMapper.readCancelReservInfo(sessionId);
+	}
+
+	@Override
+	public int getCountTotal(HotelSearchVO vo) {
+		return hotelMapper.getCountTotal(vo);
 	}
 }
