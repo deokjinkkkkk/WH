@@ -18,7 +18,7 @@ function connect() {
     stompClient.connect({}, function (frame) { //커넥트
         setConnected(true); //커넥트하고나면 실행할 콜백함수
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) { //구독신청  //컨트롤러에서 리턴값이 들어오면
+        stompClient.subscribe('/topic/chat', function (greeting) { //구독신청  //컨트롤러에서 리턴값이 들어오면
             showGreeting(JSON.parse(greeting.body).content); //보내준다.
         });
     });
