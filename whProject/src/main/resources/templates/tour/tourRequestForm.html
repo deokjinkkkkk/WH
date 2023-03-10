@@ -36,7 +36,7 @@
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<button onclick="goPopup();">도로명주소 호출해보기</button>
+										<button type="button" id="addrKakao">도로명주소 호출해보기</button>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -66,7 +66,6 @@
 											maxlength="70">
 									</div>
 								</div>
-
 								<div class="col-md-6 margin-25px-top">
 									<button type="button" class="butn btn-block" id="tourReqBtn">등록</button>
 								</div>
@@ -86,26 +85,17 @@
 		2. 주소를 위도 경도 변환해서 값넣기
 		
 	*/
-		var pop;
-
-		function goPopup() {
-			pop = window.open("/jusoPopup", "pop",
-					"width=570, height=420, scrollbars=yes");
-		}
-
-		function jusoCallBack(entX, entY) {
-			var form = $('<form></form>');
-			form.attr('action', '/map');
-			form.attr('method', 'post');
-			form.appendTo('body');
-			form
-					.append($('<input type="hidden" value="' + entX + '" name=entX>'));
-			form
-					.append($('<input type="hidden" value="' + entY + '" name=entY>'));
-			form.submit();
-
-			pop.close();
-		}
+	$("#addrKakao").click(function(){
+		 new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            
+		            
+		        }
+		    }).open();
+	})
+	 
 	</script>
 </body>
 </html>
