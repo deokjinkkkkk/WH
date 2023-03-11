@@ -11,4 +11,6 @@ public interface MyCourseService {
 	
 	int titleInsert(MyCourseVO vo); // 코스명 등록
 	
+	MyCourseVO detailSelect(MyCourseVO vo); // 상세보기 페이지
+	
 }

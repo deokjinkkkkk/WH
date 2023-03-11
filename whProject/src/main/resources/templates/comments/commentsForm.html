@@ -21,36 +21,10 @@
 			<div class="posts">
 				<div class="container">
 					<div class="row">
-						<div
-							class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+						<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 							<div class="posts">
 								<div class="comments-area">
-									<!--<div class="title-g margin-30px-bottom">
-										<h3>Comments</h3>
-									</div>
-									 <div class="comment-box" 
-							th:each=" c : ${com}"
-							th:data-comcode="${c.comCode}">
-							<div class="author-thumb">
-								<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" />
-							</div>
-							<div class="comment-info">
-								<h6>
-									<a href="javascript:void(0);" th:text="${c.name}"></a>
-								</h6>
-								<p th:text="${c.comContent}"></p>
-									<button type="button" class="btnDel" onclick="comDelete()">삭제</button>
-								<div class="reply">
-									<a href="javascript:void(0);"> <i class="fa fa-reply"
-										aria-hidden="true"></i> 답글
-									</a>
 								</div>
-							</div>
-							<input type="hidden" id="comCode" name="comCode"> 
-						</div> -->
-								</div>
-								<!--  start form-->
-
 								<div class="comment-form">
 									<form id='comment-form' method='post'>
 										
@@ -79,7 +53,6 @@
 					</div>
 				</div>
 			</div>
-		
 	</section>
 	<!-- end comment-->
 	<script th:inline="javascript">
@@ -87,9 +60,6 @@
 		1.다른 댓글 수정창 띄운상태에서는 값을 잘못찾는다
 		2.페이징
 	*/
-	
-	
-	
 	//댓글 번호 자동증가(시퀀스)
 	//댓글 비밀 0=모두보기 ,댓글 비밀 1=비밀댓글
 	//댓글 순서 1,2...(댓글달기로 작성시 1 고정 답글로 달시 자동증가)
@@ -344,11 +314,14 @@
 	}
 	
 	function comUpdateForm(){
+		
 		let pTag = $(event.target).prev().prev()
+		let content = pTag.text()
+		console.log(content)
 		let delBtn =  $(event.target).prev()
 		let upBtn = $(event.target)
 		
-		$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">');
+		$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">'+content+'');
 		$(delBtn).replaceWith('<button type="button" class="btnRet" onclick="resetBtn()">취소</button>')
 		let up = $(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
 	}

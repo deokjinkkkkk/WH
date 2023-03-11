@@ -4,57 +4,101 @@
 	layout:decorate="~{index}">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-
-</style>
 </head>
 
-<body>
-<!-- 각자 내용 -->
-<div layout:fragment="content" class="content">
-<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('/img/banner/bg1.jpg')|">
-			<h1 class="text-white font-weight-600">맛집리스트</h1>
-			<ul>
-				<li><a href="/main">Home</a></li>
-				<li><a href="/">북마크</a></li>
-			</ul>
-		</section>
-		<!-- 배너끝 -->
-<div class="container">
+<body layout:fragment="content">
+	<style>
+#nav {
+	background-color: white;
+}
 
-<i class="fa-regular fa-bookmark"></i> <!-- 북마크 체크 해제  -->
-<i class="fa-solid fa-bookmark"></i> <!-- 북마크 체크 상태  -->
+.bookMark {
+	align-content: center;
+}
+</style>
+	<!-- 배너시작 -->
+	<section class="page-title-section bg-img cover-background"
+		th:style="|background: url('/img/banner/bg1.jpg')|">
+		<h1 class="text-white font-weight-600">즐겨찾기</h1>
+		<ul>
+			<li><a href="/main">Home</a></li>
+			<li><a href="/">북마크</a></li>
+		</ul>
+	</section>
+	<!-- 배너끝 -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid" >
-  
-    <div class="collapse navbar-collapse" id="navbarScroll" >
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            전체보기
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="#">전체보기</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">여행지</a></li>
-            <li><a class="dropdown-item" href="#">숙소</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">search</button>
-      </form>
-    </div>
-  </div>
-</nav>
+	<section class="blogs">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 
-</div>
-</div>
+
+					<div class="bookMark">
+						<nav class="navbar navbar-expand-lg navbar-light bg-light"
+							id="nav">
+							<div class="container-fluid  d-flex justify-content-end">
+								<div class="collapse navbar-collapse" id="navbarScroll">
+									<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+										style="-bs-scroll-height: 100px;">
+										<li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#"
+											id="navbarScrollingDropdown" role="button"
+											data-bs-toggle="dropdown" aria-expanded="false"> 전체보기 </a>
+											<ul class="dropdown-menu"
+												aria-labelledby="navbarScrollingDropdown">
+												<li><a class="dropdown-item" href="#">전체보기</a></li>
+												<li><hr class="dropdown-divider"></li>
+												<li><a class="dropdown-item" href="#">여행지</a></li>
+												<li><a class="dropdown-item" href="#">숙소</a></li>
+											</ul></li>
+									</ul>
+									<form class="d-flex">
+										<input class="form-control me-2" type="search"
+											placeholder="검색어를 입력하세요" aria-label="Search">
+										<button class="btn btn-outline-success" type="submit">search</button>
+									</form>
+								</div>
+							</div>
+						</nav>
+					</div>
+
+					<div id="mainHide">
+						<table class="table table-hover">
+							<br>
+							<thead>
+								<tr>
+									<th class="col-md-2">번호</th>
+									<th class="col-md-8" style="text-align: center;">제목</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="b : ${bookMark}">
+									<td th:text="${b.bookCode}"></td>
+									<td th:if="${b.hotelName} != null">
+										<a th:text="${b.tripName}" 
+										th:href="@{/tripDetail(bookNCode=${b.bookNCode})}"></a>
+									</td>
+									<td th:if="${b.tripName} == null">
+										<a th:text="${b.hotelName}" 
+										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+
+
 </body>
 
 </html>

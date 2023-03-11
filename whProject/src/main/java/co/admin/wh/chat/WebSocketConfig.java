@@ -21,3 +21,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	    registry.addEndpoint("/chatServer").withSockJS(); //웹소켓서버 접속 요청 길면 바꿔도 됨
 	  }
 }
+           

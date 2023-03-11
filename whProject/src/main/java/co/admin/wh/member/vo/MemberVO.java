@@ -2,12 +2,10 @@ package co.admin.wh.member.vo;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
@@ -25,6 +23,7 @@ public class MemberVO implements UserDetails {
 	private String token;
 	private String reToken;
 	private int state;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		

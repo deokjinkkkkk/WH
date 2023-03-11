@@ -6,9 +6,10 @@ import co.admin.wh.bookmark.vo.BookmarkVO;
 
 public interface BookmarkMapper {
 		
-		//전체조회
+	//전체조회
 		List<BookmarkVO> bookList();
-	
+			
+		
 		//즐겨찾기 추가 여부
 		public boolean bookCheck(BookmarkVO vo);
 		
@@ -17,6 +18,7 @@ public interface BookmarkMapper {
 		
 		//즐겨찾기 취소
 		public int bookDelete(BookmarkVO vo);
+		
 		
 		
 }

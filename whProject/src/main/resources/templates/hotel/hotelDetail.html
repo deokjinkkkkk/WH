@@ -2,17 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
 
 
 <body>
 	<!-- 각자 내용 -->
 	<div layout:fragment="content" class="content">
-<!--좋아요 버튼 css-->
-<style>
+		<!--좋아요 버튼 css-->
+		<style>
 a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
+	
 }
 
 .right_area .icon {
@@ -25,33 +27,41 @@ a {
 	border: solid 2px #eaeaea;
 	background-color: #fff;
 	
+	
 }
 
 .icon.heart img {
 	width: calc(100vw * ( 24/ 1920));
 	height: calc(100vw * ( 24/ 1920));
-	 
 }
 
 .icon.heart.fas {
-	color: red
+	color: red;
+	position: absolute;
+     left: 700px;
+      top: 50px;
+	
 }
 
 .heart {
 	transform-origin: center;
 	
+	
 }
 
 .heart.active img {
 	animation: animateHeart .3s linear forwards;
+	
 }
 
 @keyframes animateHeart { 0%{
 	transform: scale(.2);
+	
 }
 40%
 {
 transform:scale(1.2);
+
 }
 100%
 {
@@ -63,11 +73,20 @@ position: absolute;
      left: 700px;
       top: 50px;
 }
+#bookImg{
+		border:none;
+		background-color: white;
+		font-size:xx-large; 
+}
+.bmark{
+	border:none;
+}
+
 </style>
-<!--좋아요 버튼 css-종료-->	
-	
-	
-	
+		<!--좋아요 버튼 css-종료-->
+
+
+
 		<!-- start page title section -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background: url('/img/banner/bg3.jpg')|">
@@ -93,17 +112,28 @@ position: absolute;
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
 										<div class="post-title margin-20px-bottom">
 											<h5 th:text="${h.hotelName}"></h5>
-								<!--좋아요 버튼 기능html-->
+											<!--좋아요 버튼 기능html-->
 											<div class="right_area" id="greatBtn">
 												<button type="button" class="icon heart">
-													<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="greatImg">
+													<img
+														src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+														id="greatImg"> 
+												</button>
 													<input type="hidden" id="id" name="id" th:value="${session.name}">
+											</div>
+											<!--좋아요 버튼 기능html 종료-->
+
+											<!--즐찾 버튼 기능html-->
+											<div class="book_area" id="bookBtn">
+												<button type="button" class="bmark">
+											<i class="fa-regular fa-bookmark" id="bookImg"></i>
 												</button>
 											</div>
-								<!--좋아요 버튼 기능html 종료-->					
+											<!-- 즐찾 버튼 끝 -->
 										</div>
 
 									</div>
+
 									<div
 										class="row margin-40px-bottom border-bottom padding-30px-bottom">
 										<div class="col-md-6">
@@ -114,7 +144,8 @@ position: absolute;
 											</p>
 											<p
 												class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
-												<span class="ti-stamp text-theme-color margin-10px-right"></span>연령 제한 없음
+												<span class="ti-stamp text-theme-color margin-10px-right"></span>연령
+												제한 없음
 											</p>
 										</div>
 										<div class="col-md-6">
@@ -284,21 +315,21 @@ position: absolute;
 									<h3>Reservation</h3>
 								</div>
 
-						<form action="/reservation" method="post">
-                           <div class="form-group">
-                              <label class="margin-5px-bottom">checkin</label> <input
-                                 type="text"
-                                 class="form-control date no-margin-bottom padding-10px-tb"
-                                 placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
-                           </div>
-                           <div class="form-group">
-                              <label class="margin-5px-bottom">checkout</label> <input
-                                 type="text"
-                                 class="form-control date no-margin-bottom padding-10px-tb"
-                                 placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
-                           </div>
-                           
-                           <script>
+								<form action="/reservation" method="post">
+									<div class="form-group">
+										<label class="margin-5px-bottom">checkin</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
+									</div>
+									<div class="form-group">
+										<label class="margin-5px-bottom">checkout</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
+									</div>
+
+									<script>
                               $(function() {
                                  $(document).ready(function() {
          
@@ -438,7 +469,6 @@ position: absolute;
 				    },
 				    error: function() {
 				      alert("좋아요를 누르는 중 오류가 발생했습니다.");
-				      getGreat(); //회원 확인 여부 호출
 				    }
 				  });
 				  console.log(greatVO);
@@ -459,12 +489,52 @@ position: absolute;
 				        }
 				          });
 				    } 
-				</script>
 				
+				
+							/*----- 
+							북마크 
+							------*/
+				
+				//회원 즐겨찾기 있는지 확인
+				 $(document).ready(function(){
+					getBookmark()
+				}); 
+				
+				var id = $('#id').val()
+				var bookNcode = window.location.pathname.split("/").pop();
+				var bookFlag = ("HT");
+				var $bookBtn = $('.bmark');
+				
+				var data = {
+						id: id,
+						bookFlag :bookFlag,
+						bookNcode : bookNcode
+				};
+				 
+				function getBookmark(){
+					$.ajax({
+						url:"/bookCheck/" + bookNcode + "/" + id,
+						data: data
+					}).then(function(result){
+						if(result) {
+							
+						}else{
+							$bookBtn.addClass("active")
+							.find("i").attr({
+								class : fa-regular,
+								class : fa-bookmark,
+								id : bookImg
+							})
+						}
+					})
+				}
+
+				</script>
+
 			</div>
 		</section>
 		<!-- end tour details section -->
 	</div>
-	
+
 </body>
 </html>

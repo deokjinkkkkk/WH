@@ -12,9 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
 
 <!-- Google Material icon -->
 <link
@@ -28,8 +25,69 @@
             href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
             rel="stylesheet">
 
-    <!-- jquery 사용하기 위해 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- modernizr js -->
+    <script src="/js/modernizr.js"></script>
+
+    <!-- bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Serch -->
+    <script src="/search/search.js"></script>
+
+    <!-- navigation -->
+    <script src="/js/nav-menu.js"></script>
+
+    <!-- owl carousel -->
+    <script src="/js/owl.carousel.js"></script>
+
+    <!-- jquery.counterup.min -->
+    <script src="/js/jquery.counterup.min.js"></script>
+
+    <!-- stellar js -->
+    <script src="/js/jquery.stellar.min.js"></script>
+
+    <!-- waypoints js -->
+    <script src="/js/waypoints.min.js"></script>
+
+    <!-- countdown js -->
+    <script src="/js/countdown.js"></script>
+
+    <!-- jquery.magnific-popup js -->
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+
+    <!-- datepicker js -->
+    <script src="/js/datepicker.min.js"></script>
+
+    <!-- isotope.pkgd.min js -->
+    <script src="/js/isotope.pkgd.min.js"></script>
+
+    <!-- range slider -->
+    <script src="/js/ion.rangeSlider.min.js"></script>
+
+    <!--  clipboard js -->
+    <script src="/js/clipboard.min.js"></script>
+
+    <!--  prism js -->
+    <script src="/js/prism.js"></script>
+    
+    
+<!-- 결제창에 필요한 js 추가 시작 -->
+      <!-- jquery validation -->
+    <script src="js/jquery.validate.min.js"></script>
+
+    <!-- jquery wizard -->
+    <script src="js/jquery.bootstrap.wizard.min.js"></script>
+
+    <!-- form-wizard -->
+    <script src="js/form-wizard.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/js/main.js"></script>
+<!-- 결제창에 필요한 js 추가 끝 -->
+
 
 <style>
 a {
@@ -387,7 +445,7 @@ a {
         -webkit-backdrop-filter: blur(13.5px);
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.18);
-        width: 900px;
+        width: 1000px;
         height: 600px;
         position: relative;
     }
@@ -469,29 +527,20 @@ a {
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
+		
 			<div class="feed-box" id="inst" style="padding: 20px">
+			
 					<input type="hidden" name="id" th:value="${session.name}" id="id">
-			<div th:each="d : ${diarys}" >
+			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
 				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
 					<div class="profile-id" ></div>
-					<input type="hidden" name="diaryCode" id="diaryCode" value="1">
 				</div>
 				<div class="feed-img" > 
-					<img id="feed-img"
-						src="https://static-storychat.pstatic.net/2020/9/1/47/208797_hm2fj34m3df60.jpg">
+					<img id="feed-img" th:src="'/image/'+${d.imgPath}">
 				</div>
 
 				<div class="icon">
-				<!-- 인식이 안됨  
-					<div>
-						<span class="material-icons-outlined"></span> <span
-							class="material-icons-outlined"></span> <span
-							class="material-icons-outlined"></span>
-					</div>
-					<div>
-						<span class="material-icons-outlined"></span>
-					</div>
-					-->
+				
 				</div>
 				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div>
 				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
@@ -511,31 +560,22 @@ a {
 						<b>이성</b> 파이썬 화이팅
 					</div>
 				</div>
-
-			
 				<div class="input-comment">
 					<input id="input-comment" type="text" class="form-control"
 						placeholder="댓글 달기...">
 				</div>
+				<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>
 			</div>
 			</div>
+			  
 		</div>
 			<br><br>
-
-	
-		
 	</div>
-	<!-- Optional JavaScript; choose one of the two! -->
-
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous">
-	</script>
 
 <!-- 공유하기 모달 시작  -->
-   <div id="modal_add_feed" class="modal modal_overlay">
+<form action="post" id="frm" enctype="multipart/form-data">
+   <div id="modal_add_feed" class="modal modal_overlay" >
     <div class="modal_window">
         <div class="modal_title">
             <div class="modal_title_side"></div>
@@ -546,24 +586,10 @@ a {
                 </span>
             </div>
         </div>
-        <div class="modal_image_upload" id="imgGroCode" name="imgGroCode">
+        <div class="modal_image_upload" id="imgGroCode">
             <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
-
         </div>
-    </div>
-</div>
-<div id="modal_add_feed_content" class="modal modal_overlay_content">
-    <div class="modal_window">
-        <div class="modal_title">
-            <div class="modal_title_side"></div>
-            <div style="margin: 5px"> 새 게시물 </div>
-            <div class="modal_title_side">
-                 <span id="close_modal" class="close_modal material-icons-outlined" style="font-size: 30px">
-                    close
-                </span>
-            </div>
-        </div>
-        <div class="modal_image_content">
+          <div class="modal_image_content" style="display: none" >
             <div id="input_image" class="modal_image_upload_content">
 
             </div>
@@ -584,39 +610,89 @@ a {
                     <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10"  placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
                 </div>
                 <div style="width: 100%; text-align: center">
-                    <button id="button_write_feed" type="submit" class="btn btn-primary" style="width: 268px">공유하기</button>
+                    <button id="button_write_feed" type="button" class="btn btn-primary" style="width: 268px">공유하기</button>
                     </div>
             </div>
         </div>
-
     </div>
 </div>
+</form>
 <!-- 공유하기 모달 종료  -->
 
 <script>
 
+const modal = document.getElementById("modal_add_feed");
+const id = $("#id").val();
+const diaryCode = $(".diaryCode").val();
+
 $(document).ready(function(){
 	getDiaryList();
 })
-const modal = document.getElementById("modal_add_feed");
-const id = $("#id").val();
-
+//리스트 출력
 function getDiaryList(){
-console.log(id)	
+	let diaryArea =$(".feed-box")
+	$.ajax({
+		url: "/getDiaryList",	
+		method: "GET",
+		dataType: "json",
+		success: function (result) {
+			console.log("조회되나요?");
+			let list = "";
+			 for (let i = 0; i < result.length; i++) {
+				  const item = result[i];
+				  if (id=== item.id) {
+					  list += '<div class="diaryCode" data-code="' + item.diaryCode + '">';
+					  list += '<div class="profile-id">' + item.id + '</div>';
+					  list += '<div class="feed-img"><img id="feed-img" src="/image/' + item.imgPath + '"></div>';
+					  list += '<div class="like" id="diaryStartDate">' + item.diaryStartDate + '</div>';
+					  list += '<div class="like" id="diaryEndDate">' + item.diaryEndDate + '</div>';
+					  list += '<br><br><h5><b><div class="feed-text" id="diarytitlet">' + item.diaryTitle + '</div></b></h5>';
+					  list += '<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>';
+					  list += '<div class="comment">';
+					  list += '<div><b></b></div>';
+					  list += '<div><b></b></div>';
+					  list += '<div><b></b></div>';
+					  list += '</div>';
+					  list += '<div class="input-comment"><input id="input-comment" type="text" class="form-control" placeholder="댓글 달기..."></div>';
+					  list += '<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>';
+					  list += '</div>';  
+				  }
+			 }
+					  diaryArea.html(list);
+		},
+		 error: function (error) {
+		      alert("조회실패");
+		 }
+	});
 }
+
+
 
 
 //모달 열기
 const buttonAddFeed = document.getElementById("add_feed");
 buttonAddFeed.addEventListener("click", e => {
+	$('#frm')[0].reset()
+	$('.modal_image_upload').css({
+        "background-color": "white",
+        "outline-offset": "-10px"
+    });
+	  $('.modal_image_upload_content').css({
+            "background-image": "",
+            "outline": "none",
+            "background-size": "contain",
+            "background-repeat" : "no-repeat",
+            "background-position" : "center"
+        });
+    $('.modal_image_content').hide();
+    $('.modal_image_upload').show();
     modal.style.display = "flex";
     document.body.style.overflowY = "hidden"; // 스크롤 없애기
 });
 
 
 // 모달 닫기 코드
-const buttonCloseModal = document.getElementById("close_modal");
-buttonCloseModal.addEventListener("click", e => {
+$('.close_modal').on("click", e => {
     modal.style.display = "none";
     document.body.style.overflowY = "visible";
 });
@@ -662,9 +738,8 @@ function uploadFiles(e){
     }
 
     if (files[0].type.match(/image.*/)) {
-        $('#modal_add_feed_content').css({
-            display : 'flex'
-        });
+        $('.modal_image_content').show();
+        $('.modal_image_upload').hide();
         $('.modal_image_upload_content').css({
             "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
             "outline": "none",
@@ -672,18 +747,19 @@ function uploadFiles(e){
             "background-repeat" : "no-repeat",
             "background-position" : "center"
         });
-        $('#modal_add_feed').css({
-            display: 'none'
-        })
     }else{
+    	;
         alert('이미지가 아닙니다.');
         return;
     }
 };
 
 
+
+
+
 $('#button_write_feed').on('click', ()=>{
-    const  imgGroCode= $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+    const imgGroCode= $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
     const content = $('#input_content').val();
     const diaryTitle = $('.diaryTitle').val();
     const diaryContent = $('#input_content').val(); 
@@ -691,12 +767,12 @@ $('#button_write_feed').on('click', ()=>{
     const diaryEndDate = $(".diaryEndDate").val();
     const id = $("#id").val();
 
-    const file = files[0];
 
+    const file = files[0];
     let fd = new FormData();
-	
-    
-    fd.append('imgGroCode', imgGroCode);
+
+    //fd.append('file', file);
+    fd.append('imgFile', file);
     fd.append('diaryTitle', diaryTitle);
     fd.append('diaryContent', diaryContent);
     fd.append('diaryStartDate', diaryStartDate)
@@ -716,20 +792,44 @@ $('#button_write_feed').on('click', ()=>{
     writeFeed(fd);
 });
 
- 
-function writeFeed(fd) {
-	fetch('/diaryInsert', {
-	method: 'POST',
-	body: fd
-	})
-	.then(response => response.json())
-	.then(result => {
-	console.log("성공");
-	})
-	.catch(error => {
-	console.log("에러");
-	});
-	}
+
+ function writeFeed(fd) {  //등록하는곳 
+    $.ajax({
+        url: "/diaryInsert",
+        data: fd,
+        method: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            console.log("성공");
+            $('#modal_add_feed').hide()
+            getDiaryList();
+        },
+        error: function (request, status, error) {
+            console.log("에러");
+        }
+    })
+};
+
+
+//삭제
+$(".feed-box").on('click',".btn-danger", ()=>{
+	const par = $(event.target).parent()
+    const diaryCode = $(event.target).parent().data('code');
+    $.ajax({
+        url: "/diaryDelete/"+ diaryCode + "/" + id,
+        type: "POST",
+        success: function (data) {
+            console.log("성공");
+        	par.remove();
+        },
+        error: function (request, status, error) {
+            console.log("에러");
+          
+        }
+    })
+})
+
 
 
 </script>

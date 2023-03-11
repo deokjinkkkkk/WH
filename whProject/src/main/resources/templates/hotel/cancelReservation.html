@@ -31,7 +31,7 @@
 											<!--  start post-->
 											<div class="post">
 												<div class="content">
-													<p style="font-size: 30px;">나의 예약내역</p>
+													<p style="font-size: 30px;">예약 취소내역</p>
 														<div th:each="r : ${res}">
 															<ul class="tour-inner">
 																<li>
@@ -138,193 +138,12 @@
 																		</div>
 																	</div>
 																</li>
-																<li>
-																	<div class="row align-items-center">
-																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">예약상태</h6>
-																		</div>
-																		<div>
-																			<p th:text="${r.resState}" id="resEmail"
-																				class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
-																		</div>
-																	</div>
-																</li>
 															</ul>
-															<button class="butn updatebtn" type="button">예약자
-																정보수정</button>
-															<button class="butn cancelbtn" type="button">예약
-																취소</button>
-															<!-- 버튼에 이벤트 걸기. 참고 : reservation.html -->
+														
 												
 														</div>
 												</div>
-												
-												
-												
-												<script th:inline="javascript">
-													// 예약 취소
-													$(".cancelbtn").on('click', function(e){
-														var result = confirm("예약을 취소하시겠습니까?");
-															if(result == true){
-	// 														console.log($.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text()))
-// 															console.log($.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text()))
-															let resId = $.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text());
-															let resName = $.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text());
-															let resTel = $.trim($(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').text());
-															let resEmail = $.trim($(e.target).parent().find('li:nth-child(8)').children().children('div:eq(1)').text());
-															let resRequest = $.trim($(e.target).parent().find('li:nth-child(9)').children().children('div:eq(1)').text());
-															
-															$.ajax({
-																url : "/cancel",
-																type : "POST",
-																data : JSON.stringify(
-																	{
-																		"resId": resId,
-																		"resName": resName,
-																		"resTel": resTel,
-																		"resEmail": resEmail,
-																		"resRequest": resRequest
-																	}
-																),
-																contentType:'application/json',
-																success : function(result){
-																	if(result == "y") {
-																		alert("예약이 취소되었습니다.");
-																	}else{
-																		alert("디비입력실패");
-																		return false;
-																	}
-																},
-																error : function(a,b,c){}
-															});
-															}else{
-																return false;
-															}
-													})
-													
-													// 예약자 정보 수정
-													$(".updatebtn").on('click', function(e){
-														var result = confirm("예약자 정보를 수정하시겠습니까?");
-														
-														if(result == true){
-															let resId1 = $.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text()); // 예약번호 찾기
-													
-															// 수정 정보를 받을 input 태그 만들기
-															let newInput6 = $("<input>").attr({
-															    id: "updateName",
-															    required: "required",
-															    type: "text"
-															});
-															let newInput7 = $("<input>").attr({
-															    id: "updateTel",
-															    required: "required",
-															    type: "tel"
-															});
-															let newInput8 = $("<input>").attr({
-															    id: "updateEmail",
-															    required: "required",
-															    type: "email"
-															});
-															let newInput9 = $("<textarea>").attr({
-															    id: "updateRequest",
-															    required: "required",
-// 															    type: "text"
-															});
-															
-// 															let newInput7 = $("<input>").attr("id","updateTel");
-// 															let newInput8 = $("<input>").attr("id","updateEmail");
-// 															let newInput9 = $("<input>").attr("id","updateRequest");
-															
-															// 기존 정보 변수에 넣어 두기
-															let resName = $.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text());
-															let resTel = $.trim($(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').text());
-															let resEmail = $.trim($(e.target).parent().find('li:nth-child(8)').children().children('div:eq(1)').text());
-															let resRequest = $.trim($(e.target).parent().find('li:nth-child(9)').children().children('div:eq(1)').text());
-													
-															// 기존 정보가 있던 p태그를 숨기고 만들어둔 input태그에 기존 정보를 담음
-															$(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').children().hide();
-				                                            $(e.target).parent().find('li:nth-child(6)').children().children().next().append(newInput6.val(resName));
-				                                             
-				                                            $(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').children().hide();
-				                                            $(e.target).parent().find('li:nth-child(7)').children().children().next().append(newInput7.val(resTel));
-				                                             
-				                                            $(e.target).parent().find('li:nth-child(8)').children().children('div:eq(1)').children().hide();
-				                                            $(e.target).parent().find('li:nth-child(8)').children().children().next().append(newInput8.val(resEmail));
-				                                             
-				                                            $(e.target).parent().find('li:nth-child(9)').children().children('div:eq(1)').children().hide();
-				                                            $(e.target).parent().find('li:nth-child(9)').children().children().next().append(newInput9.val(resRequest));
-															
-															//기존 수정, 삭제 버튼 안 보이게
-															$(e.target).hide();
-															$(e.target).next().hide();
-															
-															// 수정 확인 버튼 만들기
-															let newbtn = $("<button>").html("확인").attr({"id":"complete","class":"butn"});
-															$(e.target).parent().find('li:nth-child(9)').append(newbtn);
-														}
-													});
-													
-													//만들어진 수정 확인 버튼에 이벤트 걸기
-													$(document).on("click", "#complete", function(e) {
-														/*
-														예약번호(resId) 첫번째 예약건 걸로 찾아옴.. 시도해본것들
-															1. this랑 e.target 모두 도큐먼트로 찍힘
-															
-// 														console.log($("r.resId").data("no"));
-// 														let resId = $(this).parent().find('li:nth-child(1)').children().children('div:eq(1)').closest('p').text();
-														
-														*/
-														let resId = $("#resId").text(); 
-														let resName = $("#updateName").val();
-														let resTel = $("#updateTel").val();
-														let resEmail = $("#updateEmail").val();
-														let resRequest = $("#updateRequest").val();
-														
-														$.ajax({
-															url : "/updateInfo",
-															type : "POST",
-															data : JSON.stringify(
-																{
-																	"resId": resId,
-																	"resName": resName,
-																	"resTel": resTel,
-																	"resEmail": resEmail,
-																	"resRequest": resRequest
-																}
-															),
-															contentType:'application/json',
-															success : function(result){
-																if(result == "y") {
-																	alert("예약정보가 수정되었습니다.");
-																	
-																	//만들었던 수정 확인 버튼 지우고 기존 버튼 보이게
-																	$(e.target).remove();
-																	$(".updatebtn").show();
-																	$(".cancelbtn").show();
-																	
-																	//숨겨둔 p태그 보이게
-																	$("#resName").text(resName).show();
-																	$("#resTel").text(resTel).show();
-																	$("#resEmail").text(resEmail).show();
-																	$("#resRequest").text(resRequest).show();
-																	
-																	//만들었던 input태그 지움
-																	$("#updateName").remove();
-																	$("#updateTel").remove();
-																	$("#updateEmail").remove();
-																	$("#updateRequest").remove();
-																	
-																}else{
-																	
-																	alert("디비입력실패");
-																	return false;
-																}
-															},
-															error : function(a,b,c){}
-														});
-													});
-													
-												</script>
+											
 											</div>
 										</div>
 									</div>
@@ -414,17 +233,6 @@
             </div>
         </section>
         <!-- end blog detail section -->
-
-			
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-<!-- 지난 예약내역, 예약 취소내역, 나의 예약내역으로 나눠보기 -->
-			
 			</div>
 
 </body>

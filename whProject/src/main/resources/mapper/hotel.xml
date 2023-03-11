@@ -14,28 +14,38 @@
 	</insert>
 
 	<select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
-		SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-		h.HOTEL_CONTENT,
-		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
-		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
-		FROM HOTEL h
-		LEFT JOIN GREAT g
-		ON h.HOTEL_ID = g.GREAT_N_CODE
-		GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-		h.HOTEL_CONTENT,
-		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
-		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
-		ORDER BY GREAT_COUNT DESC
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+			SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+			h.HOTEL_CONTENT,
+			h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+			h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+			FROM HOTEL h
+			LEFT JOIN GREAT g
+			ON h.HOTEL_ID = g.GREAT_N_CODE
+			GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+			h.HOTEL_CONTENT,
+			h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+			h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
+			ORDER BY GREAT_COUNT DESC
+		<![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>		
 	</select>
 
 	<select id="CrawlingList"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
-		select a.*
-		from (
-		select * from hotel order by hotel_id desc) a
-       <![CDATA[
-       where rownum <= 20
-       ]]>
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+			select a.*
+			from (
+			select * from hotel order by hotel_id desc) a
+      	<![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+	</select>
+	
+	<!-- 전체 건수 조회 -->
+	<select id="getCountTotal" parameterType="co.admin.wh.hotel.vo.HotelSearchVO" resultType="int">
+		SELECT COUNT(*) FROM HOTEL	
 	</select>
 
 	<select id="detailSelect"
@@ -60,6 +70,16 @@
 		from Reservation r, Hotel h
 		where id = #{sessionId}
 	    and h.hotel_id = r.hotel_id
+	    and r.res_state = 0
+	</select>
+	
+	<select id="readCancelReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
+		parameterType="String">
+		select r.*, h.*
+		from Reservation r, Hotel h
+		where id = #{sessionId}
+	    and h.hotel_id = r.hotel_id
+	    and r.res_state = 1
 	</select>
 	
 	<update id="hotelCancel" parameterType="co.admin.wh.hotel.vo.ReservationVO">
@@ -73,9 +93,9 @@
 	<update id="ReservUpdate" parameterType="co.admin.wh.hotel.vo.ReservationVO">
 		update reservation
 		<set>
-			<if test="resName != null">res_name = #{resName}</if>
-			<if test="resTel != null">res_tel = #{resTel}</if>
-			<if test="resEmail != null">res_email = #{resEmail}</if>
+			<if test="resName != null">res_name = #{resName},</if>
+			<if test="resTel != null">res_tel = #{resTel},</if>
+			<if test="resEmail != null">res_email = #{resEmail},</if>
 			<if test="resRequest != null">res_request = #{resRequest}</if>
 		</set>
 		where res_id=#{resId}

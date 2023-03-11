@@ -1,14 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   >
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/index}">
+
+
 <body>
 
-[[${test1}]]
+<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+	
+	<!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
+ 			<div class="container">
+                 <h1 class="text-white font-weight-600">나만의 코스</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">My Page</a>
+                    </li>
+                    <li>
+                        <span class="active">나만의 코스</span>
+                    </li>
+                </ul>
+               </div>
+        </section>
+	 <!-- 배너끝 -->
 
+  <div class="container">
+                <div class="row">
+                    <div class="">
+                        <div class="padding-40px-all sm-padding-25px-all shadow text-center border-radius-4 bg-white">
+                            <h3 class="margin-5px-bottom">나만의 코스 짜기</h3>
+                            <p class="margin-30px-bottom">\(@^0^@)/</p>
+                            <form action="#!" method="post">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <input type="text" name="exampleInputName" id="exampleInputName" 
+                                        th:placeholder="${myCourse.myCouName}">
+                                    </div>
+                                    <br><br>
+                                    <div class="form-group col-md-3">
+                                    	<select>
+                                    		<option value="">가족코스</option>
+                                    		<option value="">혼자여행</option>                                    		
+                                    	</select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                    	<select>
+                                    		<option value="">당일여행</option>
+                                    		<option value="">1박2일</option>       
+                                    		<option value="">1박2일 이상</option>                              		
+                                    	</select>
+                                    <!-- 여기에 해당 여행지 집어넣기 -->
+                                    </div>
+                                    	<ul>
+                                    		<li>이미지</li>
+											<li>여행지 이름</li>
+											<li>주소 뜨도록</li>                                    	
+                                    	</ul>
+                                    <div>
+                                    <!-- 여기까지가 여행지 영역임 -->
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <textarea placeholder="소개글"></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="butn"><span>submit message</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                
+</div>
 </body>
+
 </html>

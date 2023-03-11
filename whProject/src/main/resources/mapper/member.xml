@@ -52,9 +52,14 @@
 	</update>
 	
 	<delete id="memberDelete">
-	delete from member
-	where id = #{id}
+		delete from member
+		where id = #{id}
 	</delete>
+	
+	<select id="passChk" resultType="boolean">
+		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
+		FROM MEMBER WHERE id = #{id} AND pass = #{pass}
+	</select>
 	
 	<insert id="memDel">
 	insert into quit

@@ -9,7 +9,7 @@ import co.admin.wh.notice.vo.CompanionVO;
 
 public interface CompanionService {
 	
-	List<CompanionVO> getCompanionList(CompanionSearchVO cvo);
+	List<CompanionVO> getCompanionList(CompanionSearchVO cvo); // 리스트 출력 + 페이징
 	
 	List<CompanionVO> comSelList(CompanionVO vo);
 	

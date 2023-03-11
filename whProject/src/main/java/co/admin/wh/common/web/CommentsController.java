@@ -28,7 +28,7 @@ public class CommentsController {
 
 	@GetMapping("/comGetList") //댓글 리스트 띄우기
 	@ResponseBody
-	public List<CommentsVO> commentsCount( CommentsVO vo,Model model) {
+	public List<CommentsVO> commentsGetList( CommentsVO vo,Model model) {
 		List<CommentsVO> comList = commentsMapper.commentsList();
 		
 		return comList;
@@ -88,5 +88,12 @@ public class CommentsController {
 	public String commentsUpdate(@RequestBody CommentsVO vo) {
 		commentsMapper.commentsUpdate(vo);
 		return "success";
+	}
+	@GetMapping("/comUpList") //댓글 리스트 띄우기
+	@ResponseBody
+	public List<CommentsVO> commentsUpList( CommentsVO vo,Model model) {
+		List<CommentsVO> comList = commentsMapper.commentsList();
+		
+		return comList;
 	}
 }
