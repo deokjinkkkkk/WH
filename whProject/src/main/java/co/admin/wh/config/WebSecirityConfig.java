@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import co.admin.wh.member.service.LoginSuccessHandler;
+import co.admin.wh.member.service.SocialSuccessHandler;
 import co.admin.wh.member.service.SocialUserService;
 import co.admin.wh.member.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -66,11 +67,12 @@ public class WebSecirityConfig{
 			.headers().frameOptions().sameOrigin()
 			.and()
 			.oauth2Login()
-				.defaultSuccessUrl("/login-success")
 				.loginPage("/login")
+				.defaultSuccessUrl("/main")
+				.successHandler(new SocialSuccessHandler())
 				.permitAll()
 				.userInfoEndpoint()
-				.userService(socialUserService);
+					.userService(socialUserService);
 
 
 
