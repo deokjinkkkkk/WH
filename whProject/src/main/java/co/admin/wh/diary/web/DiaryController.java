@@ -51,13 +51,14 @@ public class DiaryController {
 		return "diary/diaryList";
 	}
 	
-	@PostMapping("/getDiaryList")
+	@GetMapping("/getDiaryList/{id}")
 	@ResponseBody
-	public List<DiaryVO> getDiaryList(DiaryVO vo) {
-	  List<DiaryVO> diaryList = diaryMapper.getDiaryList();
-	  return diaryList;
+	public List<DiaryVO> getDiaryList(@PathVariable("id") String id, Model model) {
+	    System.out.println("select 오나?=============");
+	    List<DiaryVO> diaryList = diaryMapper.getDiaryList(id);
+	    return diaryList;
 	}
-	
+
 
 	@PostMapping("/diaryInsert")
 	@ResponseBody

@@ -55,4 +55,6 @@ public class DiaryServiceImpl implements DiaryService {
 		return mapper.getDiaryList();
 	}
 
+	
+
 }

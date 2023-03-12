@@ -23,6 +23,5 @@ public interface DiaryService {
 	
 	DiaryVO imgSelect(DiaryVO vo);  //이미지 조회
 	
-	
 	 
 }
