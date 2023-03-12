@@ -32,7 +32,6 @@
 	</select>
 	
 	<update id="durationUpdate" parameterType="co.admin.wh.common.vo.ReportVO" >
-
 		UPDATE member
 		SET
 		state=#{state}

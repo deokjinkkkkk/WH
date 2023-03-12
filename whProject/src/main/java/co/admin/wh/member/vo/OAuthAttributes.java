@@ -64,10 +64,10 @@ public class OAuthAttributes {
 	        Map<String, Object> profile = (Map<String, Object>) kakao_account.get("profile");   // 마찬가지로 profile(nickname, image_url.. 등) 정보가 담긴 값을 꺼낸다.
 	        String gender = (String) kakao_account.get("gender");
 	        System.out.println(gender +"++++++++++++++++++++++++++++");
-	        if(gender == "male") {
-	        	gender = "남";
-	        }else {
+	        if(gender == "male" ) {
 	        	gender = "여";
+	        }else {
+	        	gender ="님";
 	        }
 	        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	        String pass = passwordEncoder.encode("1234");
@@ -77,7 +77,7 @@ public class OAuthAttributes {
 	        String token = "";
 	        String retoken = "";
 	        int phone = 0;
-	        int state = 0 ;
+	        int state = 0;
 	        return new OAuthAttributes(
 	        		attributes,
 	        		userNameAttributeName,

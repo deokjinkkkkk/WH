@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.admin.wh.common.mapper.ReportMapper;
 import co.admin.wh.common.service.CommonService;
 import co.admin.wh.common.service.ReportService;
+import co.admin.wh.common.service.SanctionsService;
 import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.common.vo.ReportVO;
+import co.admin.wh.common.vo.SanctionsVO;
 
 @Controller
 public class RepotController {
@@ -23,6 +25,9 @@ public class RepotController {
 	
 	@Autowired
 	CommonService commomService;
+	
+	@Autowired
+	SanctionsService sanctionsService;
 	
 	@RequestMapping("/report")
 	public String reportInsert(ReportVO rvo) {
@@ -65,8 +70,9 @@ public class RepotController {
 	}
 	
 	@PostMapping("/duration")
-	public String duration(ReportVO vo) {
+	public String duration(ReportVO vo, SanctionsVO svo) {
 		reportMapper.durationUpdate(vo);
+		sanctionsService.sanctionsInsert(svo);
 		return "redirect:reportCompanion";
 	}
 }

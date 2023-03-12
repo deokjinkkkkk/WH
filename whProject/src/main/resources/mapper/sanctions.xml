@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.common.mapper.SanctionsMapper">
+
+
+<insert id="sanctionsInsert">
+<selectKey keyProperty="sanCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(san_code),0)+1 FROM sanctions 
+		</selectKey>
+	INSERT INTO Sanctions 
+		VALUES (#{sanCode},#{id}, #{sanDay}, sysdate)
+</insert>
+
+</mapper>
