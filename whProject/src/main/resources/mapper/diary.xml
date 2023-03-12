@@ -12,6 +12,7 @@
 	ORDER by d.diary_code desc
 	</select>
 	
+	
 	<!-- 이미지 출력 -->
 	<select id="imgSelect" resultType="co.admin.wh.diary.vo.DiaryVO">
 	select *

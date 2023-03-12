@@ -23,4 +23,5 @@ public interface DiaryMapper {
 	
 	DiaryVO imgSelect(DiaryVO vo);  //이미지 조회
 
+	List<DiaryVO> getDiaryList(String id); //리스트 
 }
