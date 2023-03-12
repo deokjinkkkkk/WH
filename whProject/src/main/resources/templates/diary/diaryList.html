@@ -527,10 +527,10 @@ a {
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
-		
+		<div class="posts">
 			<div class="feed-box" id="inst" style="padding: 20px">
-			
 					<input type="hidden" name="id" th:value="${session.name}" id="id">
+				<!--	
 			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
 				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
 					<div class="profile-id" ></div>
@@ -567,8 +567,10 @@ a {
 				<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>
 			</div>
+			  -->
 			</div>
-			  
+			
+			  </div>
 		</div>
 			<br><br>
 	</div>
@@ -626,44 +628,42 @@ const id = $("#id").val();
 const diaryCode = $(".diaryCode").val();
 
 $(document).ready(function(){
-	getDiaryList();
+	getDiaryList(id);
 })
 //리스트 출력
-function getDiaryList(){
-	let diaryArea =$(".feed-box")
-	$.ajax({
-		url: "/getDiaryList",	
-		method: "GET",
-		dataType: "json",
-		success: function (result) {
-			console.log("조회되나요?");
-			let list = "";
-			 for (let i = 0; i < result.length; i++) {
-				  const item = result[i];
-				  if (id=== item.id) {
-					  list += '<div class="diaryCode" data-code="' + item.diaryCode + '">';
-					  list += '<div class="profile-id">' + item.id + '</div>';
-					  list += '<div class="feed-img"><img id="feed-img" src="/image/' + item.imgPath + '"></div>';
-					  list += '<div class="like" id="diaryStartDate">' + item.diaryStartDate + '</div>';
-					  list += '<div class="like" id="diaryEndDate">' + item.diaryEndDate + '</div>';
-					  list += '<br><br><h5><b><div class="feed-text" id="diarytitlet">' + item.diaryTitle + '</div></b></h5>';
-					  list += '<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>';
-					  list += '<div class="comment">';
-					  list += '<div><b></b></div>';
-					  list += '<div><b></b></div>';
-					  list += '<div><b></b></div>';
-					  list += '</div>';
-					  list += '<div class="input-comment"><input id="input-comment" type="text" class="form-control" placeholder="댓글 달기..."></div>';
-					  list += '<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>';
-					  list += '</div>';  
-				  }
-			 }
-					  diaryArea.html(list);
-		},
-		 error: function (error) {
-		      alert("조회실패");
-		 }
-	});
+function getDiaryList(id) {
+    var str = "";
+    console.log(id)
+    var diaryArea =$(".feed-box");
+    $.ajax({
+        url: "/getDiaryList/" + id, // id 파라미터 추가
+        type: "GET", // GET 방식으로 변경
+        dataType: 'json',
+        success: function (result) {
+            console.log("조회되나????????");
+            $(result).each(function(index,item){
+                if(id === item.id){ // diary -> item 수정
+                    str += '<div class="diaryCode" data-code="' + item.diaryCode + '">' 
+                    str += '<div class="profile-id">' + item.id + '</div>' 
+                    str += '<div class="feed-img">' 
+                    str += '<img id="feed-img" src="/image/' + item.imgPath + '">'
+                    str +='</div>'
+                    str +='<div class="like" id="diaryStartDate">' + item.diaryStartDate + '</div>'
+                    str +='<div class="like" id="diaryEndDate">' + item.diaryEndDate + '</div>'
+                    str +='<br><br>'
+                    str +='<h5><b><div class="feed-text" id="diarytitlet">' + item.diaryTitle + '</div></b></h5>'
+                    str +='<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>' 
+                    str +='<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;' 
+                    str +='<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>' 
+                    str +='</div>';
+                }
+            });
+            diaryArea.html(str);
+        },
+        error: function (error) {
+            alert("조회실패"); 
+        },
+    });
 }
 
 
