@@ -13,4 +13,6 @@ public interface MyCourseService {
 	
 	MyCourseVO detailSelect(MyCourseVO vo); // 상세보기 페이지
 	
+	int myCourseDelete(MyCourseVO vo); // 나만의 코스 목록 삭제
+	
 }

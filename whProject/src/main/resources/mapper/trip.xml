@@ -24,7 +24,8 @@
                use_time, trip_parking, trip_child, trip_pet, trip_chk_card, my_Cou_Name, my_Course_Code)
          VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
                #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber},
-               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard}, ${myCouName}, ${myCourseCode})	
+               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard}, ${myCouName}, ${myCourseCode},
+               #{myCouFreeCode})	
 	</insert>
 	
 	<!-- 전체 건수 조회 -->

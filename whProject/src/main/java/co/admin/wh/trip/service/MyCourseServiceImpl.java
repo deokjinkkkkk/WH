@@ -31,6 +31,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 		// 상세보기 페이지
 		return map.detailSelect(vo);
 	}
+
+	@Override
+	public int myCourseDelete(MyCourseVO vo) {
+		// 나만의 코스 목록 삭제
+		return map.myCourseDelete(vo);
+	}
 	
 	
 }

@@ -96,6 +96,7 @@ body>.container {
 														<th class="col-md-5">코스명</th>
 														<th class="col-md-3">코스테마</th>
 														<th class="col-md-3">코스일정</th>
+														<th class="col-md-3">삭 제</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -105,6 +106,7 @@ body>.container {
 														th:href="@{/myCourseDetail/{myCourseCode}(myCourseCode=${m.myCourseCode})}"></a></td>
 														<td th:text="${m.theme}"></td>
 														<td th:text=${m.myCouDate}></td>
+														<td><button onclick="myCouDelete()" type="button" class="btn btn-xs btn-warning">삭제</button></td>
 													</tr>
 												</tbody>
 											</table>
@@ -161,7 +163,42 @@ $("#Reg").click(function(){
 	  	   }
 	   });
 	});
-      
+	
+
+/* '삭제' 버튼 클릭 시, 해당 행 삭제 */
+function myCouDelete() {
+	  if (confirm('해당 코스를 삭제하시겠습니까?')) {
+	    var row = $(event.target).closest('tr');
+	    var myCourseCode = row.children().eq(0).text();
+	    var myCouName = row.children().eq(1).text();
+	    var theme = row.children().eq(2).text();
+	    var myCouDate = row.children().eq(3).text();
+
+	    $.ajax({
+	      url: "/myCourseDelete",
+	      type: "POST",
+	      data: JSON.stringify({
+	        "myCourseCode": myCourseCode,
+	        "myCouName": myCouName,
+	        "theme": theme,
+	        "myCouDate": myCouDate
+	      }),
+	      contentType: 'application/json',
+	      success: function(data) {
+	        if (data == "success") {
+	          alert("삭제가 완료됐습니다.");
+	          row.remove(); // 행 삭제
+	        } else {
+	          alert("삭제 실패");
+	        }
+	      },
+	      error: function() {
+	        alert('삭제 실패');
+	      }
+	    });
+	  }
+	}
+
 </script>	
 	
 	</div>
