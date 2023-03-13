@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+<!-- vue 3 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Websocket Chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- CSS -->
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app" v-cloak>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>채팅방 리스트</h3>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <label class="input-group-text">방제목</label>
+        </div>
+        <input type="text" class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
+       <div class="input-group-prepend">
+        <label class="input-group-text">비밀번호</label>
+    </div>
+    <input type="password" class="form-control" v-model="room_password" v-on:keyup.enter="createRoom">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.roomId" v-on:click="enterRoom(item.roomId)">
+            {{item.roomName}}
+            <button class="btn btn-danger btn-sm" @click.stop="deleteRoom(item.roomId)">삭제</button>
+        </li>
+    </ul>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            room_name : '',
+            room_password: '', // 새로운 데이터 추가
+            chatrooms: [
+            ]
+        },
+        created() {
+            this.findAllRoom();
+        },
+        methods: {
+            findAllRoom: function() {
+                axios.get('/chat/rooms').then(response => { this.chatrooms = response.data; });
+            },
+            createRoom: function() {
+                if("" === this.room_name) {
+                    alert("방 제목을 입력해 주십시요.");
+                    return;
+                } else {
+                    var params = new URLSearchParams();
+                    params.append("name",this.room_name);
+                    params.append("password",this.room_password); // 파라미터 추가
+                    axios.post('/chat/room', params)
+                        .then(
+                            response => {
+                                alert(response.data.roomName+"방 개설에 성공하였습니다.")
+                                this.room_name = '';
+                                this.room_password = ''; // 추가한 데이터 초기화
+                                this.findAllRoom();
+                            }
+                        )
+                        .catch( response => { alert("채팅방 개설에 실패하였습니다."); } );
+                }
+            },
+
+            enterRoom: function (roomId) {
+            	  var sender = prompt('대화명을 입력해 주세요.');
+            	  if (sender !== '' && sender !== null) {
+            	    var password = prompt('비밀번호를 입력해 주세요.');
+            	    if (password !== '' && password !== null) {
+            	      var self = this;
+            	      axios
+            	        .post('/chat/room/check-password?roomId=' + roomId, { // Query parameter 추가
+            	          password: password,
+            	          roomName: this.room_name,
+            	        }, {
+            	          headers: {
+            	            'Content-Type': 'application/json' // 요청 데이터 타입 명시
+            	          },
+            	        })
+            	        .then((response) => {
+            	          localStorage.setItem('wschat.sender', sender);
+            	          localStorage.setItem('wschat.roomId', roomId);
+            	          location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
+            	        })
+            	        .catch((error) => {
+            	          alert('비밀번호가 일치하지 않습니다.');
+            	        });
+            	    } else {
+            	      alert('비밀번호를 입력해주세요.');
+            	    }
+            	  } else {
+            	    alert('대화명을 입력해주세요.');
+            	  }
+            	},
+
+            deleteRoom(roomId) {
+                axios.post(`/chat/room/delete/${roomId}`)
+                  .then(response => {
+                    alert('채팅방이 삭제되었습니다.');
+                    this.findAllRoom();
+                  })
+                  .catch(error => {
+                    alert('채팅방 삭제에 실패하였습니다.');
+                    console.error(error);
+                  });
+              },
+            },
+          });
+        </script>
+</body>
+</html>
