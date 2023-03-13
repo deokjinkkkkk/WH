@@ -70,7 +70,7 @@
 	                                    <tbody>
 											<tr th:each="m : ${myCouDet}">
 												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}"></td>
-												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}"></td>											
+												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}" style="width:200px; height:130px;"></td>											
 												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
 												<td th:text="${tripAddr}"></td>
 												<td><button onclick="myCouDetailDel()" type="button" class="btn btn-danger">삭제</button></td>
@@ -83,8 +83,8 @@
 													<img src="https://img.icons8.com/material-sharp/24/null/circled-chevron-down.png"/>
                                 				</button>
                                 				</td>
-                                				<td><input type="hidden" id="tripLat" th:value="${m.tripLat}"></td>
-                                				<td><input type="hidden" id="tripLon" th:value="${m.tripLon}"></td>
+                                				<td><input type="hidden" class="tripLat" th:value="${m.tripLat}"></td>
+                                				<td><input type="hidden" class="tripLon" th:value="${m.tripLon}"></td>
 												<td><input type="hidden" id="myCouFreeCode" th:value="${m.myCouFreeCode}"></td>
 											</tr>
 										</tbody>
@@ -95,38 +95,47 @@
                                 <script type="text/javascript">
                                 
                                 var map;
-                                var markers = [];
-                                
+                                var tripMap = [(${json})]
+                                console.log(tripMap);
                                 // 각 위도와 경도값을 ajax로 흥엉엉 
                                 function initMap() {
                                 	
-                                    var maps = document.querySelectorAll('#map');
-                                    var tripLat = parseFloat($("#tripLat").val());
-                                    var tripLon = parseFloat($("#tripLon").val());
-                                    
-                                    var markers = {
-                                    		let : tripLat,
-                                    		lng : tripLon
-                                    }
-                                    
-                                    console.log(markers);
                                     
                                     var defaultOptions = {
-                                        zoom: 12,
-                                        center: cityHalls[0],
+                                        zoom: 7.8,
+                                        center:  {
+                                			lat: Number(tripMap[0].tripLat),
+                                			lng: Number(tripMap[0].tripLon)
+                                	},
                                         disableDefaultUI: true,
                                         zoomControl: true
                                     };
 
-                                    console.log(defaultOptions);
                                     
                                     map = new google.maps.Map(document.getElementById('map'), defaultOptions);
                                                                         
-                                    for (var i = 0 ; i < cityHalls.length; i++) {
-                                    var marker = new google.maps.Marker({
-                                        position: cityHalls[i],
-                                        map: map,                       
+                                    for (var i = 0 ; i < tripMap.length; i++) {
+                                    	var cityHall = {
+                                    			lat: Number(tripMap[i].tripLat),
+                                    			lng: Number(tripMap[i].tripLon)
+                                    	}
+                                    	
+                                    	// 여행지 이름 변수에 담기
+                                    	var name = tripMap[i].tripName
+                                    	
+                                    	var marker = new google.maps.Marker({
+	                                        position: cityHall,
+	                                        map: map,                       
 		                                    });
+                                    	
+                                    	// 마커 위에 말풍선 추가
+                                    	var infoWindow = new google.maps.InfoWindow({
+                                            content: name
+                                        });
+                                    	
+                                            infoWindow.open(map, marker);
+                                            map.setCenter(marker.getPosition());
+                                    	
 		                                }
 		                           }
                                     
@@ -135,7 +144,7 @@
                                 <script async defer
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
                                 </script>
-							<!-- api 끝 -->
+								<!-- api 끝 -->
                                     
                                  <!-- 여기까지가 여행지 영역임 -->
                                     </div>
@@ -192,7 +201,6 @@
 	function moveUp() {
 		var row = $(event.target).closest('tr');
 		var prevRow = row.prev();
-		console.log(prevRow)
 		if (prevRow.length) {			
 			var couOrd = row.find(".couOrd").text();		
 			row.find(".couOrd").text(couOrd - 1);
