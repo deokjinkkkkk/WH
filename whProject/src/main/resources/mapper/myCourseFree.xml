@@ -19,13 +19,16 @@
 	SELECT NVL(MAX(MY_COU_FREE_CODE),0)+1 FROM MY_COURSE_FREE
 </selectKey>
  INSERT INTO MY_COURSE_FREE
+ (trip_unique_number, my_course_code, 
+  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
  VALUES (#{tripUniqueNumber}, #{myCourseCode},
- #{couOrd}, #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
+ (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE), 
+ #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
 </insert>
 
 <!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
 <select id="myCourseSelect" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
-	SELECT T.TRIP_NAME, T.IMG_GRO_CODE, T.TRIP_ADDR, T.TRIP_UNIQUE_NUMBER, M.MY_COU_FREE_CODE, M.COU_ORD
+	SELECT T.TRIP_NAME, T.IMG_GRO_CODE, T.TRIP_ADDR, T.TRIP_UNIQUE_NUMBER, T.TRIP_LAT, T.TRIP_LON, M.MY_COU_FREE_CODE, M.COU_ORD
 	FROM TRIP T, MY_COURSE_FREE M
 	WHERE M.TRIP_UNIQUE_NUMBER = T.TRIP_UNIQUE_NUMBER 
 	AND M.MY_COURSE_CODE = #{myCourseCode}
@@ -40,6 +43,10 @@
 
 
 <!-- 나만의 코스 상세페이지에 담은 각 여행지 위아래로 이동 -->
-
+<update id="myCouUpdate">
+	UPDATE MY_COURSE_FREE
+	SET cou_ord = #{couOrd}
+	WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
+</update>
 
 </mapper>
