@@ -100,7 +100,7 @@ body>.container {
 													</tr>
 												</thead>
 												<tbody>
-													<tr th:each="m : ${test}">
+													<tr th:each="m : ${test}" th:if="${m.myCouId == session.name || session.name == 'ADMIN'}">
 														<td th:text="${m.myCourseCode}"></td>
 														<td><a th:text="${m.myCouName}"
 														th:href="@{/myCourseDetail/{myCourseCode}(myCourseCode=${m.myCourseCode})}"></a></td>

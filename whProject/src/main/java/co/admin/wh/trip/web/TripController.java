@@ -2,6 +2,7 @@ package co.admin.wh.trip.web;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -11,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.notice.vo.Paging;
@@ -61,6 +65,31 @@ public class TripController {
 		model.addAttribute("tripList", tripService.tripList(svo));
 		
 		return "trip/tripList";
+	}
+	
+	// 여행지 이름 검색
+	@PostMapping("/tripNameSearchList")
+	public String tripNameSearch(Model model, TripSearchVO vo, Paging paging) {
+		paging.setPageUnit(5);
+		paging.setPageSize(10);
+		
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(tripService.getCountTotla(vo));
+		
+		List<TripVO> tripList = tripService.tripNameSearchList(vo);
+		model.addAttribute("tripList", tripList);
+		return "trip/tripNameSearchList";
+	}
+	
+	// 여행지 자동 완성
+	@RequestMapping("/ajax/selfSearch")
+	@ResponseBody
+	public Map<String, Object> selfSearch(@RequestParam Map<String, Object> paramMap) throws Exception{
+		List<Map<String, Object>> resultList = tripService.selfSearch(paramMap);
+		paramMap.put("resultList", resultList);
+		return paramMap;
 	}
 	
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징
