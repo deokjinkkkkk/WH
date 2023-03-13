@@ -12,7 +12,7 @@
 	background-color: white;
 }
 
-.bookMark {
+.hotelMark {
 	align-content: center;
 }
 </style>
@@ -28,74 +28,48 @@
 	<!-- 배너끝 -->
 
 	<section class="blogs">
+	<div class="col-lg-2 col-sm-6 sm-margin-30px-bottom">
+                            <h3 class="footer-title-style1">북마크</h3>
+                            <ul class="list-style-1 no-margin-bottom">
+                                <li><a href="#hotel" role="tab" data-flag="HT">숙소</a></li>
+                                <li><a href="#trip" role="tab" data-flag="TR">여행지</a></li>
+                            </ul>
+                        </div>
+                        </section>
+                        <section>
 		<div class="container">
 			<div class="row">
 				<div
 					class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 
 
-					<div class="bookMark">
-						<nav class="navbar navbar-expand-lg navbar-light bg-light"
-							id="nav">
-							<div class="container-fluid  d-flex justify-content-end">
-								<div class="collapse navbar-collapse" id="navbarScroll">
-									<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-										style="-bs-scroll-height: 100px;">
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarScrollingDropdown" role="button"
-											data-bs-toggle="dropdown" aria-expanded="false"> 전체보기 </a>
-											<ul class="dropdown-menu"
-												aria-labelledby="navbarScrollingDropdown">
-												<li><a class="dropdown-item" href="#">전체보기</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="#">여행지</a></li>
-												<li><a class="dropdown-item" href="#">숙소</a></li>
-											</ul></li>
-									</ul>
-									<form class="d-flex">
-										<input class="form-control me-2" type="search"
-											placeholder="검색어를 입력하세요" aria-label="Search">
-										<button class="btn btn-outline-success" type="submit">search</button>
-									</form>
-								</div>
-							</div>
-						</nav>
-					</div>
+					
 
 					<div id="mainHide">
 						<table class="table table-hover">
-							<br>
 							<thead>
 								<tr>
 									<th class="col-md-2">번호</th>
-									<th class="col-md-8" style="text-align: center;">제목</th>
-
+									<th class="col-md-8" style="text-align: center;">호텔 이름</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="b : ${bookMark}">
-									<td th:text="${b.bookCode}"></td>
-									<td th:if="${b.hotelName} != null">
-										<a th:text="${b.tripName}" 
-										th:href="@{/tripDetail(bookNCode=${b.bookNCode})}"></a>
-									</td>
-									<td th:if="${b.tripName} == null">
-										<a th:text="${b.hotelName}" 
-										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"></a>
+								<tr th:each="b : ${bookmark}" th:if="${b.bookFlag == 'HT'}">
+									<td th:text="${b.bookCode}" class="hidden"></td>
+									<td><a th:text="${b.hotelName}"
+										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"
+										class="hidden"></a> <a th:text="${b.hotelName}"
+										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"
+										th:classappend="${#strings.equals(b.id, m.id) ? '' : 'hidden'}"></a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
 	</section>
-
 	
 
 
