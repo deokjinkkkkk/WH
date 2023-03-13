@@ -13,13 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import co.admin.wh.common.service.ImageService;
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.diary.mapper.DiaryMapper;
@@ -47,8 +43,15 @@ public class DiaryController {
 	
 	@RequestMapping("/diary") //이동
 	public String diary(Model model) {
-		 model.addAttribute("diarys", diaryMapper.getDiaryList());
+		model.addAttribute("diarys", diaryMapper.getDiaryList());
 		return "diary/diaryList";
+	}
+	
+	
+	@RequestMapping("/diaryAll") //전체이동
+	public String diaryAllList(Model model) {
+		 model.addAttribute("diarys", diaryMapper.getDiaryList());
+		return "diary/diaryAllList";
 	}
 	
 	@GetMapping("/getDiaryList/{id}")
@@ -102,7 +105,6 @@ public class DiaryController {
 		return resultMap;
 		
 	}
-	
 	
 	@PostMapping("/diaryUpdate/{diaryCode}/{id}")
 	@ResponseBody
