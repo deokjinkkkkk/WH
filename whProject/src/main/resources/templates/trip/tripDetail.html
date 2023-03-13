@@ -101,9 +101,10 @@ position: absolute;
                </div>
         </section>
 	 <!-- 배너끝 -->
+	 
 	<!-- 썸네일 리스트 -->
 	<!-- start blog detail section -->
-	[[${trip.tripUniqueNumber}]]
+     [[${trip.tripLat}]]
         <section class="blogs"></section>
             <div class="container">
                 <div class="row">
@@ -276,7 +277,39 @@ position: absolute;
 											</li>
 									</ul>
                             <!-- 상세정보 끝 -->
+                            
+                            <!-- 구글 지도 API 이용 TEST -->
+                                <div id="map" style="height: 600px;"
+                                th:attr="data-lat=${trip.tripLat}, data-lon=${trip.tripLon}"></div>
+                                <script type="text/javascript">
+                                var map;
+                                function initMap() {
+                                    var cityHall = {
+                                        lat: parseFloat(document.getElementById('map').getAttribute('data-lat')),
+                                        lng: parseFloat(document.getElementById('map').getAttribute('data-lon'))
+                                    };
 
+                                    var defaultOptions = {
+                                        zoom: 12,
+                                        center: cityHall,
+                                        disableDefaultUI: true,
+                                        zoomControl: true
+                                    };
+
+                                    map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+
+                                    var marker = new google.maps.Marker({
+                                        position: cityHall,
+                                        map: map,                       
+                                    });
+                                }
+                                </script>
+
+                                <script async defer
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
+                                </script>
+							<!-- api 끝 -->
+							
                             <!--  start comment-->
                             <div class="comments-area">
                                 <div class="title-g margin-30px-bottom">
@@ -350,6 +383,8 @@ position: absolute;
                     </div>
                     <!--  end blog left-->
                 </div>
+                                
+                
                 <script>
 				
 				//좋아요 기능 시작
@@ -481,6 +516,8 @@ position: absolute;
 						}
 					});
 				};
+				
+				
 				</script>
             </div>
         </section>
