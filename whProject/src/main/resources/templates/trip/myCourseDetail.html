@@ -70,6 +70,7 @@
                                     <table class="table table-hover">
 	                                    <tbody>
 											<tr th:each="m : ${myCouDet}">
+												<td id="couOrd" th:text="${m.couOrd}"></td>
 												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}"></td>											
 												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
 												<td th:text="${m.tripAddr}"></td>
@@ -139,55 +140,64 @@
 	}
 	
 /* ↑, ↓ 버튼 클릭 시 위아래로 이동 */
-function moveUp() {
-    var row = $(event.target).closest('tr');
-    var prevRow = row.prev();
-    console.log(prevRow)
-    if (prevRow.length) {
-        prevRow.before(row);
-    }
-}
-
-function moveDown() {
-	var row = $(event.target).closest('tr');
-	var nextRow = row.next();
-	if (nextRow.length) {
-	nextRow.after(row);
-	}
-}
-
-
-/* 위아래로 여행지 이동한 상태를 저장... */
-function getTableData() {
-  var tableData = [];
-  $('table tbody tr').each(function(row, tr) {
-    tableData[row] = {
-      "imgGroCode": $(tr).find('td:eq(0) img').attr('src'),
-      "tripName": $(tr).find('td:eq(1)').text(),
-      "tripAddr": $(tr).find('td:eq(2)').text(),
-    }
-  });
-  return tableData;
-}
-
-
-function saveTableData() {
-	  var tableData = getTableData();
-	  $.ajax({
-	    url: '/saveTableData',
-	    method: 'POST',
-	    data: JSON.stringify(tableData),
-	    contentType: 'application/json',
-	    success: function(response) {
-	      alert('저장되었습니다.');
-	    },
-	    error: function(error) {
-	      alert('저장에 실패하였습니다.');
-	    }
-	  });
+	function moveUp() {
+		var row = $(event.target).closest('tr');
+		var prevRow = row.prev();
+		console.log(prevRow)
+		if (prevRow.length) {			
+			var couOrd = row.find("#couOrd").text();		
+			row.find("#couOrd").text(couOrd - 1);
+			var couOrdPre = prevRow.find("#couOrd").text();
+			prevRow.find("#couOrd").text(parseInt(couOrdPre) + 1);
+			prevRow.before(row);
+		}
+		
 	}
 
+	function moveDown() {
+		var row = $(event.target).closest('tr');
+		var nextRow = row.next();
 
+		if (nextRow.length) {
+			var couOrd = row.find("#couOrd").text();
+			row.find("#couOrd").text(parseInt(couOrd) + 1);
+			var couOrdNext = nextRow.find("#couOrd").text();
+			nextRow.find("#couOrd").text(couOrdNext - 1);
+			nextRow.after(row);
+		}
+	}
+
+	
+	
+	
+	/* 위아래로 여행지 이동한 상태를 저장... */
+	function getTableData() {
+		var tableData = [];
+		$('table tbody tr').each(function(row, tr) {
+			tableData[row] = {
+				"imgGroCode" : $(tr).find('td:eq(0) img').attr('src'),
+				"tripName" : $(tr).find('td:eq(1)').text(),
+				"tripAddr" : $(tr).find('td:eq(2)').text(),
+			}
+		});
+		return tableData;
+	}
+
+	function saveTableData() {
+		var tableData = getTableData();
+		$.ajax({
+			url : '/saveTableData',
+			method : 'POST',
+			data : JSON.stringify(tableData),
+			contentType : 'application/json',
+			success : function(response) {
+				alert('저장되었습니다.');
+			},
+			error : function(error) {
+				alert('저장에 실패하였습니다.');
+			}
+		});
+	}
 </script>
             </div>
             

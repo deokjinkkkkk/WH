@@ -25,10 +25,11 @@
 
 <!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
 <select id="myCourseSelect" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
-	SELECT T.TRIP_NAME, T.IMG_GRO_CODE, T.TRIP_ADDR, T.TRIP_UNIQUE_NUMBER, M.MY_COU_FREE_CODE
+	SELECT T.TRIP_NAME, T.IMG_GRO_CODE, T.TRIP_ADDR, T.TRIP_UNIQUE_NUMBER, M.MY_COU_FREE_CODE, M.COU_ORD
 	FROM TRIP T, MY_COURSE_FREE M
 	WHERE M.TRIP_UNIQUE_NUMBER = T.TRIP_UNIQUE_NUMBER 
 	AND M.MY_COURSE_CODE = #{myCourseCode}
+	ORDER BY COU_ORD
 </select>
 
 <!-- 나만의 코스 상세페이지에 담은 각 여행지 삭제 -->
