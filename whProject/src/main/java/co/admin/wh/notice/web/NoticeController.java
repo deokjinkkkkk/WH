@@ -54,13 +54,32 @@ public class NoticeController {
 		return "notice/noticelist";
 	}
 
+	//관리자공지사항 
+	@RequestMapping("/noticeAdmin")
+	public String noticeAdmin(Model model, @ModelAttribute("svo") NoticeSearchVO svo, Paging paging) {
+
+		paging.setPageUnit(5);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		paging.setTotalRecord(noticeService.getCountTotal(svo));
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+
+		model.addAttribute("noticelists", noticeService.getNoticeList(svo));
+		return "admin/noticeListAdmin";
+	}
+	
+	
 	@RequestMapping("/noticeForm")
 	public String noticeForm(Model model) {
-		return "notice/noticeForm";
+		return "admin/noticeFormAdmin";
 	}
 
+
+
+	//관리자 등록
 	@RequestMapping("/noticeInsert")
-	public String noticeInsert(NoticeVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
+	public String noticeInsertAdmin(NoticeVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
 
 		String saveFolder = saveimg; // 파일저장위치
 
@@ -81,36 +100,47 @@ public class NoticeController {
 			vo.setImgGroCode(ivo.getImgGroCode());
 			noticeMapper.noticeInsert(vo);
 		}
-		return "redirect:/notice";
+		return "redirect:/noticeAdmin";
 	}
+	
 
+	//관리자 상세페이지
+	@RequestMapping(value = "/noticeDetails/{noticeCode}", method = RequestMethod.GET)
+	public String noticeDetailAdmin(@PathVariable("noticeCode") int noticeCode, NoticeVO vo, Model model) {	
+		vo.setNoticeCode(noticeCode);
+		//noticeService.noticeHit(noticeCode); // 조회수
+		model.addAttribute("n", noticeService.noticendetil(vo));
+		return "admin/noticeDetailAdmin";
+	}
+	
+	//회원 상세페이지
 	@RequestMapping(value = "/noticeDetail/{noticeCode}", method = RequestMethod.GET)
-	public String noticeDe(@PathVariable("noticeCode") int noticeCode, NoticeVO vo, Model model) {
-		
+	public String noticeDe(@PathVariable("noticeCode") int noticeCode, NoticeVO vo, Model model) {	
 		vo.setNoticeCode(noticeCode);
 		noticeService.noticeHit(noticeCode); // 조회수
 		model.addAttribute("n", noticeService.noticendetil(vo));
-		
 		return "notice/noticeDetail";
-
 	}
-
+	
+	
+	//관리자
 	@RequestMapping("/noticeUpdateForm")
 	public String noticeUpdateForm(@ModelAttribute("n") NoticeVO vo, Model model) {
 		model.addAttribute("n", noticeService.noticendetil(vo));
-		return "notice/noticeUpdate";
+		return "admin/noticeUpdateAdmin";
 	}
 
+	//관리자 업로드
 	@PostMapping("/noticeUpdate")
 	public String noticeUpdate(NoticeVO vo, Model model) {
 		noticeService.noticeUpdate(vo); // 수정된 공지사항 정보를 DB에 반영
-		return "redirect:noticeDetail/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
+		return "redirect:/noticeDetails/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
 	}
-
+	//관리자 삭제
 	@PostMapping("/noticeDelete")
 	public String noticeDelete(NoticeVO vo, RedirectAttributes redirectAttributes) {
 		noticeService.noticeDelete(vo);
-		return "redirect:/notice";
+		return "redirect:/noticeAdmin";
 	}
 
 }

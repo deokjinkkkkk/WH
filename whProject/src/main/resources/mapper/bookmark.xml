@@ -20,7 +20,7 @@
 			order="BEFORE">
 			SELECT
 			NVL(MAX(BOOK_CODE),0)+1
-			FROM BOOKCODE
+			FROM BOOKMARK
 		</selectKey>
 		INSERT INTO BOOKMARK
 		VALUES(#{id},#{bookFlag},#{bookCode},#{bookNcode})
@@ -69,8 +69,13 @@
 		AND id = #{id}
 	</delete>
 
-
-
+	<!-- 단건조회 -->
+	<select id="selectBook" resultMap="bookmarkResult">
+		SELECT * FROM BOOKMARK
+		WHERE ID = #{id}
+		AND BOOK_FLAG = #{bookFlag}
+		AND BOOK_N_CODE = #{bookNcode}
+	</select>
 
 
 	<!-- 즐겨찾기 추가 여부 확인. 페이지에서 벗어나도 count : 1이 되어있기 때문에 즐겨찾기 추가를 지속시켜주는 코드 <select 

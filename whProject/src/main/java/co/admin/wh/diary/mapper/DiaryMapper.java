@@ -7,8 +7,8 @@ import co.admin.wh.diary.vo.DiaryVO;
 
 public interface DiaryMapper {
 
-
 	List<DiaryVO> getDiaryList(); //리스트 
+	
 	
 	int diaryInsert(DiaryVO vo); //등록 
 	

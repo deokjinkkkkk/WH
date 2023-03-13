@@ -30,6 +30,12 @@ public interface BookmarkMapper {
 	
 	//삭제
 	public int bookDel(BookmarkVO vo);
+	
+	//북마크 단건조회 만들기!! xml에도 추가!
+	public int selectBook(BookmarkVO vo);
+	
+	//북마크 추가여부 확인
+	public boolean bookmarkCheck(BookmarkVO vo);
 		
 		
 }

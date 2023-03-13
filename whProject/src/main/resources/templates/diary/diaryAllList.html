@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<style>
+a {
+	text-decoration-line: none;
+	color: black;
+}
+
+.navbar {
+	position: fixed;
+	width: 100%;
+	background-color: white;
+	border-bottom: solid 1px rgb(202, 202, 202);
+}
+
+.container-fluid {
+	justify-content: space-between;
+	min-width: 1000px;
+	width: 1000px
+}
+
+.navbar-search {
+	width: 300px;
+	font-size: 14px;
+}
+
+.body {
+	padding-top: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-size: 14px;
+	background-color: #FAFAFA
+}
+
+.left-body {
+	width: 630px;
+	min-width: 630px;
+	height: 1000px;
+	margin-right: 350px;
+}
+
+.right-body {
+	width: 320px;
+	min-width: 320px;
+	height: 1000px;
+	position: fixed;
+	margin-left: 650px;
+}
+
+.feed-box {
+	border: solid 1px rgb(202, 202, 202);
+	background-color: white;
+	margin-bottom: 25px;
+}
+
+.profile {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.profile-id {
+	font-weight: bold;
+}
+
+.profile-name {
+	font-size: 12px;
+}
+
+.profile-img-box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 10px;
+	margin-right: 15px;
+}
+
+.profile-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.profile-text {
+	flex-direction: column;
+	text-align: left;
+}
+
+#feed-img {
+	width: 100%;
+}
+
+.icon {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 10px;
+}
+
+.like {
+	text-align: left;
+	margin: 10px;
+	font-size: 13px;
+}
+
+.feed-text {
+	text-align: left;
+	margin: 10px;
+}
+
+.comment {
+	text-align: left;
+	margin: 10px;
+}
+
+#input-comment {
+	box-shadow: none;
+	border: none;
+	border-top: solid 1px rgb(202, 202, 202);
+}
+
+.recommend-msg {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 7px;
+}
+
+#recommend-text {
+	color: grey;
+}
+
+#recommend-plus {
+	text-decoration: none;
+	color: black;
+}
+
+#follow {
+	text-decoration: none;
+	font-weight: bold;
+	color: rgb(70, 156, 255);
+}
+
+.recommend-lst {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.information {
+	color: rgb(197, 197, 197);
+	font-size: 11px;
+	margin-left: 10px;
+	margin-top: 25px;
+}
+
+.modal_overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+}
+
+.modal_window {
+	background: white;
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 900px;
+	height: 600px;
+	position: relative;
+	padding: 13px;
+}
+
+.modal_title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.modal_title_side {
+	flex: 0 0 40px;
+	text-align: center;
+}
+
+.modal_image_upload {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	width: 780px;
+	height: 548px;
+}
+
+.main_body {
+	display: flex;
+	justify-content: center;
+	padding-top: 50px;
+	background-color: #FAFAFA;
+}
+
+.feed_box {
+	background-color: white;
+	width: 580px;
+	margin: 10px;
+	min-height: auto;
+	padding-bottom: 10px;
+}
+
+.feed_img {
+	width: 100%;
+	object-fit: contain;
+}
+
+.feed_content {
+	padding: 0px 10px;
+}
+
+.feed_like {
+	padding: 0px 10px;
+}
+
+.feed_reply {
+	padding: 0px 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.feed_txt {
+	font-size: 14px;
+}
+
+.feed_icon {
+	padding: 5px 5px 0px 5px;
+	display: flex;
+	justify-content: space-between;
+}
+
+span {
+	padding-right: 5px;
+}
+
+.feed_name {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.feed_name_txt {
+	font-size: 14px;
+	padding: 0px 10px;
+	font-weight: bold;
+}
+
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+}
+
+.profile_img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.name_content {
+	display: flex;
+	flex-direction: column;
+}
+
+.name_content_txt {
+	font-size: 12px;
+	padding: 0px 10px;
+	font-weight: bold;
+	color: lightgray;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 190px;
+}
+
+.big_profile_box {
+	width: 60px;
+	height: 60px;
+	border-radius: 70%;
+	overflow: hidden;
+}
+
+.link_txt {
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.recommend_box {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	align-items: center;
+}
+
+.comment_box {
+	margin: 40px 0 0 5px;
+	font-size: 12px;
+	font-weight: bold;
+	color: lightgray;
+	display: flex;
+	flex-direction: column;
+}
+
+@media screen and (max-width: 1280px) {
+	.right_body {
+		display: none;
+	}
+}
+
+
+
+.modal_window {
+	background: white;
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 1000px;
+	height: 600px;
+	position: relative;
+}
+
+.modal_title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-weight: bold;
+	font-size: 20px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.modal_title_side {
+	margin: 5px;
+	flex: 0 0 40px;
+	text-align: center;
+}
+
+.modal_image_upload {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	transition: all .15s ease-in-out;
+	width: 798px;
+	height: 548px;
+	text-align: center;
+	line-height: 548px;
+}
+
+.modal_image_upload_content {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	width: 500px;
+	height: 548px;
+}
+
+.modal_image_content {
+	display: flex;
+	flex-direction: row;
+}
+
+.modal_content_write {
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid rgba(0, 0, 0, 0.18);;
+}
+
+.feed_content_textarea {
+	resize: none;
+	width: 294px;
+	border: none;
+}
+
+.col-sm-5 {
+	width: 500px;
+}
+
+
+</style>	
+<body>
+	<div layout:fragment="content" class="content">
+	
+
+	<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">커뮤니티</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">여행 일지</span></li>
+				</ul>
+			</div>
+		</section>
+	
+	<!-- 바디 영역 -->
+	<div class="body" style="padding-left: 100px">
+		<div class="left-body">
+		<div class="posts">
+			<div class="feed-box" id="inst" style="padding: 20px">
+			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
+				<div class="profile-id" th:text="${d.id}" style="margin: 10px" th:href="">
+					<div class="profile-id" ></div>
+				</div>
+				<div class="feed-img" > 
+					<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px" height="300px">
+				</div>
+
+				<div class="icon">
+				
+				</div>
+				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div>
+				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
+				<br><br>
+				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
+				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
+				</div>
+
+				<div class="comment">
+					<div>
+						<b>기덕</b> 장고 화이팅
+					</div>
+					<div>
+						<b>재명</b> 알고리즘 화이팅
+					</div>
+					<div>
+						<b>이성</b> 파이썬 화이팅
+					</div>
+				</div>
+				<div class="input-comment">
+					<input id="input-comment" type="text" class="form-control"
+						placeholder="댓글 달기...">
+				</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	
+	
+</body>
+</html>

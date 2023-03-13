@@ -1,31 +1,14 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/index}">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<body>
-	<!-- 내용 시작 -->
-	<div layout:fragment="content" class="content">
-
-
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('/img/banner/bg2.jpg')|">
-			<h1 class="text-white font-weight-600">공지사항</h1>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><span class="active">공지사항</span></li>
-			</ul>
-		</section>
-		<!-- 배너끝 -->
-
-		<!-- 내용 찐시 -->
+	layout:decorate="~{/admin/indexAdmin}">
+	
+<body layout:fragment="adminContent">
 		<form method="post" action="/noticeDelete">
 			<br> <br>
 			<div class="container">
-				<a href="/notice" class="btn btn-primary">목록</a> <br>
-				<table class="table">
+				<a href="/noticeAdmin" class="btn btn-primary">목록</a>
+				<br>
+				<table class="table">				
 					<tr>
 						<td width="20%" class="text-center text-warning">번호</td>
 						<td width=30% class="text-center" th:text="${n.noticeCode}"></td>
@@ -45,24 +28,26 @@
 					<tr>
 						<td colspan="4" class="text-left" valign="top" height="200">
 							<pre th:utext="${n.noticeContent}"
-								style="white-space: pre-wrap; border: none; background-color: white;"> </pre>
-							<div class="feed-img">
+								style="white-space: pre-wrap; border: none; background-color: white;"> 
+								</pre>
 								<img id="feed-img" th:src="'/image/'+${n.imgPath}">
-							</div>
 						</td>
+						
 					<tr>
 						<th width=20% class="text-center text-warning">파일</th>
 						<td colspan="3" th:text="${n.imgName}"></td>
 					</tr>
+					
 
 					<tr>
+						<td><a
+							th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
+							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <input
+							type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
+							<button type="submit" class="btn btn-danger">삭제</button></td>
 				</table>
 			</div>
 		</form>
-
-	</div>
-
-
 
 </body>
 </html>

@@ -25,7 +25,20 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomController {
 	private final ChatService chatService;
 	
-
+	String currentUserId = getCurrentUserId();
+	
+	// 현재 로그인한 사용자의 ID 가져오기
+	private String getCurrentUserId() {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication != null && authentication.isAuthenticated()) {
+	      return authentication.getName();
+	    } else {
+	      // 로그인 되어 있지 않은 사용자의 경우 예외 처리 또는 기본값 설정 등을 수행할 수 있습니다.
+	      return "anonymous";
+	    }
+	  }
+	
+	
 
 	// 채팅 리스트 화면
 	@GetMapping("/room")
@@ -44,17 +57,10 @@ public class ChatRoomController {
 	@PostMapping("/room")
 	@ResponseBody
 	public ChatRoom createRoom(@RequestParam String name, @RequestParam String password) {
-		return chatService.createRoom(name, password);
+	    String createdBy = getCurrentUserId(); // 현재 로그인한 사용자의 ID를 createdBy로 지정
+	    return chatService.createRoom(name, password, createdBy);
 	}
 
-	// 채팅방 삭제
-	@PostMapping("/room/delete/{roomId}")
-	@ResponseBody
-	public String deleteRoom(@PathVariable String roomId) {
-		ChatRoom chatRoom = chatService.findById(roomId);
-		chatService.deleteRoom(chatRoom);
-		return "success";
-	}
 
 	// 채팅방 입장 화면
 	@GetMapping("/room/enter/{roomId}")
@@ -83,4 +89,25 @@ public class ChatRoomController {
 		}
 	}
 
+	// 채팅방 삭제
+	@PostMapping("/room/delete/{roomId}")
+	@ResponseBody
+	public String deleteRoom(@PathVariable String roomId) {
+		ChatRoom chatRoom = chatService.findById(roomId);
+		chatService.deleteRoom(chatRoom);
+		return "success";
+	}
+	
+//	@PostMapping("/room/delete/{roomId}")
+//	@ResponseBody
+//	public String deleteRoom(@PathVariable String roomId, @RequestBody Map<String, Object> requestBody) {
+//	    String currentUserId = (String) requestBody.get("currentUserId");
+//	    ChatRoom chatRoom = chatService.findById(roomId);
+//	    if (!currentUserId.equals(chatRoom.getCreatedBy())) {
+//	        // 현재 로그인한 사용자와 방을 개설한 사용자의 ID가 다를 경우 삭제 불가
+//	        return "fail";
+//	    }
+//	    chatService.deleteRoom(chatRoom);
+//	    return "success";
+//	}
 }

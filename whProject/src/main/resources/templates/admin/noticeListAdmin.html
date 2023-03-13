@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/index}">
-
+	layout:decorate="~{/admin/indexAdmin}">
 
 <style>
 body {
@@ -24,28 +23,8 @@ body>.container {
 	}
 
 </style>
-<body>
-
-
-	<!-- 내용 시작 -->
-	<div layout:fragment="content" class="content">
-		
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('/img/banner/bg2.jpg')|">
-			<h1 class="text-white font-weight-600">공지사항</h1>
-			<ul>
-				<li><a href="main">Home</a></li>
-				<li><span class="active">공지사항</span></li>
-			</ul>
-		</section>
-		<!-- 배너끝 -->
-
-
-		<!-- start faq section -->
-		<section>
-			<div class="container">
-			<!-- 페이징 -->
+<body layout:fragment="adminContent">
+<!-- 페이징 -->
 		<script>
 			function gopage(page) {
 				location.href = "notice?page=" + page;
@@ -53,6 +32,9 @@ body>.container {
 				frmSearch.submit();
 			}
 		</script>
+		<!-- start faq section -->
+		<section>
+			<div class="container">
 				<div class="row">
 					<div class="col-md-10 center-col">
 						<div class="accordion" id="accordionOne">
@@ -63,7 +45,7 @@ body>.container {
 											<table class="table table-hover">
 												<div class="pull-right"
 													style="width: 100px; margin: 10px; margin-left: 800px;">
-											
+													<a href="noticeForm" class="btn btn-primary btn-block">등록</a>
 												</div>
 												<br>
 												<thead>
@@ -78,7 +60,7 @@ body>.container {
 													<tr th:each="n  : ${noticelists}">
 														<td th:text="${n.noticeCode}"></td>
 														<td><a th:text="${n.noticeTitle}"
-															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
+															th:href="@{/noticeDetails/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeModDate}"></td>
 													</tr>
@@ -88,24 +70,20 @@ body>.container {
 									</div>
 								</div>
 								<br> <br>
-								<!-- 페이징 추가 해주세요 -->
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-											<li class="page-item" th:if="${paging.startPage > 1}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
-												</li>											
-												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
-												</li>										
-												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-												</li>
-											</ul>
-										</nav>
-									</div> 
-                   				<!-- 페이징 끝 -->
+								<!--  페이징 bootstrap 적용 -->
+								<div class="gopage">
+									<nav aria-label="Page navigation example" class="gopage">
+										<ul class="pagination">
+											<li class="page-item"
+												th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+												<a class="page-link" th:href="|javascript:gopage(${num})|" 
+												th:class="${paging.page}==${num} ? 'active'"> [[${num}]]
+											</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--  페이징 bootstrap 끝 -->
 							</div>
 						</div>
 					</div>
@@ -115,7 +93,5 @@ body>.container {
 	</div>
 	<!-- end faq section -->
 	<!-- 내용 끝 -->
-
 </body>
-
 </html>

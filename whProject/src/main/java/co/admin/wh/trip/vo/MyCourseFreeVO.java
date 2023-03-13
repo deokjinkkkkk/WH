@@ -14,4 +14,6 @@ public class MyCourseFreeVO {
 	String tripName; // 여행지명
 	String imgGroCode; // 이미지
 	String tripAddr; // 주소
+	String tripLat; //위도
+	String tripLon; //경도
 }

@@ -54,13 +54,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="b : ${bookmark}" th:if="${b.bookFlag == 'HT'}">
-									<td th:text="${b.bookCode}" class="hidden"></td>
-									<td><a th:text="${b.hotelName}"
-										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"
-										class="hidden"></a> <a th:text="${b.hotelName}"
-										th:href="@{/hotelDetail(bookNCode=${b.bookNCode})}"
-										th:classappend="${#strings.equals(b.id, m.id) ? '' : 'hidden'}"></a>
+								<tr th:each="h : ${bookHotel}">
+									<td th:text="${h.bookCode}"></td>
+									
+									<td style="text-align: center;"><a th:text="${h.hotelName}"
+										th:href="@{/hotelDetail/{hotelCode}(hotelId=${h.hotelId})}"></a>
 									</td>
 								</tr>
 							</tbody>

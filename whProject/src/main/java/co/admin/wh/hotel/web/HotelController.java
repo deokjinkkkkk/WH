@@ -46,7 +46,7 @@ public class HotelController {
 	@Autowired
 	private MemberMapper memberMapper;
 	
-	@GetMapping("/hotel") // 숙소 첫 페이지(좋아요 순 정렬)
+	@GetMapping("/hotel") // 숙소 첫 페이지
 	public String hotel(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
 
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
@@ -158,6 +158,8 @@ public class HotelController {
 		//id를 가지고 나머지 member값 가져오기
 		vo.setId(principal.getName()); // 로그인한 id값을 예약vo에 set
 		hotelInfoService.insertReservInfo(vo);
+		int hotelId = vo.getHotelId();
+		hotelInfoService.minusRoomCount(hotelId); // hotel테이블의 방 개수 -1
 		return "y";
 	}
 	
@@ -177,6 +179,15 @@ public class HotelController {
 		model.addAttribute("id", sessionId);
 		// reservationVO의 hotelid로 hotel정보조회
 		return "hotel/cancelReservation";
+	}
+	
+	@GetMapping("/finReservation") // 지난예약내역 조회
+	public String finReservation(ReservationVO vo, Principal principal, Model model) {
+		String sessionId = principal.getName(); // 로그인한 id값
+		model.addAttribute("res",hotelInfoService.readFinReservInfo(sessionId));
+		model.addAttribute("id", sessionId);
+		// reservationVO의 hotelid로 hotel정보조회
+		return "hotel/finReservation";
 	}
 	
 	@PostMapping("/cancel") // 예약취소
@@ -255,5 +266,20 @@ public class HotelController {
 		List<HotelVO> hotelList = hotelInfoService.goodRatingList(vo);
 		model.addAttribute("hotelList", hotelList);
 		return "hotel/sortingHotelList";
+	}
+	
+	@PostMapping("/hotelNameSearchList") // 호텔이름 검색
+	public String hotelNameSearch(Model model, HotelSearchVO vo,Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		
+		List<HotelVO> hotelList = hotelInfoService.hotelNameSearchList(vo);
+		model.addAttribute("hotelList", hotelList);
+		return "hotel/hotelNameSearchList";
 	}
 };
