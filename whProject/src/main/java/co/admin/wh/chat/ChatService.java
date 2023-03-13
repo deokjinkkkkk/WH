@@ -11,10 +11,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class ChatService {
 
@@ -41,8 +39,8 @@ public class ChatService {
     }
 
     //채팅방 생성
-    public ChatRoom createRoom(String name, String password) {
-        ChatRoom chatRoom = ChatRoom.create(name, password);
+    public ChatRoom createRoom(String name, String password, String createdBy) {
+        ChatRoom chatRoom = ChatRoom.create(name, password, createdBy);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
         return chatRoom;
     }
