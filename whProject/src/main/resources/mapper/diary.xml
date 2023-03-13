@@ -2,7 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.diary.mapper.DiaryMapper">
 
-	<!-- 전체조회 -->
+	<select id="diaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
+	select * from diary
+	
+	
+	</select>
+	
+	
+	<!-- 개인조회 -->
 	<select id="getDiaryList"
 		resultType="co.admin.wh.diary.vo.DiaryVO">
 		select
@@ -28,8 +35,6 @@
 		#{diaryCode}
 	</select>
 
-
-
 	<insert id="diaryInsert"
 		parameterType="co.admin.wh.diary.vo.DiaryVO">
 		<selectKey keyProperty="diaryCode" resultType="int"
@@ -53,12 +58,12 @@
 	</insert>
 
 	<update id="diaryUpdate">
-		UPDATE diary
+	UPDATE diary
 		SET diary_title = #{diaryTitle},
 		diary_content = #{diaryContent},
 		diary_start_date = #{diaryStartDate},
 		diary_end_date = #{diaryEndDate}
-		WHERE diary_code = #{diaryCode}
+	WHERE diary_code = #{diaryCode}
 	</update>
 
 

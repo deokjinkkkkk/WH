@@ -54,6 +54,18 @@ public class BookmarkServiceImpl implements BookmarkService {
 		
 		return mapper.bookDel(vo);
 	}
+
+	@Override
+	public int selectBook(BookmarkVO vo) {
+		
+		return mapper.selectBook(vo);
+	}
+
+	@Override
+	public boolean bookmarkCheck(BookmarkVO vo) {
+		
+		return mapper.bookmarkCheck(vo);
+	}
 	
 
 }

@@ -106,4 +106,22 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		// TODO Auto-generated method stub
 		return hotelMapper.goodRatingList(vo);
 	}
+
+	@Override
+	public List<HotelVO> hotelNameSearchList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.hotelNameSearchList(vo);
+	}
+
+	@Override
+	public List<ReservationVO> readFinReservInfo(String sessionId) {
+		// TODO Auto-generated method stub
+		return hotelMapper.readFinReservInfo(sessionId);
+	}
+
+	@Override
+	public void minusRoomCount(int hotelId) {
+		// TODO Auto-generated method stub
+		hotelMapper.minusRoomCount(hotelId);
+	}
 }
