@@ -3,10 +3,10 @@ package co.admin.wh.hotel.vo;
 import lombok.Data;
 
 @Data
-public class HotelVO {
+public class HotelVO{
 	public int hotelId; // 호텔아이디
 	public String hotelName; // 호텔이름
-	public long star; // 별점
+	public double star; // 별점
 	public String hotelAddr;
 	public String hotelInfo; // 객실정보
 	public String hotelContent; // 상세정보
@@ -23,7 +23,7 @@ public class HotelVO {
 	public HotelVO() {};
 
    public HotelVO(String hotelName,
-		   long star, String hotelAddr, String hotelInfo,
+		   double star, String hotelAddr, String hotelInfo,
            String hotelContent, String hotelRegion,String roomGrade,
 		   long roomCount, long roomPrice, long roomLimit, String img1,
 		   String img2,String img3,String img4,String img5){
