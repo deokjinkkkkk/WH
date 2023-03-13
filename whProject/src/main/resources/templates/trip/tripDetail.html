@@ -278,9 +278,9 @@ position: absolute;
 									</ul>
                             <!-- 상세정보 끝 -->
                             
-                           <!-- 구글 지도 API 이용 TEST -->
+                            <!-- 구글 지도 API 이용 TEST -->
                                 <div id="map" style="height: 600px;"
-                                th:attr="data-lat=${trip.tripLat}, data-lon=${trip.tripLon}"></div>
+                                th:attr="data-lat=${trip.tripLat}, data-lon=${trip.tripLon}, data-name=${trip.tripName}"></div>
                                 <script type="text/javascript">
                                 var map;
                                 function initMap() {
@@ -288,6 +288,9 @@ position: absolute;
                                         lat: parseFloat(document.getElementById('map').getAttribute('data-lat')),
                                         lng: parseFloat(document.getElementById('map').getAttribute('data-lon'))
                                     };
+                                    
+                                    var tripName = document.getElementById('map').getAttribute('data-name');
+
 
                                     var defaultOptions = {
                                         zoom: 12,
@@ -300,8 +303,14 @@ position: absolute;
 
                                     var marker = new google.maps.Marker({
                                         position: cityHall,
-                                        map: map,                       
+                                        map: map,
                                     });
+                                    
+                                    var infoWindow = new google.maps.InfoWindow({
+                                        content: tripName
+                                    });
+                                        infoWindow.open(map, marker);
+                                        map.setCenter(marker.getPosition());
                                 }
                                 </script>
 

@@ -113,9 +113,16 @@ public class MyCourseController {
 	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
 	public String CourseDetail(@PathVariable("myCourseCode") String myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
 			Model model) {
+	    ObjectMapper object = new ObjectMapper();
 		vo.setMyCourseCode(myCourseCode);
 		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
 		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
+		  try {
+		         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+		      } catch (JsonProcessingException e) {
+		         e.printStackTrace();
+		      }
+
 		return "trip/myCourseDetail";
 	}
 

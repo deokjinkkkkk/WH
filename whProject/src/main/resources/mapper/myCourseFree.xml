@@ -22,7 +22,7 @@
  (trip_unique_number, my_course_code, 
   cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
  VALUES (#{tripUniqueNumber}, #{myCourseCode},
- (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE), 
+ (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE WHERE MY_COURSE_CODE = #{myCourseCode}), 
  #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
 </insert>
 
