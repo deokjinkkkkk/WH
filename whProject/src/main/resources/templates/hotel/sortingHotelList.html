@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+						<div class="row margin-30px-bottom" id="hotelListContent">
+							<div th:each="h : ${hotelList}"
+								class="hotels col-md-6 margin-30px-bottom">
+								<div class="hotel border border-radius-4 package h-100">
+									<img th:src="${h.img1}"/>
+									<div class="padding-30px-all">
+										<div
+											class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
+											<div>
+												<p style="font-size: 20px;" th:text="${h.hotelName}"
+													class="no-margin-bottom font-size22">Bali</p>
+												<span class="letter-spacing-2"> <span
+													th:text="${h.hotelRegion}" class="ti-location-pin"></span></span>
+											</div>
+											<div>
+												<span th:text="|₩ ${h.roomPrice}|"></span>
+											</div>
+										</div>
+										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn">Details</a>
+									</div>
+								</div>
+							</div>
+						</div>
+</html>

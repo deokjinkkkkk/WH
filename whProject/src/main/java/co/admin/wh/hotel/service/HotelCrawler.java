@@ -59,11 +59,11 @@ public class HotelCrawler implements Crawler {
 				JSONObject jsonObj3 = (JSONObject)jsonObj2.get("pageProps");
 				JSONObject jsonObj4 = (JSONObject)jsonObj3.get("apolloState");
 				JSONObject jsonObj5 = (JSONObject)jsonObj4.get("ROOT_QUERY");
-				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\""+today+"\",\"checkOut\":\""+tomorrow+"\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":1,\"placeFileName\":\"place:Seoul\",\"sortDirection\":\"descending\",\"sortField\":\"popularityKR\"})");
-				
+				// 지역 바꿀때 place바꾸기 place:Busan_Province
+				//Busan_Province/Jeju_Province/Incheon_Metropolitan_City/Daegu_Metropolitan_City/Ulsan_Metropolitan_City/Daejeon_Metropolitan_City
+				JSONObject jsonObj6 = (JSONObject)jsonObj5.get("hotelSearchByPlaceFileName({\"adultCnt\":2,\"checkIn\":\""+today+"\",\"checkOut\":\""+tomorrow+"\",\"childAges\":[],\"includeTax\":false,\"pageIndex\":0,\"placeFileName\":\"place:Jeju_Province\",\"sortDirection\":\"descending\",\"sortField\":\"rating\"})");
 				System.out.println(jsonObj5);
 //				System.out.println(jsonObj6); // HotelList json
-				
 				JSONArray infoArr = (JSONArray) jsonObj6.get("hotelList");
 //				System.out.println(infoArr); // db에 담을 정보를 배열에 담음
 //				
@@ -76,15 +76,16 @@ public class HotelCrawler implements Crawler {
                     String img1 = (String) images.get(0);
                     String img2 = (String) images.get(1);
                     String img3 = (String) images.get(2);
-                    String img4 = (String) images.get(3);
-                    String img5 = (String) images.get(4);
+                    String img4 = (String) images.get(2);
+                    String img5 = (String) images.get(2);
                     
                     //가격 가져오기
                     JSONArray topRates = (JSONArray)tmp.get("topRates");
                     JSONObject roomInfo = (JSONObject)topRates.get(0);
                     
-                    HotelVO hotelVO = new HotelVO((String)tmp.get("hotelName"), 
-                    		(Long)tmp.get("starRating"),
+                    HotelVO hotelVO = new HotelVO((String)tmp.get("hotelName"),
+//                    		(long)tmp.get("guestRating"),
+                    		8.0,
                     		(String)tmp.get("city")+" "+(String)tmp.get("address"), 
                     		"hotelInfo","hotelContent",
                     		(String)tmp.get("city"),
