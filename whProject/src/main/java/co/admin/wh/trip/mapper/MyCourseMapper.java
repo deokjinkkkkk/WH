@@ -11,5 +11,7 @@ public interface MyCourseMapper {
 	int titleInsert(MyCourseVO vo); // 코스명 등록
 	
 	MyCourseVO detailSelect(MyCourseVO vo); // 상세보기 페이지
+	
+	int myCourseDelete(MyCourseVO vo); // 나만의 코스 목록 삭제
 
 }

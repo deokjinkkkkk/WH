@@ -24,7 +24,20 @@
                </div>
         </section>
 	 <!-- 배너끝 -->
+	 
+<style>
+.icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(100vw * ( 45/ 1920));
+	height: calc(100vw * ( 45/ 1920));
+	border-radius: 50%;
+	border: solid 2px #eaeaea;
+	background-color: #fff;	
+}
 
+</style>	 
   <div class="container">
                 <div class="row">
                     <div class="">
@@ -50,30 +63,202 @@
                                     		<option value="">1박2일</option>       
                                     		<option value="">1박2일 이상</option>                              		
                                     	</select>
-                                    <!-- 여기에 해당 여행지 집어넣기 -->
                                     </div>
-                                    	<ul>
-                                    		<li>이미지</li>
-											<li>여행지 이름</li>
-											<li>주소 뜨도록</li>                                    	
-                                    	</ul>
-                                    <div>
-                                    <!-- 여기까지가 여행지 영역임 -->
+                                 <!-- 여기에 해당 여행지 집어넣기 -->
+                                 <!-- 해당 여행지로 이동 불가한건 나중에 선생님께 여쭤보기 ㅎ... -->
+                                    <table class="table table-hover">
+	                                    <tbody>
+											<tr th:each="m : ${myCouDet}">
+												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}"></td>
+												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}" style="width:200px; height:130px;"></td>											
+												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
+												<td th:text="${tripAddr}"></td>
+												<td><button onclick="myCouDetailDel()" type="button" class="btn btn-danger">삭제</button></td>
+												<td>
+												<button class="icon box" type="button" onclick="moveUp()">
+													<img src="https://img.icons8.com/material-sharp/24/null/circled-chevron-up.png"/>
+                                				</button></td>
+                                				<td>
+                                				<button class="icon box" type="button" onclick="moveDown()">
+													<img src="https://img.icons8.com/material-sharp/24/null/circled-chevron-down.png"/>
+                                				</button>
+                                				</td>
+                                				<td><input type="hidden" class="tripLat" th:value="${m.tripLat}"></td>
+                                				<td><input type="hidden" class="tripLon" th:value="${m.tripLon}"></td>
+												<td><input type="hidden" id="myCouFreeCode" th:value="${m.myCouFreeCode}"></td>
+											</tr>
+										</tbody>
+                                    </table>
+                                    
+                                    <!-- 구글 지도 API 이용 -->
+                                <div id="map" style="height: 600px; width: 600px;"></div>
+                                <script type="text/javascript">
+                                
+                                var map;
+                                var tripMap = [(${json})]
+                                console.log(tripMap);
+                                // 각 위도와 경도값을 ajax로 흥엉엉 
+                                function initMap() {
+                                	
+                                    
+                                    var defaultOptions = {
+                                        zoom: 7.8,
+                                        center:  {
+                                			lat: Number(tripMap[0].tripLat),
+                                			lng: Number(tripMap[0].tripLon)
+                                	},
+                                        disableDefaultUI: true,
+                                        zoomControl: true
+                                    };
+
+                                    
+                                    map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+                                                                        
+                                    for (var i = 0 ; i < tripMap.length; i++) {
+                                    	var cityHall = {
+                                    			lat: Number(tripMap[i].tripLat),
+                                    			lng: Number(tripMap[i].tripLon)
+                                    	}
+                                    	
+                                    	// 여행지 이름 변수에 담기
+                                    	var name = tripMap[i].tripName
+                                    	
+                                    	var marker = new google.maps.Marker({
+	                                        position: cityHall,
+	                                        map: map,                       
+		                                    });
+                                    	
+                                    	// 마커 위에 말풍선 추가
+                                    	var infoWindow = new google.maps.InfoWindow({
+                                            content: name
+                                        });
+                                    	
+                                            infoWindow.open(map, marker);
+                                            map.setCenter(marker.getPosition());
+                                    	
+		                                }
+		                           }
+                                    
+                                </script>
+
+                                <script async defer
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
+                                </script>
+								<!-- api 끝 -->
+                                    
+                                 <!-- 여기까지가 여행지 영역임 -->
                                     </div>
+                                    <br>
                                     <div class="form-group col-md-12">
                                         <textarea placeholder="소개글"></textarea>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="submit" class="butn"><span>submit message</span></button>
+                                        <button type="button" class="butn" onclick="moveTotal()"><span>수정하기</span></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                
+<script type="text/javascript">
+/* '삭제' 버튼 클릭 시, 해당 행(여행지) 삭제 */
+
+	function myCouDetailDel() {
+		if (confirm('해당 여행지를 삭제하시겠습니까?')) {
+			var row = $(event.target).closest('tr');
+			var imgGroCode = row.children().eq(0).children().eq(0).attr('src');
+			var tripName = row.children().eq(1).text();
+			var tripAddr = row.children().eq(2).text();
+		    var myCouFreeCode = row.find('#myCouFreeCode').val(); // 해당 row에서 id가 myCouFreeCode인 input 태그를 찾아 값을 가져옴
+			
+			$.ajax({
+				url : "/myCouDetailDel",
+				type : "POST",
+				data : JSON.stringify({
+					"imgGroCode" : imgGroCode,
+					"tripName" : tripName,
+					"tripAddr" : tripAddr,
+					"myCouFreeCode" : myCouFreeCode
+				}),
+				contentType : 'application/json',
+				success : function(data) {
+					if (data == "success") {
+						alert("삭제가 완료됐습니다.");
+						row.remove(); // 행 삭제
+					} else {
+						alert("삭제 실패");
+					}
+				},
+				error : function() {
+					alert("삭제 실패");
+				}
+			});
+		}
+	}
+	
+/* ↑, ↓ 버튼 클릭 시 위아래로 이동 */
+	function moveUp() {
+		var row = $(event.target).closest('tr');
+		var prevRow = row.prev();
+		if (prevRow.length) {			
+			var couOrd = row.find(".couOrd").text();		
+			row.find(".couOrd").text(couOrd - 1);
+			var couOrdPre = prevRow.find(".couOrd").text();
+			prevRow.find(".couOrd").text(parseInt(couOrdPre) + 1);
+			prevRow.before(row);
+		}
+		
+	}
+
+	function moveDown() {
+		var row = $(event.target).closest('tr');
+		var nextRow = row.next();
+
+		if (nextRow.length) {
+			var couOrd = row.find(".couOrd").text();
+			row.find(".couOrd").text(parseInt(couOrd) + 1);
+			var couOrdNext = nextRow.find(".couOrd").text();
+			nextRow.find(".couOrd").text(couOrdNext - 1);
+			nextRow.after(row);
+		}
+	}
+
+	
+	function moveTotal() {
+		var data = [];
+		/* data 배열에 담을 값은 내가 옮기는 코스의 순서(couOrd)와 기본키값(myCouFreeCode)
+		   기본키값에 수정된 코스의 순서 번호를 담아 UPDATE 해서 저장하면 된다!
+		   id값은 잘 못 읽으니 class로 변경했었다. */ 
+		$(".couOrd").each(function(item) {
+		    var obj = {};
+		    obj.myCouFreeCode = $(this).data("freecode"); // th:data-freecode="${m.myCouFreeCode}"에서 가져온 값
+		    obj.couOrd = $(this).text();
+		    data.push(obj);
+		  });
+		
+		console.log(data);
+		
+		$.ajax({
+			url : "/moveSaveTrip",
+			method : 'POST',
+			data : JSON.stringify(data),
+			contentType : 'application/json',
+			success : function(response) {
+				alert('저장되었습니다.');
+			},
+			error : function(error) {
+				alert('저장에 실패하였습니다.');
+			}
+		});	
+	}
+
+</script>
             </div>
+            
                                 
 </div>
+
 </body>
 
 </html>

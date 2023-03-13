@@ -5,28 +5,16 @@ import java.security.Principal;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.admin.wh.member.mapper.MemberMapper;
-import co.admin.wh.member.vo.KakaoOAuthToken;
-import co.admin.wh.member.vo.KakaoProfile;
+import co.admin.wh.member.service.EmailService;
 import co.admin.wh.member.vo.MemberVO;
 
 @Controller
@@ -34,9 +22,17 @@ public class MemberController {
 	@Autowired
 	MemberMapper memberMapper;
 
+	@Autowired
+	EmailService emailService;
+
 	@RequestMapping("/login")
 	public String loginForm() {
 		return "member/login";
+	}
+	
+	@RequestMapping("/disabled")
+	public String disabledForm() {
+		return "member/disabled";
 	}
 
 	@RequestMapping("/logout")
@@ -92,13 +88,13 @@ public class MemberController {
 
 	@PostMapping("/memberUpdate")
 	public String memberUpdate(MemberVO vo) {
-		if(vo.getPass() != null) {
+		if (vo.getPass() != null) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			vo.setPass(passwordEncoder.encode(vo.getPass()));
 			memberMapper.memberUpdate(vo);
 			return "content/main";
 		}
-		System.out.println(vo.getEmail()+"++++++++++++++++++++++++++++++++");
+		System.out.println(vo.getEmail() + "++++++++++++++++++++++++++++++++");
 		memberMapper.memberUpdate(vo);
 		return "redirect:/admemList";
 	}
@@ -119,27 +115,35 @@ public class MemberController {
 
 	@RequestMapping("/admemList")
 	public String adMemList(MemberVO vo, Model model) {
-		model.addAttribute("mem",memberMapper.adMemberList());
+		model.addAttribute("mem", memberMapper.adMemberList());
 		return "admin/memberAdmin";
 	}
-	
+
 	@RequestMapping("/passChk")
 	@ResponseBody
-	public String passCheck(MemberVO vo,boolean n) {
+	public String passCheck(MemberVO vo, boolean n) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		vo.setPass(passwordEncoder.encode(vo.getPass()));
-		n = memberMapper.passChk(vo.getId(),vo.getPass());
+		n = memberMapper.passChk(vo.getId(), vo.getPass());
 		if (n) {
 			return "success";
 		} else {
 			return "fali";
 		}
 	}
-	
+
 	@PostMapping("/adminDelete")
 	public String adminDelete(MemberVO vo) {
 		memberMapper.memDel(vo);
 		memberMapper.memberDelete(vo);
 		return "redirect:/admemList";
+	}
+
+	@PostMapping("/login/mailConfirm")
+	@ResponseBody
+	public String mailCheck(@RequestParam String email) throws Exception {
+		String code = emailService.sendSimpleMessage(email);
+
+		return code;
 	}
 }

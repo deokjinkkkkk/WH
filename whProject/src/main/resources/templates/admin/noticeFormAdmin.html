@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/admin/indexAdmin}">
+<style>
+.ck.ck-editor {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-editor__editable {
+	min-height: 400px;
+}
+
+.editor {
+	width: 30px;
+}
+
+.form-control {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-toolbar__items {
+	width: 300px;
+}
+</style>
+<body layout:fragment="adminContent">
+
+	
+	<!-- 각자 내용 -->
+	<form action="noticeInsert" method="POST" id="frm"
+		enctype="multipart/form-data">
+		<input type="text" name="noticeTitle" id="noticeTitle"
+			class="form-control" placeholder="[필수]제목을 입력하세요"><br>
+		<div>
+			<input type="file" name="imgFile" id="imgFile" class="form-control"><br>
+			<input type="hidden" name="imgGroCode" id="imgGroCode" value="NO">
+			<input type="hidden" name="imgPath" id="imgPath">
+		</div>
+		<textarea class="editor" id="noticeContent" name="noticeContent"
+			placeholder="[필수]내용을 입력하세요"></textarea>
+		<br>
+		<div class="pull-right" style="width: 100px; margin-right: 800px;">
+			<input type="submit" class="btn btn-primary btn-block" value="등록">
+		</div>
+		<br>
+	</form>
+	<script
+		src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+	<script
+		src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+	<script>
+      ClassicEditor.create( document.querySelector( '.editor' ),{
+      language: 'ko' //언어설정
+    
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+      
+    </script>
+
+</body>
+</html>

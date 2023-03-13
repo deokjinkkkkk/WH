@@ -6,10 +6,15 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,11 +46,6 @@ public class HotelController {
 	@Autowired
 	private MemberMapper memberMapper;
 	
-//	@Autowired
-//	public HotelController(HotelInfoService InfoService) {
-//		this.hotelInfoService = InfoService;
-//	}
-	
 	@GetMapping("/hotel") // 숙소 첫 페이지(좋아요 순 정렬)
 	public String hotel(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
 
@@ -59,6 +59,32 @@ public class HotelController {
 
 		model.addAttribute("hotelList",hotelInfoService.hotelList(vo));
 		return "hotel/hotelMain";
+	}
+	
+	@RequestMapping("/hotelSearch") // 검색 결과 + 페이징
+	public String hotelSearch(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging, 
+							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount) {
+
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+
+//		paging.setSearchInfo(checkIn, hotelRegion, humanCount); // 검색정보
+		
+//		model.addAttribute("paging", paging);
+		
+		paging.setCheckIn(checkIn);
+		paging.setHotelRegion(hotelRegion);
+		paging.setHumanCount(humanCount); // model에 직접 담지 않아도 담김.
+		model.addAttribute("hotelList",hotelInfoService.hotelSearchList(vo));
+//		model.addAttribute("checkIn", checkIn);
+//		model.addAttribute("hotelRegion", hotelRegion);
+//		model.addAttribute("humanCount", humanCount);
+		return "hotel/hotelSearch";
 	}
 	
 	@GetMapping("/hotelToday") // 오늘 예약 가능한 숙소
@@ -77,9 +103,9 @@ public class HotelController {
 		cal.add(cal.DATE, +1); //날짜를 하루 더한다.
 		String tomorrow = simpleDateFormat.format(cal.getTime());
 		
-		//오늘 예약 가능한 숙소 크롤링
+		//오늘 예약 가능한 숙소 크롤링(크롤링 지역 변경 여기서)
 		HotelCrawler crawler = new HotelCrawler();
-		String url = "https://hotels.naver.com/list?placeFileName=place%3ASeoul&adultCnt=2&checkIn="+today+"&checkOut="+tomorrow+"&includeTax=false&sortField=popularityKR&sortDirection=descending&pageIndex=1";
+		String url = "https://hotels.naver.com/list?placeFileName=place%3AJeju_Province&adultCnt=2&checkIn="+today+"&checkOut="+tomorrow+"&includeTax=false&sortField=rating&sortDirection=descending";
 		List<HotelVO> hotelList = crawler.hotelCrawling(url); // HotelCrawler.java
 		
 		//for문 돌면서 리스트에서 vo 하나씩 인서트.
@@ -165,5 +191,69 @@ public class HotelController {
 	public String updateInfo(@RequestBody ReservationVO vo, Model model) {
 		hotelInfoService.ReservUpdate(vo);
 		return "y";
+	}
+	
+	@RequestMapping("/ajax/autocomplete") // 호텔검색 자동완성
+	@ResponseBody
+	public Map<String, Object> autocomplete(@RequestParam Map<String, Object> paramMap) throws Exception{
+		List<Map<String, Object>> resultList = hotelInfoService.autocomplete(paramMap);
+		paramMap.put("resultList", resultList);
+		return paramMap;
+	}
+	
+	@PostMapping("/priceList") // 낮은가격순 정렬
+	public String priceList(Model model, HotelSearchVO vo,Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		List<HotelVO> hotelList = hotelInfoService.priceList(vo);
+		model.addAttribute("hotelList", hotelList);
+		return "hotel/sortingHotelList";
+	}
+	
+	@PostMapping("/priceListDesc") // 높은가격순 정렬
+	public String priceListDesc(Model model, HotelSearchVO vo,Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		List<HotelVO> hotelList = hotelInfoService.priceListDesc(vo);
+		model.addAttribute("hotelList", hotelList);
+		return "hotel/sortingHotelList";
+	}
+	
+	@PostMapping("/starRatingList") // 별점순 정렬
+	public String starRatingList(Model model, HotelSearchVO vo,Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		List<HotelVO> hotelList = hotelInfoService.starRatingList(vo);
+		model.addAttribute("hotelList", hotelList);
+		return "hotel/sortingHotelList";
+	}
+	
+	@PostMapping("/goodRatingList") // 좋아요순 정렬
+	public String goodRatingList(Model model, HotelSearchVO vo,Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		List<HotelVO> hotelList = hotelInfoService.goodRatingList(vo);
+		model.addAttribute("hotelList", hotelList);
+		return "hotel/sortingHotelList";
 	}
 };

@@ -5,7 +5,13 @@
 <title>Insert title here</title>
 
 	<style>
-	
+
+.page-container .title {
+    font-size: 139px;
+    line-height: 1;
+    margin-bottom: 30px;
+}
+
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
@@ -138,6 +144,121 @@
 #navbarScroll {
    text-align: right;
 }
+
+[v-cloak] {
+	display: none;
+}
+
+.list-group {
+	margin-top: 20px;
+	max-height: 300px;
+	width: 500px;
+	height: 500px;
+	overflow-y: scroll;
+	/* 스크롤바가 보이도록 설정 */
+	scrollbar-width: thin;
+	scrollbar-color: gray transparent;
+}
+
+.list-group::-webkit-scrollbar {
+	width: 5px; /* 스크롤바의 너비 */
+}
+
+.list-group::-webkit-scrollbar-thumb {
+	background-color: gray; /* 스크롤바 색상 */
+	border-radius: 10px; /* 스크롤바 모양 */
+}
+
+.list-group-item {
+	padding: 10px;
+}
+
+.sent {
+	color: blue;
+	text-align: right;
+	margin-right: 10px;
+	background-color: #e6f2ff; /* light blue */
+}
+
+.received {
+	color: red;
+	text-align: left;
+	margin-left: 10px;
+	background-color: #ffe6e6; /* light red */
+}
+
+.notification {
+	color: gray;
+	text-align: center;
+	margin: 10px 0;
+	font-style: italic;
+}
+
+
+
+.input-group {
+	display: flex;
+	align-items: center;
+	width: 500px;
+}
+
+.input-group input {
+	flex: 1;
+	margin-right: 10px;
+}
+
+.input-group .input-group-append {
+	flex: none;
+}
+
+.containerChat{
+	background-color: #fffec8; /* light blue */
+	width: 500px;
+	margin: auto; /* 수평 중앙 정렬을 위한 margin */
+	position: absolute; /* 수직 중앙 정렬을 위한 position */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+.w-btn {
+	position: relative;
+	border: none;
+	display: inline-block;
+	padding: 15px 30px;
+	border-radius: 15px;
+	font-family: "paybooc-Light", sans-serif;
+	text-decoration: none;
+	font-weight: 600;
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+	transition: 0.25s;
+	width: auto;
+}
+
+.w-btn-outline {
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	font-family: "paybooc-Light", sans-serif;
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+}
+.inputChat{
+	width: 300px;
+	height: 32px;
+	font-size: 15px;
+	font-family: "paybooc-Light", sans-serif;
+	text-decoration: none;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: rgb(233, 233, 233);
+	text-decoration: none;
+}
 	</style>
    
 
@@ -242,8 +363,15 @@
     <script src="/js/main.js"></script>
 <!-- 결제창에 필요한 js 추가 끝 -->
 
+<!-- 검색어 자동완성 기능 -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-	
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 </head>
 </html>

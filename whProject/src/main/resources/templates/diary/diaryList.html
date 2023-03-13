@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
+
 
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -20,80 +21,81 @@
 
 <title>Hello, world!</title>
 
-    <!-- 요기에 구글 머티리얼 아이콘 -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-            rel="stylesheet">
+<!-- 요기에 구글 머티리얼 아이콘 -->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
 
-   <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
 
-    <!-- modernizr js -->
-    <script src="/js/modernizr.js"></script>
+<!-- modernizr js -->
+<script src="/js/modernizr.js"></script>
 
-    <!-- bootstrap -->
-    <script src="/js/bootstrap.min.js"></script>
+<!-- bootstrap -->
+<script src="/js/bootstrap.min.js"></script>
 
-    <!-- Serch -->
-    <script src="/search/search.js"></script>
+<!-- Serch -->
+<script src="/search/search.js"></script>
 
-    <!-- navigation -->
-    <script src="/js/nav-menu.js"></script>
+<!-- navigation -->
+<script src="/js/nav-menu.js"></script>
 
-    <!-- owl carousel -->
-    <script src="/js/owl.carousel.js"></script>
+<!-- owl carousel -->
+<script src="/js/owl.carousel.js"></script>
 
-    <!-- jquery.counterup.min -->
-    <script src="/js/jquery.counterup.min.js"></script>
+<!-- jquery.counterup.min -->
+<script src="/js/jquery.counterup.min.js"></script>
 
-    <!-- stellar js -->
-    <script src="/js/jquery.stellar.min.js"></script>
+<!-- stellar js -->
+<script src="/js/jquery.stellar.min.js"></script>
 
-    <!-- waypoints js -->
-    <script src="/js/waypoints.min.js"></script>
+<!-- waypoints js -->
+<script src="/js/waypoints.min.js"></script>
 
-    <!-- countdown js -->
-    <script src="/js/countdown.js"></script>
+<!-- countdown js -->
+<script src="/js/countdown.js"></script>
 
-    <!-- jquery.magnific-popup js -->
-    <script src="/js/jquery.magnific-popup.min.js"></script>
+<!-- jquery.magnific-popup js -->
+<script src="/js/jquery.magnific-popup.min.js"></script>
 
-    <!-- datepicker js -->
-    <script src="/js/datepicker.min.js"></script>
+<!-- datepicker js -->
+<script src="/js/datepicker.min.js"></script>
 
-    <!-- isotope.pkgd.min js -->
-    <script src="/js/isotope.pkgd.min.js"></script>
+<!-- isotope.pkgd.min js -->
+<script src="/js/isotope.pkgd.min.js"></script>
 
-    <!-- range slider -->
-    <script src="/js/ion.rangeSlider.min.js"></script>
+<!-- range slider -->
+<script src="/js/ion.rangeSlider.min.js"></script>
 
-    <!--  clipboard js -->
-    <script src="/js/clipboard.min.js"></script>
+<!--  clipboard js -->
+<script src="/js/clipboard.min.js"></script>
 
-    <!--  prism js -->
-    <script src="/js/prism.js"></script>
-    
-    
+<!--  prism js -->
+<script src="/js/prism.js"></script>
+
+
 <!-- 결제창에 필요한 js 추가 시작 -->
-      <!-- jquery validation -->
-    <script src="js/jquery.validate.min.js"></script>
+<!-- jquery validation -->
+<script src="js/jquery.validate.min.js"></script>
 
-    <!-- jquery wizard -->
-    <script src="js/jquery.bootstrap.wizard.min.js"></script>
+<!-- jquery wizard -->
+<script src="js/jquery.bootstrap.wizard.min.js"></script>
 
-    <!-- form-wizard -->
-    <script src="js/form-wizard.js"></script>
+<!-- form-wizard -->
+<script src="js/form-wizard.js"></script>
 
-    <!-- custom scripts -->
-    <script src="/js/main.js"></script>
+<!-- custom scripts -->
+<script src="/js/main.js"></script>
 <!-- 결제창에 필요한 js 추가 끝 -->
 
 
 <style>
 a {
-  text-decoration-line: none;
-   color : black;
-  }
+	text-decoration-line: none;
+	color: black;
+}
+
 .navbar {
 	position: fixed;
 	width: 100%;
@@ -248,261 +250,249 @@ a {
 	margin-top: 25px;
 }
 
- .modal_overlay {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(1.5px);
-        -webkit-backdrop-filter: blur(1.5px);
-    }
+.modal_overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+}
 
-    .modal_window {
-        background: white;
-        backdrop-filter: blur(13.5px);
-        -webkit-backdrop-filter: blur(13.5px);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        width: 900px;
-        height: 600px;
-        position: relative;
-        padding: 13px;
-    }
-     .modal_title{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-weight: bold;
-        font-size: 20px;
-    }
+.modal_window {
+	background: white;
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 900px;
+	height: 600px;
+	position: relative;
+	padding: 13px;
+}
 
-    .modal_title_side{
-        flex: 0 0 40px;
-        text-align: center;
-    }
-    .modal_image_upload{
-        outline: 2px dashed black ;
-        outline-offset:-10px;
-        text-align: center;
-        transition: all .15s ease-in-out;
-        width:780px;
-        height: 548px;
-    }
-    .main_body {
-        display: flex;
-        justify-content: center;
-        padding-top: 50px;
-        background-color: #FAFAFA;
-    }
-   
-    .feed_box {
-        background-color: white;
-        width: 580px;
-        margin: 10px;
-        min-height: auto;
-        padding-bottom: 10px;
-    }
+.modal_title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-weight: bold;
+	font-size: 20px;
+}
 
-    .feed_img {
-        width: 100%;
-        object-fit: contain;
-    }
+.modal_title_side {
+	flex: 0 0 40px;
+	text-align: center;
+}
 
-    .feed_content {
-        padding: 0px 10px;
-    }
+.modal_image_upload {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	width: 780px;
+	height: 548px;
+}
 
-    .feed_like {
-        padding: 0px 10px;
-    }
+.main_body {
+	display: flex;
+	justify-content: center;
+	padding-top: 50px;
+	background-color: #FAFAFA;
+}
 
-    .feed_reply {
-        padding: 0px 10px;
-        display: flex;
-        flex-direction: column;
-    }
+.feed_box {
+	background-color: white;
+	width: 580px;
+	margin: 10px;
+	min-height: auto;
+	padding-bottom: 10px;
+}
 
+.feed_img {
+	width: 100%;
+	object-fit: contain;
+}
 
-    .feed_txt {
-        font-size: 14px;
-    }
+.feed_content {
+	padding: 0px 10px;
+}
 
+.feed_like {
+	padding: 0px 10px;
+}
 
-    .feed_icon {
-        padding: 5px 5px 0px 5px;
-        display: flex;
-        justify-content: space-between;
-    }
+.feed_reply {
+	padding: 0px 10px;
+	display: flex;
+	flex-direction: column;
+}
 
-    span {
-        padding-right: 5px;
-    }
+.feed_txt {
+	font-size: 14px;
+}
 
-    .feed_name {
-        padding: 10px;
-        display: flex;
-        align-items: center;
-    }
+.feed_icon {
+	padding: 5px 5px 0px 5px;
+	display: flex;
+	justify-content: space-between;
+}
 
-    .feed_name_txt {
-        font-size: 14px;
-        padding: 0px 10px;
-        font-weight: bold;
-    }
+span {
+	padding-right: 5px;
+}
 
-    .profile_box {
-        width: 40px;
-        height: 40px;
-        border-radius: 70%;
-        overflow: hidden;
-    }
+.feed_name {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
 
-    .profile_img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+.feed_name_txt {
+	font-size: 14px;
+	padding: 0px 10px;
+	font-weight: bold;
+}
 
-    .name_content {
-        display: flex;
-        flex-direction: column;
-    }
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+}
 
-    .name_content_txt {
-        font-size: 12px;
-        padding: 0px 10px;
-        font-weight: bold;
-        color: lightgray;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 190px;
-    }
+.profile_img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 
-    .big_profile_box {
-        width: 60px;
-        height: 60px;
-        border-radius: 70%;
-        overflow: hidden;
-    }
+.name_content {
+	display: flex;
+	flex-direction: column;
+}
 
-    .link_txt {
-        font-size: 14px;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-    }
+.name_content_txt {
+	font-size: 12px;
+	padding: 0px 10px;
+	font-weight: bold;
+	color: lightgray;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 190px;
+}
 
-    .recommend_box {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px;
-        font-size: 14px;
-        font-weight: bold;
-        align-items: center;
-    }
+.big_profile_box {
+	width: 60px;
+	height: 60px;
+	border-radius: 70%;
+	overflow: hidden;
+}
 
-    .comment_box {
-        margin: 40px 0 0 5px;
-        font-size: 12px;
-        font-weight: bold;
-        color: lightgray;
-        display: flex;
-        flex-direction: column;
-    }
+.link_txt {
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+}
 
-    @media screen and (max-width: 1280px) {
-        .right_body {
-            display: none;
-        }
-    }
+.recommend_box {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	align-items: center;
+}
 
+.comment_box {
+	margin: 40px 0 0 5px;
+	font-size: 12px;
+	font-weight: bold;
+	color: lightgray;
+	display: flex;
+	flex-direction: column;
+}
 
-    .modal {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(1.5px);
-        -webkit-backdrop-filter: blur(1.5px);
-    }
-
-    .modal_window {
-        background: white;
-        backdrop-filter: blur(13.5px);
-        -webkit-backdrop-filter: blur(13.5px);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        width: 1000px;
-        height: 600px;
-        position: relative;
-    }
-
-    .modal_title{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-weight: bold;
-        font-size: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-    }
-
-    .modal_title_side{
-        margin: 5px;
-        flex: 0 0 40px;
-        text-align: center;
-    }
-
-    .modal_image_upload{
-        outline: 2px dashed black ;
-        outline-offset:-10px;
-        transition: all .15s ease-in-out;
-        width: 798px;
-        height: 548px;
-        text-align: center;
-        line-height: 548px;
-    }
-
-    .modal_image_upload_content{
-        outline: 2px dashed black ;
-        outline-offset:-10px;
-        text-align: center;
-        transition: all .15s ease-in-out;
-        width:500px;
-        height: 548px;
-    }
-
-    .modal_image_content{
-        display: flex;
-        flex-direction: row;
-    }
-
-    .modal_content_write{
-        display: flex;
-        flex-direction: column;
-        border-left: 1px solid rgba(0, 0, 0, 0.18);;
-    }
-
-    .feed_content_textarea{
-        resize: none;
-        width: 294px;
-        border: none;
-    }
-	.col-sm-5{
-		width: 500px;
+@media screen and (max-width: 1280px) {
+	.right_body {
+		display: none;
 	}
+}
+
+
+
+.modal_window {
+	background: white;
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 1000px;
+	height: 600px;
+	position: relative;
+}
+
+.modal_title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-weight: bold;
+	font-size: 20px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.modal_title_side {
+	margin: 5px;
+	flex: 0 0 40px;
+	text-align: center;
+}
+
+.modal_image_upload {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	transition: all .15s ease-in-out;
+	width: 798px;
+	height: 548px;
+	text-align: center;
+	line-height: 548px;
+}
+
+.modal_image_upload_content {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	width: 500px;
+	height: 548px;
+}
+
+.modal_image_content {
+	display: flex;
+	flex-direction: row;
+}
+
+.modal_content_write {
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid rgba(0, 0, 0, 0.18);;
+}
+
+.feed_content_textarea {
+	resize: none;
+	width: 294px;
+	border: none;
+}
+
+.col-sm-5 {
+	width: 500px;
+}
 </style>
 </head>
 
@@ -511,14 +501,15 @@ a {
 	<!-- 헤더 영역 -->
 	<nav class="navbar">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">
-			<img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
-			<input class="navbar-search form-control me-2" type="search"
-				placeholder="검색" aria-label="Search">
+			<a class="navbar-brand" href="#"> <img
+				src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
 			<div class="navbar_icons">
-				<a class="material-icons" href="/main">home</a>  <!-- 홈링크 걸기 -->
-				<a class="material-icons-outlined">send</a> <!-- 채팅기능 걸기 -->
-				<span class="material-icons-outlined" id="add_feed">add_box</span>  <!-- 등록 -->
+				<a class="material-icons" href="/main">home</a>
+				<!-- 홈링크 걸기 -->
+				<a class="material-icons-outlined">send</a>
+				<!-- 채팅기능 걸기 -->
+				<span class="material-icons-outlined" id="add_feed">add_box</span>
+				<!-- 등록 -->
 				<!--  <span class="material-icons-outlined">favorite_border</span>   좋아요 -->
 			</div>
 		</div>
@@ -527,10 +518,12 @@ a {
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
+			<div class="container">
 		<div class="posts">
+			<input type="hidden" name="id" th:value="${session.name}" id="id">
 			<div class="feed-box" id="inst" style="padding: 20px">
-					<input type="hidden" name="id" th:value="${session.name}" id="id">
 				<!--	
+
 			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
 				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
 					<div class="profile-id" ></div>
@@ -564,83 +557,123 @@ a {
 					<input id="input-comment" type="text" class="form-control"
 						placeholder="댓글 달기...">
 				</div>
-				<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>
 			</div>
 			  -->
+				</div>
 			</div>
-			
-			  </div>
 		</div>
-			<br><br>
+		</div>
+		<br> <br>
 	</div>
 
-<!-- 공유하기 모달 시작  -->
-<form action="post" id="frm" enctype="multipart/form-data">
-   <div id="modal_add_feed" class="modal modal_overlay" >
-    <div class="modal_window">
-        <div class="modal_title">
-            <div class="modal_title_side"></div>
-            <div> 새 게시물 </div>
-            <div class="modal_title_side">
-                <span id="close_modal" class="close_modal material-icons-outlined" style="font-size: 30px">
-                    close
-                </span>
-            </div>
+	<!-- 공유하기 모달 시작  -->
+	<form action="post" id="frm" enctype="multipart/form-data">
+		<div id="modal_add_feed" class="modal modal_overlay">
+			<div class="modal_window">
+				<div class="modal_title">
+					<div class="modal_title_side"></div>
+					<div>새 게시물</div>
+					<div class="modal_title_side">
+						<span id="close_modal" class="close_modal material-icons-outlined"  data-dismiss="modal"
+							style="font-size: 30px"> close </span>
+					</div>
+				</div>
+				<div class="modal_image_upload" id="imgGroCode">
+					<span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
+				</div>
+				
+				<div class="modal_image_content" style="display: none">
+					<div id="input_image" class="modal_image_upload_content"></div>
+					<div class="modal_content_write">
+						<div class="feed_name">
+							<span id="input_id" class="feed_name_txt"></span>
+						</div>
+						<div>
+							<input type="text" id="diaryTitle" name="diaryTitle"
+								class="feed_content_textarea form-control col-sm-5 diaryTitle">
+						</div>
+						<div>
+							여행 기간 : <input type="date" class="diaryStartDate"
+								name="diaryStartDate">
+						</div>
+						<div>
+							<input type="date" class="diaryEndDate" name="diaryEndDate">
+						</div>
+						<div style="height: 440px">
+							<textarea id="input_content"
+								class="feed_content_textarea form-control col-sm-5" rows="10"
+								placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
+						</div>
+						<div style="width: 100%; text-align: center">
+							<button id="button_write_feed" type="button"
+								class="btn btn-primary" style="width: 268px">공유하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	<!-- 수정 창 HTML 코드 -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">수정</h5>
+      	<span id="updateClose" class="close_modal material-icons-outlined" data-dismiss="modal"
+							style="font-size: 30px"> close </span>					
+      </div>
+      <div class="modal-body">
+        <div class="feed_name">
+          <span id="input_id" class="feed_name_txt"></span>
         </div>
-        <div class="modal_image_upload" id="imgGroCode">
-            <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
+        <div>
+          <input type="text" id="diaryTitleeee" name="diaryTitle" class="form-control col-sm-5 diaryTitle">
         </div>
-          <div class="modal_image_content" style="display: none" >
-            <div id="input_image" class="modal_image_upload_content">
-
-            </div>
-            <div class="modal_content_write">
-                <div class="feed_name">
-                    <span id="input_id" class="feed_name_txt"></span>
-                </div>
-                <div>
-                 <input type="text" id="diaryTitle" name="diaryTitle" class="feed_content_textarea form-control col-sm-5 diaryTitle">
-                </div>
-                <div>
-                여행 기간 : <input type="date" class="diaryStartDate" name="diaryStartDate">
-                </div>
-                <div>
-                <input type="date"  class="diaryEndDate" name="diaryEndDate">
-                </div>
-                <div style="height: 440px">
-                    <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10"  placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
-                </div>
-                <div style="width: 100%; text-align: center">
-                    <button id="button_write_feed" type="button" class="btn btn-primary" style="width: 268px">공유하기</button>
-                    </div>
-            </div>
+        <div>
+          여행 기간 : <input type="date" class="form-control col-sm-5 diaryStartDateeee" name="diaryStartDate">
         </div>
+        <div>
+          <input type="date" class="form-control col-sm-5 diaryEndDateeee" name="diaryEndDate">
+        </div>
+        <div style="height: 440px">
+          <textarea id="input_contenteeee" class="form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="editDiaryBtn">수정하기</button>
+      </div>
     </div>
+  </div>
 </div>
-</form>
-<!-- 공유하기 모달 종료  -->
+		
+	</form>
+	<!-- 공유하기 모달 종료  -->
 
-<script>
+	<script>
 
 const modal = document.getElementById("modal_add_feed");
 const id = $("#id").val();
 const diaryCode = $(".diaryCode").val();
 
 $(document).ready(function(){
-	getDiaryList(id);
+	
+	getDiaryList();
 })
 //리스트 출력
-function getDiaryList(id) {
+function getDiaryList() {
+	const id = $("#id").val();
     var str = "";
     console.log(id)
     var diaryArea =$(".feed-box");
     $.ajax({
-        url: "/getDiaryList/" + id, // id 파라미터 추가
-        type: "GET", // GET 방식으로 변경
+        url: "/getDiaryList/" + id,
+        type: "GET",
         dataType: 'json',
         success: function (result) {
-            console.log("조회되나????????");
+            //console.log("조회되나????????");
             $(result).each(function(index,item){
                 if(id === item.id){ // diary -> item 수정
                     str += '<div class="diaryCode" data-code="' + item.diaryCode + '">' 
@@ -653,7 +686,7 @@ function getDiaryList(id) {
                     str +='<br><br>'
                     str +='<h5><b><div class="feed-text" id="diarytitlet">' + item.diaryTitle + '</div></b></h5>'
                     str +='<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>' 
-                    str +='<a class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp;' 
+                    str +='<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;' 
                     str +='<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>' 
                     str +='</div>';
                 }
@@ -829,6 +862,75 @@ $(".feed-box").on('click',".btn-danger", ()=>{
         }
     })
 })
+
+
+
+//수정
+$(".feed-box").on("click", ".btn-primary", () => {
+  const diaryCode = $(event.target).parent().data("code");
+  const diaryTitle = $(event.target).parent().find(".feed-text#diarytitlet").text();
+  const diaryContent = $(event.target).parent().find(".feed-text#diaryContent").text();
+  const diaryStartDate = $(event.target).parent().find(".like#diaryStartDate").text();
+  const diaryEndDate = $(event.target).parent().find(".like#diaryEndDate").text();
+  
+  const data = {
+    diaryCode: diaryCode,
+    diaryTitle: diaryTitle,
+    diaryContent: diaryContent,
+    diaryStartDate: diaryStartDate,
+    diaryEndDate: diaryEndDate,
+  };
+
+  // 모달 창 띄우기
+  $(".fade").modal('show');
+ 
+  //모달창 x창 
+  //$("#updateClose").hide();
+  
+  
+  // 모달 창에 데이터 채우기
+  $("#diaryTitleeee").val(diaryTitle);
+  $(".diaryStartDateeee").val(diaryStartDate);
+  $(".diaryEndDateeee").val(diaryEndDate);
+  $("#input_contenteeee").val(diaryContent);
+
+
+
+  
+  
+  // 모달 창에서 수정 버튼 클릭 시 서버에 데이터 보내기
+  $(".modal-dialog").on("click",".btn-primary", () => {
+    const newDiaryTitle = $("#diaryTitleeee").val();
+    const newDiaryStartDate = $(".diaryStartDateeee").val();
+    const newDiaryEndDate = $(".diaryEndDateeee").val();
+    const newDiaryContent = $("#input_contenteeee").val();
+
+    const newData = {
+      diaryCode: diaryCode,
+      diaryTitle: newDiaryTitle,
+      diaryContent: newDiaryContent,
+      diaryStartDate: newDiaryStartDate,
+      diaryEndDate: newDiaryEndDate,
+    };
+    
+   
+    
+    $.ajax({
+      type: "POST",
+      url: "/diaryUpdate/" + diaryCode + "/" + id,
+      data: newData,
+      success: function (response) {
+        console.log("성공");
+        $('#editModal').modal('hide')
+        getDiaryList();
+      },
+      error: function (error) {
+        console.log("에러");
+      },
+    });
+  });
+});
+
 
 
 

@@ -10,4 +10,10 @@ public class MyCourseFreeVO {
 	String myCourseCode; // 나만의코스코드...
 	String couOrd; // 순서
 	int myCouFreeCode; // 나만의코스지역번호
+	
+	String tripName; // 여행지명
+	String imgGroCode; // 이미지
+	String tripAddr; // 주소
+	String tripLat; //위도
+	String tripLon; //경도
 }

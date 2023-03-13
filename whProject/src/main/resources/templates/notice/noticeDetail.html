@@ -24,9 +24,8 @@
 		<form method="post" action="/noticeDelete">
 			<br> <br>
 			<div class="container">
-				<a href="/notice" class="btn btn-primary">목록</a>
-				<br>
-				<table class="table">				
+				<a href="/notice" class="btn btn-primary">목록</a> <br>
+				<table class="table">
 					<tr>
 						<td width="20%" class="text-center text-warning">번호</td>
 						<td width=30% class="text-center" th:text="${n.noticeCode}"></td>
@@ -47,19 +46,16 @@
 						<td colspan="4" class="text-left" valign="top" height="200">
 							<pre th:utext="${n.noticeContent}"
 								style="white-space: pre-wrap; border: none; background-color: white;"> </pre>
+							<div class="feed-img">
+								<img id="feed-img" th:src="'/image/'+${n.imgPath}">
+							</div>
 						</td>
 					<tr>
 						<th width=20% class="text-center text-warning">파일</th>
 						<td colspan="3" th:text="${n.imgName}"></td>
 					</tr>
-					<br>
 
 					<tr>
-						<td><a
-							th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
-							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <input
-							type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
-							<button type="submit" class="btn btn-danger">삭제</button></td>
 				</table>
 			</div>
 		</form>
@@ -67,15 +63,6 @@
 	</div>
 
 
-	<!-- 관리자시 권한 주는것 
-						<div
-							th:if="${#session.getAttribute('member') != null and #session.getAttribute('member').admin}">
-							<a th:href="@{/noticeUpdateForm(noticeCode=${n.noticeCode})}"
-								class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <a
-								th:href="@{/noticeDelete(noticeCode=${n.noticeCode})}"
-								class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
-						</div>
-						
-	 내용 끝 -->
+
 </body>
 </html>

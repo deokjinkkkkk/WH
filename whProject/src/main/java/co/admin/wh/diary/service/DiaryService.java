@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.admin.wh.common.vo.ImageVO;
 import co.admin.wh.diary.vo.DiaryVO;
+import co.admin.wh.notice.vo.FoodSearchVO;
 
 public interface DiaryService {
 	

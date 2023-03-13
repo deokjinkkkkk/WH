@@ -19,6 +19,7 @@ import co.admin.wh.notice.vo.Paging;
 import co.admin.wh.trip.TripInfoExplorer;
 import co.admin.wh.trip.mapper.TripMapper;
 import co.admin.wh.trip.service.TripService;
+import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.TripSearchVO;
 import co.admin.wh.trip.vo.TripVO;
 

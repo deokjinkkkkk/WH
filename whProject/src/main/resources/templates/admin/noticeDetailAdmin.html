@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/admin/indexAdmin}">
+	
+<body layout:fragment="adminContent">
+		<form method="post" action="/noticeDelete">
+			<br> <br>
+			<div class="container">
+				<a href="/noticeAdmin" class="btn btn-primary">목록</a>
+				<br>
+				<table class="table">				
+					<tr>
+						<td width="20%" class="text-center text-warning">번호</td>
+						<td width=30% class="text-center" th:text="${n.noticeCode}"></td>
+						<td width="20%" class="text-center text-warning">작성일</td>
+						<td width=30% class="text-center" th:text="${n.noticeRegDate}"></td>
+					</tr>
+					<tr>
+						<th width=20% class="text-center text-warning">조회수</th>
+						<!-- 눈모양 이모티콘 (조회수) -->
+						<td width=30% class="text-center" th:text="${n.noticeHit}"></td>
+						<td width=20% class="text-center text-warning">수정일</td>
+						<td width=30% class="text-center" th:text="${n.noticeModDate}"></td>
+					<tr>
+						<th width=20% class="text-center text-warning">제목</th>
+						<td colspan="3" class="text-center" th:text="${n.noticeTitle}"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-left" valign="top" height="200">
+							<pre th:utext="${n.noticeContent}"
+								style="white-space: pre-wrap; border: none; background-color: white;"> 
+								</pre>
+								<img id="feed-img" th:src="'/image/'+${n.imgPath}">
+						</td>
+						
+					<tr>
+						<th width=20% class="text-center text-warning">파일</th>
+						<td colspan="3" th:text="${n.imgName}"></td>
+					</tr>
+					
+
+					<tr>
+						<td><a
+							th:href="|/noticeUpdateForm?noticeCode=${n.noticeCode}|"
+							class="btn btn-primary">수정</a>&nbsp;&nbsp;&nbsp; <input
+							type="hidden" name="noticeCode" th:value="${n.noticeCode}" />
+							<button type="submit" class="btn btn-danger">삭제</button></td>
+				</table>
+			</div>
+		</form>
+
+</body>
+</html>

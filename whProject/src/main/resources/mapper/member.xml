@@ -19,15 +19,15 @@
 	
 	<insert id="memberInsert">
 	
-		insert into member(id,pass,name,gender,tel,email,perm, 
-		<if test="login_way !=null">login_way</if>, 
-		<if test="Token != null">token</if>, 
-		<if test="retoken != null">retoken</if>,
+		insert into member(id,pass,name,gender,tel,email,perm ,
+		<if test="loginWay !=null">login_way,</if> 
+		<if test="token != null">token,</if>
+		<if test="reToken != null">retoken,</if>
 		<if test="state != null">state</if>)
 		values(#{id},#{pass},#{name},#{gender},#{tel},#{email},USER,
-		<if test="login_way !=null">#{login_way}</if>, 
-		<if test="Token != null">#{token}</if>, 
-		<if test="retoken != null">#{retoken}</if>,
+		<if test="loginWay !=null">#{loginWay},</if> 
+		<if test="token != null">#{token},</if>
+		<if test="reToken != null">#{reToken},</if>
 		<if test="state != null">#{state}</if>
 		)
 	</insert>

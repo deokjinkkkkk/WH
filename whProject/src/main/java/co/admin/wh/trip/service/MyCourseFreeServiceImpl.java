@@ -31,6 +31,24 @@ public class MyCourseFreeServiceImpl implements MyCourseFreeService {
 		// 여행지 나만의 코스에 담기
 		return map.myCourseInsert(vo);
 	}
+
+	@Override
+	public List<MyCourseFreeVO> myCourseSelect(MyCourseFreeVO vo) {
+		// 나만의 코스 상세페이지 출력
+		return map.myCourseSelect(vo);
+	}
+
+	@Override
+	public int myCouDetailDel(MyCourseFreeVO vo) {
+		// 나만의 코스 상세페이지에 담은 여행지 삭제
+		return map.myCouDetailDel(vo);
+	}
+
+	@Override
+	public int myCouUpdate(MyCourseFreeVO vo) {
+		// 여행지 순서 수정
+		return map.myCouUpdate(vo);
+	}
 	
 	
 	
