@@ -100,6 +100,15 @@
 		insert into Reservation
 		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id},0)
 	</insert>
+	
+	<!-- 예약 후 hotel테이블 room_count-1 -->
+	<update id="minusRoomCount" parameterType="int">
+		update hotel
+		<set>
+			<if test="roomCount != null">room_count = room_count-1</if>
+		</set>
+		where hotel_id = #{hotelId}
+	</update>
 
 <!-- 예약정보 조회 -->
 	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
@@ -109,6 +118,9 @@
 		where id = #{sessionId}
 	    and h.hotel_id = r.hotel_id
 	    and r.res_state = 0
+	    <![CDATA[
+	    and r.check_out >= sysdate
+	    ]]>
 	</select>
 	
 	<!-- 취소내역조회 -->
@@ -118,7 +130,7 @@
 		from Reservation r, Hotel h
 		where id = #{sessionId}
 	    and h.hotel_id = r.hotel_id
-	    and r.res_state = 1
+	    and r.res_state = 1	
 	</select>
 	
 	<!-- 예약 취소 -->
@@ -176,7 +188,7 @@
     	SELECT * FROM( SELECT rownum rn, a.* FROM(
 	    	select *
 	    	from hotel
-	    	order by star asc
+	    	order by star desc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
@@ -201,5 +213,29 @@
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
     </select>
+    
+    <!-- 호텔이름검색 -->
+    <select id="hotelNameSearchList" resultType="co.admin.wh.hotel.vo.HotelVO">
+     	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from hotel
+	    	where hotel_name like '%'|| (#{hotelName}) ||'%'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    
+    <!-- 지난예약내역조회 -->
+	<select id="readFinReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
+		parameterType="String">
+		select r.*, h.*
+		from Reservation r, Hotel h
+		where id = #{sessionId}
+	    and h.hotel_id = r.hotel_id
+	    and r.res_state = 0
+	    <![CDATA[
+	    and r.check_out < sysdate
+	    ]]>	
+	</select>
     
 </mapper>
