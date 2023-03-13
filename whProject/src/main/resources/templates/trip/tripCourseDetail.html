@@ -7,6 +7,80 @@
 <body>
 
 	<div layout:fragment="content" class="content">
+		<!--좋아요 버튼 css-->
+		<style>
+a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	
+}
+
+.right_area .icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(100vw * ( 45/ 1920));
+	height: calc(100vw * ( 45/ 1920));
+	border-radius: 50%;
+	border: solid 2px #eaeaea;
+	background-color: #fff;
+	
+	
+}
+
+.icon.heart img {
+	width: calc(100vw * ( 24/ 1920));
+	height: calc(100vw * ( 24/ 1920));
+}
+
+.icon.heart.fas {
+	color: red;
+	position: absolute;
+     left: 700px;
+      top: 50px;
+	
+}
+
+.heart {
+	transform-origin: center;
+	
+	
+}
+
+.heart.active img {
+	animation: animateHeart .3s linear forwards;
+	
+}
+
+@keyframes animateHeart { 0%{
+	transform: scale(.2);
+	
+}
+40%
+{
+transform:scale(1.2);
+
+}
+100%
+{
+transform:scale(1);
+}
+}
+#greatBtn{
+position: absolute;
+     left: 700px;
+      top: 50px;
+}
+
+
+#tripBtn{
+	position: absolute;
+	left: 650px;
+	top: 50px;
+}
+</style>
+		<!--좋아요 버튼 css-종료-->
 
 		<!-- 여행 코스 상세정보 -->
 		<section>
@@ -23,6 +97,17 @@
                                         <h6><a href="javascript:void(0);">쫜덕</a></h6>
                                         </div>
                                     <!-- 작성자 프로필 끝 -->
+                                     <!--좋아요 버튼 기능html-->
+											<div class="right_area" id="greatBtn">
+												<button type="button" class="icon heart">
+													<img
+															src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+															id="greatImg"> 
+												</button>
+													<input type="hidden" id="id" name="id"
+														th:value="${session.name}">
+											</div>
+											<!--좋아요 버튼 기능html 종료-->
 						
 							<!-- post 시작 -->
 							<div class="post">
@@ -113,6 +198,109 @@
 <script type="text/javascript">
 
 </script>
+
+
+<script>
+
+//좋아요 기능 시작
+
+//회원 좋아요 있는지 여부 확인 
+$(document).ready(function(){
+	getGreat()
+})
+
+var id = $('#id').val();  //id값 들고오기 
+var greatNcode = window.location.pathname.split("/").pop(); //상세페이지 번호
+var greatFlag = ("LCO");  //course 구분
+var $likeBtn = $('.heart'); //하트버튼 id값
+
+
+var greatVO = {
+	    id: id,
+	    greatFlag: greatFlag,
+	    greatNcode: greatNcode
+	};
+
+//회원 좋아요 있는지 여부 확인 
+function getGreat(){
+$.ajax({
+  url: "/greatCheck/"  + greatNcode +"/"+ id,
+  data: greatVO
+}).then(function(result) { 
+  if (result) { // greatCheck 메서드에서 반환된 값이 true/false이므로, result로 바로 사용 가능
+    $likeBtn.addClass("active")
+    .find("img").attr({
+      src: "https://cdn-icons-png.flaticon.com/512/803/803087.png", 
+    })
+  } else {
+    $likeBtn.removeClass("active")
+    .find("img").attr({
+      src: "https://cdn-icons-png.flaticon.com/512/812/812327.png",
+    })
+    
+  }
+
+});
+}
+
+$(function() {
+	  $likeBtn.click(function() {
+	    if (!$likeBtn.hasClass('active')) {
+	      $(this).find('img').attr({
+	        'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+	        alt: '좋아요 꽉찬거'
+	      });
+	      great(); //좋아요 함수 호출 
+	    } else {
+	      $(this).find('i').removeClass('active');
+	      $(this).find('img').attr({
+	        'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+	        alt: '좋아요 안한거'
+	      });
+	      greatDown(); //좋아요 취소 호출 
+	    }
+	  });
+	});
+
+
+
+//좋아요 클릭시 효과 
+ function great() {
+  $.ajax({
+    url: "/greatUP/" + greatNcode,
+    type: "POST",
+    data: greatVO,
+    success: function(result) {
+      alert(result.message);
+      getGreat(); //회원 확인 여부 호출
+    },
+    error: function() {
+      alert("좋아요를 누르는 중 오류가 발생했습니다.");
+    }
+  });
+  console.log(greatVO);
+}
+
+//좋아요 취소시 효과 기능 
+function greatDown(){
+      $.ajax({
+        url: "/greatDown/" + greatFlag + "/" + greatNcode + "/" + id,
+        type: "POST",
+        data: greatVO,
+        success: function(result) {
+          alert(result.message);
+          getGreat(); //회원 확인 여부 호출
+        },
+        error: function() {
+          alert("좋아요 취소 중 오류가 발생했습니다.");
+        }
+          });
+    } 
+
+
+</script>
+
+
 
 	</div>
 
