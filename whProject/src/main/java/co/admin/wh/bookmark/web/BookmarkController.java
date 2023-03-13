@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.bookmark.mapper.BookmarkMapper;
+import co.admin.wh.bookmark.service.BookmarkService;
 import co.admin.wh.bookmark.vo.BookmarkVO;
 import co.admin.wh.member.vo.MemberVO;
 import groovyjarjarantlr.collections.List;
@@ -25,6 +27,8 @@ import groovyjarjarantlr.collections.List;
 public class BookmarkController {
 	@Autowired
 	private BookmarkMapper bMapper;
+	@Autowired
+	private BookmarkService bService;
 
 	// bookmark 전체 페이지 ->마이페이지에서 확인 가능
 	@RequestMapping("/bookmark")
@@ -36,13 +40,31 @@ public class BookmarkController {
 	    
 	    return "bookmark/bookmark";
 	}
+	
+	@RequestMapping("/bookmarkCheck/{bookNcode}/{id}")
+	@ResponseBody
+	public boolean bookmarkCheck(@PathVariable("bookNcode") int bookNcode, BookmarkVO vo,
+			@PathVariable("id")String id,MemberVO mvo , Principal principal) {
+		boolean bookmarkCheck = false;
+		
+		vo.setId(principal.getName());
+		
+		vo.setBookNcode(bookNcode);
+		
+		if(bService.bookmarkCheck(vo)) {
+			bookmarkCheck = true;
+		}
+		return bookmarkCheck;
+	}
 
 	//hotel - 즐겨찾기 추가
 	@PostMapping("/insertBookHotel/{bookNcode}")
+	@ResponseBody
 	public BookmarkVO insertBookHotel(BookmarkVO vo, @PathVariable int bookNcode, Principal principal) {
 	    vo.setId(principal.getName());
 	    vo.setBookNcode(bookNcode);
 	    vo.setBookFlag("HT");
+	    bService.insertBookHotel(vo);
 	    return vo;
 	}
 
