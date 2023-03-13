@@ -1,5 +1,7 @@
 package co.admin.wh.notice.vo;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,11 @@ public class Paging {
 	int endPage;			//페이지그룹내에서 마지막페이지번호
 	int first;
 	int last;
+	
+	// 호텔 검색어
+	Date checkIn;
+	String hotelRegion;
+	String humanCount;
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;
@@ -86,4 +93,27 @@ public class Paging {
 		this.endPage = endPage;
 	}
 	
+	/*
+	//검색 정보를 가지고 페이징
+	private String searchInfo; 
+
+	public void setSearchInfo(Date checkIn, String hotelRegion, String humanCount) {
+	 
+	 if(checkIn.equals("") || hotelRegion.equals("") || humanCount.equals("")) {
+		 searchInfo = ""; 
+	 } else {
+		 searchInfo = "&checkIn=" + checkIn + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount; 
+	 }  
+	}
+	*/
+	
+	public String getSearchInfo() {
+		 
+		if(checkIn.equals("") || hotelRegion.equals("") || humanCount.equals("")) {
+		  return ""; 
+		 } else {
+		  return "&checkIn=" + checkIn + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount; 
+		 }
+		}
+
 }

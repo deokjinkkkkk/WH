@@ -2,6 +2,7 @@ package co.admin.wh.hotel.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -69,5 +70,40 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	@Override
 	public int getCountTotal(HotelSearchVO vo) {
 		return hotelMapper.getCountTotal(vo);
+	}
+
+	@Override
+	public List<HotelVO> hotelSearchList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.hotelSearchList(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>>autocomplete(Map<String, Object> paramMap) throws Exception{
+		return hotelMapper.autocomplete(paramMap);
+	}
+
+	@Override
+	public List<HotelVO> priceList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.priceList(vo);
+	}
+
+	@Override
+	public List<HotelVO> priceListDesc(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.priceListDesc(vo);
+	}
+
+	@Override
+	public List<HotelVO> starRatingList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.starRatingList(vo);
+	}
+
+	@Override
+	public List<HotelVO> goodRatingList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.goodRatingList(vo);
 	}
 }

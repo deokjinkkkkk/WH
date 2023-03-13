@@ -7,12 +7,14 @@
 	<div layout:fragment="content" class="content">
 	
 	<!-- 페이징 -->
-   <script>
-   		function gopage(page) {
-   			location.href = "hotel?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}   		
+    <script th:inline="javascript">
+   function gopage(page) {
+	   let searchInfo = [[${paging.SearchInfo}]];
+	   location.href = "hotelSearch?page=" + page + searchInfo;
+	   frmSearch.page.value = page;
+	   frmSearch.submit();
+	}
+
    </script>
    <!-- 페이징 끝-->
    
@@ -92,16 +94,16 @@
 								<form action="#!" method="post">
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkin</label> <input
-                                 type="text"
+                                 type="text" th:value="${paging.checkIn}"
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
                            </div>
-                           <div class="form-group">
-                              <label class="margin-5px-bottom">checkout</label> <input
-                                 type="text"
-                                 class="form-control date no-margin-bottom padding-10px-tb"
-                                 placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
-                           </div>
+<!--                            <div class="form-group"> -->
+<!--                               <label class="margin-5px-bottom">checkout</label> <input -->
+<!--                                  type="text" value="${checkOut}" -->
+<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
+<!--                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut"> -->
+<!--                            </div> -->
 									
 							<script>
                               $(function() {
@@ -136,33 +138,71 @@
 									<div class="form-group">
 										<label class="margin-5px-bottom">지역</label> <select
 											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect1">
+											id="hotelRegion" name="hotelRegion">
 											<option selected>지역 선택</option>
-											<option>서울</option>
-											<option>경기</option>
-											<option>부산</option>
-											<option>대구</option>
-											<option>인천</option>
-											<option>광주</option>
-											<option>대전</option>
-											<option>울산</option>
-											<option>세종</option>
-											<option>경기</option>
-											<option>강원</option>
-											<option>충북</option>
-											<option>충남</option>
-											<option>전북</option>
-											<option>전남</option>
-											<option>경북</option>
-											<option>경남</option>
-											<option>제주</option>
+											<option th:value="서울" th:selected="${paging.hotelRegion eq '서울'}">서울</option>
+											<option th:value="경기" th:selected="${paging.hotelRegion eq '경기'}">경기</option>
+											<option th:value="부산" th:selected="${paging.hotelRegion eq '부산'}">부산</option>
+											<option th:value="대구" th:selected="${paging.hotelRegion eq '대구'}">대구</option>
+											<option th:value="인천" th:selected="${paging.hotelRegion eq '인천'}">인천</option>
+											<option th:value="광주" th:selected="${paging.hotelRegion eq '광주'}">광주</option>
+											<option th:value="대전" th:selected="${paging.hotelRegion eq '대전'}">대전</option>
+											<option th:value="울산" th:selected="${paging.hotelRegion eq '울산'}">울산</option>
+											<option th:value="세종" th:selected="${paging.hotelRegion eq '세종'}">세종</option>
+											<option th:value="강원" th:selected="${paging.hotelRegion eq '강원'}">강원</option>
+											<option th:value="충북" th:selected="${paging.hotelRegion eq '충북'}">충북</option>
+											<option th:value="충남" th:selected="${paging.hotelRegion eq '충남'}">충남</option>
+											<option th:value="전북" th:selected="${paging.hotelRegion eq '전북'}">전북</option>
+											<option th:value="전남" th:selected="${paging.hotelRegion eq '전남'}">전남</option>
+											<option th:value="경북" th:selected="${paging.hotelRegion eq '경북'}">경북</option>
+											<option th:value="경남" th:selected="${paging.hotelRegion eq '경남'}">경남</option>
+											<option th:value="제주" th:selected="${paging.hotelRegion eq '제주'}">제주</option>
 										</select>
 									</div>
-									<button class="butn btn-block" type="submit">
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">성인</label> <select
+											class="form-control padding-10px-tb" id="humanCount"
+											name="humanCount">
+											<option th:value="1" th:selected="${paging.humanCount eq '1'}">1명</option>
+											<option th:value="2" th:selected="${paging.humanCount eq '2'}">2명</option>
+											<option th:value="3" th:selected="${paging.humanCount eq '3'}">3명</option>
+											<option th:value="4" th:selected="${paging.humanCount eq '4'}">4명</option>
+											<option th:value="5" th:selected="${paging.humanCount eq '5'}">5명</option>
+										</select>
+									</div>
+<!-- 									<div class="form-group margin-30px-bottom"> -->
+<!-- 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select -->
+<!-- 											class="form-control padding-10px-tb" id="childCount" -->
+<!-- 											name="childCount"> -->
+<!-- 											<option value="0" selected>해당 없음</option> -->
+<!-- 											<option value="1">1명</option> -->
+<!-- 											<option value="2">2명</option> -->
+<!-- 											<option value="3">3명</option> -->
+<!-- 											<option value="4">4명</option> -->
+<!-- 											<option value="5">5명</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
 								</form>
 							</div>
+							
+							<script>
+							 document.getElementById("searchBtn").onclick = function () {
+							    
+							  let checkIn = document.getElementsByName("checkIn")[0].value;
+							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
+							  let humanCount =  document.getElementsByName("humanCount")[0].value;
+							  
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
+							  
+							  console.log(checkIn)
+							  console.log(hotelRegion)
+							  console.log(humanCount)
+							 };
+							</script>
+							
 							<div class="widget">
 								<div class="widget-title">
 									<h3>Destination</h3>

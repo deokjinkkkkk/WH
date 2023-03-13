@@ -32,13 +32,131 @@
 		<!-- start blog section -->
 		<section>
 			<div class="container">
-				<p style="font-size: 30px;">추천 호텔<p><hr>
+            	<p style="font-size: 30px;">전체 호텔<p><hr>
+            	<div id="product_order_list">
+			<p>
+			<a href="javascript:starRatingList();">별점순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:goodRatingList();">좋아요순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:priceList();">낮은가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:priceListDesc();">높은가격순</a> </p>
+		</div>
+		<script th:inline="javascript">
+		
+		// 낮은가격순 정렬
+		var priceList = function(url){
+			$.ajax({
+				type: 'post',
+				url: "/priceList",
+				success: function(data) {
+					$("#hotelListContent").replaceWith(data);
+				},
+				error: function(request, status, error) {
+					alert(error);
+				}
+			});
+		};
+		
+		// 높은가격순 정렬
+		var priceListDesc = function(url){
+			$.ajax({
+				type: 'post',
+				url: "/priceListDesc",
+				success: function(data) {
+					$("#hotelListContent").replaceWith(data);
+				},
+				error: function(request, status, error) {
+					alert(error);
+				}
+			});
+		};
+		
+		// 별점순 정렬
+		var starRatingList = function(url){
+			$.ajax({
+				type: 'post',
+				url: "/starRatingList",
+				success: function(data) {
+					$("#hotelListContent").replaceWith(data);
+				},
+				error: function(request, status, error) {
+					alert(error);
+				}
+			});
+		};
+		
+		// 좋아요순 정렬
+		var goodRatingList = function(url){
+			$.ajax({
+				type: 'post',
+				url: "/goodRatingList",
+				success: function(data) {
+					$("#hotelListContent").replaceWith(data);
+				},
+				error: function(request, status, error) {
+					alert(error);
+				}
+			});
+		};
+		</script>
+    <!-- 검색 폼 -->
+				<form name="searchFrm" style="margin-top: 20px;">
+                	<input type="text" class="form-control" id="autoComplete" name="search" placeholder="호텔명을 검색하세요!">
+	                <div class="input-group-append">
+                    	<button onclick="goSearch()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button>
+	                </div>
+                </form>
+				
+				<script>
+				$('#autoComplete').autocomplete({
+					source : function(request, response) { //source: 입력시 보일 목록
+					     $.ajax({
+					           url : "/ajax/autocomplete"   
+					         , type : "POST"
+					         , dataType: "JSON"
+					         , data : {value: request.term}	// 검색 키워드
+					         , success : function(data){ 	// 성공
+					             response(
+					                 $.map(data.resultList, function(item) {
+					                     return {
+					                    	     label : item.HOTEL_NAME   	// 목록에 표시되는 값
+					                           , value : item.HOTEL_NAME 		// 선택 시 input창에 표시되는 값
+					                           , idx : item.HOTEL_ID // index
+					                     };
+					                 })
+					             );    //response
+					         }
+					         ,error : function(){ //실패
+					             alert("오류가 발생했습니다.");
+					         }
+					     });
+					}
+					,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
+							return false;
+					}
+					,minLength: 1// 최소 글자수
+					,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
+					,delay: 100	//autocomplete 딜레이 시간(ms)
+					,select : function(evt, ui) { 
+				      	// 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+							console.log(ui.item.label);
+							console.log(ui.item.idx);
+					 }
+				});
+				        
+// 				        // 자동완성 목록을 클릭하면 검색하기
+// 					$(document).on('click', ".result", function(){
+// 						var word = $(this).text();
+// 						$("#autoComplete").val(word);
+// 						goSearch(); // 검색기능
+// 					});
+				</script>
+
 				<div class="row">
 					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
-						<div class="row margin-30px-bottom">
+						<div class="row margin-30px-bottom" id="hotelListContent">
 							<div th:each="h : ${hotelList}"
-								class="col-md-6 margin-30px-bottom">
-								<div class="border border-radius-4 package h-100">
+								class="hotels col-md-6 margin-30px-bottom">
+								<div class="hotel border border-radius-4 package h-100">
 									<img th:src="${h.img1}"/>
 									<div class="padding-30px-all">
 										<div
@@ -50,7 +168,7 @@
 													th:text="${h.hotelRegion}" class="ti-location-pin"></span></span>
 											</div>
 											<div>
-												<!--<span class="font-size30 text-dark">549$</span> -->
+												<span th:text="|₩ ${h.roomPrice}|"></span>
 											</div>
 										</div>
 										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn">Details</a>
@@ -82,23 +200,24 @@
 						<div class="side-bar">
 							<div class="widget">
 								<button class="butn btn-block" onClick="location.href='/hotelToday'">
-									<i class="fa fa-search"></i> 오늘 예약 가능한 호텔 보기
+									<i class="fa fa-search"></i> go jeju
 								</button>
 								<br><br>
 								<hr>
 								<div class="widget-title">
 									<h3>Search</h3>
 								</div>
-								<form action="#!" method="post">
+								<form action="/hotelSearch" method="post">
 									<div class="form-group">
+									<!-- 여기 datepicker안먹어서 일단 인풋타입 text에서 date로 바꿔둠 자동완성이랑 충돌나는듯 -->
 										<label class="margin-5px-bottom">checkin</label> <input
-                                 type="text"
+                                 type="date"
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
                            </div>
                            <div class="form-group">
                               <label class="margin-5px-bottom">checkout</label> <input
-                                 type="text"
+                                 type="date"
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
                            </div>
@@ -136,28 +255,51 @@
 									<div class="form-group">
 										<label class="margin-5px-bottom">지역</label> <select
 											class="form-control padding-10px-tb"
-											id="exampleFormControlSelect1">
+											id="hotelRegion" name="hotelRegion">
 											<option selected>지역 선택</option>
-											<option>서울</option>
-											<option>경기</option>
-											<option>부산</option>
-											<option>대구</option>
-											<option>인천</option>
-											<option>광주</option>
-											<option>대전</option>
-											<option>울산</option>
-											<option>세종</option>
-											<option>경기</option>
-											<option>강원</option>
-											<option>충북</option>
-											<option>충남</option>
-											<option>전북</option>
-											<option>전남</option>
-											<option>경북</option>
-											<option>경남</option>
-											<option>제주</option>
+											<option value="서울">서울</option>
+											<option value="경기">경기</option>
+											<option value="부산">부산</option>
+											<option value="대구">대구</option>
+											<option value="인천">인천</option>
+											<option value="광주">광주</option>
+											<option value="대전">대전</option>
+											<option value="울산">울산</option>
+											<option value="세종">세종</option>
+											<option value="경기">경기</option>
+											<option value="강원">강원</option>
+											<option value="충북">충북</option>
+											<option value="충남">충남</option>
+											<option value="전북">전북</option>
+											<option value="전남">전남</option>
+											<option value="경북">경북</option>
+											<option value="경남">경남</option>
+											<option value="제주">제주</option>
 										</select>
 									</div>
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">성인</label> <select
+											class="form-control padding-10px-tb" id="humanCount"
+											name="humanCount">
+											<option value="1">1명</option>
+											<option value="2" selected>2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
+										</select>
+									</div>
+<!-- 									<div class="form-group margin-30px-bottom"> -->
+<!-- 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select -->
+<!-- 											class="form-control padding-10px-tb" id="childCount" -->
+<!-- 											name="childCount"> -->
+<!-- 											<option value="0" selected>해당 없음</option> -->
+<!-- 											<option value="1">1명</option> -->
+<!-- 											<option value="2">2명</option> -->
+<!-- 											<option value="3">3명</option> -->
+<!-- 											<option value="4">4명</option> -->
+<!-- 											<option value="5">5명</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
 									<button class="butn btn-block" type="submit">
 										<i class="fa fa-search"></i> Check
 									</button>
