@@ -38,7 +38,6 @@
 }
 
 </style>	 
-	 
   <div class="container">
                 <div class="row">
                     <div class="">
@@ -70,10 +69,10 @@
                                     <table class="table table-hover">
 	                                    <tbody>
 											<tr th:each="m : ${myCouDet}">
-												<td id="couOrd" th:text="${m.couOrd}"></td>
+												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}"></td>
 												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}"></td>											
 												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
-												<td th:text="${m.tripAddr}"></td>
+												<td th:text="${tripAddr}"></td>
 												<td><button onclick="myCouDetailDel()" type="button" class="btn btn-danger">삭제</button></td>
 												<td>
 												<button class="icon box" type="button" onclick="moveUp()">
@@ -84,10 +83,60 @@
 													<img src="https://img.icons8.com/material-sharp/24/null/circled-chevron-down.png"/>
                                 				</button>
                                 				</td>
+                                				<td><input type="hidden" id="tripLat" th:value="${m.tripLat}"></td>
+                                				<td><input type="hidden" id="tripLon" th:value="${m.tripLon}"></td>
 												<td><input type="hidden" id="myCouFreeCode" th:value="${m.myCouFreeCode}"></td>
 											</tr>
 										</tbody>
                                     </table>
+                                    
+                                    <!-- 구글 지도 API 이용 -->
+                                <div id="map" style="height: 600px; width: 600px;"></div>
+                                <script type="text/javascript">
+                                
+                                var map;
+                                var markers = [];
+                                
+                                // 각 위도와 경도값을 ajax로 흥엉엉 
+                                function initMap() {
+                                	
+                                    var maps = document.querySelectorAll('#map');
+                                    var tripLat = parseFloat($("#tripLat").val());
+                                    var tripLon = parseFloat($("#tripLon").val());
+                                    
+                                    var markers = {
+                                    		let : tripLat,
+                                    		lng : tripLon
+                                    }
+                                    
+                                    console.log(markers);
+                                    
+                                    var defaultOptions = {
+                                        zoom: 12,
+                                        center: cityHalls[0],
+                                        disableDefaultUI: true,
+                                        zoomControl: true
+                                    };
+
+                                    console.log(defaultOptions);
+                                    
+                                    map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+                                                                        
+                                    for (var i = 0 ; i < cityHalls.length; i++) {
+                                    var marker = new google.maps.Marker({
+                                        position: cityHalls[i],
+                                        map: map,                       
+		                                    });
+		                                }
+		                           }
+                                    
+                                </script>
+
+                                <script async defer
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
+                                </script>
+							<!-- api 끝 -->
+                                    
                                  <!-- 여기까지가 여행지 영역임 -->
                                     </div>
                                     <br>
@@ -95,7 +144,7 @@
                                         <textarea placeholder="소개글"></textarea>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="butn" onclick="saveTableData()"><span>수정하기</span></button>
+                                        <button type="button" class="butn" onclick="moveTotal()"><span>수정하기</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -145,10 +194,10 @@
 		var prevRow = row.prev();
 		console.log(prevRow)
 		if (prevRow.length) {			
-			var couOrd = row.find("#couOrd").text();		
-			row.find("#couOrd").text(couOrd - 1);
-			var couOrdPre = prevRow.find("#couOrd").text();
-			prevRow.find("#couOrd").text(parseInt(couOrdPre) + 1);
+			var couOrd = row.find(".couOrd").text();		
+			row.find(".couOrd").text(couOrd - 1);
+			var couOrdPre = prevRow.find(".couOrd").text();
+			prevRow.find(".couOrd").text(parseInt(couOrdPre) + 1);
 			prevRow.before(row);
 		}
 		
@@ -159,36 +208,33 @@
 		var nextRow = row.next();
 
 		if (nextRow.length) {
-			var couOrd = row.find("#couOrd").text();
-			row.find("#couOrd").text(parseInt(couOrd) + 1);
-			var couOrdNext = nextRow.find("#couOrd").text();
-			nextRow.find("#couOrd").text(couOrdNext - 1);
+			var couOrd = row.find(".couOrd").text();
+			row.find(".couOrd").text(parseInt(couOrd) + 1);
+			var couOrdNext = nextRow.find(".couOrd").text();
+			nextRow.find(".couOrd").text(couOrdNext - 1);
 			nextRow.after(row);
 		}
 	}
 
 	
-	
-	
-	/* 위아래로 여행지 이동한 상태를 저장... */
-	function getTableData() {
-		var tableData = [];
-		$('table tbody tr').each(function(row, tr) {
-			tableData[row] = {
-				"imgGroCode" : $(tr).find('td:eq(0) img').attr('src'),
-				"tripName" : $(tr).find('td:eq(1)').text(),
-				"tripAddr" : $(tr).find('td:eq(2)').text(),
-			}
-		});
-		return tableData;
-	}
-
-	function saveTableData() {
-		var tableData = getTableData();
+	function moveTotal() {
+		var data = [];
+		/* data 배열에 담을 값은 내가 옮기는 코스의 순서(couOrd)와 기본키값(myCouFreeCode)
+		   기본키값에 수정된 코스의 순서 번호를 담아 UPDATE 해서 저장하면 된다!
+		   id값은 잘 못 읽으니 class로 변경했었다. */ 
+		$(".couOrd").each(function(item) {
+		    var obj = {};
+		    obj.myCouFreeCode = $(this).data("freecode"); // th:data-freecode="${m.myCouFreeCode}"에서 가져온 값
+		    obj.couOrd = $(this).text();
+		    data.push(obj);
+		  });
+		
+		console.log(data);
+		
 		$.ajax({
-			url : '/saveTableData',
+			url : "/moveSaveTrip",
 			method : 'POST',
-			data : JSON.stringify(tableData),
+			data : JSON.stringify(data),
 			contentType : 'application/json',
 			success : function(response) {
 				alert('저장되었습니다.');
@@ -196,8 +242,9 @@
 			error : function(error) {
 				alert('저장에 실패하였습니다.');
 			}
-		});
+		});	
 	}
+
 </script>
             </div>
             

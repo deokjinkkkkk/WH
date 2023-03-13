@@ -15,5 +15,8 @@ public interface MyCourseFreeService {
 	List<MyCourseFreeVO> myCourseSelect(MyCourseFreeVO vo); // 나만의 코스 상세페이지 출력
 	
 	int myCouDetailDel(MyCourseFreeVO vo); // 나만의 코스 상세페이지에 담은 여행지 삭제
+	
+	int myCouUpdate(MyCourseFreeVO vo); // 여행지 순서 수정
+
 
 }
