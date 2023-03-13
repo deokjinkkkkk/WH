@@ -628,18 +628,18 @@ const id = $("#id").val();
 const diaryCode = $(".diaryCode").val();
 
 $(document).ready(function(){
-	const id = $("#id").val();
-	getDiaryList(id);
+	
+	getDiaryList();
 })
 //리스트 출력
-function getDiaryList(id) {
-	
+function getDiaryList() {
+	const id = $("#id").val();
     var str = "";
     console.log(id)
     var diaryArea =$(".feed-box");
     $.ajax({
-        url: "/getDiaryList/" + id, // id 파라미터 추가
-        type: "GET", // GET 방식으로 변경
+        url: "/getDiaryList/" + id,
+        type: "GET",
         dataType: 'json',
         success: function (result) {
             console.log("조회되나????????");
@@ -834,33 +834,31 @@ $(".feed-box").on('click',".btn-danger", ()=>{
 
 
 //수정
-$(".feed-box").on('click',".btn-primary", ()=>{
-  const up = $(event.target).parent();
+$(".feed-box").on('click',".btn-primary", ()=>{	 
   const diaryCode = $(event.target).parent().data('code');
-  const diaryTitle = '${diaryTitle}'; // 수정될 일지의 제목
-  const diaryContent = '${diaryContent}'; // 수정될 일지의 내용
-  const diaryStartDate = '${diaryStartDate}'; // 수정될 일지의 시작 날짜
-  const diaryEndDate = '${diaryEndDate}'; // 수정될 일지의 종료 날짜
-
   // Ajax 요청 보내기
   $.ajax({
     url: "/diaryUpdate/"+ diaryCode+ "/" + id,
     type: "POST",
     data: {
-      diaryTitle: diaryTitle,
-      diaryContent: diaryContent,
-      diaryStartDate: diaryStartDate,
-      diaryEndDate: diaryEndDate
+      "diaryTitle": diaryTitle,
+      "diaryContent": diaryContent,
+      "diaryStartDate": diaryStartDate,
+      "diaryEndDate": diaryEndDate
     },
     success: function (data) {
       console.log("성공");
-      up.remove(); // 수정이 완료되면 해당 일지를 화면에서 삭제합니다.
     },
-    error: function (request, status, error) {
+    error: function () {
       console.log("에러");
     }
   });
 });
+
+
+function diaryUpdateForm(){
+	
+}
 
 </script>
 </html>
