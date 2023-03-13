@@ -528,8 +528,8 @@ a {
 	<div class="body">
 		<div class="left-body">
 		<div class="posts">
+			<input type="hidden" name="id" th:value="${session.name}" id="id">
 			<div class="feed-box" id="inst" style="padding: 20px">
-					<input type="hidden" name="id" th:value="${session.name}" id="id">
 				<!--	
 			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
 				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
@@ -628,10 +628,12 @@ const id = $("#id").val();
 const diaryCode = $(".diaryCode").val();
 
 $(document).ready(function(){
+	const id = $("#id").val();
 	getDiaryList(id);
 })
 //리스트 출력
 function getDiaryList(id) {
+	
     var str = "";
     console.log(id)
     var diaryArea =$(".feed-box");
@@ -831,6 +833,34 @@ $(".feed-box").on('click',".btn-danger", ()=>{
 })
 
 
+//수정
+$(".feed-box").on('click',".btn-primary", ()=>{
+  const up = $(event.target).parent();
+  const diaryCode = $(event.target).parent().data('code');
+  const diaryTitle = '${diaryTitle}'; // 수정될 일지의 제목
+  const diaryContent = '${diaryContent}'; // 수정될 일지의 내용
+  const diaryStartDate = '${diaryStartDate}'; // 수정될 일지의 시작 날짜
+  const diaryEndDate = '${diaryEndDate}'; // 수정될 일지의 종료 날짜
+
+  // Ajax 요청 보내기
+  $.ajax({
+    url: "/diaryUpdate/"+ diaryCode+ "/" + id,
+    type: "POST",
+    data: {
+      diaryTitle: diaryTitle,
+      diaryContent: diaryContent,
+      diaryStartDate: diaryStartDate,
+      diaryEndDate: diaryEndDate
+    },
+    success: function (data) {
+      console.log("성공");
+      up.remove(); // 수정이 완료되면 해당 일지를 화면에서 삭제합니다.
+    },
+    error: function (request, status, error) {
+      console.log("에러");
+    }
+  });
+});
 
 </script>
 </html>
