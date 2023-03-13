@@ -32,7 +32,10 @@ public class SocialUserService implements OAuth2UserService<OAuth2UserRequest, O
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		OAuth2UserService<OAuth2UserRequest, ?> oAuth2UserService = new DefaultOAuth2UserService();
+		
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+		OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
 		OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
 		
 		String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -42,9 +45,13 @@ public class SocialUserService implements OAuth2UserService<OAuth2UserRequest, O
 		OAuthAttributes attributes =OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 		
 		MemberVO member = saveOrUpdate(attributes);
-		return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(attributes.getPerm()))
-                , attributes.getAttributes()
-                , attributes.getNameAttributeKey());
+		
+		httpSession.setAttribute("user", new SessionUser(member));
+		System.out.println(attributes.getAttributes()+"+++++++++++++++++++++++");
+		return new DefaultOAuth2User(
+				Collections.singleton(new SimpleGrantedAuthority(attributes.getPerm()))
+                ,attributes.getAttributes()
+                ,attributes.getNameAttributeKey());
 	}
 	
 	 private MemberVO saveOrUpdate(OAuthAttributes attributes) {
@@ -62,14 +69,15 @@ public class SocialUserService implements OAuth2UserService<OAuth2UserRequest, O
 	        vo.setState(attributes.getState());
 	        
 	        System.out.println(vo.getId());
+	        MemberVO mvo = new MemberVO();
+	        mvo = memberMapper.memberSelect(vo);
 	        
-	        vo = memberMapper.memberSelect(vo);
-	        
-	        if(vo == null) {
+	        if(mvo == null) {
 	        	memberService.memberInsert(vo);
 	        }
+	        mvo = memberMapper.memberSelect(vo);
 	        
-	        return vo;
+	        return mvo;
 	    }
 
 }
