@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.notice.mapper.VideoMapper">
+		<insert id="videoInsert"
+		parameterType="co.admin.wh.notice.vo.VideoVO">
+		<selectKey keyProperty="videoCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(video_code),0)+1 FROM video
+		</selectKey>
+
+		INSERT INTO video (video_code,video_name, video_content, video_hit, video_reg_date, video_mod_date, VIDEO_REGION, url )
+
+		VALUES (#{videoCode},#{videoName},#{videoContent},
+		0,
+		sysdate ,#{videoModDate},#{videoRegion},`https://www.youtube.com/embed/`+#{url})
+	</insert>
+</mapper>
