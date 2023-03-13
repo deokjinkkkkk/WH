@@ -73,15 +73,13 @@ position: absolute;
      left: 700px;
       top: 50px;
 }
-#bookImg{
-		border:none;
-		background-color: white;
-		font-size:xx-large; 
-}
-.bmark{
-	border:none;
-}
 
+
+#tripBtn{
+	position: absolute;
+	left: 650px;
+	top: 50px;
+}
 </style>
 		<!--좋아요 버튼 css-종료-->
 
@@ -89,7 +87,7 @@ position: absolute;
 
 		<!-- start page title section -->
 		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('/img/banner/bg3.jpg')|">
+				th:style="|background: url('/img/banner/bg3.jpg')|">
 			<div class="container">
 				<h1 class="text-white font-weight-600">Hotel</h1>
 				<ul>
@@ -104,7 +102,7 @@ position: absolute;
 			<div class="container">
 				<div class="row">
 					<div
-						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+							class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
 						<div class="posts">
 							<!--  start post-->
 							<div class="post">
@@ -116,18 +114,35 @@ position: absolute;
 											<div class="right_area" id="greatBtn">
 												<button type="button" class="icon heart">
 													<img
-														src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
-														id="greatImg"> 
+															src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+															id="greatImg"> 
 												</button>
-													<input type="hidden" id="id" name="id" th:value="${session.name}">
+													<input type="hidden" id="id" name="id"
+														th:value="${session.name}">
 											</div>
 											<!--좋아요 버튼 기능html 종료-->
 
 											<!--즐찾 버튼 기능html-->
-											<div class="book_area" id="bookBtn">
-												<button type="button" class="bmark">
-											<i class="fa-regular fa-bookmark" id="bookImg"></i>
-												</button>
+											<!-- 즐겨찾기를 누르지 않은 경우  -->
+											<div class="book_area">
+												<div class="bmark">
+													<a href="/insertBookHotel/{bookNcode}" class="emptyMark">
+														<svg xmlns="http://www.w3.org/2000/svg" width="30"
+																height="30" viewBox="0 0 384 512">
+														<path
+																	d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z" />
+														</svg>
+													</a>
+													
+													<!-- 즐겨찾기를 누른 경우 -->
+													<a href="/bookDel/{bookCode}" class="fullMark">
+													<svg xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 384 512" width="30" height="30">
+													<path
+																	d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z" />
+													</svg>
+													</a>
+												</div>
 											</div>
 											<!-- 즐찾 버튼 끝 -->
 										</div>
@@ -135,7 +150,7 @@ position: absolute;
 									</div>
 
 									<div
-										class="row margin-40px-bottom border-bottom padding-30px-bottom">
+											class="row margin-40px-bottom border-bottom padding-30px-bottom">
 										<div class="col-md-6">
 											<p class="margin-10px-bottom text-extra-dark-gray">
 												<span class="ti-time text-theme-color margin-10px-right"></span>
@@ -143,7 +158,7 @@ position: absolute;
 
 											</p>
 											<p
-												class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
+													class="no-margin-bottom xs-margin-10px-bottom text-extra-dark-gray">
 												<span class="ti-stamp text-theme-color margin-10px-right"></span>연령
 												제한 없음
 											</p>
@@ -156,7 +171,7 @@ position: absolute;
 											</p>
 											<p class="no-margin-bottom text-extra-dark-gray">
 												<span
-													class="ti-location-pin text-theme-color margin-10px-right"></span>
+														class="ti-location-pin text-theme-color margin-10px-right"></span>
 												<a th:text="${h.hotelRegion}">서울</a>
 											</p>
 
@@ -192,7 +207,7 @@ position: absolute;
 													</div>
 													<div>
 														<p th:text="${h.roomGrade}"
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Kathmandu
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">Kathmandu
 															International Airport</p>
 													</div>
 												</div>
@@ -204,7 +219,7 @@ position: absolute;
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오후
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오후
 															3시</p>
 													</div>
 												</div>
@@ -216,7 +231,7 @@ position: absolute;
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오전
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">오전
 															11시</p>
 													</div>
 												</div>
@@ -228,7 +243,7 @@ position: absolute;
 													</div>
 													<div>
 														<p th:text="${h.hotelAddr}"
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">서울</p>
 													</div>
 												</div>
 
@@ -241,24 +256,24 @@ position: absolute;
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span class="ti-check text-info margin-5px-right"></span>Accommondatio
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span class="ti-check text-info margin-5px-right"></span>Porter
 															& Personal Guide
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span class="ti-check text-info margin-5px-right"></span>Insurance
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span class="ti-check text-info margin-5px-right"></span>Breakfast
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span class="ti-check text-info margin-5px-right"></span>Tranportation
 															/ Car
 														</p>
@@ -273,25 +288,25 @@ position: absolute;
 													</div>
 													<div>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span
-																class="ti-close text-danger font-size12 margin-5px-right"></span>Flights
+																	class="ti-close text-danger font-size12 margin-5px-right"></span>Flights
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span
-																class="ti-close text-danger font-size12 margin-5px-right"></span>Lunch
+																	class="ti-close text-danger font-size12 margin-5px-right"></span>Lunch
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span
-																class="ti-close text-danger font-size12 margin-5px-right"></span>Typical
+																	class="ti-close text-danger font-size12 margin-5px-right"></span>Typical
 															Souvenir
 														</p>
 														<p
-															class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
+																class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">
 															<span
-																class="ti-close text-danger font-size12 margin-5px-right"></span>Sunscreen
+																	class="ti-close text-danger font-size12 margin-5px-right"></span>Sunscreen
 															and personal items
 														</p>
 													</div>
@@ -308,7 +323,7 @@ position: absolute;
 						</div>
 					</div>
 					<div
-						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+							class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 						<div class="side-bar">
 							<div class="widget">
 								<div class="widget-title">
@@ -318,15 +333,15 @@ position: absolute;
 								<form action="/reservation" method="post">
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkin</label> <input
-											type="text"
-											class="form-control date no-margin-bottom padding-10px-tb"
-											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
+												type="text"
+												class="form-control date no-margin-bottom padding-10px-tb"
+												placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
 									</div>
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkout</label> <input
-											type="text"
-											class="form-control date no-margin-bottom padding-10px-tb"
-											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
+												type="text"
+												class="form-control date no-margin-bottom padding-10px-tb"
+												placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
 									</div>
 
 									<script>
@@ -361,8 +376,8 @@ position: absolute;
                            </script>
 									<div class="form-group margin-30px-bottom">
 										<label class="margin-5px-bottom">성인</label> <select
-											class="form-control padding-10px-tb" id="humanCount"
-											name="humanCount">
+												class="form-control padding-10px-tb" id="humanCount"
+												name="humanCount">
 											<option value="1">1명</option>
 											<option value="2" selected>2명</option>
 											<option value="3">3명</option>
@@ -372,8 +387,8 @@ position: absolute;
 									</div>
 									<div class="form-group margin-30px-bottom">
 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
-											class="form-control padding-10px-tb" id="childCount"
-											name="childCount">
+												class="form-control padding-10px-tb" id="childCount"
+												name="childCount">
 											<option value="0" selected>해당 없음</option>
 											<option value="1">1명</option>
 											<option value="2">2명</option>
@@ -386,7 +401,7 @@ position: absolute;
 										<i class="fa fa-search"></i> 예약하기
 									</button>
 									<input type="hidden" id="hotelId" name="hotelId"
-										th:value="${h.hotelId}">
+											th:value="${h.hotelId}">
 								</form>
 							</div>
 						</div>
@@ -495,39 +510,38 @@ position: absolute;
 							북마크 
 							------*/
 				
-				//회원 즐겨찾기 있는지 확인
-				 $(document).ready(function(){
-					getBookmark()
-				}); 
+				//즐겨찾기 insert.
+				$(document).ready(function() {
+    				$(".book_area").on("click", ".emptyMark", function(event) {
+				        let bookNCode = no;
+				        event.preventDefault();
+       				 $.ajax({
+           					 type: "POST",
+           					 url: "/insertBookHotel/" + no,
+       			 }).then(function(result) {
+           			 $(".book_area").data("bookno", result.no);
+            		 $(this).html('<a href="#" class="fullMark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="30" height="30"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg></a>');
+        		}).catch(function(err) {
+            console.log(err);
+        		});
+    		});
+
+    // 즐겨찾기 삭제
+    $(".book_area").on("click", ".fullMark", function(event) {
+        let bookNo = $(".book_area").data("bookno");
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/bookDel/" + no,
+        }).then(function(result) {
+            $(this).html('<a href="#" class="emptyMark"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg></a>');
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
+});
+
 				
-				var id = $('#id').val()
-				var bookNcode = window.location.pathname.split("/").pop();
-				var bookFlag = ("HT");
-				var $bookBtn = $('.bmark');
-				
-				var data = {
-						id: id,
-						bookFlag :bookFlag,
-						bookNcode : bookNcode
-				};
-				 
-				function getBookmark(){
-					$.ajax({
-						url:"/bookCheck/" + bookNcode + "/" + id,
-						data: data
-					}).then(function(result){
-						if(result) {
-							
-						}else{
-							$bookBtn.addClass("active")
-							.find("i").attr({
-								class : fa-regular,
-								class : fa-bookmark,
-								id : bookImg
-							})
-						}
-					})
-				}
 
 				</script>
 
@@ -537,4 +551,5 @@ position: absolute;
 	</div>
 
 </body>
+
 </html>

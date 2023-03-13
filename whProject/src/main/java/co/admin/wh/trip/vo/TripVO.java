@@ -40,6 +40,8 @@ public class TripVO {
 	
 	String myCouName; // 코스명 들고오기
 	String myCourseCode; // 나만의 코스 게시판 번호...
+	int myCouFreeCode; // 나만의 코스 상세게시판 번호...
+	String couOrd; //코스 순서
 	
 	
 

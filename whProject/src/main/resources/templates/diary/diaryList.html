@@ -533,10 +533,12 @@ span {
 	<!-- 바디 영역 -->
 	<div class="body">
 		<div class="left-body">
-			<div class="posts">
-					<input type="hidden" name="id" th:value="${session.name}" id="id">
-				<div class="feed-box" id="inst" style="padding: 20px">
-					<!--	
+
+		<div class="posts">
+			<input type="hidden" name="id" th:value="${session.name}" id="id">
+			<div class="feed-box" id="inst" style="padding: 20px">
+				<!--	
+
 			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
 				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
 					<div class="profile-id" ></div>
@@ -636,16 +638,18 @@ const id = $("#id").val();
 const diaryCode = $(".diaryCode").val();
 
 $(document).ready(function(){
-	getDiaryList(id);
+	
+	getDiaryList();
 })
 //리스트 출력
-function getDiaryList(id) {
+function getDiaryList() {
+	const id = $("#id").val();
     var str = "";
     console.log(id)
     var diaryArea =$(".feed-box");
     $.ajax({
-        url: "/getDiaryList/" + id, // id 파라미터 추가
-        type: "GET", // GET 방식으로 변경
+        url: "/getDiaryList/" + id,
+        type: "GET",
         dataType: 'json',
         success: function (result) {
             console.log("조회되나????????");
@@ -839,6 +843,32 @@ $(".feed-box").on('click',".btn-danger", ()=>{
 })
 
 
+//수정
+$(".feed-box").on('click',".btn-primary", ()=>{	 
+  const diaryCode = $(event.target).parent().data('code');
+  // Ajax 요청 보내기
+  $.ajax({
+    url: "/diaryUpdate/"+ diaryCode+ "/" + id,
+    type: "POST",
+    data: {
+      "diaryTitle": diaryTitle,
+      "diaryContent": diaryContent,
+      "diaryStartDate": diaryStartDate,
+      "diaryEndDate": diaryEndDate
+    },
+    success: function (data) {
+      console.log("성공");
+    },
+    error: function () {
+      console.log("에러");
+    }
+  });
+});
+
+
+function diaryUpdateForm(){
+	
+}
 
 </script>
 </html>

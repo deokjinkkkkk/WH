@@ -1,46 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.bookmark.mapper.BookmarkMapper">
-	
-	<!--myPage 즐겨찾기 리스트  -->
-	<select id="bookList"
-			resultType="co.admin.wh.bookmark.vo.BookmarkVO">
-			SELECT 
-				    ID,
-				    BOOK_FLAG,
-				    BOOK_CODE,
-				    BOOK_N_CODE,
-				    HOTEL_NAME,
-				    TRIP_NAME
-				FROM BOOKMARK
-    		JOIN HOTEL ON BOOKMARK.BOOK_CODE = HOTEL.HOTEL_NAME
-    		JOIN TRIP ON BOOKMARK.BOOK_N_CODE = TRIP.TRIP_CODE
-			</select>
-			
-			
-			<!-- 즐겨찾기 추가 여부 확인. 페이지에서 벗어나도 count : 1이 되어있기 때문에
-			즐겨찾기 추가를 지속시켜주는 코드  -->
-		<select id="bookCheck" resultType="boolean">
-			SELECT count(*)
-			FROM BOOKMARK
-			WHERE ID = #{id} and GREAT_N_CODE = #{greatNcode}
-		</select>
-		
-		<!-- 즐겨찾기 등록// 북코드 중복방지를 위해 selectKey문 추가-->
-		<insert id="bookInsert">
-			<selectKey keyProperty="bookCode" resultType="int" order="BEFORE">
-				SELECT NVL(MAX(BOOK_CODE),0)+1 FROM BOOKCODE
-			</selectKey>
-			INSERT INTO BOOKMARK
-			VALUES(#{id},#{bookFlag},#{bookCode},#{bookNcode})
-		</insert>
-		
-		<!-- 즐겨찾기 취소  -->
-		<delete id="bookDelete" parameterType="co.admin.wh.bookmark.vo.BookmarkVO">
-			DELETE FROM BOOKMARK
-			WHERE BOOK_N_CODE = #{bookNcode}
-			AND id = #{id}
-		</delete>
-		
-		
+
+
+	<resultMap type="co.admin.wh.bookmark.vo.BookmarkVO"
+		id="bookmarkResult">
+		<id property="id" column="ID" />
+		<result property="bookFlag" column="BOOK_FLAG" />
+		<result property="bookCode" column="BOOK_CODE" />
+		<result property="bookNcode" column="BOOK_N_CODE" />
+	</resultMap>
+
+
+
+	<!-- hotel 즐겨찾기 추가 -->
+	<insert id="insertBookHotel"
+		parameterType="co.admin.wh.bookmark.vo.BookmarkVO">
+		<selectKey keyProperty="bookCode" resultType="int"
+			order="BEFORE">
+			SELECT
+			NVL(MAX(BOOK_CODE),0)+1
+			FROM BOOKCODE
+		</selectKey>
+		INSERT INTO BOOKMARK
+		VALUES(#{id},#{bookFlag},#{bookCode},#{bookNcode})
+	</insert>
+
+	<!-- trip 즐겨찾기 추가 -->
+	<insert id="insertBookTrip"
+		parameterType="co.admin.wh.bookmark.vo.BookmarkVO">
+		<selectKey keyProperty="bookCode" resultType="int"
+			order="BEFORE">
+			SELECT
+			NVL(MAX(BOOK_CODE),0)+1
+			FROM BOOKCODE
+		</selectKey>
+		INSERT INTO BOOKMARK
+		VALUES(#{id},#{bookFlag},#{bookCode},#{bookNcode})
+	</insert>
+
+	<!-- 마이페이지 -> hotel 즐겨찾기 리스트 출력 -->
+	<select id="hotelList" resultMap="bookmarkResult">
+		SELECT M.*, B.*, H.*
+		FROM
+		MEMBER M
+		LEFT JOIN BOOKMARK B ON (M.ID = B.ID)
+		LEFT JOIN HOTEL H
+		ON (B.BOOK_N_CODE = H.HOTEL_ID)
+		WHERE M.ID = #{id}
+		AND B.BOOK_FLAG = 'HT'
+	</select>
+	<!-- 마이페이지 -> trip 즐겨찾기 리스트 출력 -->
+	<select id="tripList" resultMap="bookmarkResult">
+		SELECT M.*, B.*,T.*
+		FROM
+		MEMBER M
+		LEFT JOIN BOOKMARK B ON(M.ID = B.ID)
+		LEFT JOIN TRIP T
+		ON (B.BOOK_N_CODE = T.TRIP_CODE)
+		WHERE M.ID = #{id}
+		AND B.BOOK_FLAG = 'TR'
+	</select>
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="bookDel"
+		parameterType="co.admin.wh.bookmark.vo.BookmarkVO">
+		DELETE FROM BOOKMARK
+		WHERE BOOK_N_CODE = #{bookNcode}
+		AND id = #{id}
+	</delete>
+
+
+
+
+
+	<!-- 즐겨찾기 추가 여부 확인. 페이지에서 벗어나도 count : 1이 되어있기 때문에 즐겨찾기 추가를 지속시켜주는 코드 <select 
+		id="bookCheck" resultType="boolean"> SELECT count(*) FROM BOOKMARK WHERE 
+		ID = #{id} and GREAT_N_CODE = #{greatNcode} </select> -->
+
+
+
+
 </mapper>

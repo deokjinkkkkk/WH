@@ -56,7 +56,6 @@ public class MyCourseController {
 	@ResponseBody
 	public String myCouTripInsert(@RequestBody MyCourseFreeVO vo) {
 		int result = myCourseFreeMapper.myCourseInsert(vo);
-		System.out.println(result);
 		String resultValue = "fail";
 		if(result > 0) {
 			resultValue = "success";
@@ -64,12 +63,40 @@ public class MyCourseController {
 		return resultValue;
 	}
 	
+	// 나만의 코스 리스트에 있는 항목 삭제하기
+	@PostMapping("/myCourseDelete")
+	@ResponseBody
+	public String myCourseDelete(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCourseDelete(vo);
+		String resultValue = "fail";
+		if(result > 0 ) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
+	
+	
+	// 나만의 코스 상세페이지에 해당 여행지 삭제하기
+	@PostMapping("/myCouDetailDel")
+	@ResponseBody
+	public String myCouDetailDel(@RequestBody MyCourseFreeVO vo) {
+		int result = myCourseFreeMapper.myCouDetailDel(vo);
+		String resultValue = "fail";
+		if(result > 0 ) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
+	
+	
 	
 	//상세페이지 보기
 	@RequestMapping(value =  "/myCourseDetail/{myCourseCode}", method=RequestMethod.GET)
-	public String CourseDetail(@PathVariable("myCourseCode") String myCourseCode, MyCourseVO vo, Model model) {
+	public String CourseDetail(@PathVariable("myCourseCode") String myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo, Model model) {
 		vo.setMyCourseCode(myCourseCode);
 		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
-		return "trip/myCourseDetail";
+		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
+		return "trip/myCourseDetail";		
 	}
+	
 }
