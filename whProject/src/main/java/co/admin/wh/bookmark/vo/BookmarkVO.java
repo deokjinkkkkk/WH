@@ -10,6 +10,9 @@ public class BookmarkVO {
 	int bookNcode; //게시글 번호
 	
 	//JOIN
+	int hotelId;
 	String hotelName;
+	
+	int tripCode;
 	String TripName;
 }
