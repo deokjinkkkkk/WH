@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/index}">
+<body layout:fragment="content">
+	<section
+		class="full-screen text-center cover-background bg-img no-padding"
+		data-overlay-dark="5" data-background="img/member/1.jpg">
+		<div class="container d-flex flex-column">
+			<div class="row align-items-center justify-content-center min-vh-100">
+				<div class="col-md-8">
+
+					<div
+						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
+						<h3 class="margin-40px-bottom text-center text-white">비밀번호 찾기</h3>
+						<form method="post" action="/login/passMail" id="frm">
+							<!-- form 로그인 -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" name="id" id="id" required="required"
+											placeholder="id" maxlength="70">
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group">
+										<input type="email" name="email" id="email"
+											required="required" placeholder="Email" maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-12 margin-25px-top">
+									<button type="button" class="butn btn-block" id="passFind">비밀번호
+										찾기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+		$("#passFind").click(function() {
+			
+			
+				uId = $("#id").val()
+				email = $("#email").val()
+				$.ajax({
+					url : "/emailChk",
+					type:"POST",
+					data: JSON.stringify({
+						"id" : uId,
+						"email" : email
+					}),
+					contentType:'application/json',
+					success : function(data) {
+						console.log(data);
+						if (data != "success") {
+							frm.submit();
+						}else {
+							alert("이메일,아이디가 일치하지 않습니다.");
+							return false;
+						}
+					},
+					error : function() {
+						alert("오류")
+					}
+				})
+				
+			
+		})
+
+
+		
+		
+	</script>
+</body>
+</html>

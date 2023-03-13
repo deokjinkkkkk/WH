@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.common.mapper.TourMapper">
-<insert id="tourInsert"></insert>
 
-
+	<insert id="tourInsert">
+	<selectKey keyProperty="tourId" resultType="int"
+			order="BEFORE">
+			SELECT MAX(tour_id)+1 FROM tour
+		</selectKey>
+	insert into tour(tour_id,tour_title,tour_addr,tour_lat,tour_lon,tour_summ,
+					tour_content,tour_reigon,img_gro_code,tour_tel,rest_date,use_time,
+					tour_parking,tour_child,tour_chk_card,tour_state,id,tour_date)
+	values(#{tourId},#{tourTitle},#{tourAddr},#{tourLat},#{tourLon}
+		  ,#{tourSumm},#{tourContent},#{tourRegion},#{imgGroCode}
+		  ,#{tourTel},#{restDate},#{useTime},#{tourParking}
+		  ,#{tourChild},#{tourChkCard},0,#{id},sysdate)
+	</insert>
 </mapper>

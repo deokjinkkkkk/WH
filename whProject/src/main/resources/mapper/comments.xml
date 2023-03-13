@@ -19,7 +19,7 @@
 	
 	<insert id="commentsInsert">
 	<selectKey keyProperty="comOrder" resultType="int" order="BEFORE">
-		select NVL(max(com_order),1)
+		select NVL(max(com_order),1)+1
 		from comments
 		where com_group = #{comGroup}
 	</selectKey>
