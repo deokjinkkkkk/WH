@@ -2,32 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<style>
-#loading {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    display: block;
-    background: #ededed;
-    opacity: 0.7;
-    z-index: 99;
-    text-align: center;
-}
-#loading > #loading_bar {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 100;
-    transform : translate(-50%, -50%);
-}
-</style>
+
 <body>
 	<div layout:fragment="content" class="content">
-	<div id="div_load_image" style="position:absolute; top:50%; left:50%;width:0px;height:0px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; text-align:center">
-      <img src="/img/loadingbar.gif" style="width:100px; height:100px;">
-  	</div>
 	
 	<!-- 페이징 -->
    <script>
@@ -122,17 +99,17 @@
 		};
 		</script>
     <!-- 검색 폼 -->
-				<form action="/hotelNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
-                	<br><input type="text" class="form-control" id="autoComplete" name="hotelName" placeholder="호텔명을 검색하세요!"><br><br>
-<!-- 	                <div class="input-group-append"> -->
-<!--                     	<button onclick="hotelNameSearchList()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button> -->
-<!-- 	                </div> -->
+				<form name="searchFrm" style="margin-top: 20px;">
+                	<input type="text" class="form-control" id="autoComplete" name="hotelName" placeholder="호텔명을 검색하세요!">
+	                <div class="input-group-append">
+                    	<button id="hotelNameSearchBtn" class="btn btn-outline-secondary" type="button"><span class="ti-search"></span></button>
+	                </div>
                 </form>
 				
 				<script>
 				
 				// 호텔명 검색 리스트
-				function hotelNameSearchList(){
+				document.getElementById("hotelNameSearchBtn").onclick = function () {
 					$.ajax({
 						type: 'post',
 						url: "/hotelNameSearchList",
@@ -238,7 +215,7 @@
 						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 						<div class="side-bar">
 							<div class="widget">
-								<button class="butn btn-block" onClick="crawling()">
+								<button class="butn btn-block" onClick="location.href='/hotelToday'">
 									<i class="fa fa-search"></i> go jeju
 								</button>
 								<br><br>
@@ -262,25 +239,6 @@
                            </div>
 									
 							<script>
-							
-							//ajax로 크롤링 페이지 호출
-							function crawling(){
-								
-								$("#div_load_image").show(); // 숨겨뒀던 로딩페이지 보여줌
-								
-								$.ajax({
-									type: 'get',
-									url: "/hotelToday",
-									success: function(data) {
-										$("#div_load_image").hidden(); // 로딩페이지 다시 숨김
-										location.href="hotelToday";
-									},
-									error: function(request, status, error) {
-										alert(error);
-										$("#div_load_image").hidden();
-									}
-								});
-							}
                               $(function() {
                                  $(document).ready(function() {
          

@@ -22,6 +22,7 @@ public interface HotelMapper {
     int getCountTotal(HotelSearchVO vo); // 페이지 수 관리
     HotelVO detailSelect(HotelVO vo); // 호텔 상세페이지
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
+    void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
     List<ReservationVO> readReservInfo(String sessionId); // 예약정보 출력
     List<ReservationVO> readCancelReservInfo(String sessionId); // 취소내역 출력
     void hotelCancel(ReservationVO vo); // 예약 취소(업데이트문)
@@ -31,4 +32,6 @@ public interface HotelMapper {
     List<HotelVO> priceListDesc(HotelSearchVO vo); // 높은가격순 정렬
     List<HotelVO> starRatingList(HotelSearchVO vo); // 별점순 정렬
     List<HotelVO> goodRatingList(HotelSearchVO vo); // 좋아요순 정렬
+    List<HotelVO> hotelNameSearchList(HotelSearchVO vo); // 호텔이름 검색 리스트 출력
+    List<ReservationVO> readFinReservInfo(String sessionId); // 지난예약정보 출력
 }
