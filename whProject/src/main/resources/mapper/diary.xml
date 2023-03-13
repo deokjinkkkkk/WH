@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.diary.mapper.DiaryMapper">
-	
+
 	<!-- 전체조회 -->
-	<select id="getDiaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
-	 	select
-	d.diary_code, m.id,m.name, d.diary_content, d.diary_title, d.diary_start_date, d.diary_end_date, d.img_gro_code, i.img_path
-	from diary d, member m , image i
-	where d.id = m.id
-    and d.img_gro_code = i.img_gro_code
-	ORDER by d.diary_code desc
+	<select id="getDiaryList"
+		resultType="co.admin.wh.diary.vo.DiaryVO">
+		select
+		d.diary_code, m.id,m.name, d.diary_content,
+		d.diary_title, d.diary_start_date,
+		d.diary_end_date, d.img_gro_code,
+		i.img_path
+		from diary d, member m , image i
+		where d.id = m.id
+		and
+		d.img_gro_code = i.img_gro_code
+		ORDER by d.diary_code desc
 	</select>
-	
-	
+
+
 	<!-- 이미지 출력 -->
 	<select id="imgSelect" resultType="co.admin.wh.diary.vo.DiaryVO">
-	select *
-	from diary d join image i
-	on d.img_gro_code = i.img_gro_code
-	where d.diary_code = #{diaryCode}
+		select *
+		from diary d join
+		image i
+		on d.img_gro_code = i.img_gro_code
+		where d.diary_code =
+		#{diaryCode}
 	</select>
-	
-	
-	
-	<insert id="diaryInsert" parameterType="co.admin.wh.diary.vo.DiaryVO">
-	<selectKey keyProperty="diaryCode" resultType="int" order="BEFORE">
-		SELECT NVL(MAX(DIARY_CODE),0) + 1 FROM DIARY
-	</selectKey>
+
+
+
+	<insert id="diaryInsert"
+		parameterType="co.admin.wh.diary.vo.DiaryVO">
+		<selectKey keyProperty="diaryCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(DIARY_CODE),0) + 1 FROM DIARY
+		</selectKey>
 		INSERT INTO DIARY
-		VALUES (#{diaryCode},#{id},#{diaryTitle},#{diaryStartDate},#{diaryEndDate},#{diaryContent},#{imgGroCode})
+		VALUES
+		(#{diaryCode},#{id},#{diaryTitle},#{diaryStartDate},#{diaryEndDate},#{diaryContent},#{imgGroCode})
 	</insert>
 
-	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
+	<insert id="imgInsert"
+		parameterType="co.admin.wh.common.vo.ImageVO">
 		<selectKey keyProperty="imgCode" resultType="int"
 			order="BEFORE">
 			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
-		VALUES (#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+		VALUES
+		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
 
 	<update id="diaryUpdate">
-	
-	
-	
+		UPDATE diary
+		SET diary_title = #{diaryTitle},
+		diary_content = #{diaryContent},
+		diary_start_date = #{diaryStartDate},
+		diary_end_date = #{diaryEndDate}
+		WHERE diary_code = #{diaryCode}
 	</update>
 
-	
+
 	<delete id="diaryDelete">
-	DELETE FROM DIARY
-		WHERE DIARY_CODE = #{diaryCode} AND id = #{id}
+		DELETE FROM DIARY
+		WHERE DIARY_CODE = #{diaryCode} AND
+		id = #{id}
 	</delete>
-	
+
 </mapper>

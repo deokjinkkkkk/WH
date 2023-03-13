@@ -104,6 +104,20 @@ public class DiaryController {
 	}
 	
 	
+	@PostMapping("/diaryUpdate/{diaryCode}/{id}")
+	@ResponseBody
+	public Map<String, Object> diaryUpdate(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id ) {
+		  System.out.println("수정 오나?=============");
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		diaryMapper.diaryUpdate(vo);
+		
+		
+		return resultMap;
+		
+	}
+	
+	
 	
 }
 
