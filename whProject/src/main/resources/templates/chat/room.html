@@ -105,35 +105,37 @@
 	    },
 
 	    enterRoom: function (roomId) {
-      	  var sender = prompt('대화명을 입력해 주세요.');
-      	  if (sender !== '' && sender !== null) {
-      	    var password = prompt('비밀번호를 입력해 주세요.');
-      	    if (password !== '' && password !== null) {
-      	      var self = this;
-      	      axios
-      	        .post('/chat/room/check-password?roomId=' + roomId, { // Query parameter 추가
-      	          password: password,
-      	          roomName: this.room_name,
-      	        }, {
-      	          headers: {
-      	            'Content-Type': 'application/json' // 요청 데이터 타입 명시
-      	          },
-      	        })
-      	        .then((response) => {
-      	          localStorage.setItem('wschat.sender', sender);
-      	          localStorage.setItem('wschat.roomId', roomId);
-      	          location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
-      	        })
-      	        .catch((error) => {
-      	          alert('비밀번호가 일치하지 않습니다.');
-      	        });
-      	    } else {
-      	      alert('비밀번호를 입력해주세요.');
-      	    }
-      	  } else {
-      	    alert('대화명을 입력해주세요.');
-      	  }
-      	},
+	    	  var sender = prompt('대화명을 입력해 주세요.');
+	    	  if (sender !== '' && sender !== null) {
+	    	    var password = prompt('비밀번호를 입력해 주세요.');
+	    	    if (password !== null) { // 변경된 부분
+	    	      var self = this;
+	    	      axios
+	    	        .post('/chat/room/check-password?roomId=' + roomId, { // Query parameter 추가
+	    	          password: password,
+	    	          roomName: this.room_name,
+	    	        }, {
+	    	          headers: {
+	    	            'Content-Type': 'application/json' // 요청 데이터 타입 명시
+	    	          },
+	    	        })
+	    	        .then((response) => {
+	    	          localStorage.setItem('wschat.sender', sender);
+	    	          localStorage.setItem('wschat.roomId', roomId);
+	    	          location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
+	    	        })
+	    	        .catch((error) => {
+	    	          alert('비밀번호가 일치하지 않습니다.');
+	    	        });
+	    	    } else { // 변경된 부분
+	    	      localStorage.setItem('wschat.sender', sender);
+	    	      localStorage.setItem('wschat.roomId', roomId);
+	    	      location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
+	    	    }
+	    	  } else {
+	    	    alert('대화명을 입력해주세요.');
+	    	  }
+	    	},
 
 
         deleteRoom(roomId) {
@@ -143,7 +145,7 @@
                 this.findAllRoom();
               })
               .catch(error => {
-                alert('채팅방 삭제에 실패하였습니다.');
+                alert('채팅방을 생성한 사람만 삭제할 수 있습니다.');
                 console.error(error);
               });
           },
