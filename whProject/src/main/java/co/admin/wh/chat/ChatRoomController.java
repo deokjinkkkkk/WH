@@ -93,11 +93,21 @@ public class ChatRoomController {
 	@PostMapping("/room/delete/{roomId}")
 	@ResponseBody
 	public String deleteRoom(@PathVariable String roomId) {
-		ChatRoom chatRoom = chatService.findById(roomId);
-		chatService.deleteRoom(chatRoom);
-		return "success";
+	    ChatRoom chatRoom = chatService.findById(roomId);
+	    String createdBy = chatRoom.getCreatedBy();
+	    String currentUserId = getCurrentUserId();
+	    if (!createdBy.equals(currentUserId)) {
+	        throw new RoomAccessException("삭제할 권한이 없습니다");
+	    }
+	    chatService.deleteRoom(chatRoom);
+	    return "success";
 	}
 	
+	public class RoomAccessException extends RuntimeException {
+	    public RoomAccessException(String message) {
+	        super(message);
+	    }
+	}
 //	@PostMapping("/room/delete/{roomId}")
 //	@ResponseBody
 //	public String deleteRoom(@PathVariable String roomId, @RequestBody Map<String, Object> requestBody) {
