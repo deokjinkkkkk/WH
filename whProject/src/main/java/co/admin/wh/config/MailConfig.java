@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 
 @Configuration
@@ -23,20 +21,7 @@ public class MailConfig {
     @Value("${spring.mail.port}")
     private int port;
 
-	@Bean
-	public JavaMailSender eMailService() {
-		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-
-		javaMailSender.setHost(host); //  smtp 서버 주소
-		javaMailSender.setUsername(id); // 네이버 아이디
-		javaMailSender.setPassword(password); // 네이버 비밀번호
-
-		javaMailSender.setPort(port); // 메일 인증서버 포트
-
-		javaMailSender.setJavaMailProperties(getMailProperties()); // 메일 인증서버 정보 가져오기
-
-		return javaMailSender;
-	}
+	
 
 	private Properties getMailProperties() {
 		Properties properties = new Properties();

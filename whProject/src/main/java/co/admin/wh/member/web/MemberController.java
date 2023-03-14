@@ -139,11 +139,6 @@ public class MemberController {
 		return "redirect:/admemList";
 	}
 
-	@PostMapping("/login/mailConfirm")
-	@ResponseBody
-	public String mailCheck(@RequestParam String email) throws Exception {
-		String code = emailService.sendSimpleMessage(email);
-
-		return code;
-	}
+	
+	
 }
