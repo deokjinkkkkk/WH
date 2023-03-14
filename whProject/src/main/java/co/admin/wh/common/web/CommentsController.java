@@ -21,15 +21,15 @@ public class CommentsController {
 	
 	
 	@RequestMapping("/comments") //댓글 창이동
-	public String commentsForm(Model model) {
-		model.addAttribute("com", commentsMapper.commentsList());
+	public String commentsForm(Model model, CommentsVO vo) {
+		model.addAttribute("com", commentsMapper.commentsList(vo));
 		return "comments/commentsForm";
 	}
 
-	@GetMapping("/comGetList") //댓글 리스트 띄우기
+	@RequestMapping("/comGetList") //댓글 리스트 띄우기
 	@ResponseBody
-	public List<CommentsVO> commentsGetList( CommentsVO vo,Model model) {
-		List<CommentsVO> comList = commentsMapper.commentsList();
+	public List<CommentsVO> commentsGetList(@RequestBody CommentsVO vo,Model model) {
+		List<CommentsVO> comList = commentsMapper.commentsList(vo);
 		
 		return comList;
 	}
@@ -89,10 +89,10 @@ public class CommentsController {
 		commentsMapper.commentsUpdate(vo);
 		return "success";
 	}
-	@GetMapping("/comUpList") //댓글 리스트 띄우기
+	@RequestMapping("/comUpList") //댓글 리스트 띄우기
 	@ResponseBody
 	public List<CommentsVO> commentsUpList( CommentsVO vo,Model model) {
-		List<CommentsVO> comList = commentsMapper.commentsList();
+		List<CommentsVO> comList = commentsMapper.commentsList(vo);
 		
 		return comList;
 	}

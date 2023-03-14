@@ -12,8 +12,8 @@
 		select c.*,m.name 
 		from comments c ,member m
 		where c.id = m.id
-		<!--and c.com_flag = '게시물구분코드'  -->
-		<!--and c.com_board_code = '게시물코드(조인)'  -->
+		and com_flag = #{comFlag}
+		and com_board_code = #{comBoardCode}
 		order By c.com_group , c.com_code
 	</select>
 	
