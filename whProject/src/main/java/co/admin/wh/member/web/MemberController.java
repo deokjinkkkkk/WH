@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,10 +30,15 @@ public class MemberController {
 	public String loginForm() {
 		return "member/login";
 	}
-	
+
 	@RequestMapping("/disabled")
 	public String disabledForm() {
 		return "member/disabled";
+	}
+
+	@RequestMapping("/passFind")
+	public String passFindForm() {
+		return "member/passFind";
 	}
 
 	@RequestMapping("/logout")
@@ -128,7 +134,7 @@ public class MemberController {
 		if (n) {
 			return "success";
 		} else {
-			return "fali";
+			return "fail";
 		}
 	}
 
@@ -139,6 +145,37 @@ public class MemberController {
 		return "redirect:/admemList";
 	}
 
+	@PostMapping("/login/mailConfirm")
+	@ResponseBody
+	public String mailCheck(@RequestParam String email) throws Exception {
+		String code = emailService.sendSimpleMessage(email);
+
+		return code;
+	}
+
+	@PostMapping("/login/passMail")
+	@ResponseBody
+	public String passMail(@RequestParam String email, MemberVO vo) throws Exception {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+		String code = emailService.passFindMessage(email, vo);
+		
+		vo.setPass(passwordEncoder.encode(code));
+		memberMapper.passUpdate(vo);
+		
+		return "member/login";
+
+	}
 	
-	
+	@PostMapping("/emailChk")
+	@ResponseBody
+	public String emailCheck(@RequestBody MemberVO vo, boolean n) {
+		
+		n = memberMapper.emailChk(vo.getId(), vo.getEmail());
+		if (n) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 }
