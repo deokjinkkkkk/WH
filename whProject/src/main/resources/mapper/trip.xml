@@ -7,7 +7,7 @@
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM TRIP 
 		WHERE LENGTH(img_gro_code)>=1
-		ORDER BY TRIP_CODE DESC
+		ORDER BY TRIP_NAME
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
