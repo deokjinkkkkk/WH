@@ -37,6 +37,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 		// 나만의 코스 목록 삭제
 		return map.myCourseDelete(vo);
 	}
+
+	@Override
+	public int myCouSeqUpdate(MyCourseVO vo) {
+		// 목록 삭제 시 순서 번호 업데이트
+		return map.myCouSeqUpdate(vo);
+	}
 	
 	
 }

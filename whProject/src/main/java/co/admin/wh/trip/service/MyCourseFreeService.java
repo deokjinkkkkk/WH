@@ -18,5 +18,6 @@ public interface MyCourseFreeService {
 	
 	int myCouUpdate(MyCourseFreeVO vo); // 여행지 순서 수정
 
-
+	int couOrdUpdate(MyCourseFreeVO vo); // 여행지 삭제 시 순서번호 수정
+	
 }
