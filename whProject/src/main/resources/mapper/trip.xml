@@ -7,7 +7,7 @@
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM TRIP 
 		WHERE LENGTH(img_gro_code)>=1
-		ORDER BY TRIP_REGION DESC
+		ORDER BY TRIP_CODE DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
@@ -49,7 +49,7 @@
 	</select>
 	
 	<!-- 검색어 자동완성 -->
-	<select id="selfSearch" parameterType="map" resultType="map">
+	<select id="selfsearch" parameterType="map" resultType="map">
 		SELECT DISTINCT TRIP_NAME, TRIP_CODE
 		FROM TRIP
 		WHERE TRIP_NAME LIKE '%'|| (#{value}) ||'%'
@@ -61,6 +61,18 @@
 	    	select *
 	    	from trip
 	    	where trip_name like '%'|| (#{tripName}) ||'%'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+	</select>
+	
+	<!-- 최신순 정렬 -->
+	<select id="latestList" parameterType="co.admin.wh.trip.vo.TripVO" resultType="co.admin.wh.trip.vo.TripVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select * 
+	    	from trip
+	    	WHERE LENGTH(img_gro_code)>=1	    	
+			order by trip_date desc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
