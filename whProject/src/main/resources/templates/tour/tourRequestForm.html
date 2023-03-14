@@ -15,26 +15,26 @@
 						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
 						<h3
 							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">관광정보요청</h3>
-						<form method="post" action="#!" id="frm">
+						<form method="post" action="/tourInsert" id="frm" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>제목</p>
-										<input type="text" name="tourTitle" id="tourTitle" placeholder="제목"
-											maxlength="70">
+										<input type="text" name="tourTitle" id="tourTitle"
+											placeholder="제목" maxlength="70" required>
 									</div>
 								</div>
 								<input type="button" onclick="sample6_execDaumPostcode()"
+									value="주소 검색"><br>
+									<input type="button" onclick="search()"
 									value="주소 검색"><br>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>주소</p>
 										<input type="text" id="sample6_address" name="tourAddr"
-											placeholder="주소" readonly> <br>
+											placeholder="주소" readonly > <br>
 									</div>
 								</div>
-								<input type="button" onclick="search()"
-									value="주소 검색"><br>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>위도</p>
@@ -63,74 +63,102 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>지역</p>
-										<input type="text" name="tourRegion" id="tourRegion" placeholder="이메일"
-											maxlength="70">
+										<select name="tourRegion" id="tourRegion">
+											<option value="1" selected>서울</option>
+											<option value="2">인천</option>
+											<option value="3">대전</option>
+											<option value="4">대구</option>
+											<option value="5">광주</option>
+											<option value="6">부산</option>
+											<option value="7">울산</option>
+											<option value="8">세종</option>
+											<option value="31">경기도</option>
+											<option value="32">강원도</option>
+											<option value="33">충청북도</option>
+											<option value="34">충청남도</option>
+											<option value="35">경상북도</option>
+											<option value="36">경상남도</option>
+											<option value="37">전라북도</option>
+											<option value="38">전라남도</option>
+											<option value="39">제주</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>이미지 등록</p>
-										<input type="file" name="imgFile" id="imgFile">
-										<input type="hidden" name="imgGroGode">
+										<input type="file" name="imgFile" id="imgFile"> <input
+											type="hidden" name="imgGroGode">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>연락처</p>
-										<input type="text" name="tourTel" id="tourTel" placeholder="제목"
-											maxlength="70">
+										<input type="tel" name="tourTel" id="tourTel"
+											placeholder="연락처" maxlength="70">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>휴무일</p>
-										<input type="text" name="restDate" id="restDate" placeholder="제목"
-											maxlength="70">
+										<input type="text" name="restDate" id="restDate"
+											placeholder="후무일" maxlength="70">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>이용시간</p>
-										<input type="text" name="useTime" id="useTime" placeholder="제목"
-											maxlength="70">
+										<input type="text" name="useTime" id="useTime"
+											placeholder="이용시간" maxlength="70">
 									</div>
 								</div>
 
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>주차가능여부</p>
-										<input type="text" name="tourParking" id="tourParking" placeholder="제목"
-											maxlength="70">
+										<select name="tourParking" id="tourParking">
+											<option value="불가" selected>불가</option>
+											<option value="가능">가능</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="form-group">
+									<div class="form-group" >
 										<p>유모차대여여부</p>
-										<input type="text" name="tourChild" id="tourChild" placeholder="제목"
-											maxlength="70">
+										<select name="tourChild" id="tourChild">
+											<option value="불가" selected>불가</option>
+											<option value="가능">가능</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>애완견가능여부</p>
-										<input type="text" name="tourPet" id="tourPet" placeholder="제목"
-											maxlength="70">
+										<select name="tourPet" id="tourPet">
+											<option value="불가" selected>불가</option>
+											<option value="가능">가능</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>신용카드 가능여부</p>
-										<input type="text" name="tourChkCard" id="tourChkCard" placeholder="제목"
-											maxlength="70">
+										<select  name="tourChkCard" id="tourChkCard">
+											<option value="불가" selected>불가</option>
+											<option value="가능">가능</option>
+										</select>
 									</div>
 								</div>
-								<div class="col-md-12 margin-25px-top">
-									<button type="button" class="butn btn-block" id="tourReqBtn">등록</button>
+								<div class="col-md-6 margin-25px-top">
+									<button type="submit" class="butn btn-block" id="tourReqBtn">등록</button>
 								</div>
-								<div class="col-md-12 margin-25px-top">
+								<div class="col-md-6 margin-25px-top">
 									<button type="reset" class="butn btn-block">취소</button>
 								</div>
 							</div>
+							<input type="hidden" name="imgPath" id="imgPath">
+							<input type="hidden" name="imgGroCode" id="imgGroCode">
+							<input type="hidden" name="id" id="id" value="{session.name}">
 						</form>
 					</div>
 				</div>
@@ -163,13 +191,11 @@
 
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById("sample6_address").value = addr;
-
 				}
 			}).open();
-			
 		}
+		
 		function search(){
-
 			const address = $("#sample6_address").val(); // 검색할 주소 입력
 			const apiUrl = `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`;
 
