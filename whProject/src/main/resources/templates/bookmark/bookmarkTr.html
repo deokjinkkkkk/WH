@@ -50,15 +50,15 @@
 							<thead>
 								<tr>
 									<th class="col-md-2">번호</th>
-									<th class="col-md-8" style="text-align: center;">호텔 이름</th>
+									<th class="col-md-8" style="text-align: center;">여행지</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="h : ${bookHotel}">
-									<td th:text="${h.bookCode}"></td>
+								<tr th:each="t : ${bookTrip}">
+									<td th:text="${t.bookCode}"></td>
 									
-									<td style="text-align: center;"><a th:text="${h.hotelName}"
-										th:href="@{/hotelDetail/{hotelCode}(hotelId=${h.hotelId})}"></a>
+									<td style="text-align: center;"><a th:text="${t.tripName}"
+										th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"></a>
 									</td>
 								</tr>
 							</tbody>
