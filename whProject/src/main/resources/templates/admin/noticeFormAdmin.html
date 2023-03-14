@@ -1,19 +1,23 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
+
+<body layout:fragment="adminContent">
 <style>
 .ck.ck-editor {
 	max-width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
 }
-
+.ck.ck-editor__editable_inline>:last-child{
+  height: 150px;
+}
 .ck-editor__editable {
 	min-height: 400px;
 }
 
 .editor {
-	width: 30px;
+	width: 100px;
 }
 
 .form-control {
@@ -25,9 +29,8 @@
 .ck-toolbar__items {
 	width: 300px;
 }
-</style>
-<body layout:fragment="adminContent">
 
+</style>
 	
 	<!-- 각자 내용 -->
 	<form action="noticeInsert" method="POST" id="frm"
@@ -39,11 +42,11 @@
 			<input type="hidden" name="imgGroCode" id="imgGroCode" value="NO">
 			<input type="hidden" name="imgPath" id="imgPath">
 		</div>
-		<textarea class="editor" id="noticeContent" name="noticeContent"
+		<textarea class="editor" id="noticeContent" name="noticeContent" style="width: 100px;"
 			placeholder="[필수]내용을 입력하세요"></textarea>
 		<br>
-		<div class="pull-right" style="width: 100px; margin-right: 800px;">
-			<input type="submit" class="btn btn-primary btn-block" value="등록">
+		<div class="pull-right" style="width: 100px; margin: auto; text-align: center;">
+			<input type="submit" class="btn btn-primary btn-block" value="등록" id="inBtn">
 		</div>
 		<br>
 	</form>

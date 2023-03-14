@@ -35,7 +35,7 @@
 						
 					<tr>
 						<th width=20% class="text-center text-warning">파일</th>
-						<td colspan="3" th:text="${n.imgName}"></td>
+							<td colspan="3" class="text-center"><a th:href="@{/myproject/images/{path}(path=${n.imgPath})}" th:text="${n.imgName}" th:download="${n.imgName}"></a></td>
 					</tr>
 					
 

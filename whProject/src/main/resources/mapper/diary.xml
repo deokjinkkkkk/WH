@@ -3,12 +3,12 @@
 <mapper namespace="co.admin.wh.diary.mapper.DiaryMapper">
 
 	<select id="diaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
-	select * from diary
-	
-	
+		select * from diary
+
+
 	</select>
-	
-	
+
+
 	<!-- 개인조회 -->
 	<select id="getDiaryList"
 		resultType="co.admin.wh.diary.vo.DiaryVO">
@@ -22,6 +22,20 @@
 		and
 		d.img_gro_code = i.img_gro_code
 		ORDER by d.diary_code desc
+	</select>
+
+	<select id="detailDiary"
+		resultType="co.admin.wh.diary.vo.DiaryVO">
+		select
+		d.diary_code, m.id, m.name, d.diary_content,
+		d.diary_title, d.diary_start_date,
+		d.diary_end_date, d.img_gro_code,
+		i.img_path
+		from diary d
+		inner join member m on d.id = m.id
+		inner join image i on d.img_gro_code = i.img_gro_code
+		where d.id = #{id}
+		order by d.diary_code desc
 	</select>
 
 
@@ -58,12 +72,12 @@
 	</insert>
 
 	<update id="diaryUpdate">
-	UPDATE diary
+		UPDATE diary
 		SET diary_title = #{diaryTitle},
 		diary_content = #{diaryContent},
 		diary_start_date = #{diaryStartDate},
 		diary_end_date = #{diaryEndDate}
-	WHERE diary_code = #{diaryCode}
+		WHERE diary_code = #{diaryCode}
 	</update>
 
 

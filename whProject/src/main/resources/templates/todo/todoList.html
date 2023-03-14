@@ -201,7 +201,7 @@
     //리스트 담기->완료 이동
     -----------------------------------*/  
     $(".todolist-area").on('dblclick', '.golist', function(e){
-console.log($(this))
+	console.log($(this))
  	   let golist = $(this)
  	   let todoContent = $(this).find("#todoContent").val(); //내용
         let todoId = $(this).find("#id").val(); //회원아이디
