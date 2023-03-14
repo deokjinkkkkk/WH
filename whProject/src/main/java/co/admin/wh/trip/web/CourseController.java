@@ -35,30 +35,7 @@ public class CourseController {
 		this.courseService = apiService;
 	}
 	
-	
-	// 지역 목록(서울, 대전, 대구 등등)
-	@RequestMapping("/regionList")
-	public String regionlist(Model model) {
-		return "trip/tripCourse";
-	}
-	
-	// 지역리스트 출력
-	@GetMapping("/courseList")
-	public String courseList(Model model, @ModelAttribute("csvo")CourseSearchVO svo, Paging paging) {
-		
-		paging.setPageUnit(5);
-		paging.setPageSize(10);
-		
-		svo.setFirst(paging.getFirst());
-		svo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(courseMapper.getCountTotal(svo));
-		
-		model.addAttribute("regionList", courseService.regionList(svo));
-		return "trip/tripRegionList";
-	}
-	
-	
+
 	// 여행 코스 리스트 출력
 	@GetMapping("/course")
 	public String courseSearch(Model model, @ModelAttribute("csvo")CourseSearchVO svo, Paging paging) {
@@ -75,9 +52,7 @@ public class CourseController {
 		return "trip/tripcourseList";
 		
 	}
-	
-	
-	
+		
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징
 	// *db 저장용 컨트롤러*
 	@GetMapping("/courseDb")
