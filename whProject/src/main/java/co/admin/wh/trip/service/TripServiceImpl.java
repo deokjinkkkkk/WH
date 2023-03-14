@@ -1,6 +1,7 @@
 package co.admin.wh.trip.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,18 @@ public class TripServiceImpl implements TripService{
 	public List<TripVO> myCouNameSelect(TripVO vo) {
 		// 여행지 담기 버튼 클릭 -> 코스명 목록
 		return tripMapper.myCouNameSelect(vo);
+	}
+
+	@Override
+	public List<TripVO> tripNameSearchList(TripSearchVO vo) {
+		// 여행지 이름 검색 리스트 출력
+		return tripMapper.tripNameSearchList(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selfSearch(Map<String, Object> paramMap) throws Exception {
+		// 여행지 이름 자동완성
+		return tripMapper.selfSearch(paramMap);
 	}
 
 	
