@@ -282,6 +282,10 @@ public class HotelController {
 		return "hotel/adminReservList";
 	}
 	
-//	@GetMapping("/Admin/cancel") // 관리자 취소 승인
-//	public String 
+	@GetMapping("/Admin/cancel") // 관리자 취소 승인
+	@ResponseBody
+	public String adminCancel(@RequestBody ReservationVO vo, Model model) {
+		hotelInfoService.hotelCancel(vo);
+		return "y";
+	}
 };

@@ -83,7 +83,7 @@
 		id="bookmarkCheck" resultType="boolean"> 
 		SELECT count(*) 
 		FROM BOOKMARK
-		WHERE 
+		WHERE
 		ID = #{id} and BOOK_N_CODE = #{bookNcode} 
 		</select>
 

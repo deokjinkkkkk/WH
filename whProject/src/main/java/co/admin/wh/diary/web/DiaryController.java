@@ -48,11 +48,21 @@ public class DiaryController {
 	}
 	
 	
+	
 	@RequestMapping("/diaryAll") //전체이동
 	public String diaryAllList(Model model) {
-		 model.addAttribute("diarys", diaryMapper.getDiaryList());
+		 model.addAttribute("diaryss", diaryMapper.getDiaryList());
 		return "diary/diaryAllList";
 	}
+	
+	@RequestMapping("/diarys/{id}")
+	public String diaryid(Model model,@PathVariable("id") String id) {
+	    List<DiaryVO> diaryList = diaryMapper.detailDiary(id);
+	    model.addAttribute("diarya", diaryList);
+	    return "diary/clickList";
+	}
+
+	
 	
 	@GetMapping("/getDiaryList/{id}")
 	@ResponseBody

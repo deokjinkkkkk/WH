@@ -83,13 +83,28 @@ public class TripController {
 		return "trip/tripNameSearchList";
 	}
 	
-	// 여행지 자동 완성
-	@RequestMapping("/ajax/selfSearch")
+	// 여행지검색 자동 완성
+	@RequestMapping("/ajax/selfsearch")
 	@ResponseBody
-	public Map<String, Object> selfSearch(@RequestParam Map<String, Object> paramMap) throws Exception{
-		List<Map<String, Object>> resultList = tripService.selfSearch(paramMap);
+	public Map<String, Object> selfsearch(@RequestParam Map<String, Object> paramMap) throws Exception{
+		List<Map<String, Object>> resultList = tripService.selfsearch(paramMap);
 		paramMap.put("resultList", resultList);
 		return paramMap;
+	}
+	
+	// 최신순 정렬
+	@PostMapping("/latestList")
+	public String latestList(Model model, TripSearchVO vo, Paging paging) {
+		paging.setPageUnit(5);
+		paging.setPageSize(10);
+		
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(tripService.getCountTotla(vo));
+		List<TripVO> tripList = tripService.latestList(vo);
+		model.addAttribute("tripList", tripList);
+		return "trip/sortingTripList";
 	}
 	
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징

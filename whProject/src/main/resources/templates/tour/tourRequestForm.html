@@ -2,19 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<!-- 뭐야.. CSS -->
 
-<!-- 뭐야.. CSS 끝 -->
 <body layout:fragment="content">
-	<!-- 헤더 시작 -->
-	<!-- start register section -->
+
 	<section
 		class="full-screen text-center cover-background bg-img no-padding"
 		data-overlay-dark="5" data-background="img/member/1.jpg">
 		<div class="container d-flex flex-column">
 			<div class="row align-items-center justify-content-center min-vh-100">
 				<div class="col-md-8">
-
 					<div
 						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
 						<h3
@@ -24,53 +20,115 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>제목</p>
-										<input type="text" name="id" id="id" placeholder="제목"
+										<input type="text" name="tourTitle" id="tourTitle" placeholder="제목"
 											maxlength="70">
 									</div>
 								</div>
+								<input type="button" onclick="sample6_execDaumPostcode()"
+									value="주소 검색"><br>
 								<div class="col-md-12">
 									<div class="form-group">
-										<p>내용</p>
-										<textarea rows="" cols=""></textarea>
+										<p>주소</p>
+										<input type="text" id="sample6_address" name="tourAddr"
+											placeholder="주소" readonly> <br>
 									</div>
 								</div>
-								<input type="text" id="sample5_address" placeholder="주소">
-								<input type="button" onclick="sample5_execDaumPostcode()"
+								<input type="button" onclick="search()"
 									value="주소 검색"><br>
-								<div id="map"
-									style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>위도</p>
-										<input type="text" name="gender">
+										<input type="text" name="tourLat" id="lat" readonly>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>경도</p>
-										<input type="tel" name="tel" id="tel" placeholder=""
-											maxlength="70">
+										<input type="tel" name="tourLon" id="lon" placeholder=""
+											maxlength="70" readonly>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<p>주소</p>
-										<input type="email" name="email" id="email" placeholder="이메일"
-											maxlength="70">
+										<p>개요</p>
+										<textarea rows="" cols="" name="tourSumm"></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>내용</p>
+										<textarea rows="" cols="" name="tourContent"></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>지역</p>
-										<input type="email" name="email" id="email" placeholder="이메일"
+										<input type="text" name="tourRegion" id="tourRegion" placeholder="이메일"
 											maxlength="70">
 									</div>
 								</div>
-								<div class="col-md-6 margin-25px-top">
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>이미지 등록</p>
+										<input type="file" name="imgFile" id="imgFile">
+										<input type="hidden" name="imgGroGode">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>연락처</p>
+										<input type="text" name="tourTel" id="tourTel" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>휴무일</p>
+										<input type="text" name="restDate" id="restDate" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>이용시간</p>
+										<input type="text" name="useTime" id="useTime" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>주차가능여부</p>
+										<input type="text" name="tourParking" id="tourParking" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>유모차대여여부</p>
+										<input type="text" name="tourChild" id="tourChild" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>애완견가능여부</p>
+										<input type="text" name="tourPet" id="tourPet" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<p>신용카드 가능여부</p>
+										<input type="text" name="tourChkCard" id="tourChkCard" placeholder="제목"
+											maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-12 margin-25px-top">
 									<button type="button" class="butn btn-block" id="tourReqBtn">등록</button>
 								</div>
-								<div class="col-md-6 margin-25px-top">
-									<button type="reset">취소</button>
+								<div class="col-md-12 margin-25px-top">
+									<button type="reset" class="butn btn-block">취소</button>
 								</div>
 							</div>
 						</form>
@@ -79,74 +137,62 @@
 			</div>
 		</div>
 	</section>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 		/*
 			1. 주소 경로 불러와서 값 넣기
 			2. 주소를 위도 경도 변환해서 값넣기
 			
 		 */
-		$("#addrKakao").click(function() {
+		function sample6_execDaumPostcode() {
 			new daum.Postcode({
 				oncomplete : function(data) {
 					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-					// 예제를 참고하여 다양한 활용법을 확인해 보세요.
+					var extraAddr = ''; // 참고항목 변수
+					var addr = ''; // 주소 변수
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+					// 조합된 참고항목을 해당 필드에 넣는다.
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById("sample6_address").value = addr;
 
 				}
 			}).open();
-		})
-	</script>
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74ff8aedb5313f437114189084eb73e7&libraries=services"></script>
-	<script>
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-		mapOption = {
-			center : new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-			level : 5
-		// 지도의 확대 레벨
-		};
-
-		//지도를 미리 생성
-		var map = new daum.maps.Map(mapContainer, mapOption);
-		//주소-좌표 변환 객체를 생성
-		var geocoder = new daum.maps.services.Geocoder();
-		//마커를 미리 생성
-		var marker = new daum.maps.Marker({
-			position : new daum.maps.LatLng(37.537187, 127.005476),
-			map : map
-		});
-
-		function sample5_execDaumPostcode() {
-			new daum.Postcode({
-				oncomplete : function(data) {
-					var addr = data.address; // 최종 주소 변수
-
-					// 주소 정보를 해당 필드에 넣는다.
-					document.getElementById("sample5_address").value = addr;
-					// 주소로 상세 정보를 검색
-					geocoder.addressSearch(data.address, function(results,
-							status) {
-						// 정상적으로 검색이 완료됐으면
-						if (status === daum.maps.services.Status.OK) {
-
-							var result = results[0]; //첫번째 결과의 값을 활용
-
-							// 해당 주소에 대한 좌표를 받아서
-							var coords = new daum.maps.LatLng(result.y,
-									result.x);
-							// 지도를 보여준다.
-							mapContainer.style.display = "block";
-							map.relayout();
-							// 지도 중심을 변경한다.
-							map.setCenter(coords);
-							// 마커를 결과값으로 받은 위치로 옮긴다.
-							marker.setPosition(coords)
-						}
-					});
-				}
-			}).open();
+			
 		}
+		function search(){
+
+			const address = $("#sample6_address").val(); // 검색할 주소 입력
+			const apiUrl = `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`;
+
+			fetch(apiUrl, {
+			  headers: { Authorization: "KakaoAK 44298c963967fa43d16f32f451317c67" } // YOUR_REST_API_KEY는 발급받은 REST API 키로 대체해야 합니다.
+			})
+			  .then(response => {
+			    if (response.ok) {
+			      return response.json();
+			    }
+			    throw new Error("Network response was not ok.");
+			  })
+			  .then(data => {
+			    const result = data.documents[0];
+			    $("#lat").val(result.x)
+			    $("#lon").val(result.y)
+			    console.log(`검색어: ${result.address_name}`);
+			    console.log(`좌표: ${result.y}, ${result.x}`);
+			  })
+			  .catch(error => console.error(error));
+		}
+		
 	</script>
+
 </body>
 </html>

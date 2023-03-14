@@ -15,4 +15,6 @@ public interface MyCourseService {
 	
 	int myCourseDelete(MyCourseVO vo); // 나만의 코스 목록 삭제
 	
+	int myCouSeqUpdate(MyCourseVO vo); // 목록 삭제 시 순서 번호 업데이트
+	
 }

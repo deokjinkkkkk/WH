@@ -63,4 +63,16 @@ public class MemberServiceImpl implements MemberService {
 		return member.passChk(id,pass);
 	}
 
+	@Override
+	public int passUpdate(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.passUpdate(vo);
+	}
+
+	@Override
+	public boolean emailChk(String id, String email) {
+		// TODO Auto-generated method stub
+		return member.emailChk(id, email);
+	}
+
 }

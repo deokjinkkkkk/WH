@@ -63,8 +63,10 @@ public class MemberVO implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		if(state == 1) {
+			System.out.println(state);
 			return false;
 		}else {
+			System.out.println(state);
 			return true;
 		}
 		

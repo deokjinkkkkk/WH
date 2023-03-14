@@ -45,36 +45,57 @@
             <div class="row">
                <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
                                  
-                        <div class="card card-list">
-                                 <ul class="no-margin-bottom">
-                                    <li><a href="javascript:void(0);" class="font-size20 text-theme-color">여행지</a>
-                                       <a class="font-size20 text-theme-color">|</a>
-                                       <a href="#" class="font-size20 text-theme-color">코스</a>
-                                    
-                                    <!-- 게시물 최신순으로 정렬 기능 -->
-                                       <a class="font-size20 text-theme-color">|</a>
-                                       <a href="#" 
-                                       	class="font-size20 text-theme-color">최신순</a>
-                                       <a class="font-size20 text-theme-color">|</a>
-                                       <a href="#" class="font-size20 text-theme-color">인기순</a>
-                                       <a class="font-size20 text-theme-color">|</a>      
-                                       <a href="#" class="font-size20 text-theme-color">조회순</a>
-                                    </li>
-                                    </ul>                        
-                        </div><br>
-
-             
-                     </div>
-	
-					
-                </div>
+                        <p style="font-size: 30px;">전체 여행지<p><hr>
+                 <div id="product_order_list">
+			<p><a href="javascript:seoul();">서울</a>&nbsp|&nbsp
+			<a href="javascript:busan();">부산</a>&nbsp|&nbsp
+			<a href="javascript:daegu();">대구</a>&nbsp|&nbsp
+			<a href="javascript:incheon();">인천</a>&nbsp|&nbsp
+			<a href="javascript:gwangju();">광주</a>&nbsp|&nbsp
+			<a href="javascript:daejeon();">대전</a>&nbsp|&nbsp
+			<a href="javascript:ulsan();">울산</a>&nbsp|&nbsp
+			<a href="javascript:sejong();">세종</a>&nbsp|&nbsp
+			<a href="javascript:gyeonggi();">경기</a>&nbsp|&nbsp
+			<a href="javascript:gangwon();">강원</a>&nbsp|&nbsp
+			<a href="javascript:chungbuk();">충북</a>&nbsp|&nbsp
+			<a href="javascript:chungnam();">충남</a>&nbsp|&nbsp
+			<a href="javascript:jeonbuk();">전북</a>&nbsp|&nbsp
+			<a href="javascript:jeonnam();">전남</a>&nbsp|&nbsp
+			<a href="javascript:kyungbuk();">경북</a>&nbsp|&nbsp
+			<a href="javascript:kyungnam();">경남</a>&nbsp|&nbsp
+			<a href="javascript:jeju ();">제주</a>&nbsp|&nbsp</p>
+		</div>
+            	<div id="product_order_list">
+					<p>
+					<a href="javascript:latestList();">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+					<a href="#">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					</p>
+				</div>
+				<script th:inline="javascript">
+				// 최신순 정렬
+				var latestList = function(url) {
+					$.ajax({
+						type: 'post',
+						url: "/latestList",
+						success: function(data) {
+							$("#tripListContent").replaceWith(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+					})
+				}
+				
+				</script>
+ 			
+ 			
                 
                  <!-- 검색 폼 -->
 				<form action="/tripNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
                 	<br><input type="text" class="form-control" id="selfSearch" name="tripName" placeholder="여행지를 검색하세요"><br><br>
                 </form>
                 
-                <script type="text/javascript">
+                <script>
                 
                 // 여행지명 검색 리스트
                 function tripNameSearchList() {
@@ -91,10 +112,10 @@
                 };
                 
                 // 자동완성
-                $('#selfSearch').selfSearch({
+                $('#selfSearch').selfsearch({
                 	source : function(request, response) { //source: 입력시 보일 목록
                 		$.ajax({
-                			url : "/ajax/selfSearch"   
+                			url : "/ajax/selfsearch"   
    					         , type : "POST"
    					         , dataType: "JSON"
    					         , data : {value: request.term}	// 검색 키워드
@@ -152,7 +173,7 @@
                          <p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
                          <!-- 해시태그 -->
                          <ul class="tags">
-                         <li><a href="#">#대구</a></li>
+                         <li><a href="#">#</a></li>
                          </ul>
                       </div>
 
@@ -206,8 +227,9 @@
                                </div>
                          </div>
                    </div>
-               
-            </div>
+          	   </div>
+             </div>
+        </div>
       </section>
    </div>
       <!-- end tour-list section -->

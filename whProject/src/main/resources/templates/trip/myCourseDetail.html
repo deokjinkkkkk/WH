@@ -91,7 +91,8 @@
                                     </table>
                                     
                                     <!-- 구글 지도 API 이용 -->
-                                <div id="map" style="height: 600px; width: 600px;"></div>
+                                <div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div><p id="total-distance" >총 거리 : </p></div>
                                 <script type="text/javascript">
                                 
                                 var map;
@@ -102,7 +103,7 @@
                                 	
                                     
                                     var defaultOptions = {
-                                        zoom: 7.8,
+                                        zoom: 7.6,
                                         center:  {
                                 			lat: Number(tripMap[0].tripLat),
                                 			lng: Number(tripMap[0].tripLon)
@@ -111,8 +112,11 @@
                                         zoomControl: true
                                     };
 
-                                    
+                                         
                                     map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+                                    
+                                    var totalDistance = 0; // 총 거리 변수 초기화
+
                                                                         
                                     for (var i = 0 ; i < tripMap.length; i++) {
                                     	var cityHall = {
@@ -120,29 +124,63 @@
                                     			lng: Number(tripMap[i].tripLon)
                                     	}
                                     	
+                                    	// 코스 순서 번호 
+                                    	var couOrd = Number(tripMap[i].couOrd)
+                                    
+                                    	
+                                    	if (i > 0) {
+                                    		  var polyline = new google.maps.Polyline({
+                                    		    path: [
+                                    		      new google.maps.LatLng(tripMap[i-1].tripLat, tripMap[i-1].tripLon),
+                                    		      new google.maps.LatLng(tripMap[i].tripLat, tripMap[i].tripLon)
+                                    		    ],
+                                    		    strokeColor: "#FF0000",
+                                    		    strokeOpacity: 1.0,
+                                    		    strokeWeight: 2
+                                    		  });
+                                    		  polyline.setMap(map);
+                                    		}
+                                    	
+                                    	
                                     	// 여행지 이름 변수에 담기
                                     	var name = tripMap[i].tripName
                                     	
                                     	var marker = new google.maps.Marker({
 	                                        position: cityHall,
 	                                        map: map,                       
+	                                        index: couOrd  // 순서 정보를 가진 변수 추가
 		                                    });
                                     	
                                     	// 마커 위에 말풍선 추가
                                     	var infoWindow = new google.maps.InfoWindow({
-                                            content: name
+                                            content: (marker.index) + ". " + name
                                         });
+                                                              	
+                                    		infoWindow.open(map, marker);
                                     	
-                                            infoWindow.open(map, marker);
-                                            map.setCenter(marker.getPosition());
-                                    	
-		                                }
-		                           }
+                                            map.setCenter(marker.getPosition());                                       
+                                                                      
+                                         // 이전 마커와 현재 마커 사이의 거리 계산
+                                         if (i > 0) {
+                                            var distance = google.maps.geometry.spherical.computeDistanceBetween(
+	                                            new google.maps.LatLng(tripMap[i-1].tripLat, tripMap[i-1].tripLon),
+	                                            new google.maps.LatLng(tripMap[i].tripLat, tripMap[i].tripLon)
+                                           );
+                                            
+                                            totalDistance += distance; // 총 거리에 현재 마커와 이전 마커 사이의 거리를 더해줌
+                                            console.log('마커 사이의 거리 index:' + (i-1) + ' and index:' + i + ': ' + (distance/1000) + ' km');
+                                         }                                            
+		                               }
                                     
+                                    	// totalDistance 값의 소수점 2자리 까지만 출력되게 함. (.tiFixed(2))
+                                    	// id가 total-distance인 p태그에 값 출력
+	                                    document.getElementById("total-distance").innerHTML = "총 거리: " + (totalDistance / 1000).toFixed(2) + " km";
+		                           }
+                                                                    
                                 </script>
 
-                                <script async defer
-                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
+                                <script 
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&libraries=geometry&callback=initMap">
                                 </script>
 								<!-- api 끝 -->
                                     
@@ -152,6 +190,15 @@
                                     <div class="form-group col-md-12">
                                         <textarea placeholder="소개글"></textarea>
                                     </div>
+                                    <br>
+                                    <div class="checkbox">
+										 <strong> 여행 코스에 공유하시겠습니까? </strong>&nbsp&nbsp
+										 <input type="radio" name="chkMenu" id="chkMenu01" value="1">
+										 <label for="chkMenu01">예</label>&nbsp&nbsp&nbsp
+										 <input type="radio" name="chkMenu" id="chkMenu02" value="0">
+										 <label for="chkMenu02">아니오</label>
+									</div>
+									<br>
                                     <div class="col-md-12">
                                         <button type="button" class="butn" onclick="moveTotal()"><span>수정하기</span></button>
                                     </div>
@@ -162,11 +209,12 @@
                 </div>
                 
 <script type="text/javascript">
-/* '삭제' 버튼 클릭 시, 해당 행(여행지) 삭제 */
 
+/* '삭제' 버튼 클릭 시, 해당 행(여행지) 삭제 */
 	function myCouDetailDel() {
 		if (confirm('해당 여행지를 삭제하시겠습니까?')) {
 			var row = $(event.target).closest('tr');
+			var couOrd = row.children().eq(0).text();
 			var imgGroCode = row.children().eq(0).children().eq(0).attr('src');
 			var tripName = row.children().eq(1).text();
 			var tripAddr = row.children().eq(2).text();
@@ -186,6 +234,25 @@
 					if (data == "success") {
 						alert("삭제가 완료됐습니다.");
 						row.remove(); // 행 삭제
+						
+						 // 서버에서 행이 삭제된 이후 모든 레코드의 couOrd(순서) 값을 1씩 감소시키기 위한 ajax 호출
+	                   /* $.ajax({
+	                        url: "/myCouUpdateOrd",
+	                        type: "POST",
+	                        data: JSON.stringify({
+	                            "couOrd": couOrd
+	                        }),
+	                        contentType: 'application/json',
+	                        success: function (data) {
+	                            if (data == "success") {
+	                                location.reload(); // 새로고침
+	                            } else {
+	                          }
+	                        },
+	                        error: function () {
+	                        }
+	                    }); */
+
 					} else {
 						alert("삭제 실패");
 					}
@@ -246,12 +313,17 @@
 			contentType : 'application/json',
 			success : function(response) {
 				alert('저장되었습니다.');
+				location.reload();
 			},
 			error : function(error) {
 				alert('저장에 실패하였습니다.');
 			}
 		});	
 	}
+	
+/* 테이블 여행지 정보와 지도, 소개글을 코스에 공유할 시 코스 목록에 출력 */
+
+$()
 
 </script>
             </div>

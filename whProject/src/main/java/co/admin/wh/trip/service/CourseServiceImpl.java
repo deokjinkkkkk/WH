@@ -53,9 +53,4 @@ public class CourseServiceImpl implements CourseService{
 		return courseMapper.oneSelect(vo);
 	}
 
-	@Override
-	public List<CourseVO> regionList(CourseSearchVO svo) {
-		// 지역별 조회
-		return courseMapper.regionList(svo);
-	}
 }

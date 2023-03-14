@@ -66,11 +66,16 @@
 											maxlength="70">
 									</div>
 								</div>
-								<div class="col-md-9">
+								<div class="col-md-6">
 									<div class="form-group">
 										<input type="email" name="email" id="email" placeholder="이메일"
 											maxlength="70">
-										<button type="button" id="emailChk"
+										
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+								<button type="button" id="emailChk"
 											class="mb-3 btn btn-primary">이메일 인증</button>
 									</div>
 								</div>
@@ -78,23 +83,23 @@
 									<div class="form-group">
 										<input type="text" placeholder="인증번호 입력" id="emailKey">
 									</div>
-
-									<div class="col-md-12">
-										<div
-											class="custom-control custom-checkbox text-left text-white">
-											<input type="checkbox" class="custom-control-input"
-												id="terms-condition"> <label
-												class="custom-control-label" for="terms-condition">이용약관에
-												동의 하십니까?</label>
-										</div>
+								</div>
+								<div class="col-md-12">
+									<div
+										class="custom-control custom-checkbox text-left text-white">
+										<input type="checkbox" class="custom-control-input"
+											id="terms-condition"> <label
+											class="custom-control-label" for="terms-condition">이용약관에
+											동의 하십니까?</label>
 									</div>
+								</div>
 
-									<div class="col-md-12 margin-25px-top">
-										<button type="button" class="butn btn-block" id="signUp">회원가입</button>
-
-									</div>
+								<div class="col-md-12 margin-25px-top">
+									<button type="button" class="butn btn-block" id="signUp">회원가입</button>
 
 								</div>
+
+							</div>
 						</form>
 					</div>
 
@@ -160,7 +165,7 @@
 			} else if (contChk == false) {
 				alert("이용약관에 동의하여 주세요")
 				return false
-			}else if(email_auth_cd != $("#emailKey").val()){
+			} else if (email_auth_cd != $("#emailKey").val()) {
 				alert("인증번호가 일치하지 않습니다.")
 				return false;
 			}

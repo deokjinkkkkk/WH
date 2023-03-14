@@ -159,8 +159,6 @@
 														</div>
 												</div>
 												
-												
-												
 												<script th:inline="javascript">
 													// 예약 취소
 													$(".cancelbtn").on('click', function(e){
@@ -189,7 +187,7 @@
 																contentType:'application/json',
 																success : function(result){
 																	if(result == "y") {
-																		alert("취소신청이 완료되었습니다. 관리자 확인 후 취소승인됩니다.");
+																		alert("취소신청이 완료되었습니다. 관리자 확인 후 취소승인 됩니다.");
 																	}else{
 																		alert("디비입력실패");
 																		return false;

@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
+import co.admin.wh.member.service.DisabledAccountHandler;
 import co.admin.wh.member.service.LoginSuccessHandler;
 import co.admin.wh.member.service.SocialSuccessHandler;
 import co.admin.wh.member.service.SocialUserService;
@@ -46,18 +47,20 @@ public class WebSecirityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests.antMatchers("/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/login/**", "/login/kakao", "/memberSignUpForm", "/memberSignUp", "/memberIdChk","/disabled")
+				.antMatchers("/login/**", "/login/kakao", "/memberSignUpForm", "/memberSignUp", "/memberIdChk","/disabled","/passFind")
 				.permitAll()
 				// .anyRequest().permitAll()
 				.anyRequest().authenticated())
 				.formLogin(
 						(form) -> form.loginPage("/login").loginProcessingUrl("/memberLogin").passwordParameter("pass")
-								.usernameParameter("id").successHandler(new LoginSuccessHandler()).permitAll())
+								.usernameParameter("id").successHandler(new LoginSuccessHandler()).failureHandler(new DisabledAccountHandler()).permitAll())
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout").logoutSuccessUrl("/main")).csrf().disable()
-
+				
 				.headers().frameOptions().sameOrigin().and().oauth2Login().loginPage("/login")
 				.defaultSuccessUrl("/main").successHandler(new SocialSuccessHandler()).permitAll().userInfoEndpoint()
+				
 				.userService(socialUserService);
+		
 
 		return http.build();
 	}

@@ -25,9 +25,9 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 
 	@Override
-	public List<CommentsVO> commentsList() {
+	public List<CommentsVO> commentsList(CommentsVO vo) {
 		// TODO Auto-generated method stub
-		return commentsMapper.commentsList();
+		return commentsMapper.commentsList(vo);
 	}
 
 	@Override

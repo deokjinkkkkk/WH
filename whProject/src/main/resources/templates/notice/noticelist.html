@@ -14,22 +14,21 @@ body>.container {
 }
 
 .gopage {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-	}
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
 
-	.pagination {
-		margin: 0;
-	}
-
+.pagination {
+	margin: 0;
+}
 </style>
 <body>
 
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		
+
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background: url('/img/banner/bg2.jpg')|">
@@ -45,14 +44,14 @@ body>.container {
 		<!-- start faq section -->
 		<section>
 			<div class="container">
-			<!-- 페이징 -->
-		<script>
-			function gopage(page) {
-				location.href = "notice?page=" + page;
-				frmSearch.page.value = page;
-				frmSearch.submit();
-			}
-		</script>
+				<!-- 페이징 -->
+				<script>
+					function gopage(page) {
+						location.href = "notice?page=" + page;
+						frmSearch.page.value = page;
+						frmSearch.submit();
+					}
+				</script>
 				<div class="row">
 					<div class="col-md-10 center-col">
 						<div class="accordion" id="accordionOne">
@@ -63,7 +62,7 @@ body>.container {
 											<table class="table table-hover">
 												<div class="pull-right"
 													style="width: 100px; margin: 10px; margin-left: 800px;">
-											
+
 												</div>
 												<br>
 												<thead>
@@ -77,8 +76,10 @@ body>.container {
 												<tbody>
 													<tr th:each="n  : ${noticelists}">
 														<td th:text="${n.noticeCode}"></td>
-														<td><a th:text="${n.noticeTitle}"
-															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
+														<td><a
+															th:text="${#strings.length(n.noticeTitle) > 10 ? #strings.substring(n.noticeTitle, 0, 10) + '.....' : n.noticeTitle}"
+															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}">
+														</a>
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeModDate}"></td>
 													</tr>
@@ -89,23 +90,27 @@ body>.container {
 								</div>
 								<br> <br>
 								<!-- 페이징 추가 해주세요 -->
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-											<li class="page-item" th:if="${paging.startPage > 1}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
-												</li>											
-												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
-												</li>										
-												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-												</li>
-											</ul>
-										</nav>
-									</div> 
-                   				<!-- 페이징 끝 -->
+								<div class="gopage" align="center">
+									<nav aria-label="Page navigation example" class="gopage">
+										<ul class="pagination">
+											<li class="page-item" th:if="${paging.startPage > 1}"><a
+												class="page-link"
+												th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
+											</li>
+											<li class="page-item"
+												th:classappend="${paging.page}==${num} ? 'active'"
+												th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+												<a class="page-link" th:href="|javascript:gopage(${num})|">
+													[[${num}]] </a>
+											</li>
+											<li class="page-item"
+												th:if="${paging.endPage < paging.lastPage}"><a
+												class="page-link"
+												th:href="|javascript:gopage(${paging.endPage+1})|">다음</a></li>
+										</ul>
+									</nav>
+								</div>
+								<!-- 페이징 끝 -->
 							</div>
 						</div>
 					</div>
@@ -116,6 +121,12 @@ body>.container {
 	<!-- end faq section -->
 	<!-- 내용 끝 -->
 
+	<script>
+		var titleCell = document.getElementById("title-cell");
+		if (titleCell.innerHTML.length > 10) {
+			titleCell.innerHTML = titleCell.innerHTML.substr(0, 10) + "...";
+		}
+	</script>
 </body>
 
 </html>
