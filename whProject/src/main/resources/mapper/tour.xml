@@ -3,16 +3,54 @@
 <mapper namespace="co.admin.wh.common.mapper.TourMapper">
 
 	<insert id="tourInsert">
-	<selectKey keyProperty="tourId" resultType="int"
+		<selectKey keyProperty="tourId" resultType="int"
 			order="BEFORE">
-			SELECT MAX(tour_id)+1 FROM tour
+			select NVL(max(tour_id),1)+1
+			from tour
 		</selectKey>
-	insert into tour(tour_id,tour_title,tour_addr,tour_lat,tour_lon,tour_summ,
-					tour_content,tour_reigon,img_gro_code,tour_tel,rest_date,use_time,
-					tour_parking,tour_child,tour_chk_card,tour_state,id,tour_date)
-	values(#{tourId},#{tourTitle},#{tourAddr},#{tourLat},#{tourLon}
-		  ,#{tourSumm},#{tourContent},#{tourRegion},#{imgGroCode}
-		  ,#{tourTel},#{restDate},#{useTime},#{tourParking}
-		  ,#{tourChild},#{tourChkCard},0,#{id},sysdate)
+		insert into
+		tour(tour_id,tour_title,tour_addr,tour_lat,tour_lon,tour_summ,
+		tour_content,tour_region,img_gro_code,tour_tel,rest_date,use_time,
+		tour_parking,tour_child,tour_chk_card,tour_state,id,tour_date)
+		values(#{tourId},#{tourTitle},#{tourAddr},#{tourLat},#{tourLon}
+		,#{tourSumm},#{tourContent},#{tourRegion},#{imgGroCode}
+		,#{tourTel},#{restDate},#{useTime},#{tourParking}
+		,#{tourChild},#{tourChkCard},0,#{id},sysdate)
 	</insert>
+
+	<select id="tourList" resultType="co.admin.wh.common.vo.TourVO">
+		Select *
+		from tour
+	</select>
+
+	<insert id="imgInsert"
+		parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
+		</selectKey>
+		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
+		VALUES
+		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+	</insert>
+	
+	<select id="imgSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+		SELECT *
+		FROM tour
+		r
+		JOIN IMAGE i
+		ON r.IMG_GRO_CODE =
+		i.IMG_GRO_CODE
+		WHERE r.COMP_CODE =
+		#{compCode}
+	</select>
+	
+	<update id="tourUpdate">
+		UPDATE TOUR
+		<set>
+		tour_state = ${tourState}
+		</set>
+		WHERE tour_Id = ${tourId}
+	</update>
 </mapper>

@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class tourVO {
+public class TourVO {
 	int tourId;
 	String tourTitle;
 	String tourAddr;
@@ -14,7 +14,7 @@ public class tourVO {
 	String tourSumm;
 	String tourContent;
 	String tourRegion;
-	String imgGroGode;
+	String imgGroCode;
 	String tourTel;
 	String restDate;
 	String useTime;
@@ -25,5 +25,8 @@ public class tourVO {
 	String tourState;
 	String id;
 	Date tourDate;
+	
+	private String imgPath;
+	private String imgName;
 	
 }
