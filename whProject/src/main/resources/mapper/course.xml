@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.trip.mapper.CourseMapper">
 
+<sql id="criteria">
+		<where>
+		<if test="regionCode != null and regionCode != ''">
+		REGION_CODE = ${regionCode}
+		</if>
+		</where>
+</sql>
+
 	<select id="courseList" resultType="co.admin.wh.trip.vo.CourseVO">
 	<!-- 페이징 시도 -->
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM COURSE 
+		<include refid="criteria"></include>
 		ORDER BY REGION_CODE DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
@@ -22,6 +31,7 @@
 	<!-- 전체 건수 조회 -->
 	<select id="getCountTotal" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
 		SELECT COUNT(*) FROM COURSE	
+	<include refid="criteria"></include>
 	</select> 
 	
 	<!-- 상세페이지 보기 -->
@@ -49,22 +59,6 @@
         WHERE cou_code = #{couCode}
 	</select>
 	
-	<!-- test 지역별 조회 상세-->
-	<select id="regionList" resultType="co.admin.wh.trip.vo.CourseVO">
-		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT * FROM COURSE 
-		WHERE REGION_CODE = ${regionCode}
-		<![CDATA[
-		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
-	</select>
-	
-		
-	<!-- <select id="detailSelect" resultType="co.admin.wh.trip.vo.CourseVO">
-	INSERT INTO COURSE (cou_lon, cou_lat, img_gro_code, COU_CONTENT)
-	SELECT trip_Lon, trip_lat, img_gro_code, trip_Summ
-	FROM trip
-	WHERE cou_code = #{couCode}	
-	</select> -->
+
 
 </mapper>
