@@ -66,9 +66,9 @@
 					<input type="hidden" th:value="${c.imgGroCode}" id="imgGroCode"
 						name="imgGroCode"> <a
 						th:href="|/companionUpdateForm?compCode=${c.compCode}|"
-						class="btn btn-primary btn-lg">수정하기</a> <input type="hidden"
+						class="btn btn-primary btn-lg" th:if="${c.id == session.name}">수정하기</a> <input type="hidden"
 						name="compCode" th:value="${c.compCode}" />
-					<button type="submit" class="btn btn-danger btn-lg">삭제하기</button>
+					<button type="submit" class="btn btn-danger btn-lg" th:if="${c.id == session.name}">삭제하기</button>
 					<button type="button" class="btn btn-danger btn-lg"
 						data-toggle="modal" data-target="#myModal" th:if="${c.id != session.name}">신고해보자고</button>
 				</div>

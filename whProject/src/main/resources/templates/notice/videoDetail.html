@@ -3,18 +3,22 @@
 xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
+
 <body>
 
 	<!-- 내용 시작 -->
 <section layout:fragment="adminContent">
+<div class="container">
+<h4>제목 : <span>[[${d.videoName}]]</span></h4>
+<hr>
 
-<div>ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-<p>[[${d.videoName}]]</p>
-<span th:text></span>
-<span th:text></span>
-<span th:text></span>
+	<iframe width="300" height="250" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<hr>
+<span>[[${d.videoContent}]]</span>
+<hr>
+<span></span>
+<a th:href="|/videoUpdateForm?videoCode=${d.videoCode}|" class="btn btn-primary btn-lg">수정하기</a>
 </div>
-
 </section>
 </body>
 </html>

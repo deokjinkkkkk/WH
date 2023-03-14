@@ -5,8 +5,19 @@
 <body>
 	<div layout:fragment="content" class="content">
 
-	<!-- 내용 시작 -->
-<!-- start blog section -->
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(/img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">커뮤니티</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">동행사 수정페이지</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 --><!-- start blog section -->
 		<section>
 			<div class="container">
             	<p style="font-size: 30px;">지역<p><hr>
@@ -277,14 +288,11 @@
 								</div>
 								<img th:src="${v.thumbnail}" />
 							</div>
-						<a th:href="@{/videoDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
-					
+						<a th:href="@{/videoSelectDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
 						</div>
 					</div>
 				</div>
 
-
-				<a href="videoForm" class="btn btn-danger" style="float: right;;">신청하기</a>
 				
 	<!-- 페이징 추가 해주세요 -->
 									<div class="gopage" align="center">

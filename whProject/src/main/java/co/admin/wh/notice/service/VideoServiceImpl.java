@@ -141,4 +141,10 @@ public class VideoServiceImpl implements VideoService {
 		return videoMapper.jeju(svo);
 	}
 
+	@Override
+	public int videoUpdate(VideoVO vo) {
+		// TODO Auto-generated method stub
+		return videoMapper.videoUpdate(vo);
+	}
+
 }
