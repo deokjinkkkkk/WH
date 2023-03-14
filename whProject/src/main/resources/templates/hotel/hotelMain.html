@@ -207,7 +207,7 @@
 													th:text="${h.hotelRegion}" class="ti-location-pin"></span></span>
 											</div>
 											<div>
-												<span th:text="|₩ ${h.roomPrice}|"></span>
+												<span th:text="|₩${#numbers.formatInteger(h.roomPrice, 3, 'COMMA')}|"></span>
 											</div>
 										</div>
 										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn">Details</a>
@@ -245,7 +245,7 @@
 								<br><br>
 								<hr>
 								<div class="widget-title">
-									<h3>Search</h3>
+									<p style="font-size:20px;">예약 가능한 호텔 검색</p>
 								</div>
 								<form action="/hotelSearch" method="post">
 									<div class="form-group">
