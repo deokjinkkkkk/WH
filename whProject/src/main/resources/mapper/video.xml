@@ -8,10 +8,56 @@
 			SELECT NVL(MAX(video_code),0)+1 FROM video
 		</selectKey>
 
-		INSERT INTO video (video_code,video_name, video_content, video_hit, video_reg_date, video_mod_date, VIDEO_REGION, url )
+		INSERT INTO video (video_code,video_name, video_content, video_hit, video_reg_date, VIDEO_REGION, url,thumbnail )
 
 		VALUES (#{videoCode},#{videoName},#{videoContent},
 		0,
-		sysdate ,#{videoModDate},#{videoRegion},`https://www.youtube.com/embed/`+#{url})
+		sysdate,#{videoRegion},#{url},#{thumbnail})
 	</insert>
+	
+	<select id="videoSelect" resultType="co.admin.wh.notice.vo.VideoVO">
+	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	 SELECT * FROM VIDEO
+	 <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+	
+	</select>
+	
+	<select id="videoDetail" resultType="co.admin.wh.notice.vo.VideoVO">
+	 SELECT * FROM VIDEO where video_code = #{videoCode}
+	
+	</select>
+	
+	<select id="videoTotal" parameterType="co.admin.wh.notice.vo.VideoSearchVO" resultType="int">
+		select count(*) from video
+	</select>
+	
+	<select id="seoul" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '11'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    
+	<select id="busan" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '21'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    
+	<select id="daegu" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '22'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+	
 </mapper>
