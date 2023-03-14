@@ -1,0 +1,185 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/admin/indexAdmin}">
+<body>
+	<!-- 각자 내용 -->
+	<body layout:fragment="adminContent">
+<style>
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+*{
+	font-family: 'TheJamsil5Bold';
+}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+
+/* THE END OF THE IMPORTANT STUFF */
+
+/* Basic Styling */
+body {
+background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);        
+}
+.container {
+  display: block;
+  text-align: center;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+</style>
+<div class="container">
+<p style="font-size:20px;">전체 예약내역</p>
+  <table class="rwd-table">
+    <tbody>
+      <tr>
+        <th>번호</th>
+        <th>호텔명</th>
+        <th>방등급</th>
+        <th>숙박일자</th>
+        <th>인원</th>
+        <th>예약자</th>
+        <th>연락처</th>
+        <th>이메일</th>
+        <th>요청사항</th>
+        <th>상태</th>
+        <th>관리</th>
+      </tr>
+      <tr th:each="h : ${hotelList}">
+          <td data-th="예약번호" th:text="${h.resId}">AAC</td>
+          <td data-th="호텔명" th:text="${h.hotelName}">AUSTRALIAN COMPANY </td>
+          <td data-th="방 등급" th:text="${h.roomGrade}">$1.38</td>
+          <td data-th="숙박일자" th:text="|${h.checkIn} ~ ${h.checkOut}|">+2.01</td>
+          <td data-th="인원" th:text="|성인 ${h.humanCount}명, 유아 ${h.childCount}명|">-0.36%</td>
+          <td data-th="예약자명" th:text="${h.resName}">-0.36%</td>
+          <td data-th="연락처" th:text="${h.resTel}">-0.36%</td>
+          <td data-th="이메일" th:text="${h.resEmail}">-0.36%</td>
+          <td data-th="요청사항" th:text="${h.resRequest}">-0.36%</td>
+<!-- 삼항연산자 사용, 0이면 결제완료, 1이면 취소요청 으로 출력 -->
+          <td data-th="예약상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '취소요청' : h.resState == 3 ? '취소완료' : ''}">-</td>
+          <td data-th="관리"><button type="button" class="btn btn-secondary"
+												data-toggle="modal" data-target="#myModal" id="modalForm"
+												onclick="modalForm()">정보수정</button>
+												<button type="button" class="btn btn-danger"
+												data-toggle="modal" data-target="#myModal" id="modalForm"
+												onclick="modalForm()">결제취소</button></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+		
+	</div>
+	<!-- 내용 끝 -->
+</body>
+</html>
