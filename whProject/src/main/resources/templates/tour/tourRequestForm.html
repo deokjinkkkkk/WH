@@ -32,7 +32,7 @@
 									<div class="form-group">
 										<p>주소</p>
 										<input type="text" id="sample6_address" name="tourAddr"
-											placeholder="주소" readonly > <br>
+											placeholder="주소" oninput="search()"> <br>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -198,7 +198,7 @@
 		function search(){
 			const address = $("#sample6_address").val(); // 검색할 주소 입력
 			const apiUrl = `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`;
-
+			console.log("2")
 			fetch(apiUrl, {
 			  headers: { Authorization: "KakaoAK 44298c963967fa43d16f32f451317c67" } // YOUR_REST_API_KEY는 발급받은 REST API 키로 대체해야 합니다.
 			})

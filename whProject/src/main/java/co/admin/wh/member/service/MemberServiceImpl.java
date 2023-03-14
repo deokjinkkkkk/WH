@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.vo.MemberVO;
+import co.admin.wh.notice.vo.FoodSearchVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -73,6 +74,12 @@ public class MemberServiceImpl implements MemberService {
 	public boolean emailChk(String id, String email) {
 		// TODO Auto-generated method stub
 		return member.emailChk(id, email);
+	}
+
+	@Override
+	public int getCountTotal(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.getCountTotal(vo);
 	}
 
 }

@@ -24,6 +24,9 @@ public class MemberVO implements UserDetails {
 	private String reToken;
 	private int state;
 	
+	Integer first;  //페이징 
+	Integer last;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		

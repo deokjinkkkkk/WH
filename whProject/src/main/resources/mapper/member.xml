@@ -32,7 +32,13 @@
 		)
 	</insert>
 	<select id="adMemberList" resultType="co.admin.wh.member.vo.MemberVO">
-		select * from member
+	select * from (select rownum rn, a.*
+		from (
+		select * 
+		from member
+		<![CDATA[
+	 )a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>
 	</select>
 	
 	<select id="idChk" resultType="boolean">
@@ -77,5 +83,12 @@
 	<select id="emailChk" resultType="boolean">
 		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
 		FROM MEMBER WHERE id = #{id} AND email = #{email}
+	</select>
+	
+	<select id="getCountTotal"
+		parameterType="co.admin.wh.member.vo.MemberVO" 
+		resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
 	</select>
 </mapper>
