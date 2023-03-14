@@ -192,7 +192,7 @@
 
 				<div class="row">
 					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
-						<div class="row margin-30px-bottom" id="hotelListContent">
+						<div class="row margin-30px-bottom" id="hotelListContent"> <!-- ajax로 페이지 갈아끼움 -->
 							<div th:each="h : ${hotelList}"
 								class="hotels col-md-6 margin-30px-bottom">
 								<div class="hotel border border-radius-4 package h-100">
@@ -238,7 +238,8 @@
 						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 						<div class="side-bar">
 							<div class="widget">
-								<button class="butn btn-block" onClick="crawling()">
+								<button class="butn btn-block" onClick="location.href='/hotelToday'">
+<!-- 								 onClick="crawling()"> -->
 									<i class="fa fa-search"></i> go jeju
 								</button>
 								<br><br>
@@ -264,23 +265,23 @@
 							<script>
 							
 							//ajax로 크롤링 페이지 호출
-							function crawling(){
+// 							function crawling(){
 								
-								$("#div_load_image").show(); // 숨겨뒀던 로딩페이지 보여줌
+// 								$("#div_load_image").show(); // 숨겨뒀던 로딩페이지 보여줌
 								
-								$.ajax({
-									type: 'get',
-									url: "/hotelToday",
-									success: function(data) {
-										$("#div_load_image").hidden(); // 로딩페이지 다시 숨김
-										location.href="hotelToday";
-									},
-									error: function(request, status, error) {
-										alert(error);
-										$("#div_load_image").hidden();
-									}
-								});
-							}
+// 								$.ajax({
+// 									type: 'get',
+// 									url: "/hotelToday",
+// 									success: function(data) {
+// 										$("#div_load_image").hidden(); // 로딩페이지 다시 숨김
+// 										location.href="hotelToday";
+// 									},
+// 									error: function(request, status, error) {
+// 										alert(error);
+// 										$("#div_load_image").hidden();
+// 									}
+// 								});
+// 							}
                               $(function() {
                                  $(document).ready(function() {
          
@@ -316,22 +317,11 @@
 											id="hotelRegion" name="hotelRegion">
 											<option selected>지역 선택</option>
 											<option value="서울">서울</option>
-											<option value="경기">경기</option>
 											<option value="부산">부산</option>
 											<option value="대구">대구</option>
 											<option value="인천">인천</option>
-											<option value="광주">광주</option>
 											<option value="대전">대전</option>
 											<option value="울산">울산</option>
-											<option value="세종">세종</option>
-											<option value="경기">경기</option>
-											<option value="강원">강원</option>
-											<option value="충북">충북</option>
-											<option value="충남">충남</option>
-											<option value="전북">전북</option>
-											<option value="전남">전남</option>
-											<option value="경북">경북</option>
-											<option value="경남">경남</option>
 											<option value="제주">제주</option>
 										</select>
 									</div>
@@ -367,7 +357,7 @@
 								<div class="widget-title">
 									<h3>Destination</h3>
 								</div>
-								<div class="price-range"></div>
+								<input type="text" class="price-range">
 							</div>
 						</div>
 					</div>

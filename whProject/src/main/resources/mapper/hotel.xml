@@ -52,6 +52,7 @@
 		]]>		
 	</select>
 	
+	<!-- 예약 가능한 호텔 검색 리스트 -->
 	<select id="hotelSearchList" resultType="co.admin.wh.hotel.vo.HotelVO">
 	SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT *
@@ -237,5 +238,15 @@
 	    and r.check_out < sysdate
 	    ]]>	
 	</select>
+	
+	<!-- 관리자 -->
+	<!-- 관리자 예약내역 전체조회 -->
+	<select id="adminReservList" resultType="co.admin.wh.hotel.vo.ReservationVO">
+		select *
+		from reservation r, hotel h
+		where r.hotel_id = h.hotel_id
+		order by res_state
+	</select>
+	
     
 </mapper>

@@ -124,4 +124,10 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		// TODO Auto-generated method stub
 		hotelMapper.minusRoomCount(hotelId);
 	}
+
+	@Override
+	public List<ReservationVO> adminReservList() {
+		// TODO Auto-generated method stub
+		return hotelMapper.adminReservList();
+	}
 }
