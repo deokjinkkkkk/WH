@@ -6,6 +6,7 @@
 <body>
   
   <div layout:fragment="content" class="content">
+  <script src="/js/comments.js"></script>
   <!--좋아요 버튼 css-->
 <style>
 a {
@@ -78,6 +79,7 @@ position: absolute;
 	left: 650px;
 	top: 50px;
 }
+
 
 </style>
 <!--좋아요 버튼 css-종료-->	
@@ -178,7 +180,7 @@ position: absolute;
                                        <a href="#" class="emptyMark">
                                           <i class="fa-regular fa-bookmark" ></i>
                                        </a>
-                                        <a href="/bookDel/{bookCode}" class="fullMark" style="display: none;">
+                                        <a href="/bookDel/{bookCode}" class="fullMark" style="display: none;   ">
                                      <i class="fa-solid fa-bookmark"></i>                                       
                                        </a> 
                                        <input type="hidden" id="id" name="id"
@@ -340,76 +342,35 @@ position: absolute;
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
                                 </script>
                      <!-- api 끝 -->
-
-							
-                            <!--  start comment-->
-                            <div class="comments-area">
-                                <div class="title-g margin-30px-bottom">
-                                    <h3>Comments</h3>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/01.png" class="rounded-circle width-85 xs-width-100" alt="" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Alex Joyrina</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/02.png" alt="" class="rounded-circle width-85 xs-width-100" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Jama Karleny</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/03.png" alt="" class="rounded-circle width-85 xs-width-100" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Ivonne Drennen</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end comment-->
-
-                            <!--  start form-->
-                            <div class="comment-form">
-                                <div class="title-g margin-30px-bottom">
-                                    <h3>Post a Comment</h3>
-                                </div>
-                                <form action="#!" id='comment-form' method='post'>
-                                    <div class="controls">
-                                        <div class="row">
-                                            <div class="col-md-12 form-group">
-                                                <textarea id="form_message" name="message" placeholder="Message" rows="4" required="required"></textarea>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <button type="submit" class="butn"><span>Send Message</span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+			<section class="blogs">
+				<div class="posts">
+					<div class="posts">
+                         <div class="comments-area"></div>
+							<div class="comment-form">
+								<form id='comment-form' method='post'>
+									<div class="controls">
+										<div class="row">
+												<input type="hidden" name="id" th:value="${session.name}" id="id">
+												<input type="hidden" th:value="${session.perm}" id="perm">
+												<div class="col-md-12 form-group">
+													<textarea id="comContent" name="comContent"
+														placeholder="댓글 내용" rows="4" required="required"></textarea>
+												</div>
+												<div class="col-md-12">
+													<button type="button" id="butn" class="butn">
+														<span>댓글 달기</span>
+													</button>
+													<label><input type="checkbox" id="lockChk"class="secChk" value="1">비밀</label>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" id="comBoardCode" name="comBoardCode" th:value="${trip.tripCode}">
+										<input type="hidden" id="comFlag" name="comFlag" value="CWT">
+									</form>
+								</div>
+							</div>
+						</div>
+				</section>
                             <!--  end form-->
                         </div>
                     </div>
@@ -657,8 +618,278 @@ position: absolute;
 					
 				 }
 				};
+				/* 댓글 */
+				$(document).ready(function(){
+					getComList() 
+				})
 				
+				$("#butn").click(function(){ //댓글 등록
+					let comContent = $("#comContent").val(); //댓글내용
+					let comId =$("#id").val(); //회원아이디
+					let comOrder = 1 //댓글순서
+					let comBlock = 1 //댓글계층
+					let comFlag = $("#comFlag").val();  //게시물구분
+					let comBoardCode = $("#comBoardCode").val(); //게시물번호
 				
+					let comLock = $("#lockChk").val() //비밀댓글
+					if($("#lockChk").is(':checked') == true){
+						comLock = 0
+					}
+					if(comId == ""){
+						alert("로그인 후 이용하세요")
+						return;
+					}; // 로그인 안했을시 댓글 작성 x
+					
+					$.ajax({
+						url:"/comInsert",
+						type:"POST",
+						data: JSON.stringify(
+							{
+								"block" : comBlock, //댓글계층
+								"comContent" :comContent,
+								"id" :comId,
+								"comLock" : comLock,
+								"comOrder" : comOrder,
+								"comFlag" : comFlag, //게시물 구분
+								"comBoardCode" : comBoardCode// 게시물 번호
+							}
+						),
+						contentType:'application/json',
+						success : function(data){
+							console.log("댓글등록")
+							$("#comContent").val("")
+							console.log("====")
+							getComList()
+						},
+						error:function(){
+							alert('등록실패');
+						}
+					});
+				});
+				
+				function getComList(){ //댓글 리스트
+					let str = ""
+					id = $("#id").val()
+					author = $("#perm").val()
+					perm = author.slice(1,-1)
+					console.log(perm)
+					console.log(id)
+					let comFlag = $("#comFlag").val();  //게시물구분
+					let comBoardCode = $("#comBoardCode").val(); //게시물번호
+					    str += '<div class="title-g margin-30px-bottom">'
+						str +='<h3>댓글</h3>'
+						str +='</div>'
+					let comArea =$(".comments-area");
+					$.ajax({
+						url:"/comGetList",
+						type:"POST",
+						data: JSON.stringify(
+								{
+									"comFlag" : comFlag, //게시물 구분
+									"comBoardCode" : comBoardCode// 게시물 번호
+								}
+							),
+						contentType:'application/json',
+						success : function(result){
+							$(".title-g margin-30px-bottom").remove()
+							$(result).each(function(index,item){
+								if(item.block == 1){
+									str += "<div class='comment-box' id='"+item.comCode+"'>"
+									str += '<div class="author-thumb">'
+									str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+									str += '<div class="comment-info">'
+									str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+									if(item.comLock != 0 || item.id == id || perm == "ADMIN"){
+									str	+= '<p>'+item.comContent+'</p>'
+									}else{
+									str += 	'<p>비밀 댓글입니다.</p>'
+									}
+									if( perm == "ADMIN" || item.id == id){
+									str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+									str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
+									}
+									str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
+								}else{
+									str += "<div class='comment-box' id='"+item.comCode+"' style='margin-left: 100px;'>"
+									str += '<div class="author-thumb">'
+									str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+									str += '<div class="comment-info"> '
+									str += '<h6> <a href="javascript:void(0);" >'+item.name+'</a></h6>'
+									if(item.comLock != '0' || item.id == id || perm == "ADMIN"){
+									str	+= '<p>'+item.comContent+'</p>'
+									}else{
+									str += 	'<p>비밀 댓글입니다.</p>'
+									}
+									if(perm == "ADMIN" || item.id == id){
+									str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
+									str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
+									}
+								}
+							//if(item.block == 1){
+								str += '<div class="reply">'
+								str += '<h6>'+item.comDate+'</h6>'
+								str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
+								str += '</div> </div> </div>'
+								str += '<div class="rep-form" id="'+item.comCode+'" style="display:none">'
+								str += 	'<form id="reply-form " method="post">'
+								str +=  '<div class="controls">'
+								str +=  '<div class="row">'
+								str += '<div class="col-md-12 form-group">'
+								str += '<textarea id="comRep" name="comContent" class="comRep"'
+								str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'
+								str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
+								str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()">답글등록</button>'
+								str += '<label><input type="checkbox" class="secChk" value="1">비밀</label>'
+								str +=	'</div>'
+								str += '<div class="col-md-12">'
+								str += '<input type="hidden" name="comGroup" value="'+item.comGroup+'"'
+								str += '</div></div></div></form></div></div>'
+								//}
+							})
+							comArea.html(str);
+						}
+					})
+				}
+				
+				function reComDelete(){ //댓글 삭제
+					let comBox = $(event.target).closest(".comment-box")
+					let reply = comBox.next()
+					console.log($(event.target).text())
+					let comGroup = $(event.target).find("#comGroup").val()
+					let comOrder = 1
+					let comCode = comBox.attr('id')
+					console.log(comCode)
+					//alert 후 true 일경우 삭제 누른 댓글 삭제
+					//false 후 
+					$.ajax({
+						url:"/reComDelete",
+						type:"delete",
+						data:{
+										
+										
+								 comCode
+										//게시물 번호
+									    //댓글 비밀여부
+									}
+						,
+						success : function(data){
+							console.log(data)
+							getComList()
+						}
+					})
+				}
+				
+				function comDelete(){ //댓글 삭제
+					let comBox = $(event.target).closest(".comment-box")
+					let reply = comBox.next()
+					let comGroup = $(event.target).next().next().val()
+					//alert 후 true 일경우 삭제 누른 댓글 삭제
+					//false 후 
+					$.ajax({
+						url:"/comDelete",
+						type:"delete",
+						data:{	
+							comGroup		
+						}	   
+						,
+						success : function(data){
+							console.log(data)
+							getComList()
+						}
+					})
+				}
+				
+				function comReply(){ //답글창 on,off
+					let comBox = $(event.target).closest(".comment-box")
+					let recom = comBox.next()
+					if(recom.is(':visible') != true){	
+						recom.show();
+					}else{
+						recom.hide();
+					}
+					
+				}
+				//대댓글 댓글 그룹,  
+				function comReplyInsert(){
+					let rep = $(event.target).closest(".rep-form").attr('id')
+					let reContent =$(event.target).prev().prev().val()
+					let comId =$("#id").val();
+					let comGroup = $(event.target).prev().val()
+					let comLock = $(event.target).next().val() //비밀댓글
+					let comBlock = '2'
+					let comFlag = $("#comFlag").val();
+					let comBoardCode = $("#comBoardCode").val();
+					if($(event.target).next().is(':checked') == true){
+						comLock = 0
+					}
+					$.ajax({
+						url:"/reComInsert",
+						type:"POST",
+						data: JSON.stringify(
+							{
+								"comContent" :reContent,
+								"id" :comId,
+								"comGroup" : comGroup,
+								"comLock" : comLock,
+								"block" : comBlock,
+								"comFlag" : comFlag, //게시물 구분
+								"comBoardCode" : comBoardCode// 게시물 번호
+								//게시물 번호
+							   //댓글 비밀여부
+							}
+						),
+						contentType:'application/json',
+						success : function(data){
+							console.log("답글등록")
+							$(event.target).prev().val("")
+							getComList()
+						},
+						error:function(){
+							alert('등록실패');
+						}
+					});
+				}
+				$(".btnUp").on("click")
+				
+				 function comUpdate(){
+					let comContent =$(event.target).prev().prev().val();
+					let comCode =$(event.target).closest(".comment-box").attr('id');
+					$.ajax({
+						url:"/comUpdate",
+						type:"POST",
+						data: JSON.stringify(
+							{
+								"comContent" :comContent,
+								"comCode" : comCode,
+							}
+						),
+						contentType:'application/json',
+						success : function(data){
+							console.log("답글등록")
+							getComList()
+						},
+						error:function(){
+							alert('등록실패');
+						}
+					});
+				}
+				
+				function comUpdateForm(){
+					
+					let pTag = $(event.target).prev().prev()
+					let content = pTag.text()
+					console.log(content)
+					let delBtn =  $(event.target).prev()
+					let upBtn = $(event.target)
+					
+					$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">'+content+'');
+					$(delBtn).replaceWith('<button type="button" class="btnRet" onclick="resetBtn()">취소</button>')
+					let up = $(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
+				}
+				
+				function resetBtn(){
+					getComList()
+				}
 				</script>
             </div>
         </section>

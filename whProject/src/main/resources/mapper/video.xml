@@ -18,9 +18,9 @@
 	<select id="videoSelect" resultType="co.admin.wh.notice.vo.VideoVO">
 	SELECT * FROM( SELECT rownum rn, a.* FROM(
 	 SELECT * FROM VIDEO
-	 <![CDATA[
+	<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
+		]]>		
 	
 	</select>
 	
@@ -55,6 +55,119 @@
     	SELECT * FROM( SELECT rownum rn, a.* FROM(
 	    	select *
 	    	from video where video_region = '22'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    
+    	<select id="incheon" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '23'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="gwangju" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '24'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="daejeon" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '25'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="ulsan" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '26'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="sejong" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '29'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="gyeonggi" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '31'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="gangwon" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '32'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="chungbuk" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '33'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="chungnam" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '34'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="jeonbuk" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '35'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="jeonnam" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '36'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="kyungbuk" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '37'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="kyungnam" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '38'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+    </select>
+    	<select id="jeju" parameterType="VideoVO" resultType="co.admin.wh.notice.vo.VideoVO">
+    	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from video where video_region = '39'
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	

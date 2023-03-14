@@ -37,10 +37,42 @@ public class VideoController {
 		
 		paging.setTotalRecord(videoService.videoTotal(svo));
 		
-		model.addAttribute("v", videoService.videoSelect(vo));
+		model.addAttribute("video", videoService.videoSelect(vo));
 		return "notice/video";
 	}
 	
+	@RequestMapping("/seoul")
+	public String seoul(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.seoul(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	
+	
+	@RequestMapping("/busan")
+	public String busan(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.busan(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
 	
 	@RequestMapping("/daegu")
 	public String daegu(Model model,VideoSearchVO svo, Paging paging) {
@@ -57,8 +89,8 @@ public class VideoController {
 		
 		return "notice/sortingVideo";
 	}
-	@RequestMapping("/busan")
-	public String busan(Model model,VideoSearchVO svo, Paging paging) {
+	@RequestMapping("/incheon")
+	public String incheon(Model model,VideoSearchVO svo, Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
 		
@@ -67,7 +99,202 @@ public class VideoController {
 		
 		paging.setTotalRecord(videoService.videoTotal(svo));
 		
-		List<VideoVO> videoSelect = videoService.busan(svo);
+		List<VideoVO> videoSelect = videoService.incheon(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/gwangju")
+	public String gwangju(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.gwangju(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/daejeon")
+	public String daejeon(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.daejeon(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/ulsan")
+	public String ulsan(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.ulsan(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/sejong")
+	public String sejong(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.sejong(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/gyeonggi")
+	public String gyeonggi(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.gyeonggi(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/gangwon")
+	public String gangwon(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.gangwon(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/chungbuk")
+	public String chungbuk(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.chungbuk(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/chungnam")
+	public String chungnam(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.chungnam(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/jeonbuk")
+	public String jeonbuk(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.jeonbuk(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/jeonnam")
+	public String jeonnam(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.jeonnam(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/kyungbuk")
+	public String kyungbuk(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.kyungbuk(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/kyungnam")
+	public String kyungnam(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.kyungnam(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideo";
+	}
+	@RequestMapping("/jeju")
+	public String jeju(Model model,VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.jeju(svo);
 		model.addAttribute("videoSelect", videoSelect);
 		
 		return "notice/sortingVideo";

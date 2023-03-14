@@ -1,74 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/index}">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<body layout:fragment="content">
-	<section class="page-title-section bg-img cover-background"
-		th:style="|background: url('img/banner/bg4.jpg')|">
-		<h1 class="text-white font-weight-600">Tour Listing</h1>
-		<ul>
-			<li><a href="/home">Home</a></li>
-			<li><span class="active">Tour Listing</span></li>
-		</ul>
-	</section>
-	<!--  start comment-->
-	<section class="blogs">
-			<div class="posts">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-							<div class="posts">
-								<div class="comments-area">
-								</div>
-								<div class="comment-form">
-									<form id='comment-form' method='post'>
-										
-										<div class="controls">
-											<div class="row">
-												<input type="hidden" name="id" th:value="${session.name}" id="id">
-												<input type="hidden" th:value="${session.perm}" id="perm">
-												<div class="col-md-12 form-group">
-													<textarea id="comContent" name="comContent"
-														placeholder="댓글 내용" rows="4" required="required"></textarea>
-												</div>
-												<div class="col-md-12">
-													<button type="button" id="butn" class="butn">
-														<span>댓글 달기</span>
-													</button>
-													<label><input type="checkbox" id="lockChk"class="secChk" value="1">비밀</label>
-												</div>
-											</div>
-										</div>
-										<input type="hidden" id="comBoardCode" name="comBoardCode" value="1">
-										<input type="hidden" id="comFlag" name="comFlag" value="WT">
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</section>
-	<!-- end comment-->
-	<script th:inline="javascript">
-	/*  문제점
-		1.다른 댓글 수정창 띄운상태에서는 값을 잘못찾는다
-		2.페이징
-	*/
-	//댓글 번호 자동증가(시퀀스)
-	//댓글 비밀 0=모두보기 ,댓글 비밀 1=비밀댓글
-	//댓글 순서 1,2...(댓글달기로 작성시 1 고정 답글로 달시 자동증가)
-	//댓글 계층 1(댓글),2(대댓글)
-	//댓글 그룹 1,2...(댓글달기로 작성시 자동 증가)(시퀀스)(답글로 달시 댓글 번호다라가기)
-	//게시물 구분 게시판공통코드(게시판 별 mapper에서 default로 넣기)
-	//게시물 번호 게시판코드
-	
-	$(document).ready(function(){
+$(document).ready(function(){
 		getComList() 
 	})
 	
@@ -79,7 +9,7 @@
 		let comBlock = 1 //댓글계층
 		let comFlag = $("#comFlag").val();  //게시물구분
 		let comBoardCode = $("#comBoardCode").val(); //게시물번호
-		console.log()
+	
 		let comLock = $("#lockChk").val() //비밀댓글
 		if($("#lockChk").is(':checked') == true){
 			comLock = 0
@@ -329,7 +259,3 @@
 	function resetBtn(){
 		getComList()
 	}
-	
-</script>
-</body>
-</html>

@@ -30,16 +30,30 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <div class="custom-control custom-checkbox text-left text-white">
+                                            <input type="checkbox" class="custom-control-input" id="login-remember">
+                                            <label class="custom-control-label" for="login-remember">자동로그인</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 text-left text-sm-right">
+                                        <a href="/passFind" class="text-white">비밀번호 찾기</a>
+                                    </div>
+
+                                </div>
 							<div class="col-12margin-25px-top">
 								<button type="button" class="butn btn-block" id="login">로그인</button>
-								
 							</div>
-							<div class="col-12 margin-25px-top">
-							<a href="https://kauth.kakao.com/oauth/authorize?client_id=eca6df115c265db993762594751419b6&redirect_uri=http://localhost/login/kakao&response_type=code"></a>
-							</div>
-							<div class="col-md-12 text-center margin-25px-top text-white">
+								<div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <div class="custom-control custom-checkbox text-left text-white">
 								<span><a href="/memberSignUpForm" class="text-white">회원가입</a></span>
-								<a href="/oauth2/authorization/kakao"><img src="/img/login/kakao_login_medium_narrow.png"/></a>
+										</div>
+                                    </div>
+                                <div class="col-sm-6 text-left text-sm-right">
+									<a href="/oauth2/authorization/kakao"><img src="/img/login/kakao_login_medium_narrow.png"/></a>	
+								</div>
 							</div>
 						</form>
 					</div>

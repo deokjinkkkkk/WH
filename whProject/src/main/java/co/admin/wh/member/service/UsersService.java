@@ -24,11 +24,7 @@ public class UsersService implements UserDetailsService {
 		if(vo == null) {
 			throw new UsernameNotFoundException("유저 없음");
 		}
-		if(!vo.isEnabled()) {
-			throw new DisabledException("정지된 계정 입니다.");
-		}
 		
-
 		return vo;
 		
 	}

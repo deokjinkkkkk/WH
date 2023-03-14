@@ -63,7 +63,7 @@ public class HotelController {
 	
 	@RequestMapping("/hotelSearch") // 검색 결과 + 페이징
 	public String hotelSearch(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging, 
-							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount) {
+							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount, @RequestParam("checkOut") Date checkOut) {
 
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -75,6 +75,7 @@ public class HotelController {
 		paging.setCheckIn(checkIn);
 		paging.setHotelRegion(hotelRegion);
 		paging.setHumanCount(humanCount); // model에 직접 담지 않아도 담김.
+		paging.setCheckOut(checkOut);
 		model.addAttribute("hotelList",hotelInfoService.hotelSearchList(vo));
 		return "hotel/hotelSearch";
 	}
@@ -280,4 +281,7 @@ public class HotelController {
 		model.addAttribute("hotelList", hotelInfoService.adminReservList());
 		return "hotel/adminReservList";
 	}
+	
+//	@GetMapping("/Admin/cancel") // 관리자 취소 승인
+//	public String 
 };
