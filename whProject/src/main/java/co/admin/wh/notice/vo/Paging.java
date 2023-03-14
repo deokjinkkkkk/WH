@@ -18,6 +18,7 @@ public class Paging {
 	
 	// 호텔 검색어
 	Date checkIn;
+	Date checkOut;
 	String hotelRegion;
 	String humanCount;
 	
@@ -109,10 +110,10 @@ public class Paging {
 	
 	public String getSearchInfo() {
 		 
-		if(checkIn.equals("") || hotelRegion.equals("") || humanCount.equals("")) {
+		if(checkIn.equals("") || checkOut.equals("") || hotelRegion.equals("") || humanCount.equals("")) {
 		  return ""; 
 		 } else {
-		  return "&checkIn=" + checkIn + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount; 
+		  return "&checkIn=" + checkIn + "&checkOut=" + checkOut + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount; 
 		 }
 		}
 
