@@ -65,4 +65,17 @@
 	insert into quit
 	values(#{id},#{pass},#{name},#{gender},#{tel},#{email})
 	</insert>
+	
+	<update id="passUpdate">
+	update member
+	<set>
+	pass =#{pass}
+	</set>
+	where id = #{id}
+	</update>
+	
+	<select id="emailChk" resultType="boolean">
+		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
+		FROM MEMBER WHERE id = #{id} AND email = #{email}
+	</select>
 </mapper>

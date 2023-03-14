@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import co.admin.wh.member.service.DisabledAccountHandler;
 import co.admin.wh.member.service.LoginSuccessHandler;
 import co.admin.wh.member.service.SocialSuccessHandler;
 import co.admin.wh.member.service.SocialUserService;
@@ -47,18 +45,20 @@ public class WebSecirityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests.antMatchers("/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/login/**", "/login/kakao", "/memberSignUpForm", "/memberSignUp", "/memberIdChk","/disabled")
+				.antMatchers("/login/**", "/login/kakao", "/memberSignUpForm", "/memberSignUp", "/memberIdChk","/disabled","/passFind")
 				.permitAll()
 				// .anyRequest().permitAll()
 				.anyRequest().authenticated())
 				.formLogin(
 						(form) -> form.loginPage("/login").loginProcessingUrl("/memberLogin").passwordParameter("pass")
-								.usernameParameter("id").successHandler(new LoginSuccessHandler()).permitAll())
+								.usernameParameter("id").successHandler(new LoginSuccessHandler()).failureHandler(new DisabledAccountHandler()).permitAll())
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout").logoutSuccessUrl("/main")).csrf().disable()
-
+				
 				.headers().frameOptions().sameOrigin().and().oauth2Login().loginPage("/login")
 				.defaultSuccessUrl("/main").successHandler(new SocialSuccessHandler()).permitAll().userInfoEndpoint()
+				
 				.userService(socialUserService);
+		
 
 		return http.build();
 	}
