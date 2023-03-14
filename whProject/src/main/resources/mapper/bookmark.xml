@@ -33,7 +33,7 @@
 			order="BEFORE">
 			SELECT
 			NVL(MAX(BOOK_CODE),0)+1
-			FROM BOOKCODE
+			FROM BOOKMARK
 		</selectKey>
 		INSERT INTO BOOKMARK
 		VALUES(#{id},#{bookFlag},#{bookCode},#{bookNcode})
@@ -78,9 +78,14 @@
 	</select>
 
 
-	<!-- 즐겨찾기 추가 여부 확인. 페이지에서 벗어나도 count : 1이 되어있기 때문에 즐겨찾기 추가를 지속시켜주는 코드 <select 
-		id="bookCheck" resultType="boolean"> SELECT count(*) FROM BOOKMARK WHERE 
-		ID = #{id} and GREAT_N_CODE = #{greatNcode} </select> -->
+	<!-- 즐겨찾기 추가 여부 확인. 페이지에서 벗어나도 count : 1이 되어있기 때문에 즐겨찾기 추가를 지속시켜주는 코드 -->
+	 <select 
+		id="bookmarkCheck" resultType="boolean"> 
+		SELECT count(*) 
+		FROM BOOKMARK
+		WHERE 
+		ID = #{id} and BOOK_N_CODE = #{bookNcode} 
+		</select>
 
 
 
