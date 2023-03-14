@@ -79,6 +79,18 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
+	
+	// 리스트 삭제 시 순서 번호 업데이트
+	@PostMapping("/myCouSeqUpdate")
+	@ResponseBody
+	public String myCouSeqUpdate(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouSeqUpdate(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
 
 	// 나만의 코스 상세페이지에 해당 여행지 삭제하기
 	@PostMapping("/myCouDetailDel")
@@ -91,7 +103,19 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
-
+	
+	// 여행지 삭제 시 순서 번호 업데이트
+	@PostMapping("/myCouUpdateOrd")
+	@ResponseBody
+	public String myCouUpdateOrd(@RequestBody MyCourseFreeVO vo) {
+		int result = myCourseFreeMapper.couOrdUpdate(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
+	
 	// 나만의 코스 상세페이지의 여행지 순서 바꾸기
 	/* ajax에서 배열을 썼으므로, List 쓰고 for문 돌려야 한다. */
 	@PostMapping("/moveSaveTrip")

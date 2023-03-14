@@ -29,4 +29,12 @@
 		WHERE MY_COURSE_CODE = #{myCourseCode}
 	</delete>
 	
+	
+	<!-- 리스트 삭제 시, 순서 번호 업데이트 -->
+	<update id="myCouSeqUpdate">
+	    UPDATE MY_COURSE
+	    SET MY_COURSE_CODE = MY_COURSE_CODE - 1
+	    WHERE MY_COURSE_CODE > #{myCourseCode}
+	</update>
+	
 </mapper>
