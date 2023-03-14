@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<body>
+	<div layout:fragment="content" class="content">
+
+	<!-- 내용 시작 -->
+<section layout:fragment="adminContent">
+<div class="container">
+<h4>제목 : <span>[[${d.videoName}]]</span></h4>
+<hr>
+
+	<iframe width="600" height="450" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<hr>
+<span>[[${d.videoContent}]]</span>
+<hr>
+<span></span>
+</div>
+</section>
+</body>
+</html>

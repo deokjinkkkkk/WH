@@ -21,6 +21,4 @@ public class VideoVO {
 	String url;
 	String thumbnail;
 	
-	Integer first;
-	Integer last;
 }

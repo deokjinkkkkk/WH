@@ -96,6 +96,10 @@
 	            alert(response.data.roomName + '방 개설에 성공하였습니다.');
 	            this.room_name = name;
 	            this.room_password = ''; // 추가한 데이터 초기화
+	           
+	            // roomId 값을 session에 추가
+	            window.sessionStorage.setItem('roomId', response.data.roomId);
+	            
 	            this.findAllRoom();
 	          })
 	          .catch((response) => {
