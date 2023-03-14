@@ -1,15 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin/indexAdmin}">
+	layout:decorate="~{index}">
 <body>
-
+   <script>
+   		function gopage(page) {
+   			location.href = "video?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
+   </script>
 	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-zzzzzzzzzzzzzzzhttps://www.youtube.com/watch?v=dZmIv9IvY48
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dZmIv9IvY48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-https://youtu.be/dZmIv9IvY48
-<a href="videoForm" class="btn btn-danger" style="float: right;;">신청하기</a>
+	<div layout:fragment="content" class="content">
+<!-- start blog section -->
+		<section>
+			<div class="container">
+            	<p style="font-size: 30px;">전체 호텔<p><hr>
+            	<div id="product_order_list">
+			<p>
+			<a href="javascript:seoul();">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:busan();">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:daegu();">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+
+		</div>
+		<script th:inline="javascript">
+		
+		// 서울 -->
+ 		var seoul = function(url){
+ 			$.ajax({ 
+ 				type: 'post', 
+				url: "/seoul",
+ 				success: function(data) { 
+ 					$("#hotelListContent").replaceWith(data);
+ 				}, 
+ 				error: function(request, status, error) { 
+ 					alert(error); 
+ 				} 
+			}); 
+ 		};
+ 		
+ 	// 부산 -->
+ 		var busan = function(url){
+ 			$.ajax({ 
+ 				type: 'post', 
+				url: "/busan",
+ 				success: function(data) { 
+ 					$("#hotelListContent").replaceWith(data);
+ 				}, 
+ 				error: function(request, status, error) { 
+ 					alert(error); 
+ 				} 
+			}); 
+ 		};
+		
+ 		// 대구-->
+		var daegu = function(url){ 
+ 			$.ajax({ 
+ 				type: 'post', 
+ 				url: "/daegu", 
+				success: function(data) { 
+ 					$("#hotelListContent").replaceWith(data); 
+				}, 
+ 				error: function(request, status, error) { 
+					alert(error); 
+				} 
+			}); 
+ 		}; 
+		</script>
+
+				<div class="row margin-30px-bottom" id="hotelListContent">
+					<div th:each="v : ${v}" class="hotels col-md-6 margin-30px-bottom">
+						<div class="hotel border border-radius-4 package h-100">
+
+							<div class="padding-30px-all">
+								<div
+									class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
+									<p>[[${v.videoName}]]</p>
+								</div>
+								<img th:src="${v.thumbnail}" />
+							</div>
+						</div>
+						<a
+							th:href="@{/videoDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
+					</div>
+				</div>
+
+
+				<a href="videoForm" class="btn btn-danger" style="float: right;;">신청하기</a>
+	<!-- 페이징 버튼 -->
+						<div
+							class="pagination text-small text-uppercase text-extra-dark-gray gopage">
+							<ul>
+								<li th:if="${paging.startPage > 1}">
+									<a href="javascript:void(0);" th:href="|javascript:gopage(${paging.startPage-1})|"><i
+										class="fas fa-long-arrow-alt-left margin-5px-right xs-display-none"></i>
+										</a></li>
+								<li th:classappend="${paging.page}==${num} ? 'active'"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a th:href="|javascript:gopage(${num})|">[[${num}]]</a></li>
+								<li th:if="${paging.endPage < paging.lastPage}"><a th:href="|javascript:gopage(${paging.endPage+1})|"> <i
+										class="fas fa-long-arrow-alt-right margin-5px-left xs-display-none"></i></a></li>
+							</ul>
+						</div></div></div>
+						<!-- 페이징 버튼 끝 -->
+
 </section>
 </body>
 </html>

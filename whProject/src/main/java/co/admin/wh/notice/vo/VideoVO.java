@@ -19,4 +19,8 @@ public class VideoVO {
 	Date videoModDate;
 	String videoRegion;
 	String url;
+	String thumbnail;
+	
+	Integer first;
+	Integer last;
 }

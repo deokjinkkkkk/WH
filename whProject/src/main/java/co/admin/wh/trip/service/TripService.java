@@ -2,6 +2,7 @@ package co.admin.wh.trip.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -23,7 +24,8 @@ public interface TripService {
 	
 	List<TripVO> myCouNameSelect(TripVO vo); // 여행지 담기 버튼 클릭 -> 코스명 목록
 	
+	List<TripVO> tripNameSearchList(TripSearchVO vo); // 여행지 이름 검색 리스트 출력
 	
-	
+	List<Map<String, Object>> selfSearch(Map<String, Object> paramMap) throws Exception; // 여행지이름 검색어 자동완성
 	
 }

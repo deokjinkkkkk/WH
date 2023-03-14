@@ -1,6 +1,7 @@
 package co.admin.wh.trip.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +19,9 @@ public interface TripMapper {
 	TripVO detailSelect(TripVO tvo); //상세보기 페이지	
 	
 	List<TripVO> myCouNameSelect(TripVO vo); // 여행지 담기 버튼 클릭 -> 코스명 목록
+
+	List<TripVO> tripNameSearchList(TripSearchVO vo); // 여행지 이름 검색 리스트 출력
+
+	List<Map<String, Object>> selfSearch(Map<String, Object> paramMap) throws Exception; // 여행지이름 검색어 자동완성
 
 }

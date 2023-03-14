@@ -104,7 +104,6 @@ position: absolute;
 	 
 	<!-- 썸네일 리스트 -->
 	<!-- start blog detail section -->
-     [[${trip.tripLat}]]
         <section class="blogs"></section>
             <div class="container">
                 <div class="row">
@@ -140,7 +139,7 @@ position: absolute;
                          <span aria-hidden="true">&times;</span>
                        </button>
                      </div>
-                     <div th:each="m : ${myCou}"  class="modal-body">
+                     <div th:each="m : ${myCou}" th:if="${m.myCouId == session.name || session.name == 'ADMIN'}" class="modal-body">
                          <div class="form-group">
                          	<label th:text="${m.myCouName}" for="recipient-name" class="col-form-label">코스목록 떠야함</label>
                          	<button id="couSel" type="button" class="btn btn-outline-info" onclick="myCouTripInsert()">선택</button>                       
@@ -168,6 +167,28 @@ position: absolute;
 												</div>												
 											</div>
 						<!--좋아요 버튼 기능html 종료-->	
+						
+									<!-- /////////////
+                                 		북마크
+                                 ///////////////// -->
+                                 <!--즐찾 버튼 기능html-->
+                                 <!-- 즐겨찾기를 누르지 않은 경우  -->
+                                 <div class="book_area">
+                                    <div class="bmark">
+                                       <a href="#" class="emptyMark">
+                                          <i class="fa-regular fa-bookmark" ></i>
+                                       </a>
+                                        <a href="/bookDel/{bookCode}" class="fullMark" style="display: none;">
+                                     <i class="fa-solid fa-bookmark"></i>                                       
+                                       </a> 
+                                       <input type="hidden" id="id" name="id"
+                                          th:value="${session.name}">
+                                       <!-- 즐겨찾기를 누른 경우 -->
+                                    </div>
+                                 </div>
+                                 <!-- 즐찾 버튼 끝 -->
+                                 
+                                 
                                     </div>
                                     <ul class="meta">
                                         <li>
@@ -492,6 +513,112 @@ position: absolute;
 				        }
 				          });
 				    } 
+				
+				/* -----------------------
+               			 북마크 START
+        		  -----------------------*/
+       
+          $(function() {
+               // 즐겨찾기 추가 여부 확인 함수
+               function checkBookmark() {
+                 var id = $('#id').val();
+                 var bookNcode = window.location.pathname.split("/").pop();
+                 var bookFlag = ("TR") // 호텔/여행지 여부에 따라 bookFlag 값 지정
+                 var bookCode =  $('#bookCode').val();
+
+                 $.ajax({
+                   type: 'POST',
+                   url: '/bookmarkCheck/' + bookNcode + '/' + id,
+                   data: {
+                     'id': id,
+                     'bookCode': bookCode
+                   },
+                   success: function(data) {
+                       if (data === true) { // 즐겨찾기 추가된 경우
+                           $('.emptyMark').hide(); // emptyMark 숨김
+                           $('.fullMark').show(); // fullMark 보임
+                       } else { // 즐겨찾기 추가되지 않은 경우
+                           $('.fullMark').hide(); // fullMark 숨김
+                           $('.emptyMark').show(); // emptyMark 보임
+                       }
+                   },
+                   error: function() {
+                       console.log('bookmarkCheck 오류');
+                   }
+               });
+               }
+
+               // 페이지 로딩시 즐겨찾기 추가 여부 확인(새로고침에도 북마크 값 가지고옴)
+               checkBookmark();
+
+               
+               //즐겨찾기 추가 (emptyMark 클릭 시)
+               $('.emptyMark').on('click', function(e) {
+                 e.preventDefault();
+                 var id = $('#id').val();
+                 var bookCode = $(this).data('bookcode');
+                 var bookNcode = window.location.pathname.split("/").pop();
+                 var fullMark = $(this).siblings('.fullMark');
+                 var emptyMark = $(this);
+
+                 $.ajax({
+                   type: 'POST',
+                   url: '/insertBookTrip/' + bookNcode,
+                   data: {
+                     'bookCode': bookCode,
+                     'bookNcode': bookNcode
+                   },
+                   success: function(data) {
+                     if (data.bookCode > 0) {
+                       $('.emptyMark').hide();
+                       $('.fullMark').show();
+                       //alert('등록완료');
+                     } else {
+                       // 실패했을 때 
+                     }
+                   },
+                   error: function() {
+                     alert('등록실패!');
+                   }
+                 });
+               });
+             });
+
+          //즐겨찾기 취소(fullMark 클릭시)
+        $('.fullMark').on('click', function(e) {
+			  e.preventDefault();
+			  var id = $('#id').val();
+			  var bookCode = $(this).data('bookcode');
+			  var bookNcode = window.location.pathname.split("/").pop();
+			  var emptyMark = $(this).siblings('.emptyMark');
+			  var fullMark = $(this);
+			
+			  $.ajax({
+			    type: 'POST',
+			    url: '/bookDel/' + bookNcode,
+			    data: {
+			      'bookCode': bookCode,
+			      'bookNcode': bookNcode
+			    },
+			    success: function(data) {
+			      if (data > 0) {
+			    	  emptyMark.show();
+		              fullMark.hide();
+			        //alert('취소완료');
+			      } else {
+			        // 실패했을 때 
+			      }
+
+			    },
+			    error: function() {
+			      alert('취소실패!');
+			    }
+			  });
+			});
+        /* -----------------------
+        		북마크 끝!
+  		-----------------------*/
+  
 				
 				/* 여행지 나만의 코스에 담기 */
 				/* '여행지 담기' 버튼 클릭 시 모달창 뜨기 */

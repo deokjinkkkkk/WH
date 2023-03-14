@@ -410,7 +410,6 @@ span {
 </style>	
 <body>
 	<div layout:fragment="content" class="content">
-	
 
 	<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
@@ -431,7 +430,7 @@ span {
 		<div class="posts">
 			<div class="feed-box" id="inst" style="padding: 20px">
 			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
-				<div class="profile-id" th:text="${d.id}" style="margin: 10px" th:href="">
+			<div class="profile-id" th:text="${d.id}" style="margin: 10px;">
 					<div class="profile-id" ></div>
 				</div>
 				<div class="feed-img" > 
@@ -469,8 +468,56 @@ span {
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+	<script>
+	// 리스트 출력
+	function getDiaryList() {
+	  const id = $("#id").val();
+	  var str = "";
+	  var diaryArea = $(".feed-box");
+
+	  $.ajax({
+	    url: "/getDiaryList/" + id,
+	    type: "GET",
+	    dataType: 'json',
+	    success: function (result) {
+	      $(result).each(function(index,item){
+	        if(id === item.id){ // diary -> item 수정
+	          str += '<div class="diaryCode" data-code="' + item.diaryCode + '">' 
+	          str += '<div class="profile-id" style="margin: 10px; cursor: pointer;" th:text="${d.id}" th:href="@{/diaryList/{id}(id=${d.id})}">' + item.id + '</div>' 
+	          str += '<div class="feed-img">' 
+	          str += '<img id="feed-img" src="/image/' + item.imgPath + '">'
+	          str +='</div>'
+	          str +='<div class="like" id="diaryStartDate">' + item.diaryStartDate + '</div>'
+	          str +='<div class="like" id="diaryEndDate">' + item.diaryEndDate + '</div>'
+	          str +='<br><br>'
+	          str +='<h5><b><div class="feed-text" id="diarytitlet">' + item.diaryTitle + '</div></b></h5>'
+	          str +='<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>' 
+	          str +='<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;' 
+	          str +='<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>' 
+	          str +='</div>';
+	        }
+	      });
+	      diaryArea.html(str);
+
+	      // 클릭 이벤트 추가
+	      $(".left-body").on("click", function() {s
+	        console.log("Link clicked!");
+	        var url = "/diaryList/" + $(this).text();
+	        console.log(url);
+	        window.location.href = url;
+	      });
+	    },
+	    error: function (error) {
+	      alert("조회실패"); 
+	    },
+	  });
+	}
+
 	
 	
 	
+	</script>
 </body>
 </html>

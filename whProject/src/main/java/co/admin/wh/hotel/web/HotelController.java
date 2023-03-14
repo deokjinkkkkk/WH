@@ -72,18 +72,10 @@ public class HotelController {
 		vo.setLast(paging.getLast());
 		
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
-
-//		paging.setSearchInfo(checkIn, hotelRegion, humanCount); // 검색정보
-		
-//		model.addAttribute("paging", paging);
-		
 		paging.setCheckIn(checkIn);
 		paging.setHotelRegion(hotelRegion);
 		paging.setHumanCount(humanCount); // model에 직접 담지 않아도 담김.
 		model.addAttribute("hotelList",hotelInfoService.hotelSearchList(vo));
-//		model.addAttribute("checkIn", checkIn);
-//		model.addAttribute("hotelRegion", hotelRegion);
-//		model.addAttribute("humanCount", humanCount);
 		return "hotel/hotelSearch";
 	}
 	
@@ -281,5 +273,11 @@ public class HotelController {
 		List<HotelVO> hotelList = hotelInfoService.hotelNameSearchList(vo);
 		model.addAttribute("hotelList", hotelList);
 		return "hotel/hotelNameSearchList";
+	}
+	
+	@GetMapping("/Admin/reservation") // 관리자 예약내역 전체조회
+	public String adminReservList(Model model){
+		model.addAttribute("hotelList", hotelInfoService.adminReservList());
+		return "hotel/adminReservList";
 	}
 };
