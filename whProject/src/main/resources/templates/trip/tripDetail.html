@@ -299,6 +299,7 @@ position: absolute;
 									</ul>
                             <!-- 상세정보 끝 -->
                             
+                            	<p style="font-size: 30px;">지도<p><hr>
                             <!-- 구글 지도 API 이용 TEST -->
                                 <div id="map" style="height: 600px;"
                                 th:attr="data-lat=${trip.tripLat}, data-lon=${trip.tripLon}, data-name=${trip.tripName}"></div>
@@ -629,6 +630,7 @@ position: absolute;
 				
 				/* '선택' 버튼 클릭 시, 여행고유번호 db에 담기*/
 				function myCouTripInsert(){
+				 if (confirm("코스에 담겠습니까?")) { // 사용자 확인 메시지 표시
 					let tripUniqueNumber = $("#tripUniqueNumber").val(); // 여행고유번호
 					let myCourseCode = $(event.target).next().val();
 					console.log(event.target)
@@ -652,6 +654,8 @@ position: absolute;
 							alter('담기 실패');
 						}
 					});
+					
+				 }
 				};
 				
 				
