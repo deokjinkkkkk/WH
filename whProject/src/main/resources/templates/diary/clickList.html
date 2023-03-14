@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <style>
 a {
 	text-decoration-line: none;
@@ -414,7 +414,7 @@ span {
 
 	<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-			th:style="|background:url(img/banner/bg2.jpg)|">
+			th:style="|background:url(/img/banner/bg2.jpg)|">
 			<div class="container">
 
 				<h1 class="text-white font-weight-600">커뮤니티</h1>
@@ -424,41 +424,28 @@ span {
 				</ul>
 			</div>
 		</section>
+			<!-- 배너종료 -->
 	
 	<!-- 바디 영역 -->
 	<div class="body" style="padding-left: 100px">
 		<div class="left-body">
 		<div class="posts">
 			<div class="feed-box" id="inst" style="padding: 20px">
-			<div th:each="d : ${diaryss}"  class="diaryCode"  th:data-code="${d.diaryCode}">
-			<a class="profile-id" th:text="${d.id}" style="margin: 10px;" id="id" th:href="@{/diarys/{id}(id=${d.id})}"></a>
-					<div class="profile-id" ></div>  
+			<button type="button" class="btn btn-primary btn-sm">Follow</button>
+			<button type="button" class="btn btn-secondary btn-sm">Unfollow</button>
+			<div th:each="d : ${diarya}"  class="diaryCode"  th:data-code="${d.diaryCode}">
+				<input type="hidden" name="id" th:value="${d.id}" id="id">
+			<a class="profile-id" th:text="${d.id}" style="margin: 10px;" id="id"></a>
+					<div class="profile-id" ></div>
 				<div class="feed-img" > 
 					<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px" height="300px">
 				</div>
 				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div><br>
 				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
 				<br><br>
-				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
+				<b><h5><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
 				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
 				</div>
-
-				<div class="comment">
-					<div>
-						<b>기덕</b> 장고 화이팅
-					</div>
-					<div>
-						<b>재명</b> 알고리즘 화이팅
-					</div>
-					<div>
-						<b>이성</b> 파이썬 화이팅
-					</div>
-				</div>
-				<div class="input-comment">
-					<input id="input-comment" type="text" class="form-control"
-						placeholder="댓글 달기...">
-				</div>
-
 				</div>
 
 			</div>
@@ -466,21 +453,5 @@ span {
 	</div>
 	</div>
 	</div>
-	<script>
-	$(document).ready(function() {
-	    var modal = document.getElementById("modal_add_feed");
-	    var diaryCode = $(".diaryCode").val();
-
-	    // id 값을 클릭하면 해당 다이어리 목록을 가져옵니다.
-	    $(".profile-id").on("click", function() {
-	        var id = $(this).text();
-	        getDiaryList(id);
-	    });
-	});
-
-	
-	</script>
-
-	
 </body>
 </html>

@@ -59,8 +59,10 @@ body>.container {
 												<tbody>
 													<tr th:each="n  : ${noticelists}">
 														<td th:text="${n.noticeCode}"></td>
-														<td><a th:text="${n.noticeTitle}"
-															th:href="@{/noticeDetails/{noticeCode}(noticeCode=${n.noticeCode})}"></a></td>
+														<td><a
+															th:text="${#strings.length(n.noticeTitle) > 10 ? #strings.substring(n.noticeTitle, 0, 10) + '.....' : n.noticeTitle}"
+															th:href="@{/noticeDetails/{noticeCode}(noticeCode=${n.noticeCode})}">
+														</a></td>
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeModDate}"></td>
 													</tr>

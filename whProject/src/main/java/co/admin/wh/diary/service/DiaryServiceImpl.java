@@ -55,6 +55,11 @@ public class DiaryServiceImpl implements DiaryService {
 		return mapper.getDiaryList();
 	}
 
+	@Override
+	public List<DiaryVO> detailDiary(String id) {
+		// TODO Auto-generated method stub
+		return mapper.getDiaryList(id);
+	}
 
 	
 	

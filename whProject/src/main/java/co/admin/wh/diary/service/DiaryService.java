@@ -10,7 +10,7 @@ public interface DiaryService {
 	
 	List<DiaryVO> getDiaryList(); //리스트 
 	
-	
+	List<DiaryVO> detailDiary(String id);
 	int diaryInsert(DiaryVO vo); //등록 
 	
 	int diaryDetail(DiaryVO vo); //상세페이지 
