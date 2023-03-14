@@ -12,6 +12,7 @@ import co.admin.wh.bookmark.vo.BookmarkVO;
 @Service
 public class BookmarkServiceImpl implements BookmarkService {
 	@Autowired BookmarkMapper mapper;
+	
 
 	@Override
 	public int insertBookHotel(BookmarkVO vo) {

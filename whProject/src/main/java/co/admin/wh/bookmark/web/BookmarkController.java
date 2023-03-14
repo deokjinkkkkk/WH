@@ -28,9 +28,20 @@ public class BookmarkController {
        String id = principal.getName();
        
        model.addAttribute("bookHotel", bMapper.hotelList(id));
-       model.addAttribute("bookTrip", bMapper.tripList(id));
+       //model.addAttribute("bookTrip", bMapper.tripList(id));
        
        return "bookmark/bookmark";
+   }
+   
+// bookmark 전체 페이지 ->마이페이지에서 확인 가능
+   @RequestMapping("/bookmarkTr")
+   public String bookmarktr(Model model, Principal principal) {
+       String id = principal.getName();
+       
+      // model.addAttribute("bookHotel", bMapper.hotelList(id));
+       model.addAttribute("bookTrip", bMapper.tripList(id));
+       
+       return "bookmark/bookmarkTr";
    }
    
    //즐겨찾기 했는지 안했는지 확인
