@@ -84,7 +84,7 @@
 						<div class="side-bar">
 							<div class="widget">
 								<button class="butn btn-block" onClick="location.href='/hotelToday'">
-									<i class="fa fa-search"></i> 오늘 예약 가능한 호텔 보기
+									<i class="fa fa-search"></i> go jeju
 								</button>
 								<br><br>
 								<hr>
@@ -98,12 +98,12 @@
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
                            </div>
-<!--                            <div class="form-group"> -->
-<!--                               <label class="margin-5px-bottom">checkout</label> <input -->
-<!--                                  type="text" value="${checkOut}" -->
-<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
-<!--                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut"> -->
-<!--                            </div> -->
+                           <div class="form-group">
+                              <label class="margin-5px-bottom">checkout</label> <input
+                                 type="text" th:value="${paging.checkOut}"
+                                 class="form-control date no-margin-bottom padding-10px-tb"
+                                 placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
+                           </div>
 									
 							<script>
                               $(function() {
@@ -141,21 +141,11 @@
 											id="hotelRegion" name="hotelRegion">
 											<option selected>지역 선택</option>
 											<option th:value="서울" th:selected="${paging.hotelRegion eq '서울'}">서울</option>
-											<option th:value="경기" th:selected="${paging.hotelRegion eq '경기'}">경기</option>
 											<option th:value="부산" th:selected="${paging.hotelRegion eq '부산'}">부산</option>
 											<option th:value="대구" th:selected="${paging.hotelRegion eq '대구'}">대구</option>
 											<option th:value="인천" th:selected="${paging.hotelRegion eq '인천'}">인천</option>
-											<option th:value="광주" th:selected="${paging.hotelRegion eq '광주'}">광주</option>
 											<option th:value="대전" th:selected="${paging.hotelRegion eq '대전'}">대전</option>
 											<option th:value="울산" th:selected="${paging.hotelRegion eq '울산'}">울산</option>
-											<option th:value="세종" th:selected="${paging.hotelRegion eq '세종'}">세종</option>
-											<option th:value="강원" th:selected="${paging.hotelRegion eq '강원'}">강원</option>
-											<option th:value="충북" th:selected="${paging.hotelRegion eq '충북'}">충북</option>
-											<option th:value="충남" th:selected="${paging.hotelRegion eq '충남'}">충남</option>
-											<option th:value="전북" th:selected="${paging.hotelRegion eq '전북'}">전북</option>
-											<option th:value="전남" th:selected="${paging.hotelRegion eq '전남'}">전남</option>
-											<option th:value="경북" th:selected="${paging.hotelRegion eq '경북'}">경북</option>
-											<option th:value="경남" th:selected="${paging.hotelRegion eq '경남'}">경남</option>
 											<option th:value="제주" th:selected="${paging.hotelRegion eq '제주'}">제주</option>
 										</select>
 									</div>
@@ -193,10 +183,11 @@
 							 document.getElementById("searchBtn").onclick = function () {
 							    
 							  let checkIn = document.getElementsByName("checkIn")[0].value;
+							  let checkOut = document.getElementsByName("checkOut")[0].value;
 							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
 							  let humanCount =  document.getElementsByName("humanCount")[0].value;
 							  
-							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
 							  
 							  console.log(checkIn)
 							  console.log(hotelRegion)

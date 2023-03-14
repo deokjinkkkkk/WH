@@ -173,13 +173,19 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 												onclick="modalForm()">정보수정</button>
 												<button type="button" class="btn btn-danger"
 												data-toggle="modal" data-target="#myModal" id="modalForm"
-												onclick="modalForm()">결제취소</button></td>
+												onclick="cancelOK()">취소승인</button></td>
         </tr>
     </tbody>
   </table>
+  <script>
+  	function cancelOK(){
+  		var result = confirm("예약취소를 승인하시겠습니까?");
+ //여기더작업해야됨!!!!!!!!!!!!!!  		
+  	}
+  </script>
 </div>
 		
-	</div>
+	
 	<!-- 내용 끝 -->
 </body>
 </html>
