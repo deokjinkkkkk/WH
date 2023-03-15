@@ -77,9 +77,10 @@ body>.container {
 													<tr th:each="n  : ${noticelists}">
 														<td th:text="${n.noticeCode}"></td>
 														<td><a
-															th:text="${#strings.length(n.noticeTitle) > 10 ? #strings.substring(n.noticeTitle, 0, 10) + '.....' : n.noticeTitle}"
 															th:href="@{/noticeDetail/{noticeCode}(noticeCode=${n.noticeCode})}">
-														</a>
+																<span
+																th:text="${n.noticeTitle != null and #strings.length(n.noticeTitle) > 10 ? #strings.substring(n.noticeTitle, 0, 10) + '.....' : (n.noticeTitle != null ? n.noticeTitle : '')}"></span>
+														</a></td>
 														<td th:text="${n.noticeRegDate}"></td>
 														<td th:text="${n.noticeModDate}"></td>
 													</tr>
