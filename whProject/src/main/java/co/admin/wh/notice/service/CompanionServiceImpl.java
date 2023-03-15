@@ -129,4 +129,10 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.selTitle(vo);
 	}
 
+	@Override
+	public int comSelDelete(CompanionVO vo) {
+		// TODO Auto-generated method stub
+		return map.comSelDelete(vo);
+	}
+
 }

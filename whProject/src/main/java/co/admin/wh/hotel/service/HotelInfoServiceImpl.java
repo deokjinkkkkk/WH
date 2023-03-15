@@ -131,6 +131,12 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		return hotelMapper.adminReservList();
 	}
 
+	@Override
+	public List<HotelVO> mainList(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.mainList(vo);
+	}
+
 //	@Override
 //	public void updateReservInfoByAdmin(ReservationVO vo) {
 //		hotelMapper.updateReservInfoByAdmin(vo);

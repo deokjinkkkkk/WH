@@ -188,5 +188,9 @@
 	<select id="selTitle" resultType="co.admin.wh.notice.vo.CompanionVO">
 		select * FROM COMPANION_LIST where comp_title=#{compTitle}
 	</select>
+	
+	<delete id="comSelDelete">
+		Delete from COMPANION_LIST where COMP_CODE = #{compCode}
+	</delete>
 </mapper>
 

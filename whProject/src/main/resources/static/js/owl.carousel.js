@@ -2589,7 +2589,7 @@
 	 */
 	Autoplay.Defaults = {
 		autoplay: false,
-		autoplayTimeout: 5000,
+		autoplayTimeout: 2000,
 		autoplayHoverPause: false,
 		autoplaySpeed: false
 	};
@@ -2816,9 +2816,9 @@
 		navText: [ 'prev', 'next' ],
 		navSpeed: false,
 		navElement: 'div',
+		navClass: [ 'owl-prev', 'owl-next' ],
 		navContainer: false,
 		navContainerClass: 'owl-nav',
-		navClass: [ 'owl-prev', 'owl-next' ],
 		slideBy: 1,
 		dotClass: 'custom-dot',
 		dotsClass: 'owl-dots',
@@ -2842,16 +2842,12 @@
 			: $('<div>').addClass(settings.navContainerClass).appendTo(this.$element)).addClass('disabled');
 
 		this._controls.$previous = $('<' + settings.navElement + '>')
-			.addClass(settings.navClass[0])
-			.html(settings.navText[0])
-			.prependTo(this._controls.$relative)
+			
 			.on('click', $.proxy(function(e) {
 				this.prev(settings.navSpeed);
 			}, this));
 		this._controls.$next = $('<' + settings.navElement + '>')
-			.addClass(settings.navClass[1])
-			.html(settings.navText[1])
-			.appendTo(this._controls.$relative)
+			
 			.on('click', $.proxy(function(e) {
 				this.next(settings.navSpeed);
 			}, this));

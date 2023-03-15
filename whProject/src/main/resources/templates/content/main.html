@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<!-- 뭐야.. CSS -->
-	<th:block layout:fragment="head" th:include="@{head}"></th:block>
-    <!-- 뭐야.. CSS 끝 -->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
 
 
 
-    <body>
-    	<!-- 헤더 시작 -->
-        <th:block layout:fragment="header" th:include="@{header}"></th:block>
-		<!-- 헤더 끝 -->
-		<!-- 배너 시작 -->
-		<!--         <banner th:replace="~{banner ::banner }"></banner> -->
-		<section class="bg-img screen-height cover-background line-banner" data-overlay-dark="2" data-background="img/banner/bg3.jpg">
+
+
+
+
+<body>
+<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+    <!-- start page loading -->
+    
+
+        <!-- start banner -->
+        <section class="bg-img screen-height cover-background line-banner" data-overlay-dark="2" th:style="|background:url(img/banner/bg2.jpg)|">
 
             <!-- start banner text -->
             <div class="header-text">
@@ -29,69 +31,36 @@
                     </div>
                 </div>
             </div>
-            
             <!-- end banner text -->
 
         </section>
-        <!-- 배너 끝 -->
+        <!-- end banner -->
 
-        <!-- 각자 내용 -->
-        <div layout:fragment="content" class="content">
-            <!-- Start popular destination Section -->
+       
+
+        <!-- Start popular destination Section -->
         <section>
-            <div class="container" align="center">
-<!--                 <div class="row"> -->
-<!--                     <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom"> -->
-<!--                         <div class="destination padding-50px-right xs-no-padding-right"> -->
-<!--                             <div class="input-group"> -->
-<!--                                 <div class="input-group-append"> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<div>
+            <div class="text-center margin-40px-bottom">
+                    <h3 class="margin-10px-bottom position-relative">추천 여행지</h3>
+                </div>
+            <div class="container" style="border: 0.5px solid lightgray; border-radius:30px; padding: 20px;  " >
+                <div class="row">
+                    <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom">
+                    
+                        <div> 
+                            <p class="margin-30px-bottom" style="font-size:20px; padding: 40px;  text-align:center;">추천!<br>국내여행에 특별함을 더하다!</p>
+                            
+                        </div>
+                    </div>
                     <div class="col-md-7 text-center">
-                        <div class="owl-carousel owl-theme" id="destination">
-                            <div>
-                                <img src="img/content/destination-1.jpg" class="border-radius-4" alt="" />
+                        <div class="owl-carousel owl-theme" id="destination" style="width:630px;height:300px; ">
+                        
+                      
+                                <div th:each="c : ${t}">
+                                <img th:src="${c.imgGroCode}" class="border-radius-4" style="width:400px; height:150px;" />
                                 <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">Argentina</h5>
-                                    <p class="no-margin-bottom">12 Tours Available</p>
-                                </div>
-                            </div>
-                            <div class="margin-30px-top xs-no-margin-top">
-                                <img src="img/content/destination-2.jpg" class="border-radius-4" alt="" />
-                                <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">Slovenia</h5>
-                                    <p class="no-margin-bottom">10 Tours Available</p>
-                                </div>
-                            </div>
-                            <div>
-                                <img src="img/content/destination-3.jpg" class="border-radius-4" alt="" />
-                                <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">Maldives</h5>
-                                    <p class="no-margin-bottom">4 Tours Available</p>
-                                </div>
-                            </div>
-                            <div class="margin-30px-top xs-no-margin-top">
-                                <img src="img/content/destination-4.jpg" class="border-radius-4" alt="" />
-                                <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">Madrid</h5>
-                                    <p class="no-margin-bottom">5 Tours Available</p>
-                                </div>
-                            </div>
-                            <div>
-                                <img src="img/content/destination-5.jpg" class="border-radius-4" alt="" />
-                                <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">New York</h5>
-                                    <p class="no-margin-bottom">8 Tours Available</p>
-                                </div>
-                            </div>
-                            <div class="margin-30px-top xs-no-margin-top">
-                                <img src="img/content/destination-6.jpg" class="border-radius-4" alt="" />
-                                <div class="padding-20px-top padding-20px-left">
-                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom">Bali</h5>
-                                    <p class="no-margin-bottom">2 Tours Available</p>
+                                <input type="hidden" id="tripCode" name="tripCode" th:value="${c.tripCode}"><hr>
+                                    <h5 class="font-size22 sm-font-size18 no-margin-bottom"><a th:href="@{/tripDetail/{tripCode}(tripCode=${c.tripCode})}" class="text-extra-dark-gray">[[${c.tripName}]]</a></h5>
                                 </div>
                             </div>
                         </div>
@@ -105,63 +74,25 @@
         <section>
             <div class="container">
                 <div class="text-center margin-40px-bottom">
-                    <h3 class="margin-10px-bottom position-relative">인기 여행지????</h3>
+                    <h3 class="margin-10px-bottom position-relative">인기 숙소</h3>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 sm-margin-30px-bottom">
-                        <div class="border border-radius-4 package h-100">
-                            <img src="img/content/package-1.jpg" alt="" />
+                    <div class="col-lg-4 sm-margin-30px-bottom" th:each="i : ${h}">
+                        <div class="border border-radius-4 package h-100" >
+                            <img th:src="${i.img1}" />
                             <div class="padding-30px-all">
                                 <div class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
                                     <div>
-                                        <h5 class="no-margin-bottom font-size22">Bali</h5>
-                                        <span class="letter-spacing-2"><span class="ti-location-pin"></span> Indonesia</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-size30 text-dark">549$</span>
+                                        <h5 class="no-margin-bottom font-size22">[[${i.hotelName}]]</h5>
+                                        <span class="letter-spacing-2"><span class="ti-location-pin"></span> [[${i.hotelRegion}]]</span>
                                     </div>
                                 </div>
-                                <p class="margin-30px-bottom">Lorem ipsum dolor sit amet, elit consectetur adipiscing elit. Nunc ut efficitur ante. Donec dapibu.</p>
-                                <a href="tour-detail.html" class="butn">Details</a>
+                                <input type="hidden" id="hotelId" name="hotelId" th:value="${i.hotelId}" >
+                                <a th:href="@{/hotelDetail/{hotelId}(hotelId = ${i.hotelId})}" class="butn">Details</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 sm-margin-30px-bottom">
-                        <div class="border border-radius-4 package h-100">
-                            <img src="img/content/package-2.jpg" alt="" />
-                            <div class="padding-30px-all">
-                                <div class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
-                                    <div>
-                                        <h5 class="no-margin-bottom font-size22">New York</h5>
-                                        <span class="letter-spacing-2"><span class="ti-location-pin"></span> USA</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-size30 text-dark">769$</span>
-                                    </div>
-                                </div>
-                                <p class="margin-30px-bottom">It is a long established fact that a reader will be distracted by the readable content of a page when.</p>
-                                <a href="tour-detail.html" class="butn">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="border border-radius-4 package h-100">
-                            <img src="img/content/package-3.jpg" alt="" />
-                            <div class="padding-30px-all">
-                                <div class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
-                                    <div>
-                                        <h5 class="no-margin-bottom font-size22">Tokio</h5>
-                                        <span class="letter-spacing-2"><span class="ti-location-pin"></span> Japan</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-size30 text-dark">899$</span>
-                                    </div>
-                                </div>
-                                <p class="margin-30px-bottom">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
-                                <a href="tour-detail.html" class="butn">Details</a>
-                            </div>
-                        </div>
-                    </div>
+              
                 </div>
             </div>
         </section>
@@ -193,12 +124,51 @@
             </div>
         </section>
         <!-- end other section -->
-        </div>
-        <!-- 내용 끝 -->
 
-        <!-- 푸터 시작 -->
-        <th:block layout:fragment="footer" th:include="@{footer}"></th:block>
-        <!-- 푸터 끝 -->
+        <!-- start countries section -->
+        <section>
+            <div class="container">
+                <div class="text-center margin-40px-bottom">
+                    <h3 class="no-margin-bottom">Popular Tourist Countries</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 sm-margin-30px-bottom">
+                        <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
+                            <img src="img/content/tour-7.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Singapore</h5>
+                            <p class="center-col no-margin-bottom">Lorem Ipsum is simply dummy text of the printing.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 sm-margin-30px-bottom">
+                        <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
+                            <img src="img/content/tour-8.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Paris</h5>
+                            <p class="center-col no-margin-bottom">It is a long established fact that a reader will.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mobile-margin-30px-bottom">
+                        <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
+                            <img src="img/content/tour-9.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Tokyo</h5>
+                            <p class="center-col no-margin-bottom">Content of a page when looking at its layout the point.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
+                            <img src="img/content/tour-10.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">NewYork</h5>
+                            <p class="center-col no-margin-bottom">Aliquam quis ullamcorper neque. Suspendisse potenti.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end countries section -->
 
-    </body>
+     
+
+ 
+
+</body>
+
 </html>

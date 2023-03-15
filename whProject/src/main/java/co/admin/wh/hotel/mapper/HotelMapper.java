@@ -50,5 +50,7 @@ public interface HotelMapper {
     List<ReservationVO> adminReservList(); // 관리자 예약내역 전체조회
 //    void updateReservInfoByAdmin(ReservationVO vo); // 관리자 예약정보 수정
     
+  //메인페이지
+    List<HotelVO> mainList(HotelSearchVO vo);
 }
 
