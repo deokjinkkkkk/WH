@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.service.EmailService;
+import co.admin.wh.member.vo.MemberSearchVO;
 import co.admin.wh.member.vo.MemberVO;
+import co.admin.wh.notice.vo.Paging;
 
 @Controller
 public class MemberController {
@@ -120,7 +123,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("/admemList")
-	public String adMemList(MemberVO vo, Model model) {
+	public String adMemList(@ModelAttribute("fcvo") MemberSearchVO vo, Model model, Paging paging) {
+		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
+		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst());
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(memberMapper.getCountTotal(vo));
+		
 		model.addAttribute("mem", memberMapper.adMemberList());
 		return "admin/memberAdmin";
 	}

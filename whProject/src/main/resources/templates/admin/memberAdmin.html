@@ -2,6 +2,22 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
 <body layout:fragment="adminContent">
+<!-- 페이징 -->
+		<script>
+			function gopage(page) {
+				location.href = "food?page=" + page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+
+			$(function() {
+				$(".btnInfo").on("click", function() {
+					let url = $(this).closest("tr").children().first().text();
+					location.href = `foodDetail/${url}`
+				})
+			})
+		</script>
+
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">회원정보</h6>
@@ -63,6 +79,24 @@
 			</div>
 		</form>
 	</div>
+		<!-- 페이징 추가 해주세요 -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+											<li class="page-item" th:if="${paging.startPage > 1}">
+												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
+												</li>											
+												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
+												</li>										
+												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+												</li>
+											</ul>
+										</nav>
+									</div> 
+                   				<!-- 페이징 끝 -->
 	<script type="text/javascript">
 		function memModal() {
 			id = $(event.target).parent().prev().prev().prev().prev().prev().prev()
