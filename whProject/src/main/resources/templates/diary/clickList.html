@@ -437,8 +437,7 @@ button {
 						src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
 				</div>
 			</nav>
-			<br>
-			<br>
+			<br> <br>
 
 			<div class="left-body">
 				<div class="posts">
@@ -462,10 +461,45 @@ button {
 								<td>팔로우수넣기</td>
 								<td>팔로잉수넣기</td>
 								<td>
-								 <!-- 팔로우 누른경우   -->
-									<button th:if="${isFollowing}" type="button" class="btn btn-secondary btn-sm">Unfollow</button>
-									<button th:unless="${isFollowing}" type="button" class="btn btn-primary btn-sm">Follow</button>
- 								<!-- 팔로우 누르지 않은경우   -->	
+									<!-- 팔로우 누른경우   -->
+									<button th:if="${isFollowing}" type="button"
+										class="btn btn-secondary btn-sm">Unfollow</button>
+									<button th:unless="${isFollowing}" type="button"
+										class="btn btn-primary btn-sm">Follow</button> <!-- 팔로우 누르지 않은경우   -->
+									<input type="hidden" id="id" name="id"
+									th:value="${session.name}"> 
+									<script>
+											var id = $('#id').val();
+											console.log(id);
+								
+											$(document).ready(function(){
+									               getFollow(id)
+									            })	
+										
+											function getFollow(id) {
+											  $.ajax({
+											    url: "/checkFollow/" + id,
+											    data: {
+											      'id': id,
+											    },
+											    success: function(response) {
+											      if (response.isFollowing) {
+											        // 현재 사용자가 이 사용자를 팔로우하고 있음
+											        $('#follow-btn').removeClass('btn-primary').addClass('btn-secondary').text('Unfollow');
+											      } else {
+											        // 현재 사용자가 이 사용자를 팔로우하고 있지 않음
+											        $('#follow-btn').removeClass('btn-secondary').addClass('btn-primary').text('Follow');
+											      }
+											    },
+											    error: function() {
+											      console.log("에러");
+											    }
+											  });
+											}
+
+										
+									</script>
+
 								</td>
 							</tr>
 						</tbody>
@@ -474,9 +508,7 @@ button {
 					<div class="feed-box" id="inst" style="padding: 20px">
 						<div th:each="d : ${diarya}" class="diaryCode"
 							th:data-code="${d.diaryCode}">
-							<input type="hidden" id="id" name="id" th:value="${session.name}">
-							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"
-								id="id"></a>
+							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"></a>
 							<div class="profile-id"></div>
 							<div class="feed-img">
 								<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px"
@@ -487,8 +519,7 @@ button {
 							<br>
 							<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"
 								style="float: left;"></div>
-							<br> <br>
-							<b><h5>
+							<br> <br> <b><h5>
 									<div class="feed-text" id="diarytitlet"
 										th:text="${d.diaryTitle}" style="float: none;"></div>
 								</h5></b>
@@ -502,24 +533,5 @@ button {
 		</div>
 	</div>
 	</div>
-	<script>
-		//팔로 했는지 체크
-var followButton = document.getElementById("follow-button");
-
-followButton.addEventListener("click", function() {
-  if (followButton.classList.contains("btn-primary")) {
-    followButton.classList.remove("btn-primary");
-    followButton.classList.add("btn-secondary");
-    followButton.textContent = "Unfollow";
-    isFollowing = true;   //추가시 
-  } else {
-    followButton.classList.remove("btn-secondary");
-    followButton.classList.add("btn-primary");
-    followButton.textContent = "Follow";
-    isFollowing = false; //언팔시 
-  } 
-});
-
-	</script>
 </body>
 </html>
