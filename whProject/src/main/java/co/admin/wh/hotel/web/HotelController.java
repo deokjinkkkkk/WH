@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
+import co.admin.wh.hotel.mapper.HotelMapper;
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
 import co.admin.wh.hotel.vo.HotelSearchVO;
@@ -186,6 +187,7 @@ public class HotelController {
 	@PostMapping("/cancel") // 예약취소
 	@ResponseBody
 	public String cancel(@RequestBody ReservationVO vo, Model model) {
+		vo.setResState(0); // 현재 예약상태를 vo에 set. 0:예약완료상태
 		hotelInfoService.hotelCancel(vo);
 		return "y";
 	}
@@ -282,10 +284,22 @@ public class HotelController {
 		return "hotel/adminReservList";
 	}
 	
-	@GetMapping("/Admin/cancel") // 관리자 취소 승인
+	@PostMapping("/Admin/cancel") // 관리자 취소 승인
 	@ResponseBody
 	public String adminCancel(@RequestBody ReservationVO vo, Model model) {
+		vo.setResState(1); // 현재예약상태 1 : 취소신청
 		hotelInfoService.hotelCancel(vo);
 		return "y";
+	}
+	
+	@PostMapping("/Admin/updateReservInfo") // 관리자 예약정보 수정
+	public String adminUpdateReservInfo(ReservationVO vo, Model model) {
+		hotelInfoService.ReservUpdate(vo);
+		return "redirect:/Admin/reservation";
+	}
+	
+	@PostMapping("/adminReservSearch")
+	public String adminReservSearch() {
+		return "";
 	}
 };
