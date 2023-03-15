@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.admin.wh.notice.vo.Paging;
 import co.admin.wh.trip.CourseInfoExplorer;
 import co.admin.wh.trip.mapper.CourseMapper;
@@ -85,9 +88,16 @@ public class CourseController {
 	// 상세페이지 보기
 	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
 	public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
+		ObjectMapper object = new ObjectMapper();
 		vo.setCouCode(couCode);
 		model.addAttribute("onecourse", courseService.oneSelect(vo));
 		model.addAttribute("course", courseService.detailSelect(vo));
+		try {
+			model.addAttribute("couJson", object.writeValueAsString(courseService.detailSelect(vo)));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 		return "trip/tripCourseDetail";
 	}
 }

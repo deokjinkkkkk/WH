@@ -113,8 +113,6 @@ position: absolute;
 							<div class="post">
 								<div class="content">
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
-									
-                                    
 										<div class="post-title-g margin-20px-bottom text-center">
 											<h5 th:text="${onecourse.couName}"></h5>
 											<p th:text="${onecourse.couContent}" class="margin-30px-bottom"></p>
@@ -129,7 +127,99 @@ position: absolute;
                                            		</a>
                                             </div>                                
                                         </div>
-                              <!-- 코스 종류 사진 끝 -->   
+                              			<!-- 코스 종류 사진 끝 -->
+                              			
+                              			<!-- 구글 지도 API 이용 -->
+                             	<div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div><p id="total-distance" >총 거리 : </p></div>
+                                <script type="text/javascript">
+                                
+                                var map;
+                                var tripMap = [(${couJson})]
+                                console.log(tripMap);
+                                
+                                // 각 위도와 경도값을 ajax
+                                function initMap() {
+                                    
+                                    var defaultOptions = {
+                                        zoom: 12.5,
+                                        center:  {
+                                			lat: Number(tripMap[0].tripLat),
+                                			lng: Number(tripMap[0].tripLon)
+                                	},
+                                        disableDefaultUI: true,
+                                        zoomControl: true
+                                    };
+
+                                         
+                                    map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+                                    
+                                    var totalDistance = 0; // 총 거리 변수 초기화
+                                                                        
+                                    for (var i = 0 ; i < tripMap.length; i++) {
+                                    	var cityHall = {
+                                    			lat: Number(tripMap[i].tripLat),
+                                    			lng: Number(tripMap[i].tripLon)
+                                    	}
+                                    	
+                                    	// 코스 순서 번호 
+                                    	var couOrder = Number(tripMap[i].couOrder)
+                                    	
+                                    	if (i > 0) {
+                                    		  var polyline = new google.maps.Polyline({
+                                    		    path: [
+                                    		      new google.maps.LatLng(tripMap[i-1].tripLat, tripMap[i-1].tripLon),
+                                    		      new google.maps.LatLng(tripMap[i].tripLat, tripMap[i].tripLon)
+                                    		    ],
+                                    		    strokeColor: "#FF0000",
+                                    		    strokeOpacity: 1.0,
+                                    		    strokeWeight: 2
+                                    		  });
+                                    		  polyline.setMap(map);
+                                    		}
+                                    	
+                                    	
+                                    	// 여행지 이름 변수에 담기
+                                    	var name = tripMap[i].tripName
+                                    	
+                                    	var marker = new google.maps.Marker({
+	                                        position: cityHall,
+	                                        map: map,                       
+	                                        index: couOrder  // 순서 정보를 가진 변수 추가
+		                                    });
+                                    	
+                                    	// 마커 위에 말풍선 추가
+                                    	var infoWindow = new google.maps.InfoWindow({
+                                            content: (marker.index) + ". " + name
+                                        });
+                                                              	
+                                    		infoWindow.open(map, marker);
+                                    	
+                                            map.setCenter(marker.getPosition());                                       
+                                                                      
+                                         // 이전 마커와 현재 마커 사이의 거리 계산
+                                         if (i > 0) {
+                                            var distance = google.maps.geometry.spherical.computeDistanceBetween(
+	                                            new google.maps.LatLng(tripMap[i-1].tripLat, tripMap[i-1].tripLon),
+	                                            new google.maps.LatLng(tripMap[i].tripLat, tripMap[i].tripLon)
+                                           );
+                                            
+                                            totalDistance += distance; // 총 거리에 현재 마커와 이전 마커 사이의 거리를 더해줌
+                                            console.log('마커 사이의 거리 index:' + (i-1) + ' and index:' + i + ': ' + (distance/1000) + ' km');
+                                         }                                            
+		                               }
+                                    
+                                    	// totalDistance 값의 소수점 2자리 까지만 출력되게 함. (.tiFixed(2))
+                                    	// id가 total-distance인 p태그에 값 출력
+	                                    document.getElementById("total-distance").innerHTML = "총 거리: " + (totalDistance / 1000).toFixed(2) + " km";
+		                           }
+                                                                    
+                                </script>
+                                <script 
+                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&libraries=geometry&callback=initMap">
+                                </script>
+								<!-- api 끝 -->
+                              			
 
 												
 									</div>
@@ -192,11 +282,6 @@ position: absolute;
 			</div>
 		</section>
 		<!-- 여행 코스 상세정보 끝 -->
-
-<!-- 이미지 클릭 시 상세정보 모달창 띄우기 -->
-<script type="text/javascript">
-
-</script>
 
 
 <script>

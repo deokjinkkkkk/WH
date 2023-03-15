@@ -89,7 +89,14 @@
 											</tr>
 										</tbody>
                                     </table>
-                                    
+                                   <div class="container">
+           							 <div class="row">
+                                     	<div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+				                        <p style="font-size: 30px;">전체 여행지<p><hr>
+                           			</div>
+                           		 </div>
+                           		</div>
+                           		
                                     <!-- 구글 지도 API 이용 -->
                                 <div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <div><p id="total-distance" >총 거리 : </p></div>
@@ -103,7 +110,7 @@
                                 	
                                     
                                     var defaultOptions = {
-                                        zoom: 7.6,
+                                        zoom: 6.3,
                                         center:  {
                                 			lat: Number(tripMap[0].tripLat),
                                 			lng: Number(tripMap[0].tripLon)
@@ -207,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>    
 <script type="text/javascript">
 
 /* '삭제' 버튼 클릭 시, 해당 행(여행지) 삭제 */
@@ -315,7 +322,7 @@
 			contentType : 'application/json',
 			success : function(response) {
 				alert('저장되었습니다.');
-				//location.reload();
+				location.reload();
 			},
 			error : function(error) {
 				alert('저장에 실패하였습니다.');

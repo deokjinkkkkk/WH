@@ -30,4 +30,9 @@ public class CourseVO {
 	String tripSumm; // + 추가, 여행 개요... ㅇㄴ
 	int couOrder; // + 추가, 코스 순서
 	
+	// 여행지 select
+	String tripLat; //위도
+	String tripLon; //경도
+	String tripName; // 여행지 이름	
+	
 }
