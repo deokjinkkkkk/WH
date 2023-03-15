@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<!-- Google Material icon -->
+
 <style>
 a {
 	text-decoration-line: none;
@@ -339,8 +340,6 @@ span {
 	}
 }
 
-
-
 .modal_window {
 	background: white;
 	backdrop-filter: blur(13.5px);
@@ -407,12 +406,15 @@ span {
 	width: 500px;
 }
 
-
-</style>	
+button {
+	text-align: center;
+}
+</style>
 <body>
+
 	<div layout:fragment="content" class="content">
 
-	<!-- 배너시작 -->
+		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(/img/banner/bg2.jpg)|">
 			<div class="container">
@@ -424,34 +426,100 @@ span {
 				</ul>
 			</div>
 		</section>
-			<!-- 배너종료 -->
-	
-	<!-- 바디 영역 -->
-	<div class="body" style="padding-left: 100px">
-		<div class="left-body">
-		<div class="posts">
-			<div class="feed-box" id="inst" style="padding: 20px">
-			<button type="button" class="btn btn-primary btn-sm">Follow</button>
-			<button type="button" class="btn btn-secondary btn-sm">Unfollow</button>
-			<div th:each="d : ${diarya}"  class="diaryCode"  th:data-code="${d.diaryCode}">
-				<input type="hidden" name="id" th:value="${d.id}" id="id">
-			<a class="profile-id" th:text="${d.id}" style="margin: 10px;" id="id"></a>
-					<div class="profile-id" ></div>
-				<div class="feed-img" > 
-					<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px" height="300px">
-				</div>
-				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div><br>
-				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
-				<br><br>
-				<b><h5><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
-				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
-				</div>
-				</div>
+		<!-- 배너종료 -->
 
+		<!-- 바디 영역 -->
+		<div class="body" style="padding-left: 100px">
+
+			<nav class="navbar">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#"> <img
+						src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
+				</div>
+			</nav>
+			<br>
+			<br>
+
+			<div class="left-body">
+				<div class="posts">
+					<table class="table table-striped table-hover"
+						style="width: 1000px;">
+						<thead>
+							<tr>
+								<th></th>
+								<th>게시물</th>
+								<th>팔로우</th>
+								<th>팔로잉</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-status="active">
+								<td><div th:if="${not #lists.isEmpty(diarya)}">
+										<h4 th:text="${diarya[0].id}"></h4>
+									</div>
+								<td>게시물 수 넣기</td>
+								<td>팔로우수넣기</td>
+								<td>팔로잉수넣기</td>
+								<td>
+								 <!-- 팔로우 누른경우   -->
+									<button th:if="${isFollowing}" type="button" class="btn btn-secondary btn-sm">Unfollow</button>
+									<button th:unless="${isFollowing}" type="button" class="btn btn-primary btn-sm">Follow</button>
+ 								<!-- 팔로우 누르지 않은경우   -->	
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr style="width: 1000px;">
+					<div class="feed-box" id="inst" style="padding: 20px">
+						<div th:each="d : ${diarya}" class="diaryCode"
+							th:data-code="${d.diaryCode}">
+							<input type="hidden" id="id" name="id" th:value="${session.name}">
+							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"
+								id="id"></a>
+							<div class="profile-id"></div>
+							<div class="feed-img">
+								<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px"
+									height="300px">
+							</div>
+							<div class="like" id="diaryStartDate"
+								th:text="${d.diaryStartDate}" style="float: left;"></div>
+							<br>
+							<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"
+								style="float: left;"></div>
+							<br> <br>
+							<b><h5>
+									<div class="feed-text" id="diarytitlet"
+										th:text="${d.diaryTitle}" style="float: none;"></div>
+								</h5></b>
+							<div class="feed-text" id="diaryContent"
+								th:text="${d.diaryContent}" style="float: none;"></div>
+						</div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	</div>
-	</div>
+	<script>
+		//팔로 했는지 체크
+var followButton = document.getElementById("follow-button");
+
+followButton.addEventListener("click", function() {
+  if (followButton.classList.contains("btn-primary")) {
+    followButton.classList.remove("btn-primary");
+    followButton.classList.add("btn-secondary");
+    followButton.textContent = "Unfollow";
+    isFollowing = true;   //추가시 
+  } else {
+    followButton.classList.remove("btn-secondary");
+    followButton.classList.add("btn-primary");
+    followButton.textContent = "Follow";
+    isFollowing = false; //언팔시 
+  } 
+});
+
+	</script>
 </body>
 </html>
