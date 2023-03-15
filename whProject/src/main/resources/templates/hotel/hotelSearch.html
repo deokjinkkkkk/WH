@@ -8,7 +8,7 @@
 	
 	<!-- 페이징 -->
     <script th:inline="javascript">
-   function gopage(page) {
+   function gopage(page) { // 이거 지금 안 먹음 ㅠㅠ
 	   let searchInfo = [[${paging.SearchInfo}]];
 	   location.href = "hotelSearch?page=" + page + searchInfo;
 	   frmSearch.page.value = page;
@@ -55,7 +55,7 @@
 												<!--<span class="font-size30 text-dark">549$</span> -->
 											</div>
 										</div>
-										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn">Details</a>
+										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn" onclick="detailBtn()">Details</a>
 									</div>
 								</div>
 							</div>
