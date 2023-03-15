@@ -134,14 +134,24 @@
 	    and r.res_state = 1	
 	</select>
 	
-	<!-- 예약 취소 -->
-	<update id="hotelCancel" parameterType="co.admin.wh.hotel.vo.ReservationVO">
-		update reservation
-		<set>
-			<if test="resState != null">res_state = 1</if>
-		</set>
-		where res_id=#{resId}
-	</update>
+	<!-- 예약취소신청 / 취소승인 -->
+<update id="hotelCancel" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+    update reservation
+    <set>
+        <choose>
+            <when test="resState == 0">
+                res_state = 1
+            </when>
+            <when test="resState == 1">
+                res_state = 2
+            </when>
+            <otherwise>
+                res_state = res_state
+            </otherwise>
+        </choose>
+    </set>
+    where res_id=#{resId}
+</update>
 	
 	<!-- 예약자 정보 변경 -->
 	<update id="ReservUpdate" parameterType="co.admin.wh.hotel.vo.ReservationVO">

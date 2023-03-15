@@ -10,7 +10,7 @@
 
 	<!-- 코스 제목 등록 -->
 	<insert id="titleInsert" parameterType="co.admin.wh.trip.vo.MyCourseVO">
-	<selectKey keyProperty="myCourseCode" resultType="String" order="BEFORE">
+	<selectKey keyProperty="myCourseCode" resultType="int" order="BEFORE">
 		SELECT NVL(MAX(my_Course_Code),0)+1 FROM MY_COURSE
 	</selectKey>
 	INSERT INTO MY_COURSE
@@ -36,5 +36,18 @@
 	    SET MY_COURSE_CODE = MY_COURSE_CODE - 1
 	    WHERE MY_COURSE_CODE > #{myCourseCode}
 	</update>
+	
+	<!-- 나만의 코스 리스트를 공유할 시, 코스 목록에 출력 
+	<select id="">
+		select 'a' gb , TO_NUMBER(cou_code), cou_name, img_gro_code
+		FROM COURSE 
+		union all
+		select 'm' gb , my_course_code, my_cou_name, (
+		    SELECT t.img_gro_code
+		      from my_course_free c join trip t on c.trip_unique_number = t.trip_unique_number 
+		    where my_course_code = m.my_course_code
+		    AND cou_ord = '1' AND rownum = 1
+		) img from my_course m;
+	</select> -->
 	
 </mapper>

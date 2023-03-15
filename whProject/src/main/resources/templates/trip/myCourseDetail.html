@@ -200,7 +200,7 @@
 									</div>
 									<br>
                                     <div class="col-md-12">
-                                        <button type="button" class="butn" onclick="moveTotal()"><span>수정하기</span></button>
+                                        <button type="button" class="butn" onclick="moveTotal(); myCouSharing();"><span>수정하기</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -321,9 +321,49 @@
 		});	
 	}
 	
-/* 테이블 여행지 정보와 지도, 소개글을 코스에 공유할 시 코스 목록에 출력 */
+	var total = [(${json})]
+	console.log(total)
+	/* 테이블 여행지 정보와 지도, 소개글을 코스에 공유할 시 코스 목록에 출력 */
+	function myCouSharing() {
 
-$()
+	// "chkMenu"라는 이름을 가진 라디오 버튼 중에서 선택된 버튼의 값을 변수 shareFlag에 저장.
+    var shareFlag = $('input[name="chkMenu"]:checked').val();
+    console.log(shareFlag)
+    
+     //if (shareFlag == 1) {
+    for (var i = 0 ; i < total.length; i++) {
+        var mana = total[i].couOrd
+        var tripName = total[i].tripName   
+        var img
+	    console.log('+++'+ mana)
+	    console.log('+++'+ tripName)
+    }
+    	var row = $(event.target).closest('tr');
+    	var couOrd = row.find('.couOrd').text(); // 해당 td태그의 값을 가져옴
+	    var tripLat = $('.tripLat').map(function() {
+	        return $(this).val();
+	    }).get();
+	    var tripLon = $('.tripLon').map(function() {
+	        return $(this).val();
+	    }).get();
+
+    $.ajax({
+        type: "POST",
+        url: "/myCouSharing",
+        data: { 
+            shareFlag: shareFlag,
+            couOrd: couOrd,
+            tripLat: tripLat,
+            tripLon: tripLon
+        },
+        success: function(result) {
+            // Ajax 요청 성공 시 처리할 코드
+        },
+        error: function(xhr, status, error) {
+            // Ajax 요청 실패 시 처리할 코드
+        }
+    });
+}
 
 </script>
             </div>

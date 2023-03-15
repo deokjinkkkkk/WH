@@ -36,7 +36,7 @@ public interface HotelInfoService {
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
     void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
     
-    //마이페이지
+    //마이페이지 & 관리자페이지
     List<ReservationVO> readReservInfo(String sessionId); // 예약정보 출력
     void ReservUpdate(ReservationVO vo); // 예약자 정보수정(업데이트문)
     void hotelCancel(ReservationVO vo); // 예약 취소(업데이트문)
@@ -46,6 +46,7 @@ public interface HotelInfoService {
     
     // 관리자
     List<ReservationVO> adminReservList(); // 관리자 예약내역 전체조회
+//    void updateReservInfoByAdmin(ReservationVO vo); // 관리자 예약정보 수정
     
 }
 

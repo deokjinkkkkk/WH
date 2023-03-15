@@ -15,7 +15,7 @@
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * FROM COURSE 
 		<include refid="criteria"></include>
-		ORDER BY REGION_CODE DESC
+		ORDER BY COU_NAME DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
