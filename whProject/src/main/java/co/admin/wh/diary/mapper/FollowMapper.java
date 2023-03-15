@@ -6,15 +6,21 @@ import java.util.Map;
 import co.admin.wh.diary.vo.FollowVO;
 
 public interface FollowMapper {
-
-	//리스트 
-		public List<Map<String,Object>> followList(String id);
+	//팔로워 리스트 
+		public List<Map<String,Object>> followerList(String id);
+		
+		//팔로워 리스트 
+		public List<Map<String,Object>> followingList(String id);
 		//팔로우 
 		public int insertFollow(FollowVO vo);
 		
 		//언팔 
-		public int DelectFollow(FollowVO vo);  
+		public int unFollow(FollowVO vo);  
 		
-		//상세페이지로??
-		public Map<String,Object> selectFollow(FollowVO vo);
+		//팔로우 체크(유무확인)
+		boolean checkFollow(FollowVO vo);
+		
+		
+		//팔로우수 
+		public Map<String,Object> followCount(String id);
 }
