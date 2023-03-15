@@ -135,7 +135,7 @@ public class MyCourseController {
 
 	// 상세페이지 보기
 	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public String CourseDetail(@PathVariable("myCourseCode") String myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+	public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
 			Model model) {
 	    ObjectMapper object = new ObjectMapper();
 		vo.setMyCourseCode(myCourseCode);
