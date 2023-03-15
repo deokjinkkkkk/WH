@@ -38,7 +38,7 @@
 	</update>
 	
 	<!-- 나만의 코스 리스트를 공유할 시, 코스 목록에 출력 
-	<select id="">
+	<select id="myCouSharing" resultType="co.admin.wh.trip.vo.MyCourseVO">
 		select 'a' gb , TO_NUMBER(cou_code), cou_name, img_gro_code
 		FROM COURSE 
 		union all

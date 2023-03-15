@@ -188,7 +188,7 @@
                                     </div>
                                     <br>
                                     <div class="form-group col-md-12">
-                                        <textarea placeholder="소개글"></textarea>
+                                        <textarea id="intro" placeholder="소개글"></textarea>
                                     </div>
                                     <br>
                                     <div class="checkbox">
@@ -200,7 +200,7 @@
 									</div>
 									<br>
                                     <div class="col-md-12">
-                                        <button type="button" class="butn" onclick="moveTotal(); myCouSharing();"><span>수정하기</span></button>
+                                        <button type="button" class="butn" onclick="moveTotal();"><span>수정하기</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -294,6 +294,7 @@
 	
 	function moveTotal() {
 		var data = [];
+		var intro = $('#intro').val();
 		/* data 배열에 담을 값은 내가 옮기는 코스의 순서(couOrd)와 기본키값(myCouFreeCode)
 		   기본키값에 수정된 코스의 순서 번호를 담아 UPDATE 해서 저장하면 된다!
 		   id값은 잘 못 읽으니 class로 변경했었다. */ 
@@ -301,11 +302,12 @@
 		    var obj = {};
 		    obj.myCouFreeCode = $(this).data("freecode"); // th:data-freecode="${m.myCouFreeCode}"에서 가져온 값
 		    obj.couOrd = $(this).text();
+		    		 	
 		    data.push(obj);
 		  });
 		
-		console.log(data);
-		
+	    	data.push({intro: intro});
+
 		$.ajax({
 			url : "/moveSaveTrip",
 			method : 'POST',
@@ -313,7 +315,7 @@
 			contentType : 'application/json',
 			success : function(response) {
 				alert('저장되었습니다.');
-				location.reload();
+				//location.reload();
 			},
 			error : function(error) {
 				alert('저장에 실패하였습니다.');
@@ -321,50 +323,7 @@
 		});	
 	}
 	
-	var total = [(${json})]
-	console.log(total)
-	/* 테이블 여행지 정보와 지도, 소개글을 코스에 공유할 시 코스 목록에 출력 */
-	function myCouSharing() {
-
-	// "chkMenu"라는 이름을 가진 라디오 버튼 중에서 선택된 버튼의 값을 변수 shareFlag에 저장.
-    var shareFlag = $('input[name="chkMenu"]:checked').val();
-    console.log(shareFlag)
-    
-     //if (shareFlag == 1) {
-    for (var i = 0 ; i < total.length; i++) {
-        var mana = total[i].couOrd
-        var tripName = total[i].tripName   
-        var img
-	    console.log('+++'+ mana)
-	    console.log('+++'+ tripName)
-    }
-    	var row = $(event.target).closest('tr');
-    	var couOrd = row.find('.couOrd').text(); // 해당 td태그의 값을 가져옴
-	    var tripLat = $('.tripLat').map(function() {
-	        return $(this).val();
-	    }).get();
-	    var tripLon = $('.tripLon').map(function() {
-	        return $(this).val();
-	    }).get();
-
-    $.ajax({
-        type: "POST",
-        url: "/myCouSharing",
-        data: { 
-            shareFlag: shareFlag,
-            couOrd: couOrd,
-            tripLat: tripLat,
-            tripLon: tripLon
-        },
-        success: function(result) {
-            // Ajax 요청 성공 시 처리할 코드
-        },
-        error: function(xhr, status, error) {
-            // Ajax 요청 실패 시 처리할 코드
-        }
-    });
-}
-
+	
 </script>
             </div>
             

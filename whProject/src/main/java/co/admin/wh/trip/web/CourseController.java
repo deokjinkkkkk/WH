@@ -51,7 +51,16 @@ public class CourseController {
 		model.addAttribute("courseList", courseService.courseList(svo));
 		return "trip/tripcourseList";
 		
-	}
+	}	
+	
+	// 나만의 코스에서 공유? 등록한 정보 여행 코스 리스트에 출력...을 어캐함 진짜 ㅎ
+//	@RequestMapping("/myCouSharing")
+//	public String myCouSharing(Model model, CourseVO vo) {
+//		model.addAttribute("courseList", courseService.myCouSharing(vo));
+//		System.out.println(model.addAttribute("courseList", courseService.myCouSharing(vo)));
+//		return "trip/tripcourseList";
+//	}
+	
 		
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징
 	// *db 저장용 컨트롤러*

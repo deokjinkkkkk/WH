@@ -35,3 +35,4 @@ build/
 /mvnw.cmd
 /application.properties
 /.DS_Store
+/Dockerfile
