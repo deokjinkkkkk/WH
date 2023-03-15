@@ -70,5 +70,11 @@ public class TripServiceImpl implements TripService{
 		return tripMapper.latestList(vo);
 	}
 
+	@Override
+	public List<TripVO> mainTripList(TripVO vo) {
+		// TODO Auto-generated method stub
+		return tripMapper.mainTripList(vo);
+	}
+
 	
 }

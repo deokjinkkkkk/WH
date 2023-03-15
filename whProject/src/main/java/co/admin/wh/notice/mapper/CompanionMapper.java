@@ -46,4 +46,6 @@ public interface CompanionMapper {
 	
 	int reject(CompanionVO vo);
 	
+	int comSelDelete(CompanionVO vo);
+	
 }

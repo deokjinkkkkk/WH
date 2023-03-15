@@ -177,6 +177,7 @@ public class CompanionController {
 		 */
 		imageService.imageDelete(ivo);
 		companionService.companionDelete(compVO);
+		companionService.comSelDelete(compVO);
 		return "redirect:companion";
 	}
 	
