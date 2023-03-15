@@ -126,7 +126,7 @@ public class MemberController {
 	public String adMemList(@ModelAttribute("fcvo") MemberSearchVO vo, Model model, Paging paging) {
 		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst());
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
 		
