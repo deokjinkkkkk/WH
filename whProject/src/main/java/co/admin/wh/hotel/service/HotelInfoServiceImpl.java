@@ -130,4 +130,10 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		// TODO Auto-generated method stub
 		return hotelMapper.adminReservList();
 	}
+
+//	@Override
+//	public void updateReservInfoByAdmin(ReservationVO vo) {
+//		hotelMapper.updateReservInfoByAdmin(vo);
+//		
+//	}
 }
