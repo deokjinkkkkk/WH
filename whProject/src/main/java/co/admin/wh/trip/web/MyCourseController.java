@@ -19,6 +19,7 @@ import co.admin.wh.trip.mapper.MyCourseFreeMapper;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.service.MyCourseFreeService;
 import co.admin.wh.trip.service.MyCourseService;
+import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -149,5 +150,6 @@ public class MyCourseController {
 
 		return "trip/myCourseDetail";
 	}
+	
 
 }

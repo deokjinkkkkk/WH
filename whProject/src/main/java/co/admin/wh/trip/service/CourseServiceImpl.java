@@ -53,4 +53,10 @@ public class CourseServiceImpl implements CourseService{
 		return courseMapper.oneSelect(vo);
 	}
 
+//	@Override
+//	public List<CourseVO> myCouSharing(CourseVO vo) {
+//		// 나만의 코스 공유...test
+//		return courseMapper.myCouSharing(vo);
+//	}
+
 }

@@ -43,6 +43,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 		// 목록 삭제 시 순서 번호 업데이트
 		return map.myCouSeqUpdate(vo);
 	}
+
+//	@Override
+//	public List<MyCourseVO> myCouSharing() {
+//		// 나만의 코스 공유...test
+//		return map.myCouSharing();
+//	}
 	
 	
 }
