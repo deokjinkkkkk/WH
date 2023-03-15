@@ -3,87 +3,92 @@
 <mapper namespace="co.admin.wh.hotel.mapper.HotelMapper">
 
 	<insert id="insertHotelInfo">
-	    <selectKey resultType="int" keyProperty="hotelId" order="BEFORE">
-	        SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL
-	    </selectKey>
-	    MERGE INTO HOTEL 
-	    USING (
-	        SELECT #{hotelId} AS hotel_id,
-	               #{hotelName} AS hotel_name,
-	               #{star} AS star,
-	               #{hotelAddr} AS hotel_addr,
-	               #{hotelInfo} AS hotel_info,
-	               #{hotelContent} AS hotel_content,
-	               #{hotelRegion} AS hotel_region,
-	               #{roomGrade} AS room_grade,
-	               #{roomCount} AS room_count,
-	               #{roomPrice} AS room_price,
-	               #{roomLimit} AS room_limit,
-	               #{img1} AS img1,
-	               #{img2} AS img2,
-	               #{img3} AS img3,
-	               #{img4} AS img4,
-	               #{img5} AS img5
-	        FROM DUAL
-	    ) new
-	    ON (HOTEL.hotel_name = new.hotel_name)
-	    WHEN MATCHED THEN
-	        UPDATE SET HOTEL.room_price = new.room_price,
-	        			hotel.room_grade = new.room_grade,
-	        			hotel.room_count = new.room_count
-	    WHEN NOT MATCHED THEN
-	        INSERT (hotel_id, hotel_name, star, hotel_addr, hotel_info,
-	                hotel_content, hotel_region, room_grade, room_count,
-	                room_price, room_limit, img1, img2, img3, img4, img5)
-	        VALUES (new.hotel_id, new.hotel_name, new.star,
-	                new.hotel_addr, new.hotel_info, new.hotel_content,
-	                new.hotel_region, new.room_grade, new.room_count,
-	                new.room_price, new.room_limit, new.img1,
-	                new.img2, new.img3, new.img4, new.img5)
+		<selectKey resultType="int" keyProperty="hotelId"
+			order="BEFORE">
+			SELECT NVL(MAX(hotel_Id),0)+1 FROM HOTEL
+		</selectKey>
+		MERGE INTO HOTEL
+		USING (
+		SELECT #{hotelId} AS hotel_id,
+		#{hotelName} AS hotel_name,
+		#{star} AS star,
+		#{hotelAddr} AS hotel_addr,
+		#{hotelInfo} AS hotel_info,
+		#{hotelContent} AS hotel_content,
+		#{hotelRegion} AS hotel_region,
+		#{roomGrade} AS room_grade,
+		#{roomCount} AS room_count,
+		#{roomPrice} AS room_price,
+		#{roomLimit} AS room_limit,
+		#{img1} AS img1,
+		#{img2} AS img2,
+		#{img3} AS img3,
+		#{img4} AS img4,
+		#{img5} AS img5
+		FROM DUAL
+		) new
+		ON (HOTEL.hotel_name = new.hotel_name)
+		WHEN MATCHED THEN
+		UPDATE SET HOTEL.room_price = new.room_price,
+		hotel.room_grade = new.room_grade,
+		hotel.room_count = new.room_count
+		WHEN NOT MATCHED THEN
+		INSERT (hotel_id, hotel_name, star, hotel_addr, hotel_info,
+		hotel_content, hotel_region, room_grade, room_count,
+		room_price, room_limit, img1, img2, img3, img4, img5)
+		VALUES (new.hotel_id, new.hotel_name, new.star,
+		new.hotel_addr, new.hotel_info, new.hotel_content,
+		new.hotel_region, new.room_grade, new.room_count,
+		new.room_price, new.room_limit, new.img1,
+		new.img2, new.img3, new.img4, new.img5)
 	</insert>
 
 	<select id="hotelList" resultType="co.admin.wh.hotel.vo.HotelVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
-			select *
-			from hotel
-			order by hotel_id
+		select *
+		from hotel
+		order by hotel_id
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>		
+		]]>
 	</select>
-	
+
 	<!-- 예약 가능한 호텔 검색 리스트 -->
-	<select id="hotelSearchList" resultType="co.admin.wh.hotel.vo.HotelVO">
-	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	<select id="hotelSearchList"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT *
 		FROM hotel
-		WHERE hotel_id NOT IN (
-		    SELECT hotel_id
-		    FROM reservation
-		    WHERE check_in = #{checkIn}
+		WHERE
+		hotel_id NOT IN (
+		SELECT hotel_id
+		FROM reservation
+		WHERE check_in = #{checkIn}
 		)
 	<![CDATA[
 		AND room_count > 0
 		AND hotel_region = #{hotelRegion}
 		AND room_limit >= #{humanCount}
 	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-	]]>	
+	]]>
 	</select>
 
 	<select id="CrawlingList"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
-			select a.*
-			from (
-			select * from hotel order by hotel_id desc) a
+		select a.*
+		from (
+		select * from hotel order by hotel_id desc) a
       	<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
+		]]>
 	</select>
-	
+
 	<!-- 전체 건수 조회 -->
-	<select id="getCountTotal" parameterType="co.admin.wh.hotel.vo.HotelSearchVO" resultType="int">
-		SELECT COUNT(*) FROM HOTEL	
+	<select id="getCountTotal"
+		parameterType="co.admin.wh.hotel.vo.HotelSearchVO" resultType="int">
+		SELECT
+		COUNT(*) FROM HOTEL
 	</select>
 
 	<select id="detailSelect"
@@ -94,14 +99,17 @@
 	</select>
 
 	<!-- 예약 -->
-	<insert id="insertReservInfo" parameterType="co.admin.wh.hotel.vo.ReservationVO">
-	   	<selectKey resultType="int" keyProperty="resId" order="BEFORE">
-	        SELECT NVL(MAX(res_Id),0)+1 FROM RESERVATION        
-	    </selectKey>
+	<insert id="insertReservInfo"
+		parameterType="co.admin.wh.hotel.vo.ReservationVO">
+		<selectKey resultType="int" keyProperty="resId"
+			order="BEFORE">
+			SELECT NVL(MAX(res_Id),0)+1 FROM RESERVATION
+		</selectKey>
 		insert into Reservation
-		values (#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id},0)
+		values
+		(#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id},0)
 	</insert>
-	
+
 	<!-- 예약 후 hotel테이블 room_count-1 -->
 	<update id="minusRoomCount" parameterType="int">
 		update hotel
@@ -111,50 +119,53 @@
 		where hotel_id = #{hotelId}
 	</update>
 
-<!-- 예약정보 조회 -->
-	<select id="readReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
-		parameterType="String">
+	<!-- 예약정보 조회 -->
+	<select id="readReservInfo"
+		resultType="co.admin.wh.hotel.vo.ReservationVO" parameterType="String">
 		select r.*, h.*
 		from Reservation r, Hotel h
 		where id = #{sessionId}
-	    and h.hotel_id = r.hotel_id
-	    and r.res_state = 0
+		and h.hotel_id = r.hotel_id
+		and r.res_state = 0
 	    <![CDATA[
 	    and r.check_out >= sysdate
 	    ]]>
 	</select>
-	
+
 	<!-- 취소내역조회 -->
-	<select id="readCancelReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
-		parameterType="String">
-		select r.*, h.*
+	<select id="readCancelReservInfo"
+		resultType="co.admin.wh.hotel.vo.ReservationVO" parameterType="String">
+		select
+		r.*, h.*
 		from Reservation r, Hotel h
 		where id = #{sessionId}
-	    and h.hotel_id = r.hotel_id
-	    and r.res_state = 1	
+		and h.hotel_id = r.hotel_id
+		and r.res_state = 1
 	</select>
-	
+
 	<!-- 예약취소신청 / 취소승인 -->
-<update id="hotelCancel" parameterType="co.admin.wh.hotel.vo.ReservationVO">
-    update reservation
-    <set>
-        <choose>
-            <when test="resState == 0">
-                res_state = 1
-            </when>
-            <when test="resState == 1">
-                res_state = 2
-            </when>
-            <otherwise>
-                res_state = res_state
-            </otherwise>
-        </choose>
-    </set>
-    where res_id=#{resId}
-</update>
-	
+	<update id="hotelCancel"
+		parameterType="co.admin.wh.hotel.vo.ReservationVO">
+		update reservation
+		<set>
+			<choose>
+				<when test="resState == 0">
+					res_state = 1
+				</when>
+				<when test="resState == 1">
+					res_state = 2
+				</when>
+				<otherwise>
+					res_state = res_state
+				</otherwise>
+			</choose>
+		</set>
+		where res_id=#{resId}
+	</update>
+
 	<!-- 예약자 정보 변경 -->
-	<update id="ReservUpdate" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+	<update id="ReservUpdate"
+		parameterType="co.admin.wh.hotel.vo.ReservationVO">
 		update reservation
 		<set>
 			<if test="resName != null">res_name = #{resName},</if>
@@ -164,99 +175,120 @@
 		</set>
 		where res_id=#{resId}
 	</update>
-	
+
 	<!-- 검색어 자동완성 -->
 	<select id="autocomplete" parameterType="map" resultType="map">
-		select distinct hotel_name, hotel_id
+		select
+		distinct hotel_name, hotel_id
 		from hotel
-		where hotel_name like '%'|| (#{value}) ||'%'
-    </select>
-    
-    <!-- 낮은가격순 정렬 -->
-    <select id="priceList" parameterType="HotelVO" resultType="co.admin.wh.hotel.vo.HotelVO">
-    	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from hotel
-	    	order by room_price asc
+		where hotel_name like '%'||
+		(#{value}) ||'%'
+	</select>
+
+	<!-- 낮은가격순 정렬 -->
+	<select id="priceList" parameterType="HotelVO"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from hotel
+		order by room_price asc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
-    </select>
-    
-        <!-- 높은가격순 정렬 -->
-    <select id="priceListDesc" parameterType="HotelVO" resultType="co.admin.wh.hotel.vo.HotelVO">
-    	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from hotel
-	    	order by room_price desc
+		]]>
+	</select>
+
+	<!-- 높은가격순 정렬 -->
+	<select id="priceListDesc" parameterType="HotelVO"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from hotel
+		order by room_price desc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
-    </select>
-    
-        <!-- 별점순 정렬 -->
-    <select id="starRatingList" parameterType="HotelVO" resultType="co.admin.wh.hotel.vo.HotelVO">
-    	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from hotel
-	    	order by star desc
+		]]>
+	</select>
+
+	<!-- 별점순 정렬 -->
+	<select id="starRatingList" parameterType="HotelVO"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from hotel
+		order by star desc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
-    </select>
-    
-        <!-- 좋아요순 정렬 -->
-    <select id="goodRatingList" parameterType="HotelVO" resultType="co.admin.wh.hotel.vo.HotelVO">
-    	SELECT * FROM( SELECT rownum rn, a.* FROM(
-			SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-			h.HOTEL_CONTENT,
-			h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
-			h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
-			FROM HOTEL h
-			LEFT JOIN GREAT g
-			ON h.HOTEL_ID = g.GREAT_N_CODE
-			GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-			h.HOTEL_CONTENT,
-			h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
-			h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
-			ORDER BY GREAT_COUNT DESC
+		]]>
+	</select>
+
+	<!-- 좋아요순 정렬 -->
+	<select id="goodRatingList" parameterType="HotelVO"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+		h.HOTEL_CONTENT,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+		FROM HOTEL h
+		LEFT JOIN GREAT g
+		ON h.HOTEL_ID = g.GREAT_N_CODE
+		GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
+		h.HOTEL_CONTENT,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
+		ORDER BY GREAT_COUNT DESC
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>		
-    </select>
-    
-    <!-- 호텔이름검색 -->
-    <select id="hotelNameSearchList" resultType="co.admin.wh.hotel.vo.HotelVO">
-     	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from hotel
-	    	where hotel_name like '%'|| (#{hotelName}) ||'%'
+		]]>
+	</select>
+
+	<!-- 호텔이름검색 -->
+	<select id="hotelNameSearchList"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from hotel
+		where hotel_name like '%'|| (#{hotelName}) ||'%'
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
-    </select>
-    
-    <!-- 지난예약내역조회 -->
-	<select id="readFinReservInfo" resultType="co.admin.wh.hotel.vo.ReservationVO"
-		parameterType="String">
+		]]>
+	</select>
+
+	<!-- 지난예약내역조회 -->
+	<select id="readFinReservInfo"
+		resultType="co.admin.wh.hotel.vo.ReservationVO" parameterType="String">
 		select r.*, h.*
 		from Reservation r, Hotel h
 		where id = #{sessionId}
-	    and h.hotel_id = r.hotel_id
-	    and r.res_state = 0
+		and h.hotel_id = r.hotel_id
+		and r.res_state = 0
 	    <![CDATA[
 	    and r.check_out < sysdate
-	    ]]>	
+	    ]]>
 	</select>
-	
+
 	<!-- 관리자 -->
 	<!-- 관리자 예약내역 전체조회 -->
-	<select id="adminReservList" resultType="co.admin.wh.hotel.vo.ReservationVO">
+	<select id="adminReservList"
+		resultType="co.admin.wh.hotel.vo.ReservationVO">
 		select *
 		from reservation r, hotel h
-		where r.hotel_id = h.hotel_id
+		where r.hotel_id =
+		h.hotel_id
 		order by res_state
 	</select>
-	
-    
+
+	<!-- 종아요순 사진 셀렉 -->
+	<select id="mainList" parameterType="HotelVO"
+		resultType="co.admin.wh.hotel.vo.HotelVO">
+
+		SELECT h.IMG1 , h.hotel_name, h.hotel_region, h.hotel_id
+		FROM HOTEL h
+		LEFT JOIN GREAT g ON h.HOTEL_ID = g.GREAT_N_CODE
+		GROUP BY h.IMG1, h.hotel_name, h.hotel_region, h.hotel_id
+		ORDER BY h.IMG1 DESC
+		FETCH FIRST 3 ROWS ONLY
+
+	</select>
+
 </mapper>

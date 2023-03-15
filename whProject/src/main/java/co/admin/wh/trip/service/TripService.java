@@ -30,4 +30,6 @@ public interface TripService {
 	
 	// 정렬
 	List<TripVO> latestList(TripSearchVO vo); // 최신순 정렬
+	
+	List<TripVO> mainTripList(TripVO vo); // 메인페이지 사진
 }

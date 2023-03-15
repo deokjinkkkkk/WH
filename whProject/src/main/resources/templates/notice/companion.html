@@ -42,14 +42,13 @@
 				<div class="card-image w-25 ">
 					<img th:src="'/image/'+${c.imgPath}" width="200px" height="200px">
 				</div>
-				<div class="card-body">
+				<div class="card-body" onclick="location.href='companionDetail/${c.compCode}'">
 					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
 					<h4 class="card-title">[[${c.compTitle}]]	,[[${roomId}]]</h4>
 					인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
 						th:text="${c.comName}"></span><br> 여행기간 : <span
 						th:text="${c.compStartDate}"> </span> ~ <span
-						th:text="${c.compEndDate}"></span><br> <a
-						th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}"><h4 style="color:#9D8BD1;">상세페이지</h4></a>
+						th:text="${c.compEndDate}"></span><br>
 						
 				</div>
 			</div>

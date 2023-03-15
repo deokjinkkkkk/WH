@@ -77,5 +77,19 @@
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
 	</select>
+	
+		<!-- 종아요순 사진 셀렉 -->
+	<select id="mainTripList" parameterType="TripVO"
+		resultType="co.admin.wh.trip.vo.TripVO">
+
+		SELECT t.img_gro_code, COUNT(t.img_gro_code) as img, t.trip_name, t.trip_code
+		FROM trip t
+		JOIN GREAT g ON t.trip_code = g.GREAT_N_CODE
+        AND great_flag='LTR'
+        GROUP BY t.img_gro_code,t.trip_name, t.trip_addr, t.trip_code
+		ORDER BY img DESC
+		FETCH FIRST 5 ROWS ONLY
+
+	</select>
 
 </mapper>

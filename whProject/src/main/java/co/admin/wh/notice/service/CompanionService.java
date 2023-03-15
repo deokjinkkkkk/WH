@@ -46,4 +46,6 @@ public interface CompanionService {
 	int approve(CompanionVO vo);
 	
 	int reject(CompanionVO vo);
+	
+	int comSelDelete(CompanionVO vo);
 }
