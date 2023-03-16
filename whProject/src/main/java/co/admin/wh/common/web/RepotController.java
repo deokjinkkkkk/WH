@@ -1,3 +1,4 @@
+
 package co.admin.wh.common.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,6 @@ public class RepotController {
 	@RequestMapping("/reportCompanion")
 	public String reportCompanion(Model model, ReportVO rvo, CommonVO cvo) {
 		rvo.setRepCode(rvo.getRepCode());
-//		model.addAttribute("rv", reportMapper.reportCode(rvo));
 		model.addAttribute("rvo", reportSevice.reportCompanion(rvo));
 		model.addAttribute("cs", commomService.commonState());
 		return "common/reportCompanion";
@@ -56,6 +56,7 @@ public class RepotController {
 	@RequestMapping("/reportComment")
 	public String reportComment(Model model, ReportVO rvo) {
 		model.addAttribute("rvo", reportMapper.reportComment(rvo));
+		model.addAttribute("cs", commomService.commonState());
 		return "common/reportComment";
 	}
 	
@@ -63,6 +64,7 @@ public class RepotController {
 	public String duration(ReportVO vo, SanctionsVO svo) {
 		reportMapper.durationUpdate(vo);
 		sanctionsService.sanctionsInsert(svo);
+		reportMapper.reportComDel(vo);
 		return "redirect:reportCompanion";
 	}
 }

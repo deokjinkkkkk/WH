@@ -3,21 +3,151 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
 
+<body>
+	<!-- 각자 내용 -->
+	<body layout:fragment="adminContent">
+<style>
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+*{
+	font-family: 'TheJamsil5Bold';
+}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
 
 
+/* THE END OF THE IMPORTANT STUFF */
 
-
-<body layout:fragment="adminContent">
+/* Basic Styling */
+body {
+background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);        
+}
+.container {
+  display: block;
+  text-align: center;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+</style>
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">관광정보요청</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-					cellspacing="0"
-									>
-									<thead>
+								<table class="rwd-table" id="dataTable">
 										<tr>
 											<td width="120px">신고한 사람</td>
 											<td width="250px">신고이유</td>
@@ -26,9 +156,7 @@
 											<td width="120px">상세페이지</td>
 											<td width="120px">제재</td>
 										</tr>
-									</thead>
 
-									<tbody>
 										<tr th:each="c : ${rvo}" th:id="${c.compCode}" class="code">
 											<td>[[${c.id}]]</td>
 
@@ -53,11 +181,11 @@
 														id="state" name="state" value="1"> <input
 														type="hidden" id="state" name="id"
 														th:value="${c.targetId}">
+														<input type="hidden" id="repCode" name="repCode" th:value="${c.repCode}">
 													<button>제제하기</button>
 												</form>
 											</td>
 										</tr>
-									</tbody>
 
 								</table>
 
