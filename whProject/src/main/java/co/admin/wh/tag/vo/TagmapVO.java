@@ -10,4 +10,7 @@ public class TagmapVO {
 		
 		//태그 인덱스
 		int tagCode;
+		
+		//join
+		String tagName;
 }

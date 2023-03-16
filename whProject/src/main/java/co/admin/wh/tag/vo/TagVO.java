@@ -10,4 +10,7 @@ public class TagVO {
 			
 		//태그내용 (unique)
 		 String tagName;
+		 
+		 //태그 언급 수
+		 int TagCnt;
 }

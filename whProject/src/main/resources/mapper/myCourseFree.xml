@@ -20,10 +20,10 @@
 	</selectKey>
 	 INSERT INTO MY_COURSE_FREE
 	 (trip_unique_number, my_course_code, 
-	  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr, my_cou_intro)
+	  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
 	 VALUES (#{tripUniqueNumber}, #{myCourseCode},
 	 (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE WHERE MY_COURSE_CODE = #{myCourseCode}), 
-	 #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr}, #{myCouIntro})
+	 #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
 	</insert>
 	
 	<!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
@@ -55,11 +55,33 @@
 		WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
 	</update>
 	
-	<!-- 나만의 코스에서 소개글 업데이트... -->
-	<update id="myCouIntroUpdate">
-	  UPDATE MY_COURSE_FREE
-      SET MY_COU_INTRO = #{myCouIntro}
-      WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
-	</update>
+<!--=============================
+			태그 넣기 
+=================================			 -->
+
+<!-- 태그 적용 리스트 - 태그가 달린 상세페이지 볼수있도록 join -->
+
+	<select id="aroundTagList" resultType="co.admin.wh.trip.vo.MyCourseVO">
+		SELECT * FROM 
+    (SELECT ROWNUM AS RNUM,
+            my_course_code,
+            theme,
+            my_cou_date,
+            my_cou_name,
+            my_cou_content,
+            my_cou_state,
+            my_cou_id,
+            tag_name,
+            tag_code
+    FROM (SELECT M.*, T.* FROM my_course M 
+        LEFT OUTER JOIN tag_map R
+            ON M.my_course_code = R.my_course_code
+        LEFT OUTER JOIN tag T
+            ON R.tag_code = T.tag_code 
+    ORDER BY M.my_course_code DESC))
+WHERE RNUM BETWEEN 1 AND 6;
+	</select>
+
+
 
 </mapper>

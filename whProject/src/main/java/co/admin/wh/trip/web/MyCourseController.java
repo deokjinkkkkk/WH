@@ -1,8 +1,6 @@
 package co.admin.wh.trip.web;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,6 @@ import co.admin.wh.trip.mapper.MyCourseFreeMapper;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.service.MyCourseFreeService;
 import co.admin.wh.trip.service.MyCourseService;
-import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -84,8 +81,8 @@ public class MyCourseController {
 	// 나만의 코스 하단에 소개글 업데이트
 	@PostMapping("/myCouIntroUpdate")
 	@ResponseBody
-	public String myCouIntroUpdate(@RequestBody MyCourseFreeVO vo) {
-		int result = myCourseFreeMapper.myCouIntroUpdate(vo);
+	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";
@@ -104,7 +101,7 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
-
+	
 	// 리스트 삭제 시 순서 번호 업데이트
 	@PostMapping("/myCouSeqUpdate")
 	@ResponseBody
@@ -128,7 +125,7 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
-
+	
 	// 여행지 삭제 시 순서 번호 업데이트
 	@PostMapping("/myCouUpdateOrd")
 	@ResponseBody
@@ -140,7 +137,7 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
-
+	
 	// 나만의 코스 상세페이지의 여행지 순서 바꾸기
 	/* ajax에서 배열을 썼으므로, List 쓰고 for문 돌려야 한다. */
 	@PostMapping("/moveSaveTrip")
@@ -148,75 +145,59 @@ public class MyCourseController {
 	public String moveSaveTrip(@RequestBody List<MyCourseFreeVO> list) {
 		String resultValue = "fail";
 		for (MyCourseFreeVO vo : list) {
-			int result = myCourseFreeMapper.myCouUpdate(vo);
-			resultValue = "fail";
+            int result = myCourseFreeMapper.myCouUpdate(vo);
+            resultValue = "fail";
+            if (result > 0) {
+               resultValue = "success";
+            }
+         }
+         return resultValue;
+      }
+	
+		// 상태값을 myCourse테이블에 넘기기
+		@PostMapping("/myCouStateSave")
+		@ResponseBody
+		public String myCouStateSave(@RequestBody MyCourseVO vo) {
+			int result = myCourseMapper.myCouStateUpdate(vo);
+			String resultValue = "fail";
 			if (result > 0) {
 				resultValue = "success";
 			}
-		}
-		return resultValue;
-	}
-	
-	// 상태값을 myCourse테이블에 넘기기
-	@PostMapping("/myCouStateSave")
-	@ResponseBody
-	public String myCouStateSave(@RequestBody MyCourseVO vo) {
-		int result = myCourseMapper.myCouStateUpdate(vo);
-		String resultValue = "fail";
-		if (result > 0) {
-			resultValue = "success";
-		}
-		return resultValue;
-	}
-
-	// 상세페이지 보기
-	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-			Model model) {
-		ObjectMapper object = new ObjectMapper();
-		vo.setMyCourseCode(myCourseCode);
-
-		MyCourseVO myCourse = myCourseService.detailSelect(vo);
-		// List<TagVO> tags = myCourse.getMyCourseCode(); // 조회된 정보에서 Tag 값 추출
-
-		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
-		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
-
-		try {
-			model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			return resultValue;
 		}
 
+
+
+	// 상세페이지 보기 
+		@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
+		public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+				Model model) {
+		    ObjectMapper object = new ObjectMapper();
+			vo.setMyCourseCode(myCourseCode);
+			model.addAttribute("myCourse", myCourseService.detailSelect(vo));
+			model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
+			  try {
+			         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+			      } catch (JsonProcessingException e) {
+			         e.printStackTrace();
+			      }
+
+			return "trip/myCourseDetail";
+		}
+		
+		/*
+		// 새로운 tag db 저장
+	    if (newTag != null && !newTag.isEmpty()) {
+	        TagVO tagCode = tagService.findTagBytag(newTag);
+	        if (tagCode == 0) {
+	            tagService.saveTag(newTag);
+	            tagCode = tagService.findTagBytag(newTag);
+	        }
+	        tagService.addCntTag(tagCode);
+	    }
+		
 		return "trip/myCourseDetail";
-	}
-
-	/*
-	 * //===================== // 태그 추가 //=====================
-	 * 
-	 * @RequestMapping("/aroundTagList")
-	 * 
-	 * @ResponseBody public List<MyCourseVO>aroundTagList(MyCourseVO tagName) {
-	 * return tagService.aroundTagList(tagName); }
-	 * 
-	 * 
-	 * public List<MyCourseVO> aroundTagList(@RequestParam("tagName") String
-	 * tagName) { return myCourseService.aroundTagList(tagName); }
-	 * 
-	 * 
-	 * @RequestMapping("/tagList")
-	 * 
-	 * @ResponseBody public List<TagVO> tagList() { return
-	 * myCourseService.tagList(); }
-	 * 
-	 * 
-	 * @RequestMapping(value = "searchTags", produces = "application/json")
-	 * 
-	 * @ResponseBody public Map<String, Object> searchTags(@RequestParam(value
-	 * ="tag") String tag){ List<String> tags = myCourseService.searchTags(tag);
-	 * Map<String, Object> result = new HashMap<>(); result.put("tags", tags);
-	 * 
-	 * return result; }
-	 */
-
+	}*/
+	
 }
+
