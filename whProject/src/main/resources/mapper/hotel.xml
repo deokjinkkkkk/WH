@@ -338,8 +338,8 @@
 	<update id="updateCancelInfo" parameterType="co.admin.wh.hotel.vo.CancelVO">
 		update cancel
 		<set>
-			<if test="returnPay != null">return_pay = returnPay</if>
-			<if test="ApplyDate != null">apply_date = sysdate</if>
+			<if test="returnPay != null">return_pay = #{returnPay},</if>
+			apply_date = sysdate
 		</set>
 		where res_id = #{resId}
 	</update>
