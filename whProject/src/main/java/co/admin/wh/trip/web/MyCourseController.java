@@ -55,7 +55,6 @@ public class MyCourseController {
 	}
 
 	// 제목 입력하기
-
 	@PostMapping("/myCourseInsert")
 	@ResponseBody
 	public String myCourseInsert(@RequestBody MyCourseVO vo) {
@@ -170,23 +169,20 @@ public class MyCourseController {
 
 
 	// 상세페이지 보기 
-	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public void CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-			 @RequestParam(value = "newTag", required = false) String newTag,Model model) { //태그를 위한 추가
-		
-		ObjectMapper object = new ObjectMapper();
-		vo.setMyCourseCode(myCourseCode);
+		@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
+		public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+				Model model) {
+		    ObjectMapper object = new ObjectMapper();
+			vo.setMyCourseCode(myCourseCode);
+			model.addAttribute("myCourse", myCourseService.detailSelect(vo));
+			model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
+			  try {
+			         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+			      } catch (JsonProcessingException e) {
+			         e.printStackTrace();
+			      }
 
-		MyCourseVO myCourse = myCourseService.detailSelect(vo);
-		
-
-		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
-		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
-
-		try {
-			model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			return "trip/myCourseDetail";
 		}
 		
 		/*
@@ -202,11 +198,6 @@ public class MyCourseController {
 		
 		return "trip/myCourseDetail";
 	}*/
-
 	
-
-	
-
-}
 }
 
