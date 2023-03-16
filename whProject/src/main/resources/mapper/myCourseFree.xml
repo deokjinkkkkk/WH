@@ -20,10 +20,10 @@
 	</selectKey>
 	 INSERT INTO MY_COURSE_FREE
 	 (trip_unique_number, my_course_code, 
-	  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr, my_cou_intro)
+	  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
 	 VALUES (#{tripUniqueNumber}, #{myCourseCode},
 	 (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE WHERE MY_COURSE_CODE = #{myCourseCode}), 
-	 #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr}, #{myCouIntro})
+	 #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
 	</insert>
 	
 	<!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
