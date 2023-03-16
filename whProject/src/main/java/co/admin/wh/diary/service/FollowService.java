@@ -3,6 +3,8 @@ package co.admin.wh.diary.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import co.admin.wh.diary.vo.FollowVO;
 
 public interface FollowService {

@@ -140,28 +140,51 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 }
 </style>
 <div class="container">
-<p style="font-size:20px;">전체 예약내역</p>
-<form action="/adminReservSearch" method="post" id="searchInput" name="searchFrm" style="margin-top: 20px;">
-
-  <select name="fruits" class="select">
+<p style="font-size:30px;">예약내역 조회</p>
+<form id="searchInput" name="searchFrm" style="margin-top: 20px;">
+  <select name="option" class="select col-md-2" style="display: inline-block">
     <option disabled selected>옵션</option>
-    <option value="apple">예약번호</option>
-    <option value="orange">호텔명</option>
-    <option value="grape">방등급</option>
-    <option value="melon">입실일</option>
-    <option value="melon">퇴실일</option>
-    <option value="">예약자명</option>
-    <option value="">연락처</option>
-    <option value="">이메일</option> 
+    <option value="resId">예약번호</option>
+    <option value="hotelName">호텔명</option>
+    <option value="roomGrade">방등급</option>
+    <option value="checkIn">입실일</option>
+    <option value="checkOut">퇴실일</option>
+    <option value="resName">예약자명</option>
+    <option value="resTel">연락처</option>
+    <option value="resEmail">이메일</option> 
   </select>
-  <span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt=""></span>
+<input hidden="hidden" />
+<input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션 선택 후 검색 가능합니다." style="display: inline-block" >
+<button onclick="searchInfo()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br>
+</form>
 
-                	<input type="text" class="form-control col-md-5" id="autoComplete" name="hotelName" placeholder="검색 옵션을 선택하지 않으면 전체검색 됩니다."><br><br>
-<!-- 	                <div class="input-group-append"> -->
-<!--                     	<button onclick="hotelNameSearchList()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button> -->
-<!-- 	                </div> -->
-                </form>
-  <table class="rwd-table">
+<script>
+// 검색(form 데이터 ajax로 전송)
+ function searchInfo(){
+	 if($(".select").val() == ''){
+		 alert("검색 옵션을 선택하세요.")
+	 }else if($("#content").text() == ''){
+		 alert("검색 내용을 입력하세요.")
+	 }else{
+		 var queryString = $("#searchInput").serialize(); // form데이터
+		 
+		 $.ajax({
+			  type: "post",
+			  url: "/adminReservSearch",
+			  data: queryString,
+			  success: function(data){ // 컨트롤러에서 RequestParam으로 받는다
+			    $("#ReservList").replaceWith(data);
+			  },
+			  error: function(xhr, status, error){
+			    alert("ajax 실패: " + error); // 에러 내용 출력
+			  }
+			});
+
+
+	 }
+ }
+</script>
+  <table class="rwd-table" id="ReservList">
     <tbody>
       <tr>
         <th>번호</th>
@@ -187,20 +210,21 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
           <td data-th="이메일" th:text="${h.resEmail}">-0.36%</td>
           <td data-th="요청사항" th:text="${h.resRequest}">-0.36%</td>
 <!-- 삼항연산자 사용, 0이면 결제완료, 1이면 취소요청 으로 출력 -->
-          <td data-th="예약상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '취소요청' : h.resState == 2 ? '취소완료' : ''}">-</td>
+          <td data-th="예약상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '환불요청' : h.resState == 2 ? '환불완료' : ''}">-</td>
           <td data-th="관리">
           
-          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal" 
-          		id="modalForm" onclick="setResId()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
-		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" onclick="cancelOK()">취소승인</button></td>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modifyModal" 
+          		id="modalForm" onclick="setResInfo()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
+		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal" 
+          		id="modalForm" onclick="cancelOK()">환불승인</button></td>
         </tr>
     </tbody>
   </table>
 </div>
 
 <script type="text/javascript">
-// 모달창으로 해당 예약번호를 넘기기 위한 함수
-function setResId() {
+// 모달창으로 해당 정보를 넘기기 위한 함수
+function setResInfo() {
     document.getElementById('resId').value = $(event.target).parent().parent().find('td:nth-child(1)').text();
     document.getElementById('resName').value = $(event.target).parent().parent().find('td:nth-child(6)').text();
     document.getElementById('resTel').value = $(event.target).parent().parent().find('td:nth-child(7)').text();
@@ -209,7 +233,8 @@ function setResId() {
 }
 </script>
 
-<div class="modal hide" id="myModal">
+<!-- 예약정보수정 모달 창 -->
+<div class="modal hide" id="modifyModal">
 		<form id="frm" action="/Admin/updateReservInfo" method="post">
 			<div class="modal-header">
 <!-- 				<button class="close" data-dismiss="modal">x</button> -->
@@ -240,35 +265,66 @@ function setResId() {
 			</div>
 		</form>
 	</div>
+	
+	<!-- 환불요청승인 모달 창 -->
+	<div class="modal hide" id="cancelModal">
+		<form id="frm" action="/Admin/cancel" method="post">
+			<div class="modal-header">
+<!-- 				<button class="close" data-dismiss="modal">x</button> -->
+				<div class="modal-dialog" role="document">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<p class="modal-title" id="exampleModalLabel" style="font-size:20px;">환불 승인</p>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div class="modal-body" id="modal2"></div>
+							</div>
+							<div class="modal-body">
+<!-- 								입실일<input type="text" class="modifyInput" id="modifyInput1"> -->
+<!-- 								퇴실일<input type="text" class="modifyInput" id="modifyInput2"> -->
+								환불요청날짜 : <br> 총 환불금액 : 
+								<input type="hidden" name="resId" id="resId">
+								<input type="submit" class="btn btn-primary" value="확인" id="memUpdate">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 
   <script>
-  	// 수정 창에서 확인 버튼을 누르면 실행되는 함수
-  	function cancelOK(){
-  		var result = confirm("예약취소를 승인하시겠습니까?");
- 		if(result == true){
- 			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); // 예약번호넘김
+  	// 
+//   	function cancelOK(){
+//   		var result = confirm("예약취소를 승인하시겠습니까?");
+//  		if(result == true){
+//  			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); // 예약번호넘김
 	
- 			$.ajax({
-				url : "/Admin/cancel",
-				type : "POST",
-				data : JSON.stringify(
-					{"resId": resId}
-				),
-				contentType:'application/json',
-				success : function(result){
-					if(result == "y") {
-						alert("취소 승인 완료");
-					}else{
-						alert("디비입력실패");
-						return false;
-					}
-				},
-				error : function(a,b,c){}
-			});
-			}else{
-				return false;
-			}
- 		}
+//  			$.ajax({
+// 				url : "/Admin/cancel",
+// 				type : "POST",
+// 				data : JSON.stringify(
+// 					{"resId": resId}
+// 				),
+// 				contentType:'application/json',
+// 				success : function(result){
+// 					if(result == "y") {
+// 						alert("취소 승인 완료");
+// 					}else{
+// 						alert("디비입력실패");
+// 						return false;
+// 					}
+// 				},
+// 				error : function(a,b,c){}
+// 			});
+// 			}else{
+// 				return false;
+// 			}
+//  		}
+  	
   </script>
 		
 	

@@ -4,44 +4,48 @@
 	layout:decorate="~{/admin/indexAdmin}">
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
-
-
-<body>
-
-	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-		
-		
-		<!-- 본문 내용 -->
-		  <!-- start blog detail section -->
-        <section class="blogs">
-            <div class="container">
-                <div class="row">
-
-                    <!--  start blog left-->
-                    <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    
-                        <div class="posts">
-                         <table class="table" style="border-top:3px solid #69737C; border-collapse:collapse;" >
+<body layout:fragment="adminContent">
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">관광정보요청</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
                          	<thead>
                          		<tr>
+                         			<td width="120px">신고한 사람</td>
                          			<td>신고이유</td>
                          			<td>신고날짜</td>
                          			<td>신고된 회원</td>
+                         			<td width="120px">제재</td>
                          		</tr>
                          	</thead>
                          		<tbody th:each="c : ${rvo}">
                          			<tr>
+                         				<td>[[${c.id}]]</td>
+                         				
                          				<td>[[${c.comName}]]</td>
                          			
                          				<td>[[${c.repDate}]]</td>
                          			
                          				<td>[[${c.targetId}]]</td>
+                         				
+                         				<td>
+												<form action="/duration" method="post" id="submit">
+													<!-- 										<input type="hidden"  name="state" value="1"> -->
+													<select name="sanDay" id="sanDay">
+														<option th:each="c : ${cs}" th:value="${c.comCode}"
+															th:text="${c.comName}"></option>
+													</select> <input type="hidden" id="targetID" name="targetId"
+														th:value="${c.targetId}"> <input type="hidden"
+														id="state" name="state" value="1"> <input
+														type="hidden" id="state" name="id"
+														th:value="${c.targetId}">
+													<button>제제하기</button>
+												</form>
+											</td>
                          			</tr>
                          		</tbody>
                

@@ -446,8 +446,8 @@ button {
 						<thead>
 							<tr>
 								<th></th>
-								<th>게시물</th>
-								<th>팔로우</th>
+								<th></th>
+								<th class="followerBtn" onclick="followerBtn()">팔로워</th>
 								<th>팔로잉</th>
 								<th></th>
 							</tr>
@@ -457,49 +457,130 @@ button {
 								<td><div th:if="${not #lists.isEmpty(diarya)}">
 										<h4 th:text="${diarya[0].id}"></h4>
 									</div>
-								<td>게시물 수 넣기</td>
-								<td>팔로우수넣기</td>
+								<td></td>
+								<td>팔로워수넣기</td>
 								<td>팔로잉수넣기</td>
 								<td>
 									<!-- 팔로우 누른경우   -->
-									<button th:if="${isFollowing}" type="button"
-										class="btn btn-secondary btn-sm">Unfollow</button>
-									<button th:unless="${isFollowing}" type="button"
-										class="btn btn-primary btn-sm">Follow</button> <!-- 팔로우 누르지 않은경우   -->
-									<input type="hidden" id="id" name="id"
-									th:value="${session.name}"> 
+									<div id="followFtn">
+										<button th:if="${isFollowing}" type="button"
+											class="btn btn-secondary btn-sm" id="follow-btn">Unfollow</button>
+										<button th:unless="${isFollowing}" type="button"
+											class="btn btn-primary btn-sm" id="follow-btn">Follow</button>
+										<!-- 팔로우 누르지 않은경우   -->
+										<input type="hidden" id="id" name="id"
+											th:value="${session.name}">
+									</div> 
 									<script>
-											var id = $('#id').val();
-											console.log(id);
-								
-											$(document).ready(function(){
-									               getFollow(id)
-									            })	
-										
-											function getFollow(id) {
-											  $.ajax({
-											    url: "/checkFollow/" + id,
-											    data: {
-											      'id': id,
-											    },
-											    success: function(response) {
-											      if (response.isFollowing) {
-											        // 현재 사용자가 이 사용자를 팔로우하고 있음
-											        $('#follow-btn').removeClass('btn-primary').addClass('btn-secondary').text('Unfollow');
-											      } else {
-											        // 현재 사용자가 이 사용자를 팔로우하고 있지 않음
-											        $('#follow-btn').removeClass('btn-secondary').addClass('btn-primary').text('Follow');
-											      }
-											    },
-											    error: function() {
-											      console.log("에러");
-											    }
-											  });
+										// 로그인한 사용자의 ID 정보를 가져옵니다.
+										var id = $('#id').val();
+										// 현재 보고 있는 게시물의 작성자 ID 정보를 가져옵니다.
+										var followId = $('h4').text();
+
+										// 사용자 ID 정보와 게시물 작성자 ID 정보가 일치하는 경우에는 팔로우 버튼을 숨깁니다.
+										if (id === followId) {
+											var btn = document.getElementById("followFtn");
+											if (btn) {
+												btn.style.display = "none";
 											}
+										}
 
 										
-									</script>
+										$(document).ready(function() {
+											getFollow();
+										});
 
+										function getFollow() {
+											$.ajax({
+											url : "/checkFollow/"+ id + "/"+ followId,
+											success : function(
+											response) {
+											if (response) { // response 값이 true인 경우
+										$('#follow-btn').addClass('btn-secondary')
+											.text('Unfollow');
+											} else { // response 값이 false인 경우
+										$('#follow-btn').removeClass(
+										'btn-secondary').text('Follow');
+										}
+											},
+										error : function() {
+										console.log("에러");
+										}
+											});
+										}
+
+								// 팔로우 버튼 클릭 시
+										$("#follow-btn").click(
+										function() {
+										var followingId = $("#id").val();
+										$.ajax({
+										type : "POST",
+										url : "/insertFollow/"+ followingId,
+										dataType : "json",
+										data : {
+										'followId' : followId,
+										'followingId' : followingId
+										},
+										success : function(response) {
+										if (response) { // response 값이 true인 경우
+										$('#follow-btn').addClass('btn-secondary')
+										.text('Unfollow');
+										} else { // response 값이 false인 경우
+										$('#follow-btn')
+										.removeClass('btn-secondary')
+										.text('Follow');
+										}
+										},
+										error : function() {
+										console.log("에러");
+										}
+											});
+										});
+
+								//팔로우 취소
+
+										$("#follow-btn").click(
+										function() {
+										var followingId = $("#id").val();
+										$.ajax({
+											type : "POST",
+											url : "/unFollow/"
+													+ followingId,
+											dataType : "json",
+											data : {
+												'followId' : followId,
+												'followingId' : followingId
+											},
+											success : function(
+													response) {
+												if (response) { // response 값이 true인 경우
+													$('#follow-btn')
+													.removeClass('btn-secondary')
+													.text('Follow');
+												} else { // response 값이 false인 경우
+													$('#follow-btn')
+													.addClass('btn-secondary')
+													.text('Unfollow');
+												}
+											},
+											error : function() {
+												console.log("에러");
+											}
+										});
+							});
+								
+								
+								//팔로워 조회
+								
+								function followerBtn(){
+									
+								}
+								
+								
+								
+								//팔로잉 조회
+								
+							</script>
 								</td>
 							</tr>
 						</tbody>
@@ -508,7 +589,8 @@ button {
 					<div class="feed-box" id="inst" style="padding: 20px">
 						<div th:each="d : ${diarya}" class="diaryCode"
 							th:data-code="${d.diaryCode}">
-							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"></a>
+							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"
+								id="ids"></a>
 							<div class="profile-id"></div>
 							<div class="feed-img">
 								<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px"
@@ -532,6 +614,7 @@ button {
 			</div>
 		</div>
 	</div>
-	</div>
+	
+
 </body>
 </html>

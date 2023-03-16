@@ -27,16 +27,16 @@
                             <div class="menu_area alt-font">
                                 <nav class="navbar navbar-expand-lg navbar-light no-padding">
 
-                                    <div class="navbar-header navbar-header-custom">
+                                    <div >
                                         <!-- start logo -->
-                                        <a href="main" class="navbar-brand logo4"><img id="logo" src="/img/logos/logo.png" alt="logo" /></a>
+                                        <a href="main" ><img id="logo" src="/img/logos/logos.png" alt="logo" style="width:100px; height:100px" /></a>
                                         <!-- end logo -->
                                     </div>
 
                                     <div class="navbar-toggler"></div>
 
                                     <!-- start menu area -->
-                                    <ul class="navbar-nav ml-auto" id="nav" style="display: none;">
+                                    <ul class="navbar-nav ml-auto" id="nav" style="display: none; margin:0 auto;">
                                         <li><a href="/main">Home</a></li>
                                         <li><a href="/notice">공지사항</a>
                                         <li><a href="/course">여행지</a>
@@ -48,8 +48,6 @@
                                         <li><a href="javascript:void(0)">커뮤니티</a>
                                             <ul>
                                                 <li><a href="/food">맛집</a></li>
-                                                <li><a href="portfolio-2.html">리뷰</a></li>
-                                                <li><a href="portfolio-2.html">자유</a></li>
                                                 <li><a href="/videoSelect">영상</a></li>
                                                 <li><a href="/companion">동행자</a></li>
                                                 <li><a href="/diaryAll">여행 일지</a></li>
@@ -57,7 +55,6 @@
                                         </li>
                                         <li><a href="/hotel">숙소</a></li>
                                         <li><a href="/chat/room">채팅</a></li>
-                                        <li><a href="event">이벤트</a></li>
                                         <li th:if="${session.name != null}"><a href="/myPage">마이페이지</a></li>
                                         <li th:if="${session.name == 'ADMIN'}"><a href="/admin">관리자페이지</a></li>
                                         <li th:if="${session.name == null}"><a href="/login">로그인</a></li>

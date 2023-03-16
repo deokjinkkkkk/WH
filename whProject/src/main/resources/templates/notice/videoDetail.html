@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin/indexAdmin}">
+	layout:decorate="~{admin/indexAdmin}">
 
 <body>
 
@@ -11,9 +11,9 @@ xmlns:util="http://www.springframework.org/schema/util"
 <div class="container">
 <h4>제목 : <span>[[${d.videoName}]]</span></h4>
 <hr>
-
-	<iframe width="300" height="250" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<hr>
+	<div  style="position: relative;">
+	<iframe width="500" height="400" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div><hr>
 <span>[[${d.videoContent}]]</span>
 <hr>
 <span></span>

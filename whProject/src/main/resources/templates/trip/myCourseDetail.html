@@ -49,6 +49,7 @@
                                     <div class="form-group col-md-6">
                                         <input type="text" name="exampleInputName" id="exampleInputName" 
                                         th:placeholder="${myCourse.myCouName}">
+                                        <input type="hidden" class="myCourseCode" th:value="${myCourse.myCourseCode}">
                                     </div>
                                     <br><br>
                                     <div class="form-group col-md-3">
@@ -69,7 +70,7 @@
                                     <table class="table table-hover">
 	                                    <tbody>
 											<tr th:each="m : ${myCouDet}">
-												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}"></td>
+												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}" th:id="${m.couOrd}"></td>
 												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}" style="width:200px; height:130px;"></td>											
 												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
 												<td th:text="${tripAddr}"></td>
@@ -89,10 +90,17 @@
 											</tr>
 										</tbody>
                                     </table>
-                                    
+                                   <div class="container">
+           							 <div class="row">
+                                     	<div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+				                        <p style="font-size: 30px;">전체 여행지<p><hr>
+		                                <div><p id="total-distance" >총 거리 : </p></div>
+                           			</div>
+                           		 </div>
+                           		</div>
+                           		
                                     <!-- 구글 지도 API 이용 -->
                                 <div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <div><p id="total-distance" >총 거리 : </p></div>
                                 <script type="text/javascript">
                                 
                                 var map;
@@ -103,7 +111,7 @@
                                 	
                                     
                                     var defaultOptions = {
-                                        zoom: 7.6,
+                                        zoom: 6.3,
                                         center:  {
                                 			lat: Number(tripMap[0].tripLat),
                                 			lng: Number(tripMap[0].tripLon)
@@ -191,8 +199,8 @@
                                         <textarea id="intro" placeholder="소개글"></textarea>
                                     </div>
                                     <br>
-                                    <div class="checkbox">
-										 <strong> 여행 코스에 공유하시겠습니까? </strong>&nbsp&nbsp
+                                    <div class="checkradio">
+										 <strong> 여행 코스에 올리시겠습니까? </strong>&nbsp&nbsp
 										 <input type="radio" name="chkMenu" id="chkMenu01" value="1">
 										 <label for="chkMenu01">예</label>&nbsp&nbsp&nbsp
 										 <input type="radio" name="chkMenu" id="chkMenu02" value="0">
@@ -200,16 +208,15 @@
 									</div>
 									<br>
                                     <div class="col-md-12">
-                                        <button type="button" class="butn" onclick="moveTotal();"><span>수정하기</span></button>
+                                        <button type="button" class="butn" onclick="moveTotal();"><span>저장</span></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                
+            
 <script type="text/javascript">
-
 /* '삭제' 버튼 클릭 시, 해당 행(여행지) 삭제 */
 	function myCouDetailDel() {
 		if (confirm('해당 여행지를 삭제하시겠습니까?')) {
@@ -294,7 +301,15 @@
 	
 	function moveTotal() {
 		var data = [];
-		var intro = $('#intro').val();
+		var myCourseCode = $('.myCourseCode').val();
+		var couOrd = $('#couOrd').val();
+		var myCouIntro = $('#intro').val();
+			if (Array.isArray(myCourseCode)) {
+				  myCourseCode = myCourseCode[0];
+				}
+		console.log(myCourseCode)
+		
+		var myCouState = $('input[name="chkMenu"]:checked').val();
 		/* data 배열에 담을 값은 내가 옮기는 코스의 순서(couOrd)와 기본키값(myCouFreeCode)
 		   기본키값에 수정된 코스의 순서 번호를 담아 UPDATE 해서 저장하면 된다!
 		   id값은 잘 못 읽으니 class로 변경했었다. */ 
@@ -306,8 +321,13 @@
 		    data.push(obj);
 		  });
 		
-	    	data.push({intro: intro});
-
+		
+		// myCouState가 선택되었는지 확인
+	    if (!myCouState) {
+	        alert('여행 코스에 올리시겠습니까?');
+	        return;
+	    }
+		
 		$.ajax({
 			url : "/moveSaveTrip",
 			method : 'POST',
@@ -315,15 +335,57 @@
 			contentType : 'application/json',
 			success : function(response) {
 				alert('저장되었습니다.');
+			    //var savedData = response.savedData;
 				//location.reload();
 			},
 			error : function(error) {
 				alert('저장에 실패하였습니다.');
 			}
 		});	
+		
+		
+		// 상태값(myCouState)을 myCourse테이블 코스번호(myCourseCode) 이용해서 myCourse테이블에 넘겨 저장하기
+		$.ajax({
+			url: "/myCouStateSave",
+			method : 'POST',
+			data : JSON.stringify({ 
+				myCouState: myCouState ,
+				myCourseCode: myCourseCode
+			}),
+			contentType : 'application/json',
+			success : function(response) {
+				//alert('상태값 넘기기 성공?.');
+			    //var savedData = response.savedData;
+				location.reload();
+			},
+			error : function(error) {
+				//alert('상태값 넘기기 실패.');
+			}
+		})
+		
+		// 하단에 소개글 업데이트
+		$.ajax({
+			url: "/myCouIntroUpdate",
+			method : 'POST',
+			data : JSON.stringify({ 
+				myCouIntro: myCouIntro ,
+				data
+			}),
+			contentType : 'application/json',
+			success : function(response) {
+				alert('소개글 업데이트 성공?.');
+			    //var savedData = response.savedData;
+				location.reload();
+			},
+			error : function(error) {
+				alert('소개글 업데이트 실패.');
+			}
+		})
+				
 	}
 	
 	
+
 	
 	/*====================
 		태그
@@ -355,11 +417,9 @@
 			});
 		
 		
+
 </script>
-            </div>
-            
-                                
-</div>
+          
 
 </body>
 

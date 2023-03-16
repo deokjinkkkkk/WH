@@ -16,6 +16,9 @@ import co.admin.wh.hotel.vo.ReservationVO;
 @Repository
 public interface HotelMapper {
 	
+	//메인페이지
+    List<HotelVO> mainList(HotelSearchVO vo);
+    
 	//호텔 리스트 + 페이징
     void insertHotelInfo(HotelVO hotelVO) throws IOException, ParserConfigurationException, SAXException; // 크롤링한 정보 인서트
     List<HotelVO> hotelList(HotelSearchVO vo); // 추천 호텔 리스트 출력
@@ -42,15 +45,15 @@ public interface HotelMapper {
     List<ReservationVO> readReservInfo(String sessionId); // 예약정보 출력
     void ReservUpdate(ReservationVO vo); // 예약자 정보수정(업데이트문)
     void hotelCancel(ReservationVO vo); // 예약 취소(업데이트문)
+    void insertCancelInfo(ReservationVO vo); // 회원이 예약취소신청 시 취소 테이블에 취소정보 인서트 
     List<ReservationVO> readFinReservInfo(String sessionId); // 지난예약정보 출력
     List<ReservationVO> readCancelReservInfo(String sessionId); // 취소내역 출력
     
     
     // 관리자
     List<ReservationVO> adminReservList(); // 관리자 예약내역 전체조회
-//    void updateReservInfoByAdmin(ReservationVO vo); // 관리자 예약정보 수정
+    List<ReservationVO> adminSearch(String option, String content); // 관리자 예약내역 검색
     
-  //메인페이지
-    List<HotelVO> mainList(HotelSearchVO vo);
+
 }
 

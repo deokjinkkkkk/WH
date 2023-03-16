@@ -77,6 +77,7 @@ public class MyCourseController {
 			}
 			return resultValue;
 		}
+
 		
 		// 나만의 코스 하단에 소개글 업데이트
 		@PostMapping("/myCouIntroUpdate")
@@ -100,8 +101,8 @@ public class MyCourseController {
 				resultValue = "success";
 			}
 			return resultValue;
-		}
 
+	
 
 		// 리스트 삭제 시 순서 번호 업데이트
 		@PostMapping("/myCouSeqUpdate")
@@ -166,6 +167,8 @@ public class MyCourseController {
 			}
 			return resultValue;
 		}
+
+
 
 	// 상세페이지 보기 
 	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)

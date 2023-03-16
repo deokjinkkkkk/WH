@@ -16,8 +16,7 @@ public class MyCourseFreeVO {
 	String tripAddr; // 주소
 	String tripLat; //위도
 	String tripLon; //경도
-	
-	//tag와 join을 위한
-	String tagName; //태그내용
-	int tagCode; //태그 인덱스
+
+	String myCouIntro; // 코스 소개글
+
 }

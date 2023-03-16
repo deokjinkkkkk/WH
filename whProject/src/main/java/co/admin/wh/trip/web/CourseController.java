@@ -59,7 +59,7 @@ public class CourseController {
 		paging.setTotalRecord(courseMapper.getCountTotal(svo));
 		
 		//model.addAttribute("courseList", courseService.courseList(svo));
-		
+    model.addAttribute("courseList", courseService.myCouSharing(svo));
 		//코스 list에 tag 인기검색어 띄우기
 		List<TagVO> tagList = tservice.findByTagCnt();
 		model.addAttribute("tagList", tagList); //
@@ -68,7 +68,6 @@ public class CourseController {
 		
 	}	
 	
-
 	// 검색시 데이터가 없으면 db에 추가하도록 처리 + 페이지 리스트 처리 페이징
 		// *db 저장용 컨트롤러*
 		@GetMapping("/courseDb")
@@ -104,6 +103,7 @@ public class CourseController {
 			return "trip/tripCourseDetail";
 		}
 	
+
 		//==============
 		// 	태그 추가
 		//==============
@@ -121,4 +121,20 @@ public class CourseController {
         }
     }
 	
+	// 상세페이지 보기
+	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
+	public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
+		ObjectMapper object = new ObjectMapper();
+		vo.setCouCode(couCode);
+		model.addAttribute("onecourse", courseService.oneSelect(vo));
+		model.addAttribute("course", courseService.detailSelect(vo));
+		try {
+			model.addAttribute("couJson", object.writeValueAsString(courseService.detailSelect(vo)));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return "trip/tripCourseDetail";
+	}
+
 }

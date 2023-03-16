@@ -36,37 +36,12 @@
 	    SET MY_COURSE_CODE = MY_COURSE_CODE - 1
 	    WHERE MY_COURSE_CODE > #{myCourseCode}
 	</update>
-	
-	<!-- 나만의 코스 리스트를 공유할 시, 코스 목록에 출력 
-	<select id="myCouSharing" resultType="co.admin.wh.trip.vo.MyCourseVO">
-		select 'a' gb , TO_NUMBER(cou_code), cou_name, img_gro_code
-		FROM COURSE 
-		union all
-		select 'm' gb , my_course_code, my_cou_name, (
-		    SELECT t.img_gro_code
-		      from my_course_free c join trip t on c.trip_unique_number = t.trip_unique_number 
-		    where my_course_code = m.my_course_code
-		    AND cou_ord = '1' AND rownum = 1
-		) img from my_course m;
-	</select> -->
-	
-	<!-- ===================
-				 태그
-	======================= -->
-	
-	
-	<!-- 태그 리스트 - 랜덤값 -->
-	<select id="tagList">
-		SELECT * FROM TAG
-		ORDER BY DBMS_RANDOM.VALUE
-	</select>
-	
-	<!-- 태그 ul 만들기 -->
-	<!-- TAG 테이블에서 TAG_NAME 열을 검색하도록 지정하며, 검색된 결과를 오름차순으로 정렬하여 반환 -->
-	<select id="searchTags" parameterType="string" resultType="string">
-		SELECT TAG_NAME FROM TAG
-		WHERE TAG_NAME LIKE CONCAT('#{tag}','%')
-		ORDER BY TAG_NAME ASC
-	</select>
-	
+
+	<!-- 나만의 코스에 상태값(코스 공유 유무) 업데이트 test -->
+	<update id="myCouStateUpdate">
+		UPDATE MY_COURSE
+		SET MY_COU_STATE = #{myCouState}
+		WHERE MY_COURSE_CODE = #{myCourseCode}
+	</update>
+
 </mapper>
