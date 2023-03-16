@@ -36,12 +36,12 @@
 	    SET MY_COURSE_CODE = MY_COURSE_CODE - 1
 	    WHERE MY_COURSE_CODE > #{myCourseCode}
 	</update>
-	
+
 	<!-- 나만의 코스에 상태값(코스 공유 유무) 업데이트 test -->
 	<update id="myCouStateUpdate">
 		UPDATE MY_COURSE
 		SET MY_COU_STATE = #{myCouState}
 		WHERE MY_COURSE_CODE = #{myCourseCode}
 	</update>
-		
+
 </mapper>

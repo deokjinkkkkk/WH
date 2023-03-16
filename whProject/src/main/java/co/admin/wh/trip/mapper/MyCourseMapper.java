@@ -2,6 +2,7 @@ package co.admin.wh.trip.mapper;
 
 import java.util.List;
 
+
 import co.admin.wh.trip.vo.MyCourseVO;
 
 public interface MyCourseMapper {
@@ -18,4 +19,8 @@ public interface MyCourseMapper {
 		
 	int myCouStateUpdate(MyCourseVO vo); // 코스 공유 상태값
 
+
+	
+	
+	
 }

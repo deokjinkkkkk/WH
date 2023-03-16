@@ -13,4 +13,7 @@ public class MyCourseVO {
 	int myCouState; // 코스 공유 상태값
 	String myCouId; // 회원아이디
 	
+	//tag와 join을 위한
+	//String tagName;
+	
 }
