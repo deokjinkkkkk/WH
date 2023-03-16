@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin/indexAdmin}">
+	layout:decorate="~{admin/indexAdmin}">
 <body>
 
 	<!-- 내용 시작 -->
 <section layout:fragment="adminContent">
 <section>
 			<div class="container">
-
+	<h4>영상게시판 수정페이지</h4><hr>
 				<form id="frm" action="/videoUpdate" method="post">
 					<div class="row">
+					<div id="a" style="border-top:1px groove; border-bottom:10px solid; border-left:1px groove; border-right:1px groove; padding:10px; width:800px;">
 						<div class="form-group col-md-7">
 							[필수]제목<input type="text" th:value="${d.videoName}" name="videoName" id="videoName">
 						</div>
@@ -31,13 +32,15 @@
 							Thumbnail<input type="text" name="thumbnail" id="thumbnail" th:value="${d.thumbnail}">
 						</div>	
 						
-						
-						<input type="submit" value="수정">
+						</div>
+						<div id="b">
+						<input type="submit" value="수정" class="btn btn-primary" style="width:100px;">
 						<input type="hidden" th:value="${d.videoCode}" name="videoCode" id="nameCode">
-						
+						</div>
 						</div></form></div></section>
-				
-
+<script type="text/javascript">
+$("#b").prepend($("#a"));
+</script>
 </section>
 </body>
 </html>

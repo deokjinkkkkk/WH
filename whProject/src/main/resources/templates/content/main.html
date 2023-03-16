@@ -39,17 +39,16 @@
        
 
         <!-- Start popular destination Section -->
-        <section>
+        <section style="position: relative;">
             <div class="text-center margin-40px-bottom">
                     <h3 class="margin-10px-bottom position-relative">추천 여행지</h3>
                 </div>
-            <div class="shadow-bottom-right" style="border: 0.1px solid lightgray; border-radius:30px; padding: 10px; width:1300px; margin: 0 auto;   ">
+            <div class="shadow-bottom-right" style="border: 0.1px solid lightgray; border-radius:30px; padding: 10px; width:1300px; margin: 0 auto; position: relative; ">
                 <div class="row">
                     <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom">
                     <div class="box-wrapper">
-                        <div class="shadow-inset-all"  style="position: relative;
-    top: 50px;"> 
-                            <p class="margin-30px-bottom" style="font-size:20px; padding: 40px; margin: 0 auto; text-align:center; ">추천!<br>국내여행에 특별함을 더하다!</p>
+                        <div class="shadow-inset-all"  style=" top: 50px;"> 
+                            <div class="margin-30px-bottom" style="font-size:20px; padding: 40px; margin: 0 auto; text-align:center; ">추천!<br>국내여행에 특별함을 더하다!</div>
                             
                         </div></div>
                     </div>
@@ -58,7 +57,7 @@
     top: 50px;">
                         
                       
-                                <div th:each="c : ${t}">
+                                <div th:each="c : ${t}" >
                                 <img th:src="${c.imgGroCode}" class="border-radius-4" style="width:400px; height:150px; border:0.2px solid lightgrey" />
                                 <div class="padding-20px-top padding-20px-left">
                                 <input type="hidden" id="tripCode" name="tripCode" th:value="${c.tripCode}">
@@ -101,24 +100,24 @@
         <!-- end packages section -->
 
         <!-- start other section -->
-        <section>
+       <section>
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 xs-margin-30px-bottom">
-                        <div class="bg-img padding-100px-tb border-radius-4 cover-background text-center h-100" Data-overlay-dark="3" data-background="img/content/01.jpg">
+                        <div class="bg-img padding-100px-tb border-radius-4 cover-background text-center h-100" Data-overlay-dark="3" th:style="|background:url(img/content/hospital.png)|" >
                             <div class="position-relative z-index-9">
-                                <span class="text-white font-size16">01. Last Minute</span>
-                                <h4 class="text-white margin-20px-top font-size38 xs-font-size34 margin-30px-bottom">Discover Cities</h4>
-                                <a href="#" class="butn white">Details</a>
+                                <span class="text-white font-size16">병원</span>
+                                <h4 class="text-white margin-20px-top font-size38 xs-font-size34 margin-30px-bottom">가까운 병원 찾기</h4>
+                                <a href="https://www.e-gen.or.kr/egen/search_hospital.do?searchType=map" class="butn white">이동</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bg-img padding-100px-tb border-radius-4 cover-background text-center h-100" data-overlay-dark="4" data-background="img/content/02.jpg">
+                        <div class="bg-img padding-100px-tb border-radius-4 cover-background text-center h-100" data-overlay-dark="4" th:style="|background:url(img/content/pham.png)|" >
                             <div class="position-relative z-index-9">
-                                <span class="text-white font-size16">02. Last Minute</span>
-                                <h4 class="text-white margin-20px-top font-size38 xs-font-size34 margin-30px-bottom">Discover Nature</h4>
-                                <a href="#" class="butn white">Details</a>
+                                <span class="text-white font-size16">약국</span>
+                                <h4 class="text-white margin-20px-top font-size38 xs-font-size34 margin-30px-bottom">가까운 약국 찾기</h4>
+                                <a href=https://www.e-gen.or.kr/egen/search_pharmacy.do class="butn white">이동</a>
                             </div>
                         </div>
                     </div>
@@ -131,34 +130,34 @@
         <section>
             <div class="container">
                 <div class="text-center margin-40px-bottom">
-                    <h3 class="no-margin-bottom">Popular Tourist Countries</h3>
+                    <h3 class="no-margin-bottom">인기 여행지</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 sm-margin-30px-bottom">
                         <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
-                            <img src="img/content/tour-7.png" class="margin-30px-bottom" alt="" />
-                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Singapore</h5>
+                            <img src="img/content/seoul.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">서울</h5>
                             <p class="center-col no-margin-bottom">Lorem Ipsum is simply dummy text of the printing.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 sm-margin-30px-bottom">
                         <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
-                            <img src="img/content/tour-8.png" class="margin-30px-bottom" alt="" />
-                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Paris</h5>
+                            <img src="img/content/daegu.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">대구</h5>
                             <p class="center-col no-margin-bottom">It is a long established fact that a reader will.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 mobile-margin-30px-bottom">
                         <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
-                            <img src="img/content/tour-9.png" class="margin-30px-bottom" alt="" />
-                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">Tokyo</h5>
+                            <img src="img/content/busan.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">부산</h5>
                             <p class="center-col no-margin-bottom">Content of a page when looking at its layout the point.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div class="text-center padding-40px-tb padding-20px-lr border border-radius-4 country h-100">
-                            <img src="img/content/tour-10.png" class="margin-30px-bottom" alt="" />
-                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">NewYork</h5>
+                            <img src="img/content/jeju.png" class="margin-30px-bottom" alt="" />
+                            <h5 class="sm-margin-10px-bottom margin-15px-bottom font-size20">제주</h5>
                             <p class="center-col no-margin-bottom">Aliquam quis ullamcorper neque. Suspendisse potenti.</p>
                         </div>
                     </div>
