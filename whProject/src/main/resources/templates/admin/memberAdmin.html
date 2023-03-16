@@ -5,23 +5,11 @@
 	<!-- 페이징 -->
 	<script>
 		function gopage(page) {
-<<<<<<< HEAD
-			location.href = "food?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-		}
-=======
 			location.href = "admemList?page=" + page;
 			frmSearch.page.value = page;
 			frmSearch.submit();
 		}
 	</script>
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
-
-<<<<<<< HEAD
-	</script>
-=======
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
@@ -57,10 +45,6 @@
 					</thead>
 					<tbody>
 						<tr th:each="m : ${mem}" id="member">
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 							<td th:text=${m.id}></td>
 							<td th:text=${m.name}></td>
 							<td th:text=${m.gender}></td>
@@ -93,14 +77,9 @@
 								<div class="modal-body" id="modal2"></div>
 							</div>
 							<div class="modal-body">
-<<<<<<< HEAD
-								<input type="button" class="btn btn-primary" value="회원제재"
-									id="del">
-=======
 								<input type="button" class="btn btn-primary" value="회원삭제"
 									id="del"> <input type="button" class="btn btn-primary"
 									value="회원제재" id="san">
->>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 							</div>
 						</div>
 					</div>
