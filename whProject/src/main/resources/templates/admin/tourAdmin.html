@@ -27,9 +27,23 @@
 							<td th:if="${t.tourState == '0'}">승인대기</td>
 							<td th:if="${t.tourState == '1'}">승인</td>
 							<td th:if="${t.tourState == '2'}">승인거부</td>
-							<td><button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="su">승인</button>
-							<button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="sd">승인거부</button>
+							<td><button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="sd">승인거부</button>
+							<button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="su">승인</button>
 							<input type="hidden" th:value="${t.tourId}">
+							<input type="hidden" th:value="${t.tourTitle}">
+							<input type="hidden" th:value="${t.tourAddr}">
+							<input type="hidden" th:value="${t.tourLat}">
+							<input type="hidden" th:value="${t.tourLon}">
+							<input type="hidden" th:value="${t.tourSumm}">
+							<input type="hidden" th:value="${t.tourContent}">
+							<input type="hidden" th:value="${t.tourRegion}">
+							<input type="hidden" th:value="${t.imgGroCode}">
+							<input type="hidden" th:value="${t.tourTel}">
+							<input type="hidden" th:value="${t.restDate}">
+							<input type="hidden" th:value="${t.useTime}">
+							<input type="hidden" th:value="${t.tourParking}">
+							<input type="hidden" th:value="${t.tourChild}">
+							<input type="hidden" th:value="${t.tourChkCard}">							
 							</td>
 						</tr>
 					</tbody>
@@ -41,14 +55,45 @@
 	<script type="text/javascript">
 		$("#su").click(function(){
 			console.log($(this).parent().prev().text())
+			let tour = $(this).next()
 			let state = 1
+			
 			let tourId = $(this).next().val()
+			console.log(tourId)
+			let tourTitle = tour.next().val()
+			let tourAddr = tour.next().next().val()
+			let tourLon = tour.next().next().next().val()
+			let tourLat = tour.next().next().next().next().val()
+			let tourSumm = tour.next().next().next().next().next().val()
+			let tourContent = tour.next().next().next().next().next().next().val()
+			let tourRegion = tour.next().next().next().next().next().next().next().val()
+			let imgGroCode = tour.next().next().next().next().next().next().next().next().val()
+			let tel = tour.next().next().next().next().next().next().next().next().val()
+			let restDate = tour.next().next().next().next().next().next().next().next().next().val()
+			let useTime = tour.next().next().next().next().next().next().next().next().next().next().val()
+			let tourParking = tour.next().next().next().next().next().next().next().next().next().next().next().val()
+			let tourChild = tour.next().next().next().next().next().next().next().next().next().next().next().next().val()
+			let tourChkCard = tour.next().next().next().next().next().next().next().next().next().next().next().next().next().val()
 			 $.ajax({
-				url : "/tourUpdate",
+				url : "/tourTripInsert",
 				type : "POST",
 				data : JSON.stringify({
 					"tourState" : state,
-					"tourId" : tourId
+					"tourId" : tourId,
+					"tourTitle":tourTitle,
+					"tourAddr" : tourAddr,
+					"tourLat" : tourLat,
+					"tourLon" : tourLon,
+					"tourSumm" : tourSumm,
+					"tourContent" : tourContent,
+					"tourRegion" : tourRegion,
+					"imgGroCode" : imgGroCode,
+					"tel" : tel,
+					"restDate" : restDate,
+					"useTime" : useTime,
+					"tourParking" : tourParking,
+					"tourChild" : tourChild,
+					"tourChkCard" : tourChkCard
 				}),
 				contentType : 'application/json',
 				success : function(data) {
@@ -56,12 +101,13 @@
 				},
 				error : function() {
 					alert('등록실패');
+					return false
 				}
 			})
+			
 		})
-		
 		$("#sd").click(function(){
-			let tourId = $(this).next().val()
+			let tourId = $(this).next().next().val()
 			let state = 2
 			 $.ajax({
 				url : "/tourUpdate",

@@ -30,7 +30,6 @@ public class CommentsController {
 	@ResponseBody
 	public List<CommentsVO> commentsGetList(@RequestBody CommentsVO vo,Model model) {
 		List<CommentsVO> comList = commentsMapper.commentsList(vo);
-		
 		return comList;
 	}
 //	
