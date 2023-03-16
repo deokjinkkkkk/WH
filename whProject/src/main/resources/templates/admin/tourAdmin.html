@@ -29,6 +29,7 @@
 							<td th:if="${t.tourState == '2'}">승인거부</td>
 							<td><button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="sd">승인거부</button>
 							<button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="su">승인</button>
+							<span th:if="${t.tourState != '0'}">X</span>
 							<input type="hidden" th:value="${t.tourId}">
 							<input type="hidden" th:value="${t.tourTitle}">
 							<input type="hidden" th:value="${t.tourAddr}">
