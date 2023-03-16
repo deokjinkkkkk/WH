@@ -11,24 +11,31 @@ import co.admin.wh.trip.vo.MyCourseVO;
 public class TagServiceImpl implements TagService{
 	@Autowired
 	private TagMapper map;
+
+
+
+	@Override
+	public int saveTag(String tagName) {
+		// TODO Auto-generated method stub
+		return map.saveTag(tagName);
+	}
+
+	@Override
+	public int addCntTag(Integer tagCode) {
+		// TODO Auto-generated method stub
+		return map.addCntTag(tagCode);
+	}
+
+	@Override
+	public List<TagVO> findByTagCnt() {
+		// TODO Auto-generated method stub
+		return map.findByTagCnt();
+	}
+
+	@Override
+	public TagVO findTagBytag(String tagName) {
+		
+		return map.findTagBytag(tagName);
+	}
 	
-	@Override
-	public List<MyCourseVO> aroundTagList(MyCourseVO tagName) {
-		
-		
-		// 태그별 리스트
-		return map.aroundTagList(tagName);
-	}
-
-	@Override
-	public List<TagVO> tagList() {
-		// 태그리스트
-		return map.tagList();
-	}
-
-	@Override
-	public List<String> searchTags(String tag) {
-		// 태그 ul 만들기
-		return map.searchTags(tag);
-	}
 }

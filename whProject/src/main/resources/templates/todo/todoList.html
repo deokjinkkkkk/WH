@@ -8,17 +8,25 @@
 <meta charset="UTF-8">
 </head>
 
-<body layout:fragment="content">
-   <!-- 배너시작 -->
-   <section class="page-title-section bg-img cover-background"
-      th:style="|background: url('/img/banner/bg1.jpg')|">
-      <h1 class="text-white font-weight-600">todolist</h1>
-      <ul>
-         <li><a href="/main">Home</a></li>
-         <li><a href="/">todolist</a></li>
-      </ul>
-   </section>
-   <!-- 배너끝 -->
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+	
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">To_do_list</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">to_do_list</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+  
 
 
    <!-- to do list 시작 -->

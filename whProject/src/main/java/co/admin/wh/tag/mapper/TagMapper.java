@@ -2,15 +2,18 @@ package co.admin.wh.tag.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import co.admin.wh.tag.vo.TagVO;
-import co.admin.wh.trip.vo.MyCourseVO;
 
 public interface TagMapper {
 
 	
-	List<MyCourseVO> aroundTagList(MyCourseVO tagName); //태그별로 리스트 띄우기
+	TagVO findTagBytag(@Param("tagName")String tagName); //tagName에서 태그를 찾아서 tag 객체로 반환
 	
-	List<TagVO> tagList(); // 태그 리스트
+	int saveTag(@Param("tagName")String tagName);//새로운 태그를 db에 추가하고 해당 태그의 tagCode에 반환
 	
-	List<String> searchTags(String tag);//태그 ul만들기 -> 입력받은 tag 문자열과 일치하는 태그명을 검색하고, 검색된 태그명들을 오름차순으로 정렬하여 반환하는 역할
+	int addCntTag(@Param("tagCode")Integer tagCode);//tagCode에 해당하는 태그의 사용 횟수를 1씩 증가
+		
+	List<TagVO> findByTagCnt(); //태그 사용량을 기준으로 상위 10개 태그를 찾는
 }

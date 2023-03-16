@@ -3,9 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/index}">
 
+
+
+
 <body>
 
 	<div layout:fragment="content" class="content">
+
 
 		<!-- 페이징 -->
 		<script>
@@ -15,6 +19,31 @@
 				frmSearch.submit();
 			}
 		</script>
+		<!-- =========== ====
+			인기Tag paly효과 시작
+		   ==============-->
+	
+<script>
+  setInterval(play, 800);
+  
+  function play() {
+    $("#box").delay(1000).animate({top:-40}, function(){
+      $("#box p:first").appendTo("#box");
+      $("#box").css({top:0});
+    });
+  }
+  
+/*===================
+	인기Tag play 효과 끝
+	=================*/
+  
+  
+  // 첫 번째 p 요소를 #10으로 이동시킴
+  $(document).ready(function(){
+    $("#box p:first").appendTo("#box");
+  });
+</script>
+	
 		<!-- 페이징 끝-->
 
 
@@ -62,7 +91,7 @@
 					<!-- start tour-list section -->
 		[[${courseList}]]
 					<div
-						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom"  style="float: left;">
 						<div class="row margin-30px-bottom">
 							<div class="col-12 margin-40px-bottom">
 
@@ -137,7 +166,26 @@
 						<!-- 페이징 끝 -->
 
 					</div>
+				
+					
 				</div>
+					<!-- ==================
+						Tag rank				
+				  =====================-->
+						<div class="widget-title" id="tagRank">
+						  <h1>인기 tag</h1>
+						</div>		
+						<div id="rank">
+						  <div id="box">
+						    <div th:each="tag : ${tagList}">
+						      <p><a href="#" th:text="${tag.tagName}"></a></p>
+						    </div>
+						  </div>
+						</div>
+			
+				  
+				<div>
+				
 				<div
 					class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 					<div class="side-bar">
