@@ -20,10 +20,10 @@
 			th:style="|background:url(img/banner/bg2.jpg)|">
 			<div class="container">
 
-				<h1 class="text-white font-weight-600">커뮤니티</h1>
+				<h1 class="text-white font-weight-600">My Page</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
+					<li><a href="/companionList"><span class="active">내 동행자에 신청한 사람들</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -35,32 +35,33 @@
 
                     <!--  start blog left-->
                     <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    	<title>내 게시글에 신청한 사람들</title>
+                    	<h4>내 동행자에 신청한 사람들</h4>
                         <div class="posts">
 
                         
                          <table class="table" style="border-top:3px solid #69737C; border-collapse:collapse;" >
                          	<thead>
-                         		<tr>
+                         		<tr >
                          			<td>글제목</td>
                          			<td>신청자</td>
                          			<td>신청자전화번호</td>
                          			<td>신청자성별</td>
-                         			<td>승인</td>                         			
-                                         			
+                         			<td colspan="2" style="text-align:center;">승인</td>                         			
+                                    		
                          		</tr>
                          	</thead>
-                         		<tbody th:each="c : ${se}">
-                  
-                         			<tr  th:if="${c.writer == session.name}">
-                         			
-                         			
-                         				<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
+                         		<tbody th:each="c, status : ${se}">
+    <tr th:if="${c.writer == session.name}">
+        <!-- 중복된 글 제목인 경우, 첫 번째 글에만 제목을 표시하고 나머지는 빈칸으로 대체 -->
+        <th:block th:if="${status.first or c.compTitle != se[status.index - 1].compTitle}">
+            <td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
+        </th:block>
+        <th:block th:unless="${status.first or c.compTitle != se[status.index - 1].compTitle}">
+            <td></td>
+        </th:block>
 	                         			<td>[[${c.name}]]</td>
 	                         			<td>[[${c.tel}]]</td>
 	                         			<td>[[${c.gender}]]</td>
-	                         			<td>[[${c.seCode}]]</td>
-	                         			<td>[[${c.coState}]]</td>
 	                         			
  	                         			<td><form action="/approve" method="post"><input type="hidden" name="seCode" th:value="${c.seCode}"><input type="hidden" name="compCode" th:value="${c.compCode}"><button th:disabled="${c.coState == '111'}or${c.coState == '222'}" type="submit" >승인</button></form></td>
 	                         			<td><form action="/reject" method="post"><input type="hidden" name="seCode" th:value="${c.seCode}"><input type="hidden" name="compCode" th:value="${c.compCode}"><button th:disabled="${c.coState == '111'}or${c.coState == '222'}" type="submit" >거절</button></form></td>

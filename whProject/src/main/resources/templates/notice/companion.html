@@ -22,7 +22,7 @@
 				<h1 class="text-white font-weight-600">커뮤니티</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
+					<li><a href="/companion"><span class="active">동행자</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -36,21 +36,22 @@
 			}
 		</script>
 		<!-- 본문 내용 -->
-		<div class="container">
+		<div class="container" style="padding:40px">
 			<div class="card d-flex flex-row align-items-center overflow-hidden"
 				style="height: 200px;" th:each="c : ${companionList}">
 				<div class="card-image w-25 ">
 					<img th:src="'/image/'+${c.imgPath}" width="200px" height="200px">
-				</div>
-				<div class="card-body" onclick="location.href='companionDetail/${c.compCode}'">
+				</div><a
+						th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">
+				<div class="card-body">
 					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
-					<h4 class="card-title">[[${c.compTitle}]]	,[[${roomId}]]</h4>
-					인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
+					<h4
+							class="card-title">[[${c.compTitle}]]</h4> 인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
 						th:text="${c.comName}"></span><br> 여행기간 : <span
 						th:text="${c.compStartDate}"> </span> ~ <span
 						th:text="${c.compEndDate}"></span><br>
 						
-				</div>
+				</div></a>
 			</div>
 			<br>
 			<a href="companionForm" class="btn btn-danger" style="float: right;;">신청하기</a>

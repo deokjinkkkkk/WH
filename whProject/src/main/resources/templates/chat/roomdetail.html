@@ -25,7 +25,8 @@
 				<h1 class="text-white font-weight-600">커뮤니티</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
+					<li><a href="/chat/room">채팅방 목록</a></li>
+					<li><a href="/companionForm"><span class="active">채팅방</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -85,7 +86,7 @@
     created() {
         this.roomId = localStorage.getItem('wschat.roomId');
         this.sender = localStorage.getItem('wschat.sender');
-        this.messages = JSON.parse(localStorage.getItem('wschat.messages')) || [];
+        this.messages = JSON.parse(localStorage.getItem('wschat.messages.' + this.roomId)) || [];
         this.findRoom();
     },
     computed: {
@@ -110,7 +111,7 @@
         },
         recvMessage: function(recv) {
             this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message});
-            localStorage.setItem('wschat.messages', JSON.stringify(this.messages));
+            localStorage.setItem('wschat.messages.' + this.roomId, JSON.stringify(this.messages));
             this.$nextTick(() => {
                 const messageList = this.$refs.messageList;
                 messageList.scrollTop = messageList.scrollHeight;
@@ -142,10 +143,18 @@
     
     connect();
     function disconnect() {
-    	  ws.disconnect(function() {
-    	    console.log("WebSocket 연결이 종료되었습니다.");
-    	  });
-    	}
+        ws.send("/app/chat/message", {}, JSON.stringify({type:'QUIT', roomId:vm.$data.roomId, sender:vm.$data.sender}));
+        // 퇴장할 때 메시지 전송
+        vm.messages.unshift({"type":"QUIT","sender":"[알림]","message":vm.sender+"님이 퇴장하셨습니다."});
+        localStorage.setItem('wschat.messages.' + vm.roomId, JSON.stringify(vm.messages));
+        vm.$nextTick(() => {
+            const messageList = vm.$refs.messageList;
+            messageList.scrollTop = messageList.scrollHeight;
+        });
+        ws.disconnect(function() {
+            window.location.href = "/chat/room";
+        });
+    };
 </script>
 </body>
 </html>
