@@ -18,23 +18,11 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 
-	@Override
-	public int insertFollow(FollowVO vo) {
-		//팔로우
-		return mapper.insertFollow(vo);
-	}
 
 	@Override
-	public int unFollow(FollowVO vo) {
-		//언팔로우 
-		return mapper.unFollow(vo);
-	}
-
-	@Override
-	public boolean checkFollow(FollowVO vo) {
-		//파로우 유무
-		return checkFollow(vo);
-	}
+	  public boolean checkFollow(FollowVO vo) {
+	    return mapper.checkFollow(vo);
+	  }
 
 	@Override
 	public Map<String, Object> followCount(String id) {
@@ -47,6 +35,22 @@ public class FollowServiceImpl implements FollowService {
 	public List<Map<String, Object>> followingList(String id) {
 		//팔로잉 
 		return mapper.followingList(id);
+	}
+
+
+
+	@Override
+	public FollowVO insertFollow(FollowVO vo) {
+		// TODO Auto-generated method stub
+		return (FollowVO)insertFollow(vo);
+	}
+
+
+
+	@Override
+	public FollowVO unFollow(FollowVO vo) {
+		// TODO Auto-generated method stub
+		return (FollowVO)unFollow(vo);
 	}
 
 	
