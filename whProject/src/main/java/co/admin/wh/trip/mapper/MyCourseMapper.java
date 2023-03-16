@@ -2,6 +2,7 @@ package co.admin.wh.trip.mapper;
 
 import java.util.List;
 
+
 import co.admin.wh.trip.vo.MyCourseVO;
 
 public interface MyCourseMapper {
@@ -20,4 +21,8 @@ public interface MyCourseMapper {
 	
 	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
 
+
+	
+	
+	
 }

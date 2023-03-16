@@ -56,4 +56,33 @@
 	</update>
 	
 
+
+<!--=============================
+			태그 넣기 
+=================================			 -->
+
+<!-- 태그 적용 리스트 - 태그가 달린 상세페이지 볼수있도록 join -->
+	<select id="aroundTagList" resultType="co.admin.wh.trip.vo.MyCourseVO">
+		SELECT * FROM 
+    (SELECT ROWNUM AS RNUM,
+            my_course_code,
+            theme,
+            my_cou_date,
+            my_cou_name,
+            my_cou_content,
+            my_cou_state,
+            my_cou_id,
+            tag_name,
+            tag_code
+    FROM (SELECT M.*, T.* FROM my_course M 
+        LEFT OUTER JOIN tag_map R
+            ON M.my_course_code = R.my_course_code
+        LEFT OUTER JOIN tag T
+            ON R.tag_code = T.tag_code 
+    ORDER BY M.my_course_code DESC))
+WHERE RNUM BETWEEN 1 AND 6;
+	</select>
+
+
+
 </mapper>

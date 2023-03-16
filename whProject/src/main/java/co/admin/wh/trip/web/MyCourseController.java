@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.admin.wh.tag.mapper.TagMapper;
+import co.admin.wh.tag.service.TagService;
+import co.admin.wh.tag.vo.TagVO;
 import co.admin.wh.trip.mapper.MyCourseFreeMapper;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.service.MyCourseFreeService;
 import co.admin.wh.trip.service.MyCourseService;
-import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -38,6 +41,12 @@ public class MyCourseController {
 	@Autowired
 	MyCourseFreeService myCourseFreeService;
 
+	@Autowired
+	TagService tagService;
+
+	@Autowired
+	TagMapper tagMapper;
+
 	@RequestMapping("/myCourse")
 	public String myCourse(Model model) {
 		model.addAttribute("test", myCourseService.myCourseList());
@@ -46,6 +55,7 @@ public class MyCourseController {
 	}
 
 	// 제목 입력하기
+
 	@PostMapping("/myCourseInsert")
 	@ResponseBody
 	public String myCourseInsert(@RequestBody MyCourseVO vo) {
@@ -136,44 +146,67 @@ public class MyCourseController {
 	public String moveSaveTrip(@RequestBody List<MyCourseFreeVO> list) {
 		String resultValue = "fail";
 		for (MyCourseFreeVO vo : list) {
-			int result = myCourseFreeMapper.myCouUpdate(vo);
-			resultValue = "fail";
+            int result = myCourseFreeMapper.myCouUpdate(vo);
+            resultValue = "fail";
+            if (result > 0) {
+               resultValue = "success";
+            }
+         }
+         return resultValue;
+      }
+	
+		// 상태값을 myCourse테이블에 넘기기
+		@PostMapping("/myCouStateSave")
+		@ResponseBody
+		public String myCouStateSave(@RequestBody MyCourseVO vo) {
+			int result = myCourseMapper.myCouStateUpdate(vo);
+			String resultValue = "fail";
 			if (result > 0) {
 				resultValue = "success";
 			}
+			return resultValue;
 		}
-		return resultValue;
-	}
-	
-	// 상태값을 myCourse테이블에 넘기기
-	@PostMapping("/myCouStateSave")
-	@ResponseBody
-	public String myCouStateSave(@RequestBody MyCourseVO vo) {
-		int result = myCourseMapper.myCouStateUpdate(vo);
-		String resultValue = "fail";
-		if (result > 0) {
-			resultValue = "success";
-		}
-		return resultValue;
-	}
 
 
-	// 상세페이지 보기
+
+	// 상세페이지 보기 
 	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-			Model model) {
-	    ObjectMapper object = new ObjectMapper();
+	public void CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+			 @RequestParam(value = "newTag", required = false) String newTag,Model model) { //태그를 위한 추가
+		
+		ObjectMapper object = new ObjectMapper();
 		vo.setMyCourseCode(myCourseCode);
+
+		MyCourseVO myCourse = myCourseService.detailSelect(vo);
+		
+
 		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
 		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
-		  try {
-		         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
-		      } catch (JsonProcessingException e) {
-		         e.printStackTrace();
-		      }
 
+		try {
+			model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		// 새로운 tag db 저장
+	    if (newTag != null && !newTag.isEmpty()) {
+	        TagVO tagCode = tagService.findTagBytag(newTag);
+	        if (tagCode == 0) {
+	            tagService.saveTag(newTag);
+	            tagCode = tagService.findTagBytag(newTag);
+	        }
+	        tagService.addCntTag(tagCode);
+	    }
+		
 		return "trip/myCourseDetail";
-	}
+	}*/
+
+	
+
 	
 
 }
+}
+

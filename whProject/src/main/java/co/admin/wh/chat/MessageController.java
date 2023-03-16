@@ -16,6 +16,8 @@ public class MessageController {
     public void enter(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
             message.setMessage(message.getSender()+"님이 입장하였습니다.");
+        }else if (ChatMessage.MessageType.QUIT.equals(message.getType())) { // QUIT일 경우 처리
+            message.setMessage(message.getSender()+"님이 퇴장하였습니다.");
         }
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
     }

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
+	layout:decorate="~{admin/indexAdmin}">
 <body>
-	<div layout:fragment="content" class="content">
-
+<section layout:fragment="adminContent">
+<h5 style="text-align:center;"><p>영상게시판</p></h5>
 	<!-- 내용 시작 -->
 <!-- start blog section -->
-		<section>
+		<section style="padding:0px;">
 			<div class="container">
-            	<p style="font-size: 30px;">지역<p><hr>
+            	<p style="font-size: 30px; text-align:center;">지역<p><hr>
+            	
             	<div id="product_order_list">
 			<p>
 			<a href="javascript:seoul();">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
@@ -267,10 +268,14 @@
    </script>
    <!-- 페이징 끝-->
 				<div class="row margin-30px-bottom" id="hotelListContent">
+				
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
+					<!-- 							<div class="box-wrapper"> -->
+							<div class="shadow-bottom-right">
 						<div class="hotel border border-radius-4 package h-100">
-
+							
 							<div class="padding-30px-all">
+
 								<div
 									class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
 									<p>[[${v.videoName}]]</p>
@@ -281,7 +286,7 @@
 					
 						</div>
 					</div>
-				</div>
+				</div></div></div>
 
 
 				<a href="videoForm" class="btn btn-danger" style="float: right;;">신청하기</a>
@@ -304,6 +309,6 @@
 										</nav>
 									</div> 
                    				<!-- 페이징 끝 -->
-</section>
+</section></section>
 </body>
 </html>

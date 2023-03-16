@@ -51,17 +51,7 @@ public class RepotController {
 		return "common/reportCompanion";
 	}
 	
-	@RequestMapping("/reportFree")
-	public String reportFree(Model model, ReportVO rvo) {
-		model.addAttribute("rvo", reportMapper.reportFree(rvo));
-		return "common/reportFree";
-	}
-	
-	@RequestMapping("/reportReview")
-	public String reportReview(Model model, ReportVO rvo) {
-		model.addAttribute("rvo", reportMapper.reportReview(rvo));
-		return "common/reportReview";
-	}
+
 	
 	@RequestMapping("/reportComment")
 	public String reportComment(Model model, ReportVO rvo) {
