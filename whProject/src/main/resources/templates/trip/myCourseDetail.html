@@ -242,7 +242,7 @@
 					if (data == "success") {
 						alert("삭제가 완료됐습니다.");
 						row.remove(); // 행 삭제
-						
+						location.reload(); // 새로고침
 						 // 서버에서 행이 삭제된 이후 모든 레코드의 couOrd(순서) 값을 1씩 감소시키기 위한 ajax 호출
 	                   /* $.ajax({
 	                        url: "/myCouUpdateOrd",
