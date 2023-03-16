@@ -153,7 +153,7 @@ public class HotelController {
 		vo.setId(principal.getName()); // 로그인한 id값을 예약vo에 set
 		hotelInfoService.insertReservInfo(vo);
 		int hotelId = vo.getHotelId();
-		hotelInfoService.minusRoomCount(hotelId); // hotel테이블의 방 개수 -1
+//		hotelInfoService.minusRoomCount(hotelId); // hotel테이블의 방 개수 -1
 		return "y";
 	}
 	
@@ -188,7 +188,8 @@ public class HotelController {
 	@ResponseBody
 	public String cancel(@RequestBody ReservationVO vo, Model model) {
 		vo.setResState(0); // 현재 예약상태를 vo에 set. 0:예약완료상태
-		hotelInfoService.hotelCancel(vo);
+		hotelInfoService.hotelCancel(vo); // 예약완료상태 -> 환불신청상태
+		hotelInfoService.insertCancelInfo(vo); // 취소 테이블에 환불정보 insert
 		return "y";
 	}
 	
@@ -298,8 +299,9 @@ public class HotelController {
 		return "redirect:/Admin/reservation";
 	}
 	
-	@PostMapping("/adminReservSearch")
-	public String adminReservSearch() {
-		return "";
+	@PostMapping("/adminReservSearch") // 관리자 예약검색
+	public String adminReservSearch(@RequestParam String option, @RequestParam String content, Model model) {
+	    model.addAttribute("hotelList", hotelInfoService.adminSearch(option, content));
+	    return "hotel/ajaxAdminReservList";
 	}
 };
