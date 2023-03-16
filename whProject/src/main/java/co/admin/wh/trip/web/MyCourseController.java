@@ -68,6 +68,18 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
+	
+	// 나만의 코스 하단에 소개글 업데이트
+	@PostMapping("/myCouIntroUpdate")
+	@ResponseBody
+	public String myCouIntroUpdate(@RequestBody MyCourseFreeVO vo) {
+		int result = myCourseFreeMapper.myCouIntroUpdate(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
 
 	// 나만의 코스 리스트에 있는 항목 삭제하기
 	@PostMapping("/myCourseDelete")
@@ -129,6 +141,18 @@ public class MyCourseController {
 			if (result > 0) {
 				resultValue = "success";
 			}
+		}
+		return resultValue;
+	}
+	
+	// 상태값을 myCourse테이블에 넘기기
+	@PostMapping("/myCouStateSave")
+	@ResponseBody
+	public String myCouStateSave(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouStateUpdate(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
 		}
 		return resultValue;
 	}

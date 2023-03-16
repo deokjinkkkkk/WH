@@ -20,4 +20,6 @@ public interface MyCourseFreeMapper {
 	
 	int couOrdUpdate(MyCourseFreeVO vo); // 여행지 삭제 시 순서번호 수정
 	
+	int myCouIntroUpdate(MyCourseFreeVO vo); // 소개글 업데이트
+	
 }

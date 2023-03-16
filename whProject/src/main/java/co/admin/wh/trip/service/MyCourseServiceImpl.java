@@ -44,11 +44,11 @@ public class MyCourseServiceImpl implements MyCourseService {
 		return map.myCouSeqUpdate(vo);
 	}
 
-//	@Override
-//	public List<MyCourseVO> myCouSharing() {
-//		// 나만의 코스 공유...test
-//		return map.myCouSharing();
-//	}
+	@Override
+	public int myCouStateUpdate(MyCourseVO vo) {
+		// 코스 공유 상태값
+		return map.myCouStateUpdate(vo);
+	}
 	
 	
 }
