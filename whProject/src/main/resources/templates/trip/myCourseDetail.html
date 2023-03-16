@@ -38,6 +38,7 @@
 }
 
 </style>	 
+  [[${myCourse}]]
   <div class="container">
                 <div class="row">
                     <div class="">
@@ -196,7 +197,7 @@
                                     </div>
                                     <br>
                                     <div class="form-group col-md-12">
-                                        <textarea id="intro" placeholder="소개글"></textarea>
+                                        <textarea id="intro" th:if="${myCourse.myCouContent} !=''" th:text=${myCourse.myCouContent} placeholder="소개글"></textarea>
                                     </div>
                                     <br>
                                     <div class="checkradio">
@@ -303,12 +304,8 @@
 		var data = [];
 		var myCourseCode = $('.myCourseCode').val();
 		var couOrd = $('#couOrd').val();
-		var myCouIntro = $('#intro').val();
-			if (Array.isArray(myCourseCode)) {
-				  myCourseCode = myCourseCode[0];
-				}
-		console.log(myCourseCode)
-		
+		var myCouContent = $('#intro').val();
+			
 		var myCouState = $('input[name="chkMenu"]:checked').val();
 		/* data 배열에 담을 값은 내가 옮기는 코스의 순서(couOrd)와 기본키값(myCouFreeCode)
 		   기본키값에 수정된 코스의 순서 번호를 담아 UPDATE 해서 저장하면 된다!
@@ -363,13 +360,13 @@
 			}
 		})
 		
-		// 하단에 소개글 업데이트
+		// 하단에 소개글 등록
 		$.ajax({
 			url: "/myCouIntroUpdate",
 			method : 'POST',
 			data : JSON.stringify({ 
-				myCouIntro: myCouIntro ,
-				data
+				myCouContent: myCouContent ,
+				myCourseCode: myCourseCode
 			}),
 			contentType : 'application/json',
 			success : function(response) {

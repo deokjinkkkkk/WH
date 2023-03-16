@@ -55,12 +55,6 @@
 		WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
 	</update>
 	
-	<!-- 나만의 코스에서 소개글 업데이트... -->
-	<update id="myCouIntroUpdate">
-	  UPDATE MY_COURSE_FREE
-      SET MY_COU_INTRO = #{myCouIntro}
-      WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
-	</update>
 
 
 <!--=============================

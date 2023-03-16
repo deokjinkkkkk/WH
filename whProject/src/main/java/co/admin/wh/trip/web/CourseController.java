@@ -121,20 +121,5 @@ public class CourseController {
         }
     }
 	
-	// 상세페이지 보기
-	@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
-	public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
-		ObjectMapper object = new ObjectMapper();
-		vo.setCouCode(couCode);
-		model.addAttribute("onecourse", courseService.oneSelect(vo));
-		model.addAttribute("course", courseService.detailSelect(vo));
-		try {
-			model.addAttribute("couJson", object.writeValueAsString(courseService.detailSelect(vo)));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		return "trip/tripCourseDetail";
-	}
-
+	
 }

@@ -2,6 +2,7 @@ package co.admin.wh.trip.service;
 
 import java.util.List;
 
+import co.admin.wh.trip.vo.MyCourseFreeVO;
 
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -18,5 +19,9 @@ public interface MyCourseService {
 	int myCouSeqUpdate(MyCourseVO vo); // 목록 삭제 시 순서 번호 업데이트
 		
 	int myCouStateUpdate(MyCourseVO vo); // 코스 공유 상태값
+
+	
+	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
+	
 
 }
