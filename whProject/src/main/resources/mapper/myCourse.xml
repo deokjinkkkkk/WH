@@ -50,4 +50,43 @@
 		) img from my_course m;
 	</select> -->
 	
+	<!-- ===================
+				 태그
+	======================= -->
+	<!-- 태그 적용 리스트 - 태그가 달린 상세페이지 볼수있도록 join -->
+	<select id="aroundTagList" resultType="co.admin.wh.trip.vo.MyCourseVO">
+		SELECT * FROM 
+    (SELECT ROWNUM AS RNUM,
+            my_course_code,
+            theme,
+            my_cou_date,
+            my_cou_name,
+            my_cou_content,
+            my_cou_state,
+            my_cou_id,
+            tag_name,
+            tag_code
+    FROM (SELECT M.*, T.* FROM my_course M 
+        LEFT OUTER JOIN tag_map R
+            ON M.my_course_code = R.my_course_code
+        LEFT OUTER JOIN tag T
+            ON R.tag_code = T.tag_code 
+    ORDER BY M.my_course_code DESC))
+WHERE RNUM BETWEEN 1 AND 6;
+	</select>
+	
+	<!-- 태그 리스트 - 랜덤값 -->
+	<select id="tagList">
+		SELECT * FROM TAG
+		ORDER BY DBMS_RANDOM.VALUE
+	</select>
+	
+	<!-- 태그 ul 만들기 -->
+	<!-- TAG 테이블에서 TAG_NAME 열을 검색하도록 지정하며, 검색된 결과를 오름차순으로 정렬하여 반환 -->
+	<select id="searchTags" parameterType="string" resultType="string">
+		SELECT TAG_NAME FROM TAG
+		WHERE TAG_NAME LIKE CONCAT('#{tag}','%')
+		ORDER BY TAG_NAME ASC
+	</select>
+	
 </mapper>
