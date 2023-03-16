@@ -55,6 +55,12 @@ public class MyCourseFreeServiceImpl implements MyCourseFreeService {
 		// 여행지 삭제 시 순서번호 수정
 		return map.couOrdUpdate(vo);
 	}
+
+	@Override
+	public int myCouIntroUpdate(MyCourseFreeVO vo) {
+		// 소개글 업데이트
+		return map.myCouIntroUpdate(vo);
+	}
 	
 	
 	
