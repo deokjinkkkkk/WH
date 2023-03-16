@@ -30,6 +30,7 @@ import org.xml.sax.SAXException;
 import co.admin.wh.hotel.mapper.HotelMapper;
 import co.admin.wh.hotel.service.HotelCrawler;
 import co.admin.wh.hotel.service.HotelInfoService;
+import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
@@ -166,7 +167,7 @@ public class HotelController {
 		return "hotel/myReservation";
 	}
 	
-	@GetMapping("/cancelReservation") // 취소내역 조회
+	@GetMapping("/cancelReservation") // 취소내역 조회 (이거 cancelVO..)
 	public String cancelReservation(ReservationVO vo, Principal principal, Model model) {
 		String sessionId = principal.getName(); // 로그인한 id값
 		model.addAttribute("res",hotelInfoService.readCancelReservInfo(sessionId));
@@ -186,7 +187,7 @@ public class HotelController {
 	
 	@PostMapping("/cancel") // 예약취소
 	@ResponseBody
-	public String cancel(@RequestBody ReservationVO vo, Model model) {
+	public String cancel(@RequestBody CancelVO vo, Model model) {
 		vo.setResState(0); // 현재 예약상태를 vo에 set. 0:예약완료상태
 		hotelInfoService.hotelCancel(vo); // 예약완료상태 -> 환불신청상태
 		hotelInfoService.insertCancelInfo(vo); // 취소 테이블에 환불정보 insert
@@ -287,9 +288,10 @@ public class HotelController {
 	
 	@PostMapping("/Admin/cancel") // 관리자 취소 승인
 	@ResponseBody
-	public String adminCancel(@RequestBody ReservationVO vo, Model model) {
+	public String adminCancel(@RequestBody CancelVO vo, Model model) {
 		vo.setResState(1); // 현재예약상태 1 : 취소신청
 		hotelInfoService.hotelCancel(vo);
+		hotelInfoService.updateCancelInfo(vo); // 취소테이블에 최종환불금액, 환불일자 update
 		return "y";
 	}
 	
