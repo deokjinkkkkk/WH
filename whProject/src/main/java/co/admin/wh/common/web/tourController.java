@@ -71,14 +71,23 @@ public class tourController {
 	@PostMapping("/tourUpdate")
 	@ResponseBody
 	public String adminTourUpdate(@RequestBody TourVO vo) {
-		tourService.tourUpdate(vo);
+		
 		return "redirect:companionDetail";
 	}
 	
 	@PostMapping("/tourDelete")
 	@ResponseBody
 	public String adminTourDelete(@RequestBody TourVO vo) {
+		return "redirect:companionDetail";
+	}
+	
+	@PostMapping("/tourTripInsert")
+	@ResponseBody
+	public String adminTourTripInsert(@RequestBody TourVO vo) {
 		tourService.tourUpdate(vo);
+		
+		
+		tourService.tourAdminInsert(vo);
 		return "redirect:companionDetail";
 	}
 	

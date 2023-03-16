@@ -276,7 +276,7 @@ public class HotelController {
 		
 		List<HotelVO> hotelList = hotelInfoService.hotelNameSearchList(vo);
 		model.addAttribute("hotelList", hotelList);
-		return "hotel/hotelNameSearchList";
+		return "hotel/hotelMain";
 	}
 	
 	@GetMapping("/Admin/reservation") // 관리자 예약내역 전체조회

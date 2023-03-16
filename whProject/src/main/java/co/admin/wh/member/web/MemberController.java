@@ -2,9 +2,11 @@ package co.admin.wh.member.web;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,12 +111,17 @@ public class MemberController {
 	}
 
 	@PostMapping("/memberDelete")
-	public String memberDelete(MemberVO vo) {
+	public String memberDelete(MemberVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();   
+
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		vo.setPass(passwordEncoder.encode(vo.getPass()));
 		int Del = memberMapper.memDel(vo);
 		if (Del == 1) {
 			memberMapper.memberDelete(vo);
+			session.invalidate();
+			SecurityContextHolder.getContext().setAuthentication(null);
 		} else {
 			return "member/memberQuit";
 		}
@@ -123,16 +130,17 @@ public class MemberController {
 	}
 
 	@RequestMapping("/admemList")
-	public String adMemList(@ModelAttribute("fcvo") MemberSearchVO vo, Model model, Paging paging) {
+	public String adMemList(MemberSearchVO vo, Model model, Paging paging) {
 		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast());
+		
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
 		paging.setTotalRecord(memberMapper.getCountTotal(vo));
 		
-		model.addAttribute("mem", memberMapper.adMemberList());
+		model.addAttribute("mem", memberMapper.adMemberList(vo));
 		return "admin/memberAdmin";
 	}
 
@@ -174,13 +182,13 @@ public class MemberController {
 		vo.setPass(passwordEncoder.encode(code));
 		memberMapper.passUpdate(vo);
 		
-		return "member/login";
+		return "redirect:/main";
 
 	}
 	
 	@PostMapping("/emailChk")
 	@ResponseBody
-	public String emailCheck(@RequestBody MemberVO vo, boolean n) {
+	public String emailCheck(@RequestBody MemberVO vo, boolean n, Model model) {
 		
 		n = memberMapper.emailChk(vo.getId(), vo.getEmail());
 		if (n) {
@@ -188,5 +196,21 @@ public class MemberController {
 		} else {
 			return "fail";
 		}
+	}
+	
+	@RequestMapping("/memberSearch")
+	public String memberSearch(MemberVO vo, Model model, Paging paging) {
+		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
+		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
+		
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
+		paging.setTotalRecord(memberMapper.getCountTotal(vo));
+		
+		model.addAttribute("mem", memberMapper.MemberSearchList(vo));
+		return "admin/memberAdmin";
+		
 	}
 }

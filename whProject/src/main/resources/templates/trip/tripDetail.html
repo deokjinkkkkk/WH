@@ -342,6 +342,7 @@ position: absolute;
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&callback=initMap">
                                 </script>
                      <!-- api 끝 -->
+               <!-- 댓글 시작 -->
 			<section class="blogs">
 				<div class="posts">
 					<div class="posts">
@@ -365,12 +366,13 @@ position: absolute;
 											</div>
 										</div>
 										<input type="hidden" id="comBoardCode" name="comBoardCode" th:value="${trip.tripCode}">
-										<input type="hidden" id="comFlag" name="comFlag" value="CWT">
+										<input type="hidden" id="comFlag" name="comFlag" value="CTR">
 									</form>
 								</div>
 							</div>
 						</div>
 				</section>
+				<!-- 댓글 끝 -->
                             <!--  end form-->
                         </div>
                     </div>
@@ -618,7 +620,7 @@ position: absolute;
 					
 				 }
 				};
-				/* 댓글 */
+				/* 댓글  시작*/
 				$(document).ready(function(){
 					getComList() 
 				})
@@ -890,6 +892,7 @@ position: absolute;
 				function resetBtn(){
 					getComList()
 				}
+				/* 댓글  끝*/
 				</script>
             </div>
         </section>
