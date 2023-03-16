@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
@@ -37,7 +38,7 @@ public interface HotelInfoService {
     
     //예약
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
-    void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
+//    void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
 
     
     //마이페이지 & 관리자페이지
@@ -49,9 +50,8 @@ public interface HotelInfoService {
     List<ReservationVO> readCancelReservInfo(String sessionId); // 취소내역 출력
     
     // 관리자
-    List<ReservationVO> adminReservList(); // 관리자 예약내역 전체조회
-    List<ReservationVO> adminSearch(String option, String content); // 관리자 예약내역 검색
-    
-
+    List<CancelVO> adminReservList(); // 관리자 예약내역 전체조회
+    List<CancelVO> adminSearch(String option, String content); // 관리자 예약내역 검색
+    void updateCancelInfo(CancelVO vo); // 예약취소승인할 때 취소 테이블에 환불정보 업데이트.
 }
 

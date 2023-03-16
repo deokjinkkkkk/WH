@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import co.admin.wh.hotel.mapper.HotelMapper;
+import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
@@ -111,13 +112,13 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		return hotelMapper.readFinReservInfo(sessionId);
 	}
 
-	@Override
-	public void minusRoomCount(int hotelId) {
-		hotelMapper.minusRoomCount(hotelId);
-	}
+//	@Override
+//	public void minusRoomCount(int hotelId) {
+//		hotelMapper.minusRoomCount(hotelId);
+//	}
 
 	@Override
-	public List<ReservationVO> adminReservList() {
+	public List<CancelVO> adminReservList() {
 		return hotelMapper.adminReservList();
 	}
 
@@ -127,13 +128,19 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public List<ReservationVO> adminSearch(String option, String content) {
+	public List<CancelVO> adminSearch(String option, String content) {
 		return hotelMapper.adminSearch(option, content);
 	}
 
 	@Override
 	public void insertCancelInfo(ReservationVO vo) {
 		hotelMapper.insertCancelInfo(vo);
+	}
+
+	@Override
+	public void updateCancelInfo(CancelVO vo) {
+		hotelMapper.updateCancelInfo(vo);
+		
 	}
 
 }

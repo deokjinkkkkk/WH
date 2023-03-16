@@ -160,7 +160,7 @@
 
 	<!-- 예약취소신청 / 취소승인 -->
 	<update id="hotelCancel"
-		parameterType="co.admin.wh.hotel.vo.ReservationVO">
+		parameterType="co.admin.wh.hotel.vo.CancelVO">
 		update reservation
 		<set>
 			<choose>
@@ -179,7 +179,7 @@
 	</update>
 	
 	<!-- 회원이 예약취소신청 시 취소 테이블에 취소정보 인서트 -->
-	<select id="insertCancelInfo" parameterType="co.admin.wh.hotel.vo.ReservationVO">
+	<select id="insertCancelInfo" parameterType="co.admin.wh.hotel.vo.CancelVO">
 		insert into cancel(res_id,submit_date)
 		values (#{resId},sysdate)
 	</select>
@@ -291,7 +291,7 @@
 	<!-- 관리자 -->
 	<!-- 관리자 예약내역 전체조회 -->
 	<select id="adminReservList"
-		resultType="co.admin.wh.hotel.vo.ReservationVO">
+		resultType="co.admin.wh.hotel.vo.CancelVO">
 		select *
 		from reservation r
 		inner join hotel h on r.hotel_id = h.hotel_id
@@ -301,38 +301,47 @@
 	</select>
 	
 	<!-- 관리자 예약내역 검색 -->
-   <select id="adminSearch" resultType="co.admin.wh.hotel.vo.ReservationVO">
-      select *
-      from reservation r, hotel h
-        where r.hotel_id = h.hotel_id
-      <choose>
-         <when test="option == 'resId'.toString()">
-            and r.res_id like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'hotelName'.toString()">
-            and h.hotel_name like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'roomGrade'.toString()">
-            and h.room_grade like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'checkIn'.toString()">
-            and r.check_in like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'checkOut'.toString()">
-            and r.check_out like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'resName'.toString()">
-            and r.res_name like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'resTel'.toString()">
-            and r.res_tel like '%'|| (#{content}) ||'%'
-         </when>
-         <when test="option == 'resEmail'.toString()">
-            and r.res_email like '%'|| (#{content}) ||'%'
-         </when>
-      </choose>
-   </select>
-
-
+	   <select id="adminSearch" resultType="co.admin.wh.hotel.vo.CancelVO">
+	  select *
+	  from reservation r
+	  inner join hotel h on r.hotel_id = h.hotel_id
+	  left join cancel c on r.res_id = c.res_id
+	  <choose>
+	    <when test="option == 'resId'.toString()">
+	      where r.res_id like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'hotelName'.toString()">
+	      where h.hotel_name like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'roomGrade'.toString()">
+	      where h.room_grade like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'checkIn'.toString()">
+	      where r.check_in like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'checkOut'.toString()">
+	      where r.check_out like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'resName'.toString()">
+	      where r.res_name like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'resTel'.toString()">
+	      where r.res_tel like '%'|| (#{content}) ||'%'
+	    </when>
+	    <when test="option == 'resEmail'.toString()">
+	      where r.res_email like '%'|| (#{content}) ||'%'
+	    </when>
+	  </choose>
+	</select>
+	
+	<!-- 관리자 취소승인 할 때 취소 테이블에 환불정보 업데이트 -->
+	<update id="updateCancelInfo" parameterType="co.admin.wh.hotel.vo.CancelVO">
+		update cancel
+		<set>
+			<if test="returnPay != null">return_pay = returnPay</if>
+			<if test="ApplyDate != null">apply_date = sysdate</if>
+		</set>
+		where res_id = #{resId}
+	</update>
 
 </mapper>
