@@ -33,7 +33,6 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 
 	@Override
 	public List<HotelVO> CrawlingList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.CrawlingList(vo);
 	}
 
@@ -74,7 +73,6 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 
 	@Override
 	public List<HotelVO> hotelSearchList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.hotelSearchList(vo);
 	}
 
@@ -85,61 +83,57 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 
 	@Override
 	public List<HotelVO> priceList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.priceList(vo);
 	}
 
 	@Override
 	public List<HotelVO> priceListDesc(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.priceListDesc(vo);
 	}
 
 	@Override
 	public List<HotelVO> starRatingList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.starRatingList(vo);
 	}
 
 	@Override
 	public List<HotelVO> goodRatingList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.goodRatingList(vo);
 	}
 
 	@Override
 	public List<HotelVO> hotelNameSearchList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.hotelNameSearchList(vo);
 	}
 
 	@Override
 	public List<ReservationVO> readFinReservInfo(String sessionId) {
-		// TODO Auto-generated method stub
 		return hotelMapper.readFinReservInfo(sessionId);
 	}
 
 	@Override
 	public void minusRoomCount(int hotelId) {
-		// TODO Auto-generated method stub
 		hotelMapper.minusRoomCount(hotelId);
 	}
 
 	@Override
 	public List<ReservationVO> adminReservList() {
-		// TODO Auto-generated method stub
 		return hotelMapper.adminReservList();
 	}
 
 	@Override
 	public List<HotelVO> mainList(HotelSearchVO vo) {
-		// TODO Auto-generated method stub
 		return hotelMapper.mainList(vo);
 	}
 
-//	@Override
-//	public void updateReservInfoByAdmin(ReservationVO vo) {
-//		hotelMapper.updateReservInfoByAdmin(vo);
-//		
-//	}
+	@Override
+	public List<ReservationVO> adminSearch(String option, String content) {
+		return hotelMapper.adminSearch(option, content);
+	}
+
+	@Override
+	public void insertCancelInfo(ReservationVO vo) {
+		hotelMapper.insertCancelInfo(vo);
+	}
+
 }
