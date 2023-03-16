@@ -3,124 +3,241 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
 
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
-
-
 <body>
-	<section layout:fragment="adminContent">
-		<!-- 내용 시작 -->
+	<!-- 각자 내용 -->
+	<body layout:fragment="adminContent">
+<style>
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+*{
+	font-family: 'TheJamsil5Bold';
+}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
 
 
-		<!-- 본문 내용 -->
-		<!-- start blog detail section -->
-		<section class="blogs">
-			<div class="container">
-				<div class="row">
+/* THE END OF THE IMPORTANT STUFF */
 
-					<!--  start blog left-->
-					<div>
+/* Basic Styling */
+body {
+background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);        
+}
+.container {
+  display: block;
+  text-align: center;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+</style>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">관광정보요청</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+								<table class="rwd-table" id="dataTable">
+										<tr>
+											<td width="120px">신고한 사람</td>
+											<td width="250px">신고이유</td>
+											<td width="120px">신고날짜</td>
+											<td width="120px">신고된 회원</td>
+											<td width="120px">상세페이지</td>
+											<td width="120px">제재</td>
+										</tr>
 
-						<div class="posts">
-							<table class="table"
-								style="border-top: 3px solid #69737C; border-collapse: collapse;">
-								<thead>
-									<tr>
-										<td width="120px">신고한 사람</td>
-										<td width="250px">신고이유</td>
-										<td width="120px">신고날짜</td>
-										<td width="120px">신고된 회원</td>
-										<td width="120px">상세페이지</td>
-										<td width="120px">제재</td>
-									</tr>
-								</thead>
+										<tr th:each="c : ${rvo}" th:id="${c.compCode}" class="code">
+											<td>[[${c.id}]]</td>
 
-								<tbody>
-									<tr th:each="c : ${rvo}" th:id="${c.compCode}" class="code">
-										<td>[[${c.id}]]</td>
+											<td>[[${c.comName}]]</td>
 
-										<td>[[${c.comName}]]</td>
+											<td>[[${c.repDate}]]</td>
 
-										<td>[[${c.repDate}]]</td>
-
-										<td>[[${c.targetId}]]</td>
+											<td>[[${c.targetId}]]</td>
 
 
-										<td><button type="button" class="btn btn-danger"
-												data-toggle="modal" data-target="#myModal" id="modalForm"
-												onclick="modalForm()">신고된 글</button></td>
-										<td>
-											<form action="/duration" method="post" id="submit">
-												<!-- 										<input type="hidden"  name="state" value="1"> -->
-												<select name="sanDay" id="sanDay">
-													<option th:each="c : ${cs}" th:value="${c.comCode}"
-														th:text="${c.comName}"></option>
-												</select> <input type="hidden" id="targetID" name="targetId"
-													th:value="${c.targetId}">
-													<input type="hidden" id="state" name="state"
-													value="1">
-													<input type="hidden" id="state" name="id"
-													th:value="${c.targetId}">
-												<button>제제하기</button>
-											</form>
-										</td>
-									</tr>
-								</tbody>
+											<td><button type="button" class="btn btn-danger"
+													data-toggle="modal" data-target="#myModal" id="modalForm"
+													onclick="modalForm()">신고된 글</button></td>
+											<td>
+												<form action="/duration" method="post" id="submit">
+													<!-- 										<input type="hidden"  name="state" value="1"> -->
+													<select name="sanDay" id="sanDay">
+														<option th:each="c : ${cs}" th:value="${c.comCode}"
+															th:text="${c.comName}"></option>
+													</select> <input type="hidden" id="targetID" name="targetId"
+														th:value="${c.targetId}"> <input type="hidden"
+														id="state" name="state" value="1"> <input
+														type="hidden" id="state" name="id"
+														th:value="${c.targetId}">
+														<input type="hidden" id="repCode" name="repCode" th:value="${c.repCode}">
+													<button>제제하기</button>
+												</form>
+											</td>
+										</tr>
 
-							</table>
+								</table>
 
-							<script>
-								function modalForm() {
-									var compCode = $(event.target).closest(
-											".code").attr("id");
-									console.log(compCode);
-									let str = '<iframe src="/companionDetail/'+compCode+'"></iframe>'
+								<script>
+									function modalForm() {
+										var compCode = $(event.target).closest(
+												".code").attr("id");
+										console.log(compCode);
+										let str = '<iframe src="/companionDetail/'+compCode+'" style="width:1000px; height:800px;"></iframe>'
 
-									let s = $("#s")
-									s.html(str)
-								}
-							</script>
+										let s = $("#s")
+										s.html(str)
+									}
+									
+								</script>
 
+							</div>
 						</div>
-					</div>
-					<script type="text/javascript">
-						$(".btn-modal").click(function() {
-							var data = $(this).data('id');
-							$("#contents.body-contents").val(data);
-							$("#text-contents.body-contents").html(data);
-						});
-					</script>
+						<script type="text/javascript">
+							$(".btn-modal").click(function() {
+								var data = $(this).data('id');
+								$("#contents.body-contents").val(data);
+								$("#text-contents.body-contents").html(data);
+							});
+						</script>
 
 
-					<div class="modal hide" id="myModal">
-						<div class="modal-header">
-							<!-- 					<button class="close" data-dismiss="modal">x</button> -->
-							<div class="modal-dialog" role="document">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<div id="s"></div>
-											<div class="modal-footer"></div>
+						<div class="modal hide" id="myModal">
+							<div class="modal-header">
+								<!-- 					<button class="close" data-dismiss="modal">x</button> -->
+								<div class="modal-dialog" role="document" style="width:1100px;">
+									<div class="modal-dialog modal-dialog-centered" style="width:1100px;">
+										<div class="modal-content" style="width:1100px;">
+											<div class="modal-header" style="width:1100px;">
+												<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body" style="width:1100px;">
+												<div id="s" style="width:1100px;"></div>
+												<div class="modal-footer" style="width:1100px;"></div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
+					</div>
 				</div>
-			</div>
 		</section>
 		<!-- end blog detail section -->
 	</section>

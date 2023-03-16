@@ -56,4 +56,10 @@ public class ReportServiceImpl implements ReportService {
 		return reportMapper.reportCode(rvo);
 	}
 
+	@Override
+	public int reportComDel(ReportVO rvo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportComDel(rvo);
+	}
+
 }

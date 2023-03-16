@@ -23,9 +23,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> adMemberList() {
+	public List<MemberVO> adMemberList(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return member.adMemberList();
+		return member.adMemberList(vo);
 	}
 
 	@Override
@@ -80,6 +80,12 @@ public class MemberServiceImpl implements MemberService {
 	public int getCountTotal(MemberVO vo) {
 		// TODO Auto-generated method stub
 		return member.getCountTotal(vo);
+	}
+
+	@Override
+	public List<MemberVO> MemberSearchList(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.MemberSearchList(vo);
 	}
 
 }

@@ -16,4 +16,7 @@ public class MyCourseFreeVO {
 	String tripAddr; // 주소
 	String tripLat; //위도
 	String tripLon; //경도
+
+	String myCouIntro; // 코스 소개글
+
 }

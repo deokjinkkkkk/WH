@@ -45,6 +45,8 @@ public class TripVO {
 	String myCouId; // 유저...
 	
 	
+	
+	
 
 	
 }

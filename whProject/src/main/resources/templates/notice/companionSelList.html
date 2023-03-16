@@ -20,10 +20,10 @@
 			th:style="|background:url(img/banner/bg2.jpg)|">
 			<div class="container">
 
-				<h1 class="text-white font-weight-600">커뮤니티</h1>
+				<h1 class="text-white font-weight-600">My Page</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
+					<li><a href="/companionList"><span class="active">내가 신청한 동행자</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -35,20 +35,23 @@
 
                     <!--  start blog left-->
                     <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    
+                    	<h4>내가 신청한 동행자</h4>
                         <div class="posts">
-                         <table border="1" class="table">
+                         <table border="1"  class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
                          	<thead>
-                         		<tr>
+                         		<tr style="background-color:lightgrey;">
                          			<td>글제목</td>
                          			<td>승인상태</td>
                          		</tr>
                          	</thead>
                          		<tbody th:each="c : ${se}">
                          			<tr>
+                         				<input type="hidden" id="${c.coState}" name="${c.coState}" >
                          				<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
                          			
-                         				<td>[[${c.comName}]]</td>
+                         				<td >[[${c.comName}]]</td>
+                         				
                          			</tr>
                          		</tbody>
                

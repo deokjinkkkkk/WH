@@ -7,7 +7,8 @@
 		resultType="co.admin.wh.diary.vo.FollowVO">
 		select f.*
 		from follow f join member m
-		on f.following_id = m.id
+		on f.following_id =
+		m.id
 		where f.follow_id =#{id}
 	</select>
 
@@ -16,43 +17,47 @@
 		resultType="co.admin.wh.diary.vo.FollowVO">
 		select f.*
 		from follow f join member m
-		on f.following_id = m.id
+		on f.following_id =
+		m.id
 		where f.follow_id =#{id}
 	</select>
 
 	<!-- 팔로워, 팔로잉 수 -->
 	<select id="followCount" resultType="map">
 		select count(case when
-		follow_id = #{id} then 1 end)as
+		follow_id = #{followId} then 1 end)as <!-- 여기가 신청당한  -->
 		followerCount,
 		count(case when
-		following_id =#{id} then 1 end) as followeeCount
+		following_id =#{followingId} then 1 end) as followeeCount <!-- 여기가 신청한  -->
 		from follow
 	</select>
 
-	<!-- 팔로잉 체크 확인  -->
+	<!-- 팔로잉 체크 확인 -->
 	<select id="checkFollow" resultType="boolean">
 		select count(*)
 		from follow
-		where following_id = #{id}
-		and follow_id = #{id}
+		where following_id = #{followingId}
+		and follow_id = #{followId}
 	</select>
+
 
 
 	<!-- 팔로잉 하기 -->
-	<select id="insertFollow"
-		resultType="co.admin.wh.diary.vo.FollowVO">
+	<insert id="insertFollow">
+
 		INSERT INTO FOLLOW
-		VALUES (#{followId}, #{followingId})
-	</select>
+		VALUES (#{followId},
+		#{followingId})
+	</insert>
 
 	<!--언팔 -->
-	<select id="unFollow" resultType="co.admin.wh.diary.vo.FollowVO">
+	<delete id="unFollow">
 		DELETE FROM FOLLOW
 		WHERE
-		FOLLOWING_ID =#{followingId}
+		FOLLOWING_ID
+		=#{followingId}
 		AND FOLLOW_ID = #{followId}
-	</select>
+	</delete>
 
 
 </mapper>

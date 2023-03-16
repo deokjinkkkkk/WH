@@ -11,4 +11,5 @@ public interface TourSerivce {
 	List<TourVO> tourList();
 	int imgInsert(ImageVO ivo);
 	int tourUpdate(TourVO vo);
+	int tourAdminInsert(TourVO vo);
 }

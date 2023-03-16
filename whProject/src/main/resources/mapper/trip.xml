@@ -18,14 +18,15 @@
 	<selectKey keyProperty="tripCode" resultType="int" order="BEFORE">
 		SELECT NVL(MAX(TRIP_CODE),0)+1 FROM TRIP
 	</selectKey>
-         INSERT INTO TRIP(trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon,
+         INSERT INTO TRIP
+         	(trip_code, trip_name, trip_tel, trip_addr, trip_lat, trip_lon,
                trip_summ, trip_content, homepage, trip_region, img_gro_code, trip_date,
                cou_code, cou_order, trip_Unique_Number, trip_announce, rest_date,
-               use_time, trip_parking, trip_child, trip_pet, trip_chk_card, my_Cou_Name, my_Course_Code, my_Cou_Free_Code, cou_ord )
+               use_time, trip_parking, trip_child, trip_pet, trip_chk_card, 
+               cou_ord, my_cou_id)
          VALUES(#{tripCode}, #{tripName}, #{tripTel}, #{tripAddr}, #{tripLat}, #{tripLon},
                #{tripSumm}, #{tripContent}, #{homepage}, #{tripRegion}, #{imgGroCode}, #{tripDate}, #{couCode}, #{couOrder}, #{tripUniqueNumber},
-               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard}, ${myCouName}, ${myCourseCode},
-               #{myCouFreeCode}, #{couOrd})	
+               #{tripAnnounce}, #{restDate}, #{useTime}, #{tripParking}, #{tripChild}, #{tripPet}, #{tripChkCard}, #{couOrd}, #{myCouId})	
 	</insert>
 	
 	<!-- 전체 건수 조회 -->

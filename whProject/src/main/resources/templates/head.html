@@ -1,170 +1,205 @@
 <!DOCTYPE html>
 <html>
-<head th:fragment="head" >
+<head th:fragment="head">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	<style>
-.line-banner{
-height:680px;
+<style>
+.top-search {
+    padding: 5px 0;
+    display: block;
 }
-#sectionMain{
-margin: 0 auto;
-display: inline-block;
-text-align: center;
-padding:0;
+.box-wrapper {
+	display: flex;
+	flex-wrap: wrap;
 }
+
+.box-wrapper>div {
+	margin: 20px;
+	border: 1px solid #ccc;
+	color: #999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex: 1 0 21%;
+	line-height: 1.4em;
+	height: 100px;
+}
+.shadow-inset-all {
+  box-shadow: inset 0 0 5px #333;
+  position: relative;
+}
+.shadow-bottom-right {
+	box-shadow: 5px 5px 5px -5px #333;
+	
+}
+@media (min-width: 992px){
+.col-lg-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.line-banner {
+	height: 680px;
+}
+
+#sectionMain {
+	margin: 0 auto;
+	display: inline-block;
+	text-align: center;
+	padding: 0;
+}
+
 .page-container .title {
-    font-size: 139px;
-    line-height: 1;
-    margin-bottom: 30px;
+	font-size: 139px;
+	line-height: 1;
+	margin-bottom: 30px;
 }
 
 @font-face {
-    font-family: 'TheJamsil5Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
+	font-family: 'TheJamsil5Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
-*{
+* {
 	font-family: 'TheJamsil5Bold';
 }
 
 .modal {
-        text-align: center;  
+	text-align: center;
+
 }
- 
-@media screen and (min-width: 768px) { 
-        .modal:before {
-                display: inline-block;
-                vertical-align: middle;
-                content: " ";
-        }
+
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+	}
 }
- 
+
 .modal-dialog {
-        display: inline-block;
-        text-align: left;
-        vertical-align: middle;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+		width:800px;
+	height:800px;
 }
 
 .rad-label {
-  display: flex;
-  align-items: center;
-
-  border-radius: 100px;
-  padding: 14px 16px;
-  margin: 10px 0;
-
-  cursor: pointer;
-  transition: .3s;
+	display: flex;
+	align-items: center;
+	border-radius: 100px;
+	padding: 14px 16px;
+	margin: 10px 0;
+	cursor: pointer;
+	transition: .3s;
 }
 
-.rad-label:hover,
-.rad-label:focus-within {
-  background: hsla(0, 0%, 80%, .14);
+.rad-label:hover, .rad-label:focus-within {
+	background: hsla(0, 0%, 80%, .14);
 }
 
 .rad-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  z-index: -1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	z-index: -1;
 }
 
 .rad-design {
-  width: 22px;
-  height: 22px;
-  border-radius: 100px;
-
-  background: linear-gradient(to right bottom, hsl(154, 97%, 62%), hsl(225, 97%, 62%));
-  position: relative;
+	width: 22px;
+	height: 22px;
+	border-radius: 100px;
+	background: linear-gradient(to right bottom, hsl(154, 97%, 62%),
+		hsl(225, 97%, 62%));
+	position: relative;
 }
 
 .rad-design::before {
-  content: '';
-
-  display: inline-block;
-  width: inherit;
-  height: inherit;
-  border-radius: inherit;
-
-  background: hsl(0, 0%, 90%);
-  transform: scale(1.1);
-  transition: .3s;
+	content: '';
+	display: inline-block;
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
+	background: hsl(0, 0%, 90%);
+	transform: scale(1.1);
+	transition: .3s;
 }
 
 .rad-input:checked+.rad-design::before {
-  transform: scale(0);
+	transform: scale(0);
 }
 
 .rad-text {
-  color: hsl(0, 0%, 60%);
-  margin-left: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-size: 18px;
-  font-weight: 900;
-
-  transition: .3s;
+	color: hsl(0, 0%, 60%);
+	margin-left: 14px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 900;
+	transition: .3s;
 }
 
-.rad-input:checked~.rad-text {
-  color: hsl(0, 0%, 40%);
+.rad-input:checked ~.rad-text {
+	color: hsl(0, 0%, 40%);
 }
 
 /* 페이징 css 시작 */
 .gopage {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-   }
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
 
-   .pagination {
-      margin: 0;
-   }
+.pagination {
+	margin: 0;
+}
 /* 페이징 css 끝 */
 
 /* -----------
  북마크 css 시작
  ------------*/
-
-																																																																	  */
+* /
 
 .fa-regular.fa-bookmark {
- 	width: 50px;
- 	height: 30px;
- 	font-size:x-large; 
- 	position: absolute;
+	width: 50px;
+	height: 30px;
+	font-size: x-large;
+	position: absolute;
 	left: 650px;
 	top: 60px;
 }
 
-
-.fullMark{
+.fullMark {
 	width: 50px;
- 	height: 30px;
- 	font-size:x-large; 
- 	position: absolute;
+	height: 30px;
+	font-size: x-large;
+	position: absolute;
 	left: 650px;
 	top: 60px;
 }
 
-.emptyMark{
+.emptyMark {
 	width: 50px;
- 	height: 30px;
- 	font-size:x-large;
- 	position: absolute;
+	height: 30px;
+	font-size: x-large;
+	position: absolute;
 	left: 650px;
-	top: 60px; 
+	top: 60px;
 }
 
 #navbarScroll {
-   text-align: right;
+	text-align: right;
 }
 
 [v-cloak] {
@@ -216,8 +251,6 @@ padding:0;
 	font-style: italic;
 }
 
-
-
 .input-group {
 	display: flex;
 	align-items: center;
@@ -233,7 +266,7 @@ padding:0;
 	flex: none;
 }
 
-.containerChat{
+.containerChat {
 	background-color: #fffec8; /* light blue */
 	width: 500px;
 	margin: auto; /* 수평 중앙 정렬을 위한 margin */
@@ -242,7 +275,6 @@ padding:0;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
 
 .w-btn {
 	position: relative;
@@ -268,7 +300,8 @@ padding:0;
 	font-weight: 600;
 	transition: 0.25s;
 }
-.inputChat{
+
+.inputChat {
 	width: 300px;
 	height: 32px;
 	font-size: 15px;
@@ -281,113 +314,161 @@ padding:0;
 	background-color: rgb(233, 233, 233);
 	text-decoration: none;
 }
-	</style>
-   
 
-	
-    <!-- metas -->
-    <meta charset="utf-8">
-    <meta name="author" content="Chitrakoot Web" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="Tour and Travel Agency Template" />
-    <meta name="description" content="Adventure - Tour and Travel Agency Template" />
-		
-    <!-- title  -->
-    <title>Adventure - Tour and Travel Agency Template</title>
 
-    <!-- favicon -->
-    <link rel="shortcut icon" href="img/logos/favicon.png" />
-    <link rel="apple-touch-icon" href="img/logos/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="img/logos/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="img/logos/apple-touch-icon-114x114.png" />
-    
-    <!-- plugins -->
-    <link rel="stylesheet" href="/css/plugins.css" />
+/* ===================
+		태그 실시간 인기 
+	==================	 */
+#tagContainer{
+border: dotted;
+}
 
-    <!-- search css -->
-    <link rel="stylesheet" href="/search/search.css" />
+#rank {
+float: right;
+border:2px solid yellowgreen; 
+width: 200px;
+height: 40px; 
+margin: 100px; 
+position: relative; 
+}
 
-    <!-- core style css -->
-    <link href="/css/styles.css" rel="stylesheet" />
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+#box {
+width : 200px;
+ height : 200px;
+ position : absolute;
+ top:0;
+ left: 0;
+  
+   }
+#box {
+text-align: center;
+height: 40px; 
+line-height: 40px;
+
+ }
+ 
+#tagRank{
+text-align: center;
+height: 40px; 
+
+}
+
+</style>
+
+
+
+
+<!-- metas -->
+<meta charset="utf-8">
+<meta name="author" content="Chitrakoot Web" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Tour and Travel Agency Template" />
+<meta name="description"
+	content="Adventure - Tour and Travel Agency Template" />
+
+<!-- title  -->
+<title>Adventure - Tour and Travel Agency Template</title>
+
+<!-- favicon -->
+<link rel="shortcut icon" href="img/logos/favicon.png" />
+<link rel="apple-touch-icon" href="img/logos/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/logos/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/logos/apple-touch-icon-114x114.png" />
+
+<!-- plugins -->
+<link rel="stylesheet" href="/css/plugins.css" />
+
+<!-- search css -->
+<link rel="stylesheet" href="/search/search.css" />
+
+<!-- core style css -->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
-	
-	<!-- 북마크 -->
-	<script src="https://kit.fontawesome.com/ae3065d657.js" crossorigin="anonymous"></script>
-	<!-- 결제 api -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-    <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
+<!-- 북마크 -->
+<script src="https://kit.fontawesome.com/ae3065d657.js"
+	crossorigin="anonymous"></script>
+<!-- 결제 api -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-    <!-- modernizr js -->
-    <script src="/js/modernizr.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
 
-    <!-- bootstrap -->
-    <script src="/js/bootstrap.min.js"></script>
+<!-- modernizr js -->
+<script src="/js/modernizr.js"></script>
 
-    <!-- Serch -->
-    <script src="/search/search.js"></script>
+<!-- bootstrap -->
+<script src="/js/bootstrap.min.js"></script>
 
-    <!-- navigation -->
-    <script src="/js/nav-menu.js"></script>
+<!-- Serch -->
+<script src="/search/search.js"></script>
 
-    <!-- owl carousel -->
-    <script src="/js/owl.carousel.js"></script>
+<!-- navigation -->
+<script src="/js/nav-menu.js"></script>
 
-    <!-- jquery.counterup.min -->
-    <script src="/js/jquery.counterup.min.js"></script>
+<!-- owl carousel -->
+<script src="/js/owl.carousel.js"></script>
 
-    <!-- stellar js -->
-    <script src="/js/jquery.stellar.min.js"></script>
+<!-- jquery.counterup.min -->
+<script src="/js/jquery.counterup.min.js"></script>
 
-    <!-- waypoints js -->
-    <script src="/js/waypoints.min.js"></script>
+<!-- stellar js -->
+<script src="/js/jquery.stellar.min.js"></script>
 
-    <!-- countdown js -->
-    <script src="/js/countdown.js"></script>
+<!-- waypoints js -->
+<script src="/js/waypoints.min.js"></script>
 
-    <!-- jquery.magnific-popup js -->
-    <script src="/js/jquery.magnific-popup.min.js"></script>
+<!-- countdown js -->
+<script src="/js/countdown.js"></script>
 
-    <!-- datepicker js -->
-    <script src="/js/datepicker.min.js"></script>
+<!-- jquery.magnific-popup js -->
+<script src="/js/jquery.magnific-popup.min.js"></script>
 
-    <!-- isotope.pkgd.min js -->
-    <script src="/js/isotope.pkgd.min.js"></script>
+<!-- datepicker js -->
+<script src="/js/datepicker.min.js"></script>
 
-    <!-- range slider -->
-    <script src="/js/ion.rangeSlider.min.js"></script>
+<!-- isotope.pkgd.min js -->
+<script src="/js/isotope.pkgd.min.js"></script>
 
-    <!--  clipboard js -->
-    <script src="/js/clipboard.min.js"></script>
+<!-- range slider -->
+<script src="/js/ion.rangeSlider.min.js"></script>
 
-    <!--  prism js -->
-    <script src="/js/prism.js"></script>
-    
-    
+<!--  clipboard js -->
+<script src="/js/clipboard.min.js"></script>
+
+<!--  prism js -->
+<script src="/js/prism.js"></script>
+
+
 <!-- 결제창에 필요한 js 추가 시작 -->
-      <!-- jquery validation -->
-    <script src="js/jquery.validate.min.js"></script>
+<!-- jquery validation -->
+<script src="js/jquery.validate.min.js"></script>
 
-    <!-- jquery wizard -->
-    <script src="js/jquery.bootstrap.wizard.min.js"></script>
+<!-- jquery wizard -->
+<script src="js/jquery.bootstrap.wizard.min.js"></script>
 
-    <!-- form-wizard -->
-    <script src="js/form-wizard.js"></script>
+<!-- form-wizard -->
+<script src="js/form-wizard.js"></script>
 
-    <!-- custom scripts -->
-    <script src="/js/main.js"></script>
+<!-- custom scripts -->
+<script src="/js/main.js"></script>
 <!-- 결제창에 필요한 js 추가 끝 -->
 
 <!-- 검색어 자동완성 기능 -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <!-- 채팅 -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -37,5 +37,11 @@ public class TourServiceImpl implements TourSerivce{
 		// TODO Auto-generated method stub
 		return tourMapper.tourUpdate(vo);
 	}
+
+	@Override
+	public int tourAdminInsert(TourVO vo) {
+		// TODO Auto-generated method stub
+		return tourMapper.tourAdminInsert(vo);
+	}
 	
 }
