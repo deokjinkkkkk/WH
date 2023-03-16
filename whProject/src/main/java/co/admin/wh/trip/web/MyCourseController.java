@@ -72,8 +72,8 @@ public class MyCourseController {
 	// 나만의 코스 하단에 소개글 업데이트
 	@PostMapping("/myCouIntroUpdate")
 	@ResponseBody
-	public String myCouIntroUpdate(@RequestBody MyCourseFreeVO vo) {
-		int result = myCourseFreeMapper.myCouIntroUpdate(vo);
+	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";

@@ -17,6 +17,14 @@
 	VALUES(#{myCourseCode}, #{theme}, #{myCouDate}, #{myCouName}, #{myCouContent}, #{myCouState}, #{myCouId})
 	</insert>
 
+
+	<!-- 나만의 코스에서 소개글 업데이트...  -->
+	<update id="myCouIntroUpdate">
+	  update my_course
+      set my_cou_content = #{myCouContent}
+      where my_course_code = #{myCourseCode}
+	</update>
+
 	<!-- 상세보기 페이지 -->
 	<select id="detailSelect" resultType="co.admin.wh.trip.vo.MyCourseVO">
 		SELECT * FROM MY_COURSE
