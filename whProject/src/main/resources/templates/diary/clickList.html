@@ -462,43 +462,72 @@ button {
 								<td>팔로잉수넣기</td>
 								<td>
 									<!-- 팔로우 누른경우   -->
-									<button th:if="${isFollowing}" type="button"
-										class="btn btn-secondary btn-sm">Unfollow</button>
-									<button th:unless="${isFollowing}" type="button"
-										class="btn btn-primary btn-sm">Follow</button> <!-- 팔로우 누르지 않은경우   -->
-									<input type="hidden" id="id" name="id"
-									th:value="${session.name}"> 
+									<button th:if="${isFollowing}" type="button" class="btn btn-secondary btn-sm" id="follow-btn">Unfollow</button>
+									<button th:unless="${isFollowing}" type="button"class="btn btn-primary btn-sm" id="follow-btn">Follow</button> <!-- 팔로우 누르지 않은경우   -->
+									<input type="hidden" id="id" name="id" th:value="${session.name}"> 
 									<script>
-											var id = $('#id').val();
-											console.log(id);
 								
-											$(document).ready(function(){
-									               getFollow(id)
-									            })	
-										
-											function getFollow(id) {
-											  $.ajax({
-											    url: "/checkFollow/" + id,
-											    data: {
-											      'id': id,
-											    },
-											    success: function(response) {
-											      if (response.isFollowing) {
-											        // 현재 사용자가 이 사용자를 팔로우하고 있음
-											        $('#follow-btn').removeClass('btn-primary').addClass('btn-secondary').text('Unfollow');
-											      } else {
-											        // 현재 사용자가 이 사용자를 팔로우하고 있지 않음
-											        $('#follow-btn').removeClass('btn-secondary').addClass('btn-primary').text('Follow');
-											      }
-											    },
-											    error: function() {
-											      console.log("에러");
-											    }
-											  });
-											}
+									var id = $('#id').val();
 
-										
-									</script>
+									$(document).ready(function() {
+									  getFollow();
+									});
+
+									function getFollow() {
+									  console.log(id);
+									  $.ajax({
+									    url: "/checkFollow/" + id,
+									    success: function(response) {
+									      if (response.isFollowing) {
+									        $('#follow-btn').removeClass('btn-primary').addClass('btn-secondary').text('Unfollow');
+									      } else {
+									        $('#follow-btn').removeClass('btn-secondary').addClass('btn-primary').text('Follow');
+									      }
+									    },
+									    error: function() {
+									      console.log("에러");
+									    }
+									  });
+									}
+							
+									
+								//팔로우하기
+	
+//팔로우하기
+$(document).ready(function() {
+  // 팔로우 버튼 클릭 시
+  $("#follow-btn").click(function() {
+    var followingId = $("#id").val();
+    
+    // 팔로우 버튼 텍스트에 따라 신청 또는 취소 요청
+    var isFollowing = ($("#follow-btn").text() === "Unfollow");
+   // var url = (isFollowing) ? "/unfollow/" : "/follow/";
+    
+    // 팔로우 또는 언팔로우 요청 보내기
+    $.ajax({
+      type: "POST",
+      url: "/insertFollow/" + followingId,
+      data: {
+    	    'followId': followingId,
+    	    'followingId': followingId
+    	  },
+      success: function(response) {
+        // 버튼 텍스트 변경
+        if (isFollowing) {
+          $("#follow-btn").removeClass("btn-secondary").addClass("btn-primary").text("Follow");
+        } else {
+          $("#follow-btn").removeClass("btn-primary").addClass("btn-secondary").text("Unfollow");
+        }
+      },
+      error: function() {
+        console.log("에러");
+      }
+    });
+  });
+});
+
+</script>
+
 
 								</td>
 							</tr>

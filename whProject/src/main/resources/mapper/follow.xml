@@ -40,19 +40,18 @@
 
 
 	<!-- 팔로잉 하기 -->
-	<select id="insertFollow"
-		resultType="co.admin.wh.diary.vo.FollowVO">
+	<insert id="insertFollow">
 		INSERT INTO FOLLOW
 		VALUES (#{followId}, #{followingId})
-	</select>
+	</insert>
 
 	<!--언팔 -->
-	<select id="unFollow" resultType="co.admin.wh.diary.vo.FollowVO">
+	<delete id="unFollow" >
 		DELETE FROM FOLLOW
 		WHERE
 		FOLLOWING_ID =#{followingId}
 		AND FOLLOW_ID = #{followId}
-	</select>
+	</delete>
 
 
 </mapper>
