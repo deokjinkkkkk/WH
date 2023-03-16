@@ -33,26 +33,29 @@ public class FollowServiceImpl implements FollowService {
 
 	@Override
 	public List<Map<String, Object>> followingList(String id) {
-		//팔로잉 
+		//팔로잉 리스트
 		return mapper.followingList(id);
 	}
 
 
 
 	@Override
-	public FollowVO insertFollow(FollowVO vo) {
+	public int insertFollow(FollowVO vo) {
 		// TODO Auto-generated method stub
-		return (FollowVO)insertFollow(vo);
+		return mapper.insertFollow(vo);
 	}
 
 
 
 	@Override
-	public FollowVO unFollow(FollowVO vo) {
+	public int unFollow(FollowVO vo) {
 		// TODO Auto-generated method stub
-		return (FollowVO)unFollow(vo);
+		return mapper.unFollow(vo);
 	}
 
+
+
+	
 	
 	
 

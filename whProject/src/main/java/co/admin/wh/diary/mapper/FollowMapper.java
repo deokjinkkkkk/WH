@@ -12,10 +12,10 @@ public interface FollowMapper {
 		//팔로워 리스트 
 		public List<Map<String,Object>> followingList(String id);
 		//팔로우 
-		public FollowVO insertFollow(FollowVO vo);
+		public int insertFollow(FollowVO vo);
 		
 		//언팔 
-		public FollowVO unFollow(FollowVO vo);  
+		public int unFollow(FollowVO vo);  
 		
 		//팔로우 체크(유무확인)
 		boolean checkFollow(FollowVO vo);
