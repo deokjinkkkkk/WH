@@ -154,6 +154,7 @@
 		})
 
 		$("#del").click(function() {
+			alert("회원을 탈퇴 시키겠습니까?")
 			$("#frm").attr("action", "/adminDelete")
 			$("#frm").submit();
 		})

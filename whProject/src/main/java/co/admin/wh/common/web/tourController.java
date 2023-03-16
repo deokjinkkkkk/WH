@@ -63,32 +63,18 @@ public class tourController {
 		return "admin/tourAdmin";
 	}
 	
-	@PostMapping("adminTourForm")
-	public String adminTourSu(TourVO vo) {
-		
-		return "admin/tourAdmin";
-	}
-	@PostMapping("/tourUpdate")
-	@ResponseBody
-	public String adminTourUpdate(@RequestBody TourVO vo) {
-		
-		return "redirect:companionDetail";
-	}
 	
 	@PostMapping("/tourDelete")
-	@ResponseBody
-	public String adminTourDelete(@RequestBody TourVO vo) {
-		return "redirect:companionDetail";
+	public String adminTourDelete(TourVO vo) {
+		tourService.tourUpdate(vo);
+		return "redirect:adminTourForm";
 	}
 	
 	@PostMapping("/tourTripInsert")
-	@ResponseBody
-	public String adminTourTripInsert(@RequestBody TourVO vo) {
+	public String adminTourTripInsert(TourVO vo) {
 		tourService.tourUpdate(vo);
-		
-		
 		tourService.tourAdminInsert(vo);
-		return "redirect:companionDetail";
+		return "redirect:adminTourForm";
 	}
 	
 }
