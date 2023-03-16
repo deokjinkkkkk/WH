@@ -32,12 +32,12 @@
 				</ul>
 			</div>
 		</section>
-	<div class="container" id="app" v-cloak>
+	<div class="container" id="app" v-cloak style="padding:50px;">
 		<div class="row">
 			<div class="col-md-12">
 				<h3>채팅방 리스트</h3>
 			</div>
-		</div><hr>
+		<hr>
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<label class="input-group-text">방제목</label>
@@ -62,7 +62,7 @@
 					@click.stop="deleteRoom(item.roomId)">삭제</button>
 			</li>
 		</ul>
-	</div>
+	</div></div>
 
 	<script>
 	var vm = new Vue({
