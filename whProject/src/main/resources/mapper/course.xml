@@ -46,7 +46,8 @@
       t.trip_code, 
       t.cou_order,
       t.img_gro_code,
-      t.trip_unique_number
+      t.trip_unique_number,
+      t.cou_order
       FROM 
       COURSE c left join trip t 
       on c.cou_code = t.cou_code
