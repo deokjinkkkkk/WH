@@ -19,4 +19,6 @@ public interface ReportService {
 	int reportInsert(ReportVO rvo);
 	
 	int durationUpdate(ReportVO rvo);
+	
+	int  reportComDel(ReportVO rvo);
 }

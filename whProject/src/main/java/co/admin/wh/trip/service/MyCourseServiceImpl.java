@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -44,11 +43,17 @@ public class MyCourseServiceImpl implements MyCourseService {
 		return map.myCouSeqUpdate(vo);
 	}
 
-//	@Override
-//	public List<MyCourseVO> myCouSharing() {
-//		// 나만의 코스 공유...test
-//		return map.myCouSharing();
-//	}
+	@Override
+	public int myCouStateUpdate(MyCourseVO vo) {
+		// 코스 공유 상태값
+		return map.myCouStateUpdate(vo);
+	}
+
+	@Override
+	public int myCouIntroUpdate(MyCourseVO vo) {
+		// 소개글 업데이트
+		return map.myCouIntroUpdate(vo);
+	}
 	
-	
+		
 }

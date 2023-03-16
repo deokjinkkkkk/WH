@@ -140,28 +140,52 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 }
 </style>
 <div class="container">
-<p style="font-size:20px;">전체 예약내역</p>
-<form action="/adminReservSearch" method="post" id="searchInput" name="searchFrm" style="margin-top: 20px;">
-
-  <select name="fruits" class="select">
+<p style="font-size:30px;">예약내역 조회</p>
+<form id="searchInput" name="searchFrm" style="margin-top: 20px;">
+  <select name="option" class="select col-md-2" style="display: inline-block">
     <option disabled selected>옵션</option>
-    <option value="apple">예약번호</option>
-    <option value="orange">호텔명</option>
-    <option value="grape">방등급</option>
-    <option value="melon">입실일</option>
-    <option value="melon">퇴실일</option>
-    <option value="">예약자명</option>
-    <option value="">연락처</option>
-    <option value="">이메일</option> 
+    <option value="resId">예약번호</option>
+    <option value="hotelName">호텔명</option>
+    <option value="roomGrade">방등급</option>
+<!--     <option value="checkIn">입실일</option> -->
+<!--     <option value="checkOut">퇴실일</option> -->
+    <option value="resName">예약자명</option>
+    <option value="resTel">연락처</option>
+    <option value="resEmail">이메일</option> 
   </select>
-  <span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt=""></span>
+<input hidden="hidden" />
+<input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션 선택 후 검색 가능합니다." style="display: inline-block" >
+<button onclick="searchInfo()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br>
+</form>
+</div>
 
-                	<input type="text" class="form-control col-md-5" id="autoComplete" name="hotelName" placeholder="검색 옵션을 선택하지 않으면 전체검색 됩니다."><br><br>
-<!-- 	                <div class="input-group-append"> -->
-<!--                     	<button onclick="hotelNameSearchList()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button> -->
-<!-- 	                </div> -->
-                </form>
-  <table class="rwd-table">
+<script>
+// 검색(form 데이터 ajax로 전송)
+ function searchInfo(){
+	 if($(".select").val() == ''){
+		 alert("검색 옵션을 선택하세요.")
+	 }else if($("#content").text() == ''){
+		 alert("검색 내용을 입력하세요.")
+	 }else{
+		 var queryString = $("#searchInput").serialize(); // form데이터
+		 
+		 $.ajax({
+			  type: "post",
+			  url: "/adminReservSearch",
+			  data: queryString,
+			  success: function(data){ // 컨트롤러에서 RequestParam으로 받는다
+			    $("#ReservList").replaceWith(data);
+			  },
+			  error: function(xhr, status, error){
+			    alert("ajax 실패: " + error); // 에러 내용 출력
+			  }
+			});
+
+
+	 }
+ }
+</script>
+  <table class="rwd-table" id="ReservList">
     <tbody>
       <tr>
         <th>번호</th>
@@ -174,6 +198,9 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
         <th>이메일</th>
         <th>요청사항</th>
         <th>상태</th>
+        <th>결제금액</th>
+        <th>취소신청일자</th>
+        <th>환불금액</th>
         <th>관리</th>
       </tr>
       <tr th:each="h : ${hotelList}">
@@ -187,29 +214,92 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
           <td data-th="이메일" th:text="${h.resEmail}">-0.36%</td>
           <td data-th="요청사항" th:text="${h.resRequest}">-0.36%</td>
 <!-- 삼항연산자 사용, 0이면 결제완료, 1이면 취소요청 으로 출력 -->
-          <td data-th="예약상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '취소요청' : h.resState == 2 ? '취소완료' : ''}">-</td>
-          <td data-th="관리">
+          <td data-th="상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '환불요청' : h.resState == 2 ? '환불완료' : ''}">-</td>
+          <td data-th="결제금액" th:text="|₩${#numbers.formatInteger(h.totalPay, 3, 'COMMA')}|">-</td>
+          <td data-th="취소신청일자" th:text="${h.submitDate}">-</td>
           
-          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal" 
-          		id="modalForm" onclick="setResId()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
-		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" onclick="cancelOK()">취소승인</button></td>
+<!-- if, unless 사용하여 환불금액 출력 -->          
+          <td th:if="${h.returnPay >= 1}" th:text="|₩${#numbers.formatInteger(h.returnPay, 3, 'COMMA')}|"></td>
+          <td th:unless="${h.returnPay >= 1}" th:text="null"></td>
+          
+          <td data-th="관리">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modifyModal" 
+          		id="modalForm" onclick="setResInfo()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
+		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal" 
+          		id="modalForm" onclick="cancelOK()">환불승인</button></td>
         </tr>
     </tbody>
   </table>
-</div>
 
 <script type="text/javascript">
-// 모달창으로 해당 예약번호를 넘기기 위한 함수
-function setResId() {
+// 정보수정 버튼(모달창으로 해당 정보를 넘기기 위한 함수)
+function setResInfo() {
     document.getElementById('resId').value = $(event.target).parent().parent().find('td:nth-child(1)').text();
     document.getElementById('resName').value = $(event.target).parent().parent().find('td:nth-child(6)').text();
     document.getElementById('resTel').value = $(event.target).parent().parent().find('td:nth-child(7)').text();
     document.getElementById('resEmail').value = $(event.target).parent().parent().find('td:nth-child(8)').text();
     document.getElementById('resRequest').value = $(event.target).parent().parent().find('td:nth-child(9)').text();
 }
-</script>
 
-<div class="modal hide" id="myModal">
+//환불승인 버튼(넘겨야 할 값 : 예약번호, 날짜차이값, 원래결제가격)
+function setCancelInfo(){
+		document.getElementById('cancelResId').value = $(event.target).parent().parent().find('td:nth-child(1)').text(); // 예약번호넘김
+		
+		let oldcheckIn = $(event.target).parent().parent().find('td:nth-child(4)').text(); // 체크인날짜 ~ 체크아웃날짜
+		let checkInArr = oldcheckIn.split(" "); // 띄어쓰기 기준으로 문자열 자름
+		document.getElementById('checkIn').value = checkInArr[0]; // 체크인날짜
+		
+		document.getElementById('submitDate').innerContent = $(event.target).parent().parent().find('td:nth-child(12)').text(); // 환불신청일자
+
+		let checkIn = checkInArr[0]; // 체크인날짜
+		let totalPay = $(event.target).parent().parent().find('td:nth-child(11)').text(); // 결제금액 (환불금액 계산위해필요)
+ 		let submitDate = $(event.target).parent().parent().find('td:nth-child(12)').text(); // 환불신청일자
+ 			
+		const getDateDiff = (d1,d2) => {
+			  const date1 = new Date(d1); // 체크인일자
+			  const date2 = new Date(d2); // 환불요청일자
+			  
+			  const diffDate = date1.getTime() - date2.getTime();
+			  
+			  return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+			}
+
+		let diffDate = getDateDiff(checkIn,submitDate); // 체크인일자 - 환불신청날짜 = 일수 차이를 숫자로 반환함
+}
+</script>
+<!-- 	<!-- 환불요청승인 모달 창 --> -->
+<!-- 	<div class="modal hide" id="cancelModal"> -->
+<!-- 		<form id="frm" action="/Admin/cancel" method="post"> -->
+<!-- 			<div class="modal-header"> -->
+<!-- <!-- 				<button class="close" data-dismiss="modal">x</button> --> -->
+<!-- 				<div class="modal-dialog" role="document"> -->
+<!-- 					<div class="modal-dialog modal-dialog-centered"> -->
+<!-- 						<div class="modal-content"> -->
+<!-- 							<div class="modal-header"> -->
+<!-- 								<p class="modal-title" id="exampleModalLabel" style="font-size:20px;">환불 승인</p> -->
+<!-- 								<button type="button" class="close" data-dismiss="modal" -->
+<!-- 									aria-label="Close"> -->
+<!-- 									<span aria-hidden="true">&times;</span> -->
+<!-- 								</button> -->
+<!-- 								<div class="modal-body" id="modal2"></div> -->
+<!-- 							</div> -->
+<!-- 							<div class="modal-body"> -->
+<!-- <!-- 								입실일<input type="text" class="modifyInput" id="modifyInput1"> --> -->
+<!-- <!-- 								퇴실일<input type="text" class="modifyInput" id="modifyInput2"> --> -->
+<!-- 								환불요청일 : <p id="submitDate"></p><br> -->
+<!-- 								최종 환불금액 : <br> -->
+<!-- 								<input type="hidden" name="resId" id="CancelresId"> 예약번호  -->
+<!-- 								<input type="submit" class="btn btn-primary" value="확인" id="memUpdate"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+
+<!-- 예약정보수정 모달 창 -->
+<div class="modal hide" id="modifyModal">
 		<form id="frm" action="/Admin/updateReservInfo" method="post">
 			<div class="modal-header">
 <!-- 				<button class="close" data-dismiss="modal">x</button> -->
@@ -240,19 +330,69 @@ function setResId() {
 			</div>
 		</form>
 	</div>
+	
+
 
   <script>
-  	// 수정 창에서 확인 버튼을 누르면 실행되는 함수
+  	// 
   	function cancelOK(){
-  		var result = confirm("예약취소를 승인하시겠습니까?");
- 		if(result == true){
  			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); // 예약번호넘김
-	
+ 			let oldcheckIn = $(event.target).parent().parent().find('td:nth-child(4)').text(); // 체크인날짜 ~ 체크아웃날짜
+ 			let checkInArr = oldcheckIn.split(" "); // 띄어쓰기 기준으로 문자열 자름
+ 			let checkIn = checkInArr[0]; // 체크인날짜
+ 			let totalPay = $(event.target).parent().parent().find('td:nth-child(11)').text(); // 결제금액
+ 			let old_totalPay = totalPay.replace(',', '');
+ 			let new_totalPay = Number(old_totalPay.substr(1));
+ 			console.log(new_totalPay);
+ 			let submitDate = $(event.target).parent().parent().find('td:nth-child(12)').text(); // 환불신청일자
+ 			
+ 			//입실일 며칠 전에 환불신청했는지 확인하는 함수(체크인날짜 - 환불신청날짜)
+ 			const getDateDiff = (d1,d2) => {
+ 				  const date1 = new Date(d1); // 체크인일자
+ 				  const date2 = new Date(d2); // 환불요청일자
+ 				  
+ 				  const diffDate = date1.getTime() - date2.getTime();
+ 				  
+ 				  return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+ 				}
+
+ 			let diffDate = getDateDiff(checkIn,submitDate); // 체크인일자 - 환불신청날짜 = 일수 차이를 숫자로 반환함
+ 			console.log(diffDate);
+ 			
+					/*
+					- 관리자가 취소승인할 때,
+						환불규정 : 10일 전 취소 or 예약 당일 취소(100%)
+							7일 전 취소(90%)
+							5일 전 취소(70%)
+							3일 전 취소(50%)
+							1일 전 or 입실 당일 취소(20%)
+					*/
+ 			if(diffDate <= 1){
+ 				old_returnPay = new_totalPay*0.2;
+ 			}else if(diffDate <= 3){
+ 				old_returnPay = new_totalPay*0.5;
+ 			}else if(diffDate <= 5){
+ 				old_returnPay = new_totalPay*0.7;
+ 			}else if(diffDate <= 7){
+ 				old_returnPay = new_totalPay*0.9;
+ 			}else{
+ 				old_returnPay = new_totalPay;
+ 			}
+ 			
+ 			let returnPay = Math.floor(old_returnPay); // 최종 환불금액
+ 			
+  		var result = confirm("환불요청을 승인하시겠습니까? 예상환불금액은 ");
+ 		if(result == true){
+ 			
  			$.ajax({
 				url : "/Admin/cancel",
 				type : "POST",
 				data : JSON.stringify(
-					{"resId": resId}
+					{"resId": resId,
+// 					"checkIn": checkIn,
+// 					"submitDate": submitDate
+					"returnPay": returnPay // 환불금액
+					}
 				),
 				contentType:'application/json',
 				success : function(result){
@@ -269,6 +409,7 @@ function setResId() {
 				return false;
 			}
  		}
+  	
   </script>
 		
 	

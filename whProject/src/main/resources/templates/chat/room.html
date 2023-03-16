@@ -25,19 +25,19 @@
 			th:style="|background:url(/img/banner/bg2.jpg)|">
 			<div class="container">
 
-				<h1 class="text-white font-weight-600">커뮤니티</h1>
+				<h1 class="text-white font-weight-600">채팅</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">동행사 목록페이지</span></li>
+					<li><a href="/chat/room"><span class="active">채팅방 목록</span></a></li>
 				</ul>
 			</div>
 		</section>
-	<div class="container" id="app" v-cloak>
+	<div class="container" id="app" v-cloak style="padding:50px;">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>채팅방 리스트</h3>
+				<h3>채팅방 목록</h3>
 			</div>
-		</div><hr>
+		<hr>
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<label class="input-group-text">방제목</label>
@@ -62,7 +62,7 @@
 					@click.stop="deleteRoom(item.roomId)">삭제</button>
 			</li>
 		</ul>
-	</div>
+	</div></div>
 
 	<script>
 	var vm = new Vue({
@@ -82,31 +82,34 @@
 	      });
 	    },
 	    createRoom: function () {
-	      if ('' === this.room_name) {
-	        alert('방 제목을 입력해 주십시요.');
-	        return;
-	      } else {
-	        var params = new URLSearchParams();
-	        params.append('name', this.room_name);
-	        params.append('password', this.room_password); // 파라미터 추가
-	        params.append('createdBy', '사용자명'); // 사용자명에는 실제 사용자의 이름 또는 ID를 입력합니다.
-	        axios
-	          .post('/chat/room', params)
-	          .then((response) => {
-	            alert(response.data.roomName + '방 개설에 성공하였습니다.');
-	            this.room_name = name;
-	            this.room_password = ''; // 추가한 데이터 초기화
-	           
-	            // roomId 값을 session에 추가
-	            window.sessionStorage.setItem('roomId', response.data.roomId);
-	            
-	            this.findAllRoom();
-	          })
-	          .catch((response) => {
-	            alert('채팅방 개설에 실패하였습니다.');
-	          });
-	      }
-	    },
+	    	  if ('' === this.room_name) {
+	    	    alert('방 제목을 입력해 주십시요.');
+	    	    return;
+	    	  } else {
+	    	    var params = new URLSearchParams();
+	    	    params.append('name', this.room_name);
+	    	    params.append('password', this.room_password); // 파라미터 추가
+	    	    params.append('createdBy', '사용자명'); // 사용자명에는 실제 사용자의 이름 또는 ID를 입력합니다.
+	    	    axios
+	    	      .post('/chat/room', params)
+	    	      .then((response) => {
+	    	        alert(response.data.roomName + '방 개설에 성공하였습니다.');
+	    	        this.room_name = name;
+	    	        this.room_password = ''; // 추가한 데이터 초기화
+
+	    	        // roomId 값을 session에 추가
+	    	        window.sessionStorage.setItem('roomId', response.data.roomId);
+	    	        
+	    	        // roomName 값을 로컬 스토리지에 추가
+	    	        window.localStorage.setItem('roomName', response.data.roomName);
+
+	    	        this.findAllRoom();
+	    	      })
+	    	      .catch((response) => {
+	    	        alert('채팅방 개설에 실패하였습니다.');
+	    	      });
+	    	  }
+	    	},
 
 	    enterRoom: function (roomId) {
 	    	  var sender = prompt('대화명을 입력해 주세요.');

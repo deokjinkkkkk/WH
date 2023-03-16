@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.admin.wh.tag.mapper.TagMapper;
+import co.admin.wh.tag.service.TagService;
+import co.admin.wh.tag.vo.TagVO;
 import co.admin.wh.trip.mapper.MyCourseFreeMapper;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.service.MyCourseFreeService;
 import co.admin.wh.trip.service.MyCourseService;
-import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -37,6 +40,12 @@ public class MyCourseController {
 
 	@Autowired
 	MyCourseFreeService myCourseFreeService;
+
+	@Autowired
+	TagService tagService;
+
+	@Autowired
+	TagMapper tagMapper;
 
 	@RequestMapping("/myCourse")
 	public String myCourse(Model model) {
@@ -62,6 +71,18 @@ public class MyCourseController {
 	@ResponseBody
 	public String myCouTripInsert(@RequestBody MyCourseFreeVO vo) {
 		int result = myCourseFreeMapper.myCourseInsert(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
+	
+	// 나만의 코스 하단에 소개글 업데이트
+	@PostMapping("/myCouIntroUpdate")
+	@ResponseBody
+	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";
@@ -124,32 +145,59 @@ public class MyCourseController {
 	public String moveSaveTrip(@RequestBody List<MyCourseFreeVO> list) {
 		String resultValue = "fail";
 		for (MyCourseFreeVO vo : list) {
-			int result = myCourseFreeMapper.myCouUpdate(vo);
-			resultValue = "fail";
+            int result = myCourseFreeMapper.myCouUpdate(vo);
+            resultValue = "fail";
+            if (result > 0) {
+               resultValue = "success";
+            }
+         }
+         return resultValue;
+      }
+	
+		// 상태값을 myCourse테이블에 넘기기
+		@PostMapping("/myCouStateSave")
+		@ResponseBody
+		public String myCouStateSave(@RequestBody MyCourseVO vo) {
+			int result = myCourseMapper.myCouStateUpdate(vo);
+			String resultValue = "fail";
 			if (result > 0) {
 				resultValue = "success";
 			}
+			return resultValue;
 		}
-		return resultValue;
-	}
 
 
-	// 상세페이지 보기
-	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-			Model model) {
-	    ObjectMapper object = new ObjectMapper();
-		vo.setMyCourseCode(myCourseCode);
-		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
-		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
-		  try {
-		         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
-		      } catch (JsonProcessingException e) {
-		         e.printStackTrace();
-		      }
 
+	// 상세페이지 보기 
+		@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
+		public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+				Model model) {
+		    ObjectMapper object = new ObjectMapper();
+			vo.setMyCourseCode(myCourseCode);
+			model.addAttribute("myCourse", myCourseService.detailSelect(vo));
+			model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
+			  try {
+			         model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+			      } catch (JsonProcessingException e) {
+			         e.printStackTrace();
+			      }
+
+			return "trip/myCourseDetail";
+		}
+		
+		/*
+		// 새로운 tag db 저장
+	    if (newTag != null && !newTag.isEmpty()) {
+	        TagVO tagCode = tagService.findTagBytag(newTag);
+	        if (tagCode == 0) {
+	            tagService.saveTag(newTag);
+	            tagCode = tagService.findTagBytag(newTag);
+	        }
+	        tagService.addCntTag(tagCode);
+	    }
+		
 		return "trip/myCourseDetail";
-	}
+	}*/
 	
-
 }
+

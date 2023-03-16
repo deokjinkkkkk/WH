@@ -91,4 +91,15 @@
 		SELECT COUNT(*)
 		FROM MEMBER
 	</select>
+	
+	<select id="MemberSearchList" resultType="co.admin.wh.member.vo.MemberVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM
+		(
+		SELECT *
+		FROM member
+		WHERE id like '%'|| (#{id}) ||'%'
+	<![CDATA[
+	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+	]]>
+	</select>
 </mapper>

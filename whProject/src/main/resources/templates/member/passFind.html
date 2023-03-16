@@ -42,38 +42,30 @@
 	</section>
 	<script type="text/javascript">
 		$("#passFind").click(function() {
-			
-			
-				uId = $("#id").val()
-				email = $("#email").val()
-				$.ajax({
-					url : "/emailChk",
-					type:"POST",
-					data: JSON.stringify({
-						"id" : uId,
-						"email" : email
-					}),
-					contentType:'application/json',
-					success : function(data) {
-						console.log(data);
-						if (data != "success") {
-							frm.submit();
-						}else {
-							alert("이메일,아이디가 일치하지 않습니다.");
-							return false;
-						}
-					},
-					error : function() {
-						alert("오류")
+			uId = $("#id").val()
+			email = $("#email").val()
+			$.ajax({
+				url : "/emailChk",
+				type : "POST",
+				data : JSON.stringify({
+					"id" : uId,
+					"email" : email
+				}),
+				contentType : 'application/json',
+				success : function(data) {
+					console.log(data);
+					if (data == "success") {
+						frm.submit();
+					} else {
+						alert("이메일,아이디가 일치하지 않습니다.");
+						return false;
 					}
-				})
-				
-			
+				},
+				error : function() {
+					alert("오류")
+				}
+			})
 		})
-
-
-		
-		
 	</script>
 </body>
 </html>

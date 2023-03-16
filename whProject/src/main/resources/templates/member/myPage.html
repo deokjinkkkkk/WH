@@ -9,16 +9,17 @@
 <body layout:fragment="content">
 	<!-- 헤더 시작 -->
 	<section class="page-title-section bg-img cover-background"
-		data-overlay-dark="6" data-background="img/banner/bg4.jpg">
-		<div class="container">
-			<h1 class="text-white font-weight-600">My page</h1>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><span class="active">My page</span></li>
-			</ul>
-		</div>
-	</section>
-	<div class="container">
+			th:style="|background:url(/img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">My page</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><a href="/myPage"><span class="active">My page</span></a></li>
+				</ul>
+			</div>
+		</section>
+	<div class="container" style="padding:30px;">
 		<div class="row text-center col-md-12">
 			<div class="col-lg-3 col-md-12 sm-margin-30px-bottom">
 				<div

@@ -20,7 +20,24 @@ body>.container {
 
 
 <body>
-	<div layout:fragment="content">
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+	
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">맛집리뷰게시판</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">맛집리뷰</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+
 
 
 		<!-- 페이징 -->
@@ -40,19 +57,7 @@ body>.container {
 		</script>
 		<!-- 페이징끝 -->
 
-		<!-- 내용 시작 -->
 
-
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('/img/banner/bg1.jpg')|">
-			<h1 class="text-white font-weight-600">맛집리스트</h1>
-			<ul>
-				<li><a href="/main">Home</a></li>
-				<li><a href="/food">맛집리스트</a></li>
-			</ul>
-		</section>
-		<!-- 배너끝 -->
 		<div class="container">
 
 

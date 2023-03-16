@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.admin.wh.tag.mapper.TagMapper">
+	
+	<select id="findTagBytag" resultType="co.admin.wh.tag.vo.TagVO">
+    	SELECT * FROM TAG WHERE TAG_NAME = #{tagName}
+	</select>
+
+	
+	
+	<insert id="saveTag" parameterType="co.admin.wh.tag.vo.TagVO">
+		<selectKey keyProperty="tagCode" resultType="int"
+			order="BEFORE">
+			SELECT
+			NVL(MAX(TAG_CODE),0)+1
+			FROM TAG
+		</selectKey>
+		INSERT INTO TAG
+		VALUE (#{tagCode},#{tagName},#{tagCnt})
+	</insert>
+	
+	<!-- tag_cnt에 1씩 추가  -->
+	<update id="addCntTag">
+		UPDATE TAG
+		SET TAG_CNT = TAG_CNT + 1
+		WHERE TAG_CODE = #{tagCode}
+	</update>
+	
+	
+	<!-- tag_cnt기준 상위 10개만 조회 -->
+	<select id="findByTagCnt" resultType="co.admin.wh.tag.vo.TagVO" >
+		SELECT *
+		FROM (
+		  SELECT *
+		  FROM Tag
+		  ORDER BY TAG_CNT DESC
+		  <![CDATA[
+		)
+		WHERE ROWNUM <= 10 ]]>
+	</select>
+</mapper>

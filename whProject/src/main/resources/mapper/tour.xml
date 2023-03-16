@@ -53,4 +53,21 @@
 		</set>
 		WHERE tour_Id = ${tourId}
 	</update>
+	
+	<insert id="tourAdminInsert">
+		<selectKey keyProperty="tourId" resultType="int"
+			order="BEFORE">
+			select 
+			NVL(MAX(TRIP_CODE),0)+1 trip_code
+			from trip
+		</selectKey>
+		insert into
+		trip(trip_code,trip_Name,trip_addr,trip_lat,trip_lon,trip_summ,
+		trip_content,trip_region,img_gro_code,trip_announce,rest_date,use_time,
+		trip_parking,trip_child,trip_chk_card,trip_unique_number)
+		values(#{tourId},#{tourTitle},#{tourAddr},#{tourLat},#{tourLon}
+		,#{tourSumm},#{tourContent},#{tourRegion},#{imgGroCode}
+		,#{tourTel},#{restDate},#{useTime},#{tourParking}
+		,#{tourChild},#{tourChkCard},(select NVL(max(trip_unique_number),0)+1 trip_unique_number from trip))
+	</insert>
 </mapper>

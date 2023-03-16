@@ -8,12 +8,16 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import co.admin.wh.hotel.vo.CancelVO;
 import co.admin.wh.hotel.vo.HotelSearchVO;
 import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.hotel.vo.ReservationVO;
 
 public interface HotelInfoService {
 	
+	//메인페이지
+    List<HotelVO> mainList(HotelSearchVO vo);
+    
 	//호텔 리스트 + 페이징
     void insertHotelInfo(HotelVO hotelVO) throws IOException, ParserConfigurationException, SAXException; // 크롤링한 정보 인서트
     List<HotelVO> hotelList(HotelSearchVO vo); // 추천 호텔 리스트 출력
@@ -34,22 +38,20 @@ public interface HotelInfoService {
     
     //예약
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
-    void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
+//    void minusRoomCount(int hotelId); // 예약 후 hotel테이블 room_count-1
+
     
     //마이페이지 & 관리자페이지
     List<ReservationVO> readReservInfo(String sessionId); // 예약정보 출력
     void ReservUpdate(ReservationVO vo); // 예약자 정보수정(업데이트문)
     void hotelCancel(ReservationVO vo); // 예약 취소(업데이트문)
+    void insertCancelInfo(ReservationVO vo); // 회원이 예약취소신청 시 취소 테이블에 취소정보 인서트 
     List<ReservationVO> readFinReservInfo(String sessionId); // 지난예약정보 출력
     List<ReservationVO> readCancelReservInfo(String sessionId); // 취소내역 출력
     
-    
     // 관리자
-    List<ReservationVO> adminReservList(); // 관리자 예약내역 전체조회
-//    void updateReservInfoByAdmin(ReservationVO vo); // 관리자 예약정보 수정
-    
-    //메인페이지
-    List<HotelVO> mainList(HotelSearchVO vo);
-    
+    List<CancelVO> adminReservList(); // 관리자 예약내역 전체조회
+    List<CancelVO> adminSearch(String option, String content); // 관리자 예약내역 검색
+    void updateCancelInfo(CancelVO vo); // 예약취소승인할 때 취소 테이블에 환불정보 업데이트.
 }
 

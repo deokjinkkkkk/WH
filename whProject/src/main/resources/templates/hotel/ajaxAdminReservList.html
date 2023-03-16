@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <table class="rwd-table" id="ReservList">
+    <tbody>
+      <tr>
+        <th>번호</th>
+        <th>호텔명</th>
+        <th>방등급</th>
+        <th>숙박일자</th>
+        <th>인원</th>
+        <th>예약자</th>
+        <th>연락처</th>
+        <th>이메일</th>
+        <th>요청사항</th>
+        <th>상태</th>
+        <th>결제금액</th>
+        <th>취소신청일자</th>
+        <th>관리</th>
+      </tr>
+      <tr th:each="h : ${hotelList}">
+          <td data-th="예약번호" th:text="${h.resId}">AAC</td>
+          <td data-th="호텔명" th:text="${h.hotelName}">AUSTRALIAN COMPANY </td>
+          <td data-th="방 등급" th:text="${h.roomGrade}">$1.38</td>
+          <td data-th="숙박일자" th:text="|${h.checkIn} ~ ${h.checkOut}|">+2.01</td>
+          <td data-th="인원" th:text="|성인 ${h.humanCount}명, 유아 ${h.childCount}명|">-0.36%</td>
+          <td data-th="예약자명" th:text="${h.resName}">-0.36%</td>
+          <td data-th="연락처" th:text="${h.resTel}">-0.36%</td>
+          <td data-th="이메일" th:text="${h.resEmail}">-0.36%</td>
+          <td data-th="요청사항" th:text="${h.resRequest}">-0.36%</td>
+<!-- 삼항연산자 사용, 0이면 결제완료, 1이면 취소요청 으로 출력 -->
+          <td data-th="상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '환불요청' : h.resState == 2 ? '환불완료' : ''}">-</td>
+          <td data-th="결제금액" th:text="|₩${#numbers.formatInteger(h.totalPay, 3, 'COMMA')}|">-</td>
+          <td data-th="취소신청일자" th:text="${h.submitDate}">-</td>
+          <td data-th="관리">
+          
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modifyModal" 
+          		id="modalForm" onclick="setResInfo()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
+		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal" 
+          		id="modalForm" onclick="cancelOK()">환불승인</button></td>
+        </tr>
+    </tbody>
+  </table>
+</body>
+</html>

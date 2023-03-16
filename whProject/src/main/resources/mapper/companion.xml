@@ -69,7 +69,7 @@
 
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		SELECT *
+		SELECT * 
 		FROM COMPANION c
 		INNER JOIN common co ON c.com_Code = co.com_Code
 		INNER JOIN image i ON c.img_gro_code = i.img_gro_code

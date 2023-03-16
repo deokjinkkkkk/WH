@@ -132,18 +132,18 @@
 				<script>
 				
 				// 호텔명 검색 리스트
-				function hotelNameSearchList(){
-					$.ajax({
-						type: 'post',
-						url: "/hotelNameSearchList",
-						success: function(data) {
-							$("#hotelListContent").replaceWith(data);
-						},
-						error: function(request, status, error) {
-							alert(error);
-						}
-					});
-				};
+// 				function hotelNameSearchList(){
+// 					$.ajax({
+// 						type: 'post',
+// 						url: "/hotelNameSearchList",
+// 						success: function(data) {
+// 							$("#hotelListContent").replaceWith(data);
+// 						},
+// 						error: function(request, status, error) {
+// 							alert(error);
+// 						}
+// 					});
+// 				};
 				
 				//자동완성
 				$('#autoComplete').autocomplete({
@@ -348,11 +348,28 @@
 <!-- 											<option value="5">5명</option> -->
 <!-- 										</select> -->
 <!-- 									</div> -->
-									<button class="butn btn-block" type="submit">
+									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
 								</form>
 							</div>
+							
+							<script>
+							// 페이징할 때 검색 정보 계속 가지고 있게
+							 document.getElementById("searchBtn").onclick = function () {
+							    
+							  let checkIn = document.getElementsByName("checkIn")[0].value;
+							  let checkOut = document.getElementsByName("checkOut")[0].value;
+							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
+							  let humanCount =  document.getElementsByName("humanCount")[0].value;
+							  
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
+							  
+							  console.log(checkIn)
+							  console.log(hotelRegion)
+							  console.log(humanCount)
+							 };
+							</script>
 							<div class="widget">
 								<div class="widget-title">
 									<h3>Destination</h3>
