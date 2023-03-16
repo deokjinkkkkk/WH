@@ -43,23 +43,25 @@
             <div class="text-center margin-40px-bottom">
                     <h3 class="margin-10px-bottom position-relative">추천 여행지</h3>
                 </div>
-            <div class="container" style="border: 0.5px solid lightgray; border-radius:30px; padding: 20px;  " >
+            <div class="shadow-bottom-right" style="border: 0.1px solid lightgray; border-radius:30px; padding: 10px; width:1300px; margin: 0 auto;   ">
                 <div class="row">
                     <div class="col-md-5 margin-30px-top xs-no-margin-top xs-margin-30px-bottom">
-                    
-                        <div> 
-                            <p class="margin-30px-bottom" style="font-size:20px; padding: 40px;  text-align:center;">추천!<br>국내여행에 특별함을 더하다!</p>
+                    <div class="box-wrapper">
+                        <div class="shadow-inset-all"  style="position: relative;
+    top: 50px;"> 
+                            <p class="margin-30px-bottom" style="font-size:20px; padding: 40px; margin: 0 auto; text-align:center; ">추천!<br>국내여행에 특별함을 더하다!</p>
                             
-                        </div>
+                        </div></div>
                     </div>
                     <div class="col-md-7 text-center">
-                        <div class="owl-carousel owl-theme" id="destination" style="width:630px;height:300px; ">
+                        <div class="owl-carousel owl-theme" id="destination" style="width:630px;height:300px; position: relative;
+    top: 50px;">
                         
                       
                                 <div th:each="c : ${t}">
-                                <img th:src="${c.imgGroCode}" class="border-radius-4" style="width:400px; height:150px;" />
+                                <img th:src="${c.imgGroCode}" class="border-radius-4" style="width:400px; height:150px; border:0.2px solid lightgrey" />
                                 <div class="padding-20px-top padding-20px-left">
-                                <input type="hidden" id="tripCode" name="tripCode" th:value="${c.tripCode}"><hr>
+                                <input type="hidden" id="tripCode" name="tripCode" th:value="${c.tripCode}">
                                     <h5 class="font-size22 sm-font-size18 no-margin-bottom"><a th:href="@{/tripDetail/{tripCode}(tripCode=${c.tripCode})}" class="text-extra-dark-gray">[[${c.tripName}]]</a></h5>
                                 </div>
                             </div>
