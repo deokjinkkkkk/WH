@@ -102,4 +102,11 @@
 	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 	]]>
 	</select>
+	
+	<update id="memUpstate">
+		UPDATE member
+		SET
+		state= #{state}
+		where id =#{id}
+	</update>
 </mapper>

@@ -208,7 +208,7 @@ public class MemberController {
 	
 	@RequestMapping("/memberSearch")
 	public String memberSearch(MemberVO vo, Model model, Paging paging) {
-		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
+		paging.setPageUnit(10);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
 		
 		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
@@ -220,5 +220,12 @@ public class MemberController {
 		model.addAttribute("mem", memberMapper.MemberSearchList(vo));
 		return "admin/memberAdmin";
 		
+	}
+	
+	@RequestMapping("/stateUpdate")
+	public String adminStateUp(MemberVO vo) {
+		memberMapper.memUpstate(vo);
+		
+		return "redirect:/admemList";
 	}
 }
