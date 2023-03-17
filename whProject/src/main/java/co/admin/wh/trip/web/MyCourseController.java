@@ -207,7 +207,9 @@ public class MyCourseController {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-
+			
+				return "trip/myCourseDetail";
+			}
 			
 			
 			
@@ -221,7 +223,6 @@ public class MyCourseController {
 //			}
 			
 	
-
 
 }
 
