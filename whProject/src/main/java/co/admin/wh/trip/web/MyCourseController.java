@@ -189,16 +189,16 @@ public class MyCourseController {
 		
 		
 
-		// 상세페이지 보기 
+		// 상세페이지 보기
 		@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
 		public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-				 @RequestParam(value = "newTag", required = false) String newTag,Model model) { //태그를 위한 추가
-			
+				@RequestParam(value = "newTag", required = false) String newTag, Model model) { // 태그를 위한 추가
+
 			ObjectMapper object = new ObjectMapper();
 			vo.setMyCourseCode(myCourseCode);
 
 			MyCourseVO myCourse = myCourseService.detailSelect(vo);
-			
+
 			model.addAttribute("myCourse", myCourseService.detailSelect(vo));
 			model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
 
@@ -207,22 +207,9 @@ public class MyCourseController {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-			
-				return "trip/myCourseDetail";
-			}
-			
-			
-			
-//			// 여행 코스에 등록된 나만의 코스 상세페이지 보기
-//			@RequestMapping(value = "/myCouDetail/{myCourseCode}", method=RequestMethod.GET)
-//			public String myCouDetSel(@PathVariable("myCourseCode") String myCourseCode, MyCourseFreeVO vo, Model model) {
-//				vo.setCouCode(myCourseCode);
-//				model.addAttribute("myCouDet", myCourseFreeService.myCouDetSel(vo));
-//				
-//				return "trip/tripCourseDetail";
-//			}
-			
-	
+
+			return "trip/myCourseDetail";
+		}
 
 }
 

@@ -64,7 +64,6 @@
 
 	<!-- start course-list section -->
 	<section>
-		[[${courseList}]]
 			<div class="container">
 					<p style="font-size: 30px;">지역별 여행 코스<p>
 					<hr>
@@ -112,9 +111,9 @@
 
 							</div>
 
-						</div>
+						</div> <!-- th:if문으로 이미지가 없는 건 일단 화면에 출력되지 않게 설정 -->
 						<div th:each="c, nStat: ${courseList}"
-							class="card card-list margin-15px-bottom">
+							class="card card-list margin-15px-bottom" th:if="${c.imgGroCode} != null">
 							<div class="row align-items-center">
 								<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
 									<div class="card-list-img">

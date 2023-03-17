@@ -83,6 +83,23 @@ public class TripController {
 		return "trip/tripNameSearchList";
 	}
 	
+	
+	// 여행지 지역 검색
+		@PostMapping("/tripRegionSearchList")
+		public String tripRegionSearch(Model model, TripSearchVO vo, Paging paging) {
+			paging.setPageUnit(5);
+			paging.setPageSize(10);
+			
+			vo.setFirst(paging.getFirst());
+			vo.setLast(paging.getLast());
+			
+			paging.setTotalRecord(tripService.getCountTotla(vo));
+			
+			List<TripVO> tripList = tripService.tripRegionSearchList(vo);
+			model.addAttribute("tripList", tripList);
+			return "trip/tripRegionSearchList";
+		}
+	
 	// 여행지검색 자동 완성
 	@RequestMapping("/ajax/selfsearch")
 	@ResponseBody
@@ -103,6 +120,21 @@ public class TripController {
 		
 		paging.setTotalRecord(tripService.getCountTotla(vo));
 		List<TripVO> tripList = tripService.latestList(vo);
+		model.addAttribute("tripList", tripList);
+		return "trip/sortingTripList";
+	}
+	
+	// 좋아요순 정렬
+	@PostMapping("/tripGoodRatingList")
+	public String tripGoodRatingList(Model model, TripSearchVO vo, Paging paging) {
+		paging.setPageUnit(5);
+		paging.setPageSize(10);
+		
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(tripService.getCountTotla(vo));
+		List<TripVO> tripList = tripService.tripGoodRatingList(vo);
 		model.addAttribute("tripList", tripList);
 		return "trip/sortingTripList";
 	}

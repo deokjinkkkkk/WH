@@ -68,15 +68,30 @@
             	<div id="product_order_list">
 					<p>
 					<a href="javascript:latestList();">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-					<a href="#">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<a href="javascript:tripGoodRatingList()">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					</p>
 				</div>
 				<script th:inline="javascript">
+				
 				// 최신순 정렬
 				var latestList = function(url) {
 					$.ajax({
 						type: 'post',
 						url: "/latestList",
+						success: function(data) {
+							$("#tripListContent").replaceWith(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+					})
+				}
+				
+				// 좋아요순 정렬
+				var tripGoodRatingList = function(url) {
+					$.ajax({
+						type: 'post',
+						url: "/tripGoodRatingList",
 						success: function(data) {
 							$("#tripListContent").replaceWith(data);
 						},
@@ -93,6 +108,10 @@
                  <!-- 검색 폼 -->
 				<form action="/tripNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
                 	<br><input type="text" class="form-control" id="selfSearch" name="tripName" placeholder="여행지를 검색하세요"><br><br>
+                </form>
+                
+                <form action="/tripRegionSearchList" method="post" name="searchFrm">
+                	<br><input type="text" class="form-control" id="selfSearch" name="tripAddr" placeholder="주소를 검색하세요"><br><br>
                 </form>
                 
                 <script>
