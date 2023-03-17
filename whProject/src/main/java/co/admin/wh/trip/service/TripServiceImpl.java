@@ -71,10 +71,23 @@ public class TripServiceImpl implements TripService{
 	}
 
 	@Override
+	public List<TripVO> tripGoodRatingList(TripSearchVO vo) {
+		// 좋아요순 정렬
+		return tripMapper.tripGoodRatingList(vo);
+	}
+	
+	@Override
 	public List<TripVO> mainTripList(TripVO vo) {
 		// TODO Auto-generated method stub
 		return tripMapper.mainTripList(vo);
 	}
+
+	@Override
+	public List<TripVO> tripRegionSearchList(TripSearchVO vo) {
+		// 여행지 지역 검색 리스트 출력
+		return tripMapper.tripRegionSearchList(vo);
+	}
+
 
 	
 }
