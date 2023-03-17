@@ -411,7 +411,6 @@ button {
 }
 </style>
 <body>
-
 	<div layout:fragment="content" class="content">
 
 		<!-- 배너시작 -->
@@ -447,7 +446,7 @@ button {
 							<tr>
 								<th></th>
 								<th></th>
-								<th class="followerBtn" onclick="followerBtn()">팔로워</th>
+								<th class="followerBtn">팔로워</th>
 								<th>팔로잉</th>
 								<th></th>
 							</tr>
@@ -458,7 +457,7 @@ button {
 										<h4 th:text="${diarya[0].id}"></h4>
 									</div>
 								<td></td>
-							<td><span id="follower-count"></span></td>
+							<td><span id="follower-count" ></span></td>
 							<td><span id="following-count"></span></td>
 								<td>
 									<!-- 팔로우 누른경우   -->
@@ -569,20 +568,27 @@ button {
 										});
 							});
 								
-										//팔로잉 조회
+								//팔로우수
+								     $(function() {
+								    	 var followId = $('h4').text();
+								            $.ajax({
+								                url: "/followCount/" + followId,
+								                success: function(response) {
+								                    console.log(response); // 서버로부터 받은 응답 로그 출력
+								                  
+								                    $('#follower-count').html(response.FOLLOWCOUNT);
+								                    $('#following-count').html(response.FOLLOWINGCOUNT);
+								                },
+								                error: function() {
+								                    console.log("에러"); // 에러 발생 시 로그 출력
+								                }
+								            });
+								        });
+								
+								
 										var followingId = $("#id").val();
-										$.ajax({
-										    url: "/followCount/" + followId + "/" + followingId,
-										    success: function(response) {
-										        console.log(response);
-										        $('#follower-count').html(response.followerCount);
-										        $('#following-count').html(response.followeeCount);
-										    },
+										
 
-										    error: function() {
-										        console.log("에러");
-										    }
-										});
 
 
 

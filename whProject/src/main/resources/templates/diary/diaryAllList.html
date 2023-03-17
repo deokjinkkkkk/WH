@@ -420,13 +420,13 @@ span {
 				<h1 class="text-white font-weight-600">커뮤니티</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
-					<li><span class="active">여행 일지</span></li>
+					<li><span class="active">여행 리뷰</span></li>
 				</ul>
 			</div>
 		</section>
 	
 	<!-- 바디 영역 -->
-	<div class="body" style="padding-left: 100px">
+	<div class="body" style="padding-left: 100px; border: 1px solid slategray;"   >
 		<div class="left-body">
 		<div class="posts">
 			<div class="feed-box" id="inst" style="padding: 20px">
@@ -442,23 +442,6 @@ span {
 				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
 				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
 				</div>
-
-				<div class="comment">
-					<div>
-						<b>기덕</b> 장고 화이팅
-					</div>
-					<div>
-						<b>재명</b> 알고리즘 화이팅
-					</div>
-					<div>
-						<b>이성</b> 파이썬 화이팅
-					</div>
-				</div>
-				<div class="input-comment">
-					<input id="input-comment" type="text" class="form-control"
-						placeholder="댓글 달기...">
-				</div>
-
 				</div>
 
 			</div>

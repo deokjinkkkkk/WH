@@ -24,11 +24,7 @@ public class FollowServiceImpl implements FollowService {
 	    return mapper.checkFollow(vo);
 	  }
 
-	@Override
-	public Map<String, Object> followCount(String id) {
-		//팔로우 수 
-		return mapper.followCount(id);
-	}
+
 
 
 	@Override
@@ -51,6 +47,22 @@ public class FollowServiceImpl implements FollowService {
 	public int unFollow(FollowVO vo) {
 		// TODO Auto-generated method stub
 		return mapper.unFollow(vo);
+	}
+
+
+
+	@Override
+	public Map<String,Object> followCount(String id) {
+		// TODO Auto-generated method stub
+		return mapper.followCount(id);
+	}
+
+
+
+	@Override
+	public Map<String,Object> followingCount(String id) {
+		// TODO Auto-generated method stub
+		return mapper.followingCount(id);
 	}
 
 

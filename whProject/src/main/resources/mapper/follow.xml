@@ -23,13 +23,19 @@
 	</select>
 
 	<!-- 팔로워, 팔로잉 수 -->
-	<select id="followCount" resultType="map">
-		select count(case when
-		follow_id = #{followId} then 1 end)as <!-- 여기가 신청당한  -->
-		followerCount,
-		count(case when
-		following_id =#{followingId} then 1 end) as followeeCount <!-- 여기가 신청한  -->
-		from follow
+	<select id="followCount" parameterType="string" resultType="map">
+    SELECT 
+        COUNT(CASE WHEN follow_id = #{followId} THEN 1 END) AS followCount,
+        COUNT(CASE WHEN following_id = #{followId} THEN 1 END) AS followingCount
+    FROM follow
+</select>
+	
+	
+	<select id="followingCount">
+	select count(case when
+		following_id = #{followingId} then 1 end)as followingidCount
+        from follow
+	
 	</select>
 
 	<!-- 팔로잉 체크 확인 -->

@@ -27,7 +27,7 @@ body>.container {
 <!-- 페이징 -->
 		<script>
 			function gopage(page) {
-				location.href = "notice?page=" + page;
+				location.href = "noticeAdmin?page=" + page;
 				frmSearch.page.value = page;
 				frmSearch.submit();
 			}
@@ -72,20 +72,27 @@ body>.container {
 									</div>
 								</div>
 								<br> <br>
-								<!--  페이징 bootstrap 적용 -->
-								<div class="gopage">
-									<nav aria-label="Page navigation example" class="gopage">
-										<ul class="pagination">
-											<li class="page-item"
-												th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-												<a class="page-link" th:href="|javascript:gopage(${num})|" 
-												th:class="${paging.page}==${num} ? 'active'"> [[${num}]]
-											</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-								<!--  페이징 bootstrap 끝 -->
+								<!-- 페이징 추가 해주세요 -->
+									<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+												<li class="page-item" th:if="${paging.startPage > 1}"><a
+													class="page-link"
+													th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
+												<li class="page-item"
+													th:classappend="${paging.page}==${num} ? 'active'"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|">
+														[[${num}]] </a>
+												</li>
+												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+													<a class="page-link"
+													th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+									<!-- 페이징 끝 -->
 							</div>
 						</div>
 					</div>

@@ -63,7 +63,23 @@
           console.error( error );
       } );
       
-    </script>
 
+      $(document).ready(function() {
+        $('#frm').submit(function(e) {
+          e.preventDefault();
+          var title = $('#noticeTitle').val();
+          var content = $('#noticeContent').val();
+          if (!title) {
+            alert('제목을 입력하세요');
+          } else if (!content) {
+            alert('내용을 입력하세요');
+          } else {
+            this.submit();
+          }
+        });
+      });
+
+    </script>
+	
 </body>
 </html>
