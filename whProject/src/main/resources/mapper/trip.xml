@@ -40,7 +40,7 @@
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * 
 		FROM TRIP <if test="tripCode >= 2221">t
-		INNER JOIN image i ON t.img_gro_code = i.img_gro_code
+		left outer Join image i ON t.img_gro_code = i.img_gro_code
 		</if>
 		WHERE TRIP_CODE = #{tripCode}
 	</select>
@@ -63,21 +63,23 @@
 	<!-- 여행지 주소 검색 -->
 	<select id="tripNameSearchList" resultType="co.admin.wh.trip.vo.TripVO">
 	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from trip
-	    	where trip_name like '%'|| (#{tripName}) ||'%'
-	    <![CDATA[
+		SELECT * 
+		FROM TRIP t
+		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
+		 where trip_name like '%'|| (#{tripName}) ||'%'
+		ORDER BY TRIP_NAME
+		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
+		]]>		
 	</select>
 	
 	<!-- 최신순 정렬 -->
 	<select id="latestList" parameterType="co.admin.wh.trip.vo.TripVO" resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select * 
-	    	from trip
-	    	WHERE LENGTH(img_gro_code)>=1	    	
-			order by trip_date desc
+	    	SELECT * 
+		FROM TRIP t
+		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
+		order by trip_date desc
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
