@@ -21,6 +21,7 @@
 	<select id="tourList" resultType="co.admin.wh.common.vo.TourVO">
 		Select *
 		from tour
+		order by tour_id
 	</select>
 
 	<insert id="imgInsert"
