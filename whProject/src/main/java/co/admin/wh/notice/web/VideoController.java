@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.common.service.CommonService;
@@ -58,7 +59,7 @@ public class VideoController {
 	}
 	
 	@RequestMapping("/seoul")
-	public String seoul(Model model,VideoSearchVO svo, Paging paging) {
+	public String seoul(Model model,@ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
 		
@@ -335,13 +336,17 @@ public class VideoController {
 	}
 	
 	@RequestMapping("/videoDetail/{videoCode}")
-	public String videoDatail(Model model, VideoVO vo) {
+	public String videoDatail(Model model, VideoVO vo,@PathVariable("videoCode") int videoCode) {
+		vo.setVideoCode(videoCode);
+		videoService.videoHit(videoCode);
 		model.addAttribute("d", videoService.videoDetail(vo));
 		return "notice/videoDetail";
 	}
 	
 	@RequestMapping("/videoSelectDetail/{videoCode}")
-	public String videoSelectDetail(Model model, VideoVO vo) {
+	public String videoSelectDetail(Model model, VideoVO vo,@PathVariable("videoCode") int videoCode) {
+		vo.setVideoCode(videoCode);
+		videoService.videoHit(videoCode);
 		model.addAttribute("d", videoService.videoDetail(vo));
 		return "notice/videoSelectDetail";
 	}

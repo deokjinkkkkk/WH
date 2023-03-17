@@ -51,4 +51,6 @@ public interface VideoService {
 	List<VideoVO> kyungnam(VideoSearchVO svo); //경남 정렬
 
 	List<VideoVO> jeju (VideoSearchVO svo); //제주 정렬
+	
+	int videoHit(int videoCode); //조회수
 }
