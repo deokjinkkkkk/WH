@@ -11,7 +11,6 @@
 		}
 	</script>
 
-
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<form class="form-inline mr-auto w-100 navbar-search" action="/memberSearch">
@@ -155,6 +154,7 @@
 		})
 
 		$("#del").click(function() {
+			alert("회원을 탈퇴 시키겠습니까?")
 			$("#frm").attr("action", "/adminDelete")
 			$("#frm").submit();
 		})

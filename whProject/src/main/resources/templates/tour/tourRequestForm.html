@@ -7,7 +7,7 @@
 
 	<section
 		class="full-screen text-center cover-background bg-img no-padding"
-		data-overlay-dark="5" data-background="img/member/1.jpg">
+		data-overlay-dark="5" th:style="|background:url(img/member/1.jpg)|">
 		<div class="container d-flex flex-column">
 			<div class="row align-items-center justify-content-center min-vh-100">
 				<div class="col-md-8">
@@ -26,13 +26,11 @@
 								</div>
 								<input type="button" onclick="sample6_execDaumPostcode()"
 									value="주소 검색"><br>
-									<input type="button" onclick="search()"
-									value="주소 검색"><br>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>주소</p>
 										<input type="text" id="sample6_address" name="tourAddr"
-											placeholder="주소" oninput="search()"> <br>
+											placeholder="주소" oninput="search()" readonly> <br>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -95,14 +93,14 @@
 									<div class="form-group">
 										<p>연락처</p>
 										<input type="tel" name="tourTel" id="tourTel"
-											placeholder="연락처" maxlength="70">
+											placeholder="연락처" maxlength="70" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<p>휴무일</p>
 										<input type="text" name="restDate" id="restDate"
-											placeholder="후무일" maxlength="70">
+											placeholder="휴무일" maxlength="70" required>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -158,7 +156,7 @@
 							</div>
 							<input type="hidden" name="imgPath" id="imgPath">
 							<input type="hidden" name="imgGroCode" id="imgGroCode">
-							<input type="hidden" name="id" id="id" value="{session.name}">
+							<input type="hidden" name="id" id="id" th:value="${session.name}">
 						</form>
 					</div>
 				</div>
@@ -191,6 +189,7 @@
 
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById("sample6_address").value = addr;
+					search()
 				}
 			}).open();
 		}
@@ -216,6 +215,7 @@
 			    console.log(`좌표: ${result.y}, ${result.x}`);
 			  })
 			  .catch(error => console.error(error));
+			$("#sample6_address").focus()
 		}
 		
 	</script>

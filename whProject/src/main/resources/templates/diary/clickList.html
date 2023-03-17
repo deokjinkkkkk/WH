@@ -458,8 +458,8 @@ button {
 										<h4 th:text="${diarya[0].id}"></h4>
 									</div>
 								<td></td>
-								<td>팔로워수넣기</td>
-								<td>팔로잉수넣기</td>
+							<td><span id="follower-count"></span></td>
+							<td><span id="following-count"></span></td>
 								<td>
 									<!-- 팔로우 누른경우   -->
 									<div id="followFtn">
@@ -569,16 +569,24 @@ button {
 										});
 							});
 								
-								
-								//팔로워 조회
-								
-								function followerBtn(){
-									
-								}
-								
-								
-								
-								//팔로잉 조회
+										//팔로잉 조회
+										var followingId = $("#id").val();
+										$.ajax({
+										    url: "/followCount/" + followId + "/" + followingId,
+										    success: function(response) {
+										        console.log(response);
+										        $('#follower-count').html(response.followerCount);
+										        $('#following-count').html(response.followeeCount);
+										    },
+
+										    error: function() {
+										        console.log("에러");
+										    }
+										});
+
+
+
+
 								
 							</script>
 								</td>

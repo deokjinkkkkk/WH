@@ -47,10 +47,9 @@ public class WebSecirityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests.antMatchers("/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/login/**", "/login/kakao", "/memberSignUpForm", "/memberSignUp", "/memberIdChk","/disabled","/passFind")
-				.permitAll()
+				.antMatchers("companion/**","/myPage","/companion").hasAnyAuthority("USER","ADMIN")
 				// .anyRequest().permitAll()
-				.anyRequest().authenticated())
+				.anyRequest().permitAll())
 				.formLogin(
 						(form) -> form.loginPage("/login").loginProcessingUrl("/memberLogin").passwordParameter("pass")
 								.usernameParameter("id").successHandler(new LoginSuccessHandler()).failureHandler(new DisabledAccountHandler()).permitAll())
@@ -77,7 +76,7 @@ public class WebSecirityConfig {
 		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 		web.httpFirewall(defaultHttpFirewall());
 	}
-
+	//암호화 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -86,7 +85,7 @@ public class WebSecirityConfig {
 	}
 	
 	
-	 
+	//url 더블 슬래쉬 허용 
 	@Bean
 	public HttpFirewall defaultHttpFirewall() {
 	    return new DefaultHttpFirewall();

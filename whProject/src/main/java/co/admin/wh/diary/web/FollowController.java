@@ -71,14 +71,18 @@ public class FollowController {
 	}
 	
 	
-	@PostMapping("/followCell/{followingId}")
-	public  Map<String,Object> followCell(@PathVariable("followingId") String followingId){
-		  Map<String, Object> resultMap = new HashMap<>();
-		  
-		  
-		mapper.followCount(followingId);
-		return resultMap;
-		
+	@GetMapping("/followCount/{followingId}/{followId}")
+	public Map<String, Object> followCount(@PathVariable("followingId") String followingId, @PathVariable("followId") String followId) {
+	    Map<String, Object> resultMap = new HashMap<>();
+
+	    Map<String, Object> followerCount = mapper.followCount(followId);
+	    Map<String, Object> followeeCount = mapper.followCount(followingId);
+
+	    resultMap.put("followerCount", followerCount);
+	    resultMap.put("followeeCount", followeeCount);
+
+	    return resultMap;
 	}
+
 
 }

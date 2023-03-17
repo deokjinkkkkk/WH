@@ -16,11 +16,12 @@ public class Paging {
 	int first;
 	int last;
 	
-	// 호텔 검색어
+	// 예약가능호텔 검색
 	Date checkIn;
 	Date checkOut;
 	String hotelRegion;
 	String humanCount;
+	String childCount;
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;
@@ -110,10 +111,10 @@ public class Paging {
 	
 	public String getSearchInfo() {
 		 
-		if(checkIn.equals("") || checkOut.equals("") || hotelRegion.equals("") || humanCount.equals("")) {
+		if(checkIn.equals("") || checkOut.equals("") || hotelRegion.equals("") || humanCount.equals("") || childCount.equals("")) {
 		  return ""; 
 		 } else {
-		  return "&checkIn=" + checkIn + "&checkOut=" + checkOut + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount; 
+		  return "&checkIn=" + checkIn + "&checkOut=" + checkOut + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount + "&childCount=" + childCount; 
 		 }
 		}
 

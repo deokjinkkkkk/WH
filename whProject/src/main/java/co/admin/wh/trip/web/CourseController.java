@@ -60,10 +60,11 @@ public class CourseController {
 		
 		//model.addAttribute("courseList", courseService.courseList(svo));
     model.addAttribute("courseList", courseService.myCouSharing(svo));
-		//코스 list에 tag 인기검색어 띄우기
+    
+		//=============코스 list에 tag 인기검색어 띄우기==========
 		List<TagVO> tagList = tservice.findByTagCnt();
-		model.addAttribute("tagList", tagList); //
-		
+		model.addAttribute("tagList", tagList); 
+		//Tag 끝==========================================
 		return "trip/tripcourseList";
 		
 	}	
@@ -120,6 +121,5 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save tags");
         }
     }
-	
 	
 }
