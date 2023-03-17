@@ -37,7 +37,10 @@
 	<!-- 상세페이지 보기 -->
 	<select id="detailSelect"
 		resultType="co.admin.wh.trip.vo.TripVO">
-		SELECT * FROM TRIP
+		SELECT * 
+		FROM TRIP <if test="tripCode > 2221">t
+		INNER JOIN image i ON t.img_gro_code = i.img_gro_code
+		</if>
 		WHERE TRIP_CODE = #{tripCode}
 	</select>
 	

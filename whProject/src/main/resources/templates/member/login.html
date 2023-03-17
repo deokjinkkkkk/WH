@@ -31,30 +31,27 @@
 								</div>
 							</div>
 							<div class="row">
-                                    <div class="col-sm-6 mb-2">
-                                        <div class="custom-control custom-checkbox text-left text-white">
-                                            <input type="checkbox" class="custom-control-input" id="login-remember">
-                                            <label class="custom-control-label" for="login-remember">자동로그인</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 text-left text-sm-right">
-                                        <a href="/passFind" class="text-white">비밀번호 찾기</a>
-                                    </div>
+								<div class="col-sm-6 mb-2">
+									<!-- <div
+										class="custom-control custom-checkbox text-left text-white">
+										<input type="checkbox" class="custom-control-input"
+											id="login-remember"> <label
+											class="custom-control-label" for="login-remember">자동로그인</label>
+									</div> -->
+								</div>
+								<div class="col-sm-6 text-left text-sm-right">
+									<span><a href="/memberSignUpForm" class="text-white">회원가입</a></span>&nbsp;
+									<a href="/passFind" class="text-white">비밀번호 찾기</a>
+								</div>
 
-                                </div>
+							</div>
 							<div class="col-12margin-25px-top">
 								<button type="button" class="butn btn-block" id="login">로그인</button>
 							</div>
-								<div class="row">
-                                    <div class="col-sm-6 mb-2">
-                                        <div class="custom-control custom-checkbox text-left text-white">
-											<span><a href="/memberSignUpForm" class="text-white">회원가입</a></span>
-										</div>
-                                    </div>
-           
-							</div>
-														<div class="col-12margin-25px-top">
-<a href="/oauth2/authorization/kakao"><img src="/img/login/kakao_login_medium_narrow.png"/></a>	
+							<br>
+							<div class="col-12margin-25px-top">
+								<a href="/oauth2/authorization/kakao"><img
+									src="/img/login/kakao_login_medium_narrow.png" /></a>
 							</div>
 						</form>
 					</div>
@@ -72,18 +69,18 @@
 		  2. 간편로그인 (구글,카카오,네이버)
 		  3. 아이디,비밀번호 찾기
 		 */
-		 $("#login").click(function() {
-			 lId = $("#id").val()
-			 lPass = $("#password").val()
-			 if(lId == "" ){
-				 alert("아이디를 입력해주세요")
-				 return false
-			 }else if(lPass == ""){
-				 alert("비밀번호를 입력해주세요")
-				 return false
-			 }else{
-				 $("#frm").submit()
-			 }
+		$("#login").click(function() {
+			lId = $("#id").val()
+			lPass = $("#password").val()
+			if (lId == "") {
+				alert("아이디를 입력해주세요")
+				return false
+			} else if (lPass == "") {
+				alert("비밀번호를 입력해주세요")
+				return false
+			} else {
+				$("#frm").submit()
+			}
 		})
 	</script>
 </body>

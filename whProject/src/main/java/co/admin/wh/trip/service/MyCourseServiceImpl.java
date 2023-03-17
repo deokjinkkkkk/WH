@@ -48,6 +48,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 		// 코스 공유 상태값
 		return map.myCouStateUpdate(vo);
 	}
+
+	@Override
+	public int myCouIntroUpdate(MyCourseVO vo) {
+		// 소개글 업데이트
+		return map.myCouIntroUpdate(vo);
+	}
 	
 		
 }

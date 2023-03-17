@@ -29,4 +29,6 @@ public class TourVO {
 	private String imgPath;
 	private String imgName;
 	
+	String tripUniqueNumber;
+	
 }

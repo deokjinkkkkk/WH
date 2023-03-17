@@ -14,7 +14,7 @@ public interface MemberService {
 	boolean emailChk(String id,String email);
 	int memberInsert(MemberVO vo);
 	
-	List<MemberVO> adMemberList();
+	List<MemberVO> adMemberList(MemberVO vo);
 	
 	int memberUpdate(MemberVO vo);
 	int passUpdate(MemberVO vo);
@@ -22,6 +22,7 @@ public interface MemberService {
 	int memDel(MemberVO vo);
 	
 	MemberVO memberSel(MemberVO vo);
-	
+	List<MemberVO>MemberSearchList(MemberVO vo);
 	int getCountTotal(MemberVO vo); //총게시글
+
 }

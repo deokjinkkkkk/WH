@@ -55,7 +55,8 @@
 												<!--<span class="font-size30 text-dark">549$</span> -->
 											</div>
 										</div>
-										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId})}" class="butn" onclick="detailBtn()">Details</a>
+										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId}, checkIn=${paging.checkIn}, checkOut=${paging.checkOut}, hotelRegion=${paging.hotelRegion}, humanCount=${paging.humanCount}, childCount=${paging.childCount})}" class="butn">Details</a>
+
 									</div>
 								</div>
 							</div>
@@ -106,34 +107,34 @@
                            </div>
 									
 							<script>
-                              $(function() {
-                                 $(document).ready(function() {
+//                               $(function() {
+//                                  $(document).ready(function() {
          
-                                    $('#checkIn').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        startDate : '0d',
-                                        language : "ko",
-                                        todayHighlight : true,
-                                        autoclose : true
-                                    }).on('changeDate', function(selected){
-                                        var startDate = new Date(selected.date.valueOf());
-                                        $('#checkOut').datepicker('setStartDate', startDate);
-                                    });
+//                                     $('#checkIn').datepicker({
+//                                         format : "yyyy-mm-dd",
+//                                         startDate : '0d',
+//                                         language : "ko",
+//                                         todayHighlight : true,
+//                                         autoclose : true
+//                                     }).on('changeDate', function(selected){
+//                                         var startDate = new Date(selected.date.valueOf());
+//                                         $('#checkOut').datepicker('setStartDate', startDate);
+//                                     });
          
-                                    $('#checkOut').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        language : "ko",
-                                        todayHighlight : true,
-                                        autoclose : true
-                                    }).on('changeDate', function(selected){
-                                        var endDate = new Date(selected.date.valueOf());
-                                        $('#checkIn').datepicker('setEndDate', endDate);
-                                    });
+//                                     $('#checkOut').datepicker({
+//                                         format : "yyyy-mm-dd",
+//                                         language : "ko",
+//                                         todayHighlight : true,
+//                                         autoclose : true
+//                                     }).on('changeDate', function(selected){
+//                                         var endDate = new Date(selected.date.valueOf());
+//                                         $('#checkIn').datepicker('setEndDate', endDate);
+//                                     });
                                     
                                     
-                                 });
+//                                  });
          
-                              });
+//                               });
                            </script>
 									<div class="form-group">
 										<label class="margin-5px-bottom">지역</label> <select
@@ -160,18 +161,18 @@
 											<option th:value="5" th:selected="${paging.humanCount eq '5'}">5명</option>
 										</select>
 									</div>
-<!-- 									<div class="form-group margin-30px-bottom"> -->
-<!-- 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select -->
-<!-- 											class="form-control padding-10px-tb" id="childCount" -->
-<!-- 											name="childCount"> -->
-<!-- 											<option value="0" selected>해당 없음</option> -->
-<!-- 											<option value="1">1명</option> -->
-<!-- 											<option value="2">2명</option> -->
-<!-- 											<option value="3">3명</option> -->
-<!-- 											<option value="4">4명</option> -->
-<!-- 											<option value="5">5명</option> -->
-<!-- 										</select> -->
-<!-- 									</div> -->
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
+											class="form-control padding-10px-tb" id="childCount"
+											name="childCount">
+											<option value="0" selected>해당 없음</option>
+											<option th:value="1" th:selected="${paging.childCount eq '1'}">1명</option>
+											<option th:value="2" th:selected="${paging.childCount eq '2'}">2명</option>
+											<option th:value="3" th:selected="${paging.childCount eq '3'}">3명</option>
+											<option th:value="4" th:selected="${paging.childCount eq '4'}">4명</option>
+											<option th:value="5" th:selected="${paging.childCount eq '5'}">5명</option>
+										</select>
+									</div>
 									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
@@ -179,20 +180,26 @@
 							</div>
 							
 							<script>
-							// 페이징할 때 검색 정보 계속 가지고 있게
-							 document.getElementById("searchBtn").onclick = function () {
-							    
+							
+							 // 예약할 수 있는 호텔 검색어
 							  let checkIn = document.getElementsByName("checkIn")[0].value;
 							  let checkOut = document.getElementsByName("checkOut")[0].value;
 							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
 							  let humanCount =  document.getElementsByName("humanCount")[0].value;
+							  let childCount =  document.getElementsByName("childCount")[0].value;
 							  
-							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
+							// 페이징할 때 검색 정보 계속 가지고 있게
+							 document.getElementById("searchBtn").onclick = function () {
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount;
 							  
-							  console.log(checkIn)
-							  console.log(hotelRegion)
-							  console.log(humanCount)
+// 							  console.log(checkIn)
+// 							  console.log(hotelRegion)
+// 							  console.log(humanCount)
 							 };
+							 
+// 							 function detailBtn(e){
+// 								 $(e.target)
+// 							 }
 							</script>
 							
 							<div class="widget">

@@ -15,7 +15,7 @@ public class OAuthAttributes {
 	private String pass;
 	private String name;
 	private String gender;
-	private int tel;
+	private String tel;
 	private String email;
 	private String perm;
 	private String loginWay;
@@ -24,7 +24,7 @@ public class OAuthAttributes {
 	private int state;
 
 	public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String id, String pass, String name,
-			String gender, int tel, String email, String perm, String loginWay, String token, String reToken ,int state) {
+			String gender, String tel, String email, String perm, String loginWay, String token, String reToken ,int state) {
 		super();
 		this.attributes = attributes;
 		this.nameAttributeKey = nameAttributeKey;
@@ -76,7 +76,7 @@ public class OAuthAttributes {
 	        String loginWay = "K";
 	        String token = "";
 	        String retoken = "";
-	        int phone = 0;
+	        String phone = "";
 	        int state = 0;
 	        return new OAuthAttributes(
 	        		attributes,
