@@ -19,12 +19,6 @@ import co.admin.wh.common.vo.CommentsVO;
 public class CommentsController {
 	@Autowired CommentsMapper commentsMapper;
 	
-	
-	@RequestMapping("/comments") //댓글 창이동
-	public String commentsForm(Model model, CommentsVO vo) {
-		model.addAttribute("com", commentsMapper.commentsList(vo));
-		return "comments/commentsForm";
-	}
 
 	@RequestMapping("/comGetList") //댓글 리스트 띄우기
 	@ResponseBody
@@ -37,13 +31,12 @@ public class CommentsController {
 	@ResponseBody
 	public String commentsInsert(@RequestBody CommentsVO vo) {
 		System.out.println("댓글 등록하자");
-//		if(id == null) {
-//		 로그인 안하면 댓글 달지 못하게 하기	
-//		}
+
 		commentsMapper.commentsInsert(vo);
 		return "success";
 	}
-	@PostMapping("/reComInsert") //댓글 등록
+	
+	@PostMapping("/reComInsert") //대댓글 등록
 	@ResponseBody
 	public String reCommentsInsert(@RequestBody CommentsVO vo) {
 		System.out.println("댓글 등록하자");
@@ -90,7 +83,7 @@ public class CommentsController {
 	}
 	@RequestMapping("/comUpList") //댓글 리스트 띄우기
 	@ResponseBody
-	public List<CommentsVO> commentsUpList( CommentsVO vo,Model model) {
+	public List<CommentsVO> commentsUpList(CommentsVO vo,Model model) {
 		List<CommentsVO> comList = commentsMapper.commentsList(vo);
 		
 		return comList;

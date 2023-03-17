@@ -155,8 +155,9 @@
                    <div class="row align-items-center">
                    <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
                    <div class="card-list-img">
-                         <img class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"
+                         <img th:if="${t.tripCode < 2221}" class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"
                             alt="" />
+                             <img th:if="${t.tripCode >= 2221}" th:src="'/image/'+${t.imgPath}" style="width:300; height:200px;" class="border-radius-5" alt="" />
                       </div>
                       <div class="card-list-img">
                       </div>

@@ -175,16 +175,22 @@ public class MemberController {
 	}
 
 	@PostMapping("/login/passMail")
-	@ResponseBody
-	public String passMail(@RequestParam String email, MemberVO vo) throws Exception {
+	public String passMail(@RequestParam String email, MemberVO vo) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-		String code = emailService.passFindMessage(email, vo);
+		String code;
+		try {
+			code = emailService.passFindMessage(email, vo);
+			vo.setPass(passwordEncoder.encode(code));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		vo.setPass(passwordEncoder.encode(code));
+		
 		memberMapper.passUpdate(vo);
 		
-		return "redirect:/main";
+		return "redirect:/login";
 
 	}
 	
@@ -193,7 +199,7 @@ public class MemberController {
 	public String emailCheck(@RequestBody MemberVO vo, boolean n, Model model) {
 		
 		n = memberMapper.emailChk(vo.getId(), vo.getEmail());
-		if (n) {
+		if (!n) {
 			return "success";
 		} else {
 			return "fail";
