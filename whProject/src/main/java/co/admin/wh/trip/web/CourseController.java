@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.admin.wh.notice.vo.Paging;
+import co.admin.wh.tag.mapper.TagMapper;
 import co.admin.wh.tag.service.TagService;
 import co.admin.wh.tag.vo.TagVO;
 import co.admin.wh.trip.CourseInfoExplorer;
@@ -36,6 +37,8 @@ public class CourseController {
 
 	@Autowired
 	private TagService tservice;
+	@Autowired
+	TagMapper tagMapper;
 	private CourseService courseService;
 	
 	// 생성자 주입
@@ -62,7 +65,7 @@ public class CourseController {
     model.addAttribute("courseList", courseService.myCouSharing(svo));
     
 		//=============코스 list에 tag 인기검색어 띄우기==========
-		List<TagVO> tagList = tservice.findByTagCnt();
+		List<TagVO> tagList = tagMapper.findByTagCnt();
 		model.addAttribute("tagList", tagList); 
 		//Tag 끝==========================================
 		return "trip/tripcourseList";
@@ -105,21 +108,21 @@ public class CourseController {
 		}
 	
 
-		//==============
-		// 	태그 추가
-		//==============
-	@PostMapping("/saveTags")
-    public ResponseEntity<?> saveTags(@RequestBody List<String> tags) {
-        try {
-            // 전달받은 태그 리스트를 순회하며 DB에 저장
-            for (String tag : tags) {
-            	tservice.saveTag(tag);
-            }
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save tags");
-        }
-    }
+//		//==============
+//		// 	태그 추가
+//		//==============
+//	@PostMapping("/saveTags")
+//    public ResponseEntity<?> saveTags(@RequestBody List<String> tags) {
+//        try {
+//            // 전달받은 태그 리스트를 순회하며 DB에 저장
+//            for (String tag : tags) {
+//            	tservice.saveTag(tag);
+//            }
+//            return ResponseEntity.ok().build();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save tags");
+//        }
+//    }
 	
 }

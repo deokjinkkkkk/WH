@@ -42,7 +42,7 @@ public class MyCourseController {
 	MyCourseFreeService myCourseFreeService;
 
 	@Autowired
-	TagService tagService;
+	TagService tagservice;
 
 	@Autowired
 	TagMapper tagMapper;
@@ -75,7 +75,8 @@ public class MyCourseController {
 		if (result > 0) {
 			resultValue = "success";
 		}
-
+		return resultValue;
+	}
 		
 		// 나만의 코스 리스트에 있는 항목 삭제하기
 		@PostMapping("/myCourseDelete")
@@ -94,6 +95,7 @@ public class MyCourseController {
 	@PostMapping("/myCouIntroUpdate")
 	@ResponseBody
 	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
+		
 		int result = myCourseMapper.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
@@ -102,17 +104,7 @@ public class MyCourseController {
 		return resultValue;
 	}
 
-	// 나만의 코스 리스트에 있는 항목 삭제하기
-	@PostMapping("/myCourseDelete")
-	@ResponseBody
-	public String myCourseDelete(@RequestBody MyCourseVO vo) {
-		int result = myCourseMapper.myCourseDelete(vo);
-		String resultValue = "fail";
-		if (result > 0) {
-			resultValue = "success";
-		}
-		return resultValue;
-	}
+
 	
 	// 리스트 삭제 시 순서 번호 업데이트
 	@PostMapping("/myCouSeqUpdate")
@@ -196,22 +188,22 @@ public class MyCourseController {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-			
-			
-			//===============
-			//		Tag 추가
-			//================
-		    if (newTag != null && !newTag.isEmpty()) {
-		    	TagVO tagCode = tagService.findTagBytag(newTag);
-		    	if (tagCode == null) {
-		    	    int newTagCode = tagService.saveTag(newTag);
-		    	    tagCode = new TagVO();
-		    	    tagCode.setTagCode(newTagCode);
-		    	} 
-		    	tagService.addCntTag(tagCode.getTagCode());
-		    }
-		    //==============================================
-			
+//			
+//			
+//			//===============
+//			//		Tag 추가
+//			//================
+//		    if (newTag != null && !newTag.isEmpty()) {
+//		    	TagVO tagCode = tagService.findTagBytag(newTag);
+//		    	if (tagCode == null) {
+//		    	    int newTagCode = tagService.saveTag(newTag);
+//		    	    tagCode = new TagVO();
+//		    	    tagCode.setTagCode(newTagCode);
+//		    	} 
+//		    	tagService.addCntTag(tagCode.getTagCode());
+//		    }
+//		    //==============================================
+//			
 			return "trip/myCourseDetail";
 		}
 
