@@ -326,7 +326,7 @@ position: absolute;
                            <h3>Reservation</h3>
                         </div>
 
-                        <form action="/reservation" method="post">
+                        <form action="/reservation" method="post" id="searchFrm">
                            <div class="form-group">
                               <label class="margin-5px-bottom">checkin</label> <input
                                     type="date" th:value=${param.checkIn}
@@ -393,7 +393,7 @@ position: absolute;
 									<option th:value="5" th:selected="${#strings.equals(param.childCount, '5')}">5명</option>
                               </select>
                            </div>
-                           <button class="butn btn-block" type="submit">
+                           <button class="butn btn-block" type="button" onclick="reservCheck()">
                               <i class="fa fa-search"></i> 예약하기
                            </button>
                            <input type="hidden" id="hotelId" name="hotelId"
@@ -405,6 +405,30 @@ position: absolute;
             </div>
 
             <script>
+            // 예약 하기 전 예약 가능한 호텔인지 체크
+            function reservCheck(){
+            	$.ajax({
+            		type: "POST",
+            		url: "/CompareToDate",
+            		data : JSON.stringify(
+            			{
+            				"checkIn" : $('#checkIn').val(),
+            				"checkOut" : $('#checkOut').val()
+            			}		
+            		),
+            		success : function(result){
+						if(result == 'true'){
+							searchFrm.submit();
+						}else{
+							alert("이미 예약된 호텔입니다.")
+							return false;
+						}
+            		},
+            		error: function(error){
+            			alert("ajax에러");
+            		}
+            	})
+            }
             
             //좋아요 기능 시작
 
