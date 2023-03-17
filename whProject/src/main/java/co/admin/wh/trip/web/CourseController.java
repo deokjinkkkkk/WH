@@ -62,7 +62,7 @@ public class CourseController {
 		paging.setTotalRecord(courseMapper.getCountTotal(svo));
 		
 		//model.addAttribute("courseList", courseService.courseList(svo));
-    model.addAttribute("courseList", courseService.myCouSharing(svo));
+         model.addAttribute("courseList", courseService.myCouSharing(svo));
     
 		//=============코스 list에 tag 인기검색어 띄우기==========
 		List<TagVO> tagList = tagMapper.findByTagCnt();

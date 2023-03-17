@@ -70,19 +70,14 @@
 	<!-- 예약 가능한 호텔 검색 리스트 -->
 	<select id="hotelSearchList"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
-		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT *
-		FROM hotel
-		WHERE
-		hotel_id NOT IN (
-		SELECT hotel_id
-		FROM reservation
-		WHERE check_in = #{checkIn}
-		)
+	SELECT * FROM( SELECT rownum rn, a.* FROM(
+        SELECT h.*
+		FROM hotel h
+		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
+		WHERE ((r.check_in IS NULL and r.check_out IS NULL)
+		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
+		 AND h.hotel_region = #{hotelRegion} AND h.room_limit >= #{humanCount}
 	<![CDATA[
-		AND room_count > 0
-		AND hotel_region = #{hotelRegion}
-		AND room_limit >= #{humanCount}
 	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 	]]>
 	</select>
@@ -296,7 +291,7 @@
 		from reservation r
 		inner join hotel h on r.hotel_id = h.hotel_id
 		left join cancel c on r.res_id = c.res_id
-		order by r.res_state
+		order by r.res_state desc
 
 	</select>
 	
@@ -343,5 +338,14 @@
 		</set>
 		where res_id = #{resId}
 	</update>
+	
+	<!-- 관리자 예약내역 기간별 검색 -->
+<!-- 	<select id="adminDateSearch" resultType="co.admin.wh.hotel.vo.CancelVO"> -->
+<!-- 		SELECT h.* -->
+<!-- 		FROM hotel h -->
+<!-- 		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id -->
+<!-- 		WHERE (r.check_in IS NULL and r.check_out IS NULL) -->
+<!-- 		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out) -->
+<!-- 	</select> -->
 
 </mapper>

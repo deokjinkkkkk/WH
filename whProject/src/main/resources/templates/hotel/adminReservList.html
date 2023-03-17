@@ -142,6 +142,8 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 <div class="container">
 <p style="font-size:30px;">예약내역 조회</p>
 <form id="searchInput" name="searchFrm" style="margin-top: 20px;">
+<input type="date" id="checkIn" name="checkIn"> ~ <input type="date" id="checkOut" name="checkOut">
+<!-- <button onclick="dateSearch()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br> -->
   <select name="option" class="select col-md-2" style="display: inline-block">
     <option disabled selected>옵션</option>
     <option value="resId">예약번호</option>
@@ -153,7 +155,6 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
     <option value="resTel">연락처</option>
     <option value="resEmail">이메일</option> 
   </select>
-<input hidden="hidden" />
 <input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션 선택 후 검색 가능합니다." style="display: inline-block" >
 <button onclick="searchInfo()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br>
 </form>
@@ -161,7 +162,7 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 
 <script>
 // 검색(form 데이터 ajax로 전송)
- function searchInfo(){
+ function searchInfo(){ // 이거 매퍼문 중첩검색바궈야댐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 if($(".select").val() == ''){
 		 alert("검색 옵션을 선택하세요.")
 	 }else if($("#content").text() == ''){
@@ -184,6 +185,29 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 
 	 }
  }
+ 
+//  //날짜검색
+//  function dateSearch(){
+// 	let checkIn = $("#checkIn").val();
+// 	let checkOut = $("#checkOut").val();
+	
+// 	$.ajax({
+// 		type: "post",
+// 		url: "/adminDateSearch",
+// 		dataType: 'json',
+// 		data: JSON.stringify({
+// 			"checkIn":checkIn,
+// 			"checkOut":checkOut
+// 		}),
+// 		contentType:"application/json",
+// 		success: function(data){
+			
+// 		},
+// 		error: function(xhr, status, error){
+// 			alert("ajax실패 :" + error);
+// 		}
+// 	})
+//  }
 </script>
   <table class="rwd-table" id="ReservList">
     <tbody>
@@ -279,7 +303,8 @@ function setResInfo() {
   <script>
   	// 
   	function cancelOK(){
- 			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); // 예약번호넘김
+  			// 예약번호넘김
+ 			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); 
  			
  			// 체크인날짜 ~ 체크아웃날짜
  			let oldcheckIn = $(event.target).parent().parent().find('td:nth-child(4)').text(); 
@@ -287,11 +312,12 @@ function setResInfo() {
  			let checkIn = checkInArr[0]; // 체크인날짜
  			
  			//결제금액
- 			let totalPay = $(event.target).parent().parent().find('td:nth-child(11)').text(); // 결제금액
+ 			let totalPay = $(event.target).parent().parent().find('td:nth-child(11)').text();
  			let old_totalPay = totalPay.replace(',', '');
  			let new_totalPay = Number(old_totalPay.substr(1));
  			
- 			let submitDate = $(event.target).parent().parent().find('td:nth-child(12)').text(); // 환불신청일자
+ 			//환불신청일자
+ 			let submitDate = $(event.target).parent().parent().find('td:nth-child(12)').text();
  			
  			//입실일 며칠 전에 환불신청했는지 확인하는 함수(체크인날짜 - 환불신청날짜)
  			const getDateDiff = (d1,d2) => {

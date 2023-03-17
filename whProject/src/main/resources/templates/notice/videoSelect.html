@@ -268,15 +268,7 @@
 			}); 
  		}; 
 		</script>
-<!-- 페이징 -->
-   <script>
-   		function gopage(page) {
-   			location.href = "videoSelect?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}   		
-   </script>
-   <!-- 페이징 끝-->
+
 				<div class="row margin-30px-bottom" id="hotelListContent">
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
 						<div class="hotel border border-radius-4 package h-100">
@@ -292,7 +284,15 @@
 						</div>
 					</div>
 				</div>
-
+<!-- 페이징 -->
+   <script>
+   		function gopage(page) {
+   			location.href = "videoSelect?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
+   </script>
+   <!-- 페이징 끝-->
 				
 	<!-- 페이징 추가 해주세요 -->
 									<div class="gopage" align="center">

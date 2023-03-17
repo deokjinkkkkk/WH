@@ -38,7 +38,6 @@
 }
 
 </style>	 
-  [[${myCourse}]]
   <div class="container">
                 <div class="row">
                     <div class="">
@@ -72,8 +71,9 @@
 	                                    <tbody>
 											<tr th:each="m : ${myCouDet}">
 												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}" th:id="${m.couOrd}"></td>
-												<td><img th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:src="${m.imgGroCode}" style="width:200px; height:130px;"></td>											
-												<td th:href="@{/tripDetail/{tripUniqueNumber}(tripUniqueNumber=${m.tripUniqueNumber})}" th:text="${m.tripName}"></td>
+												<td><a th:href="@{/tripDetail/{tripCode}(tripCode=${m.tripCode})}">
+													<img th:src="${m.imgGroCode}" style="width:200px; height:130px;"></a></td>											
+												<td><a th:href="@{/tripDetail/{tripCode}(tripCode=${m.tripCode})}" th:text="${m.tripName}"></a></td>
 												<td th:text="${tripAddr}"></td>
 												<td><button onclick="myCouDetailDel()" type="button" class="btn btn-danger">삭제</button></td>
 												<td>
@@ -91,7 +91,7 @@
 											</tr>
 										</tbody>
                                     </table>
-                                   <div class="container">
+                                   <div  class="container">
            							 <div class="row">
                                      	<div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 				                        <p style="font-size: 30px;">전체 여행지<p><hr>

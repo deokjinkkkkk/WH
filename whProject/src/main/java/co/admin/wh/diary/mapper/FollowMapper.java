@@ -23,4 +23,7 @@ public interface FollowMapper {
 		
 		//팔로우수 
 		public Map<String,Object> followCount(String id);
+		
+		//팔로워수 
+		public Map<String,Object> followingCount(String id);
 }

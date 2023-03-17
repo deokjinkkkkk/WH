@@ -64,6 +64,7 @@
 
 	<!-- start course-list section -->
 	<section>
+		[[${courseList}]]
 			<div class="container">
 					<p style="font-size: 30px;">지역별 여행 코스<p>
 					<hr>
@@ -90,7 +91,6 @@
 					</div>
 
 					<!-- start tour-list section -->
-		[[${courseList}]]
 					<div
 						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom"  style="float: left;">
 						<div class="row margin-30px-bottom">
@@ -128,9 +128,18 @@
 										class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
 										<div class="d-flex justify-content-between align-items-center">
 											<h5 class="card-title no-margin-bottom font-size22">
-												<a
-													th:href="@{/courseDetail/{couCode}(couCode=${c.couCode})}"
+											
+											<!-- api 코스의 상세페이지 경로 -->
+											<span th:if="${c.gb == 'a'}">
+												<a th:href="@{/courseDetail/{couCode}(couCode=${c.couCode})}"
 													class="text-extra-dark-gray">[[${c.couName}]]</a>
+											</span>
+											
+											<!-- 나만의 코스의 상세페이지 경로 -->
+											<span th:if="${c.gb == 'm'}">
+												<a th:href="@{/myCouDetail/{myCourseCode}(myCourseCode=${c.couCode})}"
+													class="text-extra-dark-gray">[[${c.couName}]]</a>
+											</span>
 											</h5>
 										</div>
 										<p class="margin-20px-tb sm-margin-10px-top"></p>
