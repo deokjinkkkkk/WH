@@ -44,7 +44,7 @@
 .left-body {
 	width: 630px;
 	min-width: 630px;
-	height: 1000px;
+	min-height: 1000px;
 	margin-right: 350px;
 }
 
@@ -450,7 +450,7 @@ span {
 		<div class="posts">
 			<input type="hidden" name="id" th:value="${session.name}" id="id">
 			<div class="feed-box">
-				</div>
+			
 			</div>
 		</div>
 		</div>
@@ -577,7 +577,7 @@ function getDiaryList() {
                     str +='<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>' 
                     str +='<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;' 
                     str +='<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>' 
-                    str +='</div><br><br><br><br><br><br>';
+                    str +='</div><br><br><br><br><br><br>'
                 }
             });
             diaryArea.html(str);
@@ -824,6 +824,7 @@ $(".feed-box").on("click", ".btn-primary", () => {
 
 
 </script>
+</div>
 </div>
 </body>
 </html>
