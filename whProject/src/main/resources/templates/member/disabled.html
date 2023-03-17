@@ -2,36 +2,31 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 <body layout:fragment="content">
+
  <!-- start main-wrapper section -->
     <div class="main-wrapper">
 
         <!-- start 404 page section -->
-        <section class="full-screen text-center cover-background bg-img no-padding" data-overlay-dark="3">
-            <div class="container d-flex flex-column">
-                <div class="row align-items-center justify-content-center min-vh-100">
-                    <div class="col-md-8">
-                        <div class="row margin-eight-bottom xs-margin-six-bottom">
-                            <div class="col-12">
-                                <img src="/img/logos/logo.png" alt=""  />
-                            </div>
-                        </div>
-                        <div class="row page-container">
-                            <div class="col-12">
-                                <p class="font-size130 alt-font font-weight-700 title text-white">로그인 실패</p>
-                                <h2 class="text-white font-size40 xs-font-size22 margin-30px-bottom xs-margin-20px-bottom">계정이 정지 되었습니다.</h2>
-                                <a href="/main" class="butn white margin-10px-right xs-margin-10px-bottom">메인</a>
+       	<section
+		class="full-screen text-center cover-background bg-img no-padding"
+		data-overlay-dark="5" th:style="|background:url(img/banner/bg2.jpg); |"> 
+		<div class="container d-flex flex-column">
+			<div class="row align-items-center justify-content-center min-vh-100">
+				<div class="col-md-8">
+
+					<div
+						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
+						<p class="margin-40px-bottom text-center text-white" style="font-size:xx-large">로그인 실패</p>
+						 <p class="text-white font-size40 xs-font-size22 margin-30px-bottom xs-margin-20px-bottom">계정이 정지 되었습니다.</p>
+						    <a href="/main" class="butn white margin-10px-right xs-margin-10px-bottom">메인</a>
                                 <a href="/login" class="butn white xs-margin-10px-bottom">로그인</a>
-                            </div>
-                        </div>
-                        <div class="row margin-50px-top sm-margin-25px-top xs-margin-10px-top">
-                            <div class="col-12 text-white">
-                                &copy; 2020 Adventure <a href="#!" class="text-white">Privacy Policy</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
         <!-- end 404 page section -->
 
     </div>
