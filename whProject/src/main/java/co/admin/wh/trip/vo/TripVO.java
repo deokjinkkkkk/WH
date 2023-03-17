@@ -44,6 +44,8 @@ public class TripVO {
 	String couOrd; //코스 순서
 	String myCouId; // 유저...
 	
+	private String imgPath;
+	private String imgName;
 	
 	
 	

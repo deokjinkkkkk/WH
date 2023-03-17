@@ -209,8 +209,8 @@
 			  })
 			  .then(data => {
 			    const result = data.documents[0];
-			    $("#lat").val(result.x)
-			    $("#lon").val(result.y)
+			    $("#lon").val(result.x)
+			    $("#lat").val(result.y)
 			    console.log(`검색어: ${result.address_name}`);
 			    console.log(`좌표: ${result.y}, ${result.x}`);
 			  })

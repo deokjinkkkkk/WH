@@ -5,8 +5,9 @@
 	<select id="tripList" resultType="co.admin.wh.trip.vo.TripVO">
 	<!-- 페이징 시도 : 일단 지역코드 순으로 정렬. 이미지가 없는 데이터는 출력하지 않는다. -->
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT * FROM TRIP 
-		WHERE LENGTH(img_gro_code)>=1
+		SELECT * 
+		FROM TRIP t
+		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
 		ORDER BY TRIP_NAME
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
@@ -38,7 +39,7 @@
 	<select id="detailSelect"
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * 
-		FROM TRIP <if test="tripCode > 2221">t
+		FROM TRIP <if test="tripCode >= 2221">t
 		INNER JOIN image i ON t.img_gro_code = i.img_gro_code
 		</if>
 		WHERE TRIP_CODE = #{tripCode}

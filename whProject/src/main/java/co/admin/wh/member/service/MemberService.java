@@ -23,6 +23,7 @@ public interface MemberService {
 	
 	MemberVO memberSel(MemberVO vo);
 	List<MemberVO>MemberSearchList(MemberVO vo);
-	int getCountTotal(MemberVO vo); //총게시글
+	int getCountTotal(MemberVO vo); //총회원수
+	int memUpstate(MemberVO vo);
 
 }

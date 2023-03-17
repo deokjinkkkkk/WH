@@ -42,8 +42,18 @@
 	</section>
 	<script type="text/javascript">
 		$("#passFind").click(function() {
+			
+			
 			uId = $("#id").val()
 			email = $("#email").val()
+			if(uId == ''){				
+				alert("아이디를 입력해주세요")
+				return false
+			}else if(email == ''){
+				alert("이메일을 입력해주세요")
+				return false
+			}
+			
 			$.ajax({
 				url : "/emailChk",
 				type : "POST",
@@ -57,7 +67,7 @@
 					if (data == "success") {
 						frm.submit();
 					} else {
-						alert("이메일,아이디가 일치하지 않습니다.");
+						alert("아이디와 이메일이 일치하지 않습니다.");
 						return false;
 					}
 				},

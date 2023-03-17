@@ -209,7 +209,7 @@ position: absolute;
                                     <div class="row margin-30px-bottom">
                                         <div class="col-6">
                                             <img th:if="${trip.tripCode < 2221}" th:src="${trip.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
-                                            <img th:if="${trip.tripCode >= 2221}" th:src="${trip.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
+                                            <img th:if="${trip.tripCode >= 2221}" th:src="'/image/'+${trip.imgPath}" style="width:440; height:280px;" class="rounded" alt="" />
                                         </div>
                                         <div class="col-6">
                                             <img src="img/blog/blog-11.jpg" class="rounded" alt="" />
@@ -895,11 +895,12 @@ position: absolute;
 				}
 				/* 댓글  끝*/
 				</script>
-            </div>
-        </section>
+            
+       
         <!-- end blog detail section -->
 	<!-- 썸네일 리스트 끝 -->
 </div>
+
 
 </body>
 </html>

@@ -22,5 +22,6 @@ public interface MemberMapper {
 	MemberVO memberSel(MemberVO vo);
 	List<MemberVO> MemberSearchList(MemberVO vo);
 	int getCountTotal(MemberVO vo); //총게시글
+	int memUpstate(MemberVO vo);
 	
 }

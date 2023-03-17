@@ -78,8 +78,8 @@
 							</div>
 							<div class="modal-body">
 								<input type="button" class="btn btn-primary" value="회원삭제"
-									id="del"> <input type="button" class="btn btn-primary"
-									value="회원제재" id="san">
+									id="del"> 
+									<input type="button" class="btn btn-primary" value="회원제재" id="san">
 							</div>
 						</div>
 					</div>
@@ -117,11 +117,18 @@
 			gender = $(event.target).parent().prev().prev().prev().prev()
 					.text()
 			tel = $(event.target).parent().prev().prev().prev().text()
-			tel = parseInt(tel);
 			email = $(event.target).parent().prev().prev().text()
 			state = $(event.target).parent().prev().text()
+			
+			
+			var sanBtn = $('#san')
+			if(state == "정지"){
+				$(sanBtn).replaceWith('<input type="button" class="btn btn-primary" value="정지해제" id="san2" onclick="sanUpdate()">');
+			}else
+			
 			console.log(id)
-			let str = '<label class="rad-label"> <input type="text" value="'+id+'" name="id" id="id">'
+			let str = '<form id="frm" method="post">'
+			str +=	'<label class="rad-label"> <input type="text" value="'+id+'" name="id" id="id">'
 			str += '<label class="rad-label"><input type="text" value="'+name+'" name="name" id="name"> </label>'
 			str += '<label class="rad-label"><input type="text" value="'+gender+'" name="gender" id="gender"> </label>'
 			str += '<label class="rad-label"><input type="tel" value="'+tel+'" name="tel" id="tel"> </label>'
@@ -133,6 +140,7 @@
 				str += '<label class="rad-label"><input type="text" value="정지" id="state2" readonly></label>'
 				str += '<input type="hidden" value="1" name="state" id="state" text="정상">'
 			}
+			str += '</form>'
 			let modalBody = $("#modal2")
 			modalBody.html(str)
 		}
@@ -158,6 +166,20 @@
 			$("#frm").attr("action", "/adminDelete")
 			$("#frm").submit();
 		})
+		
+		$("#san").click(function() {
+			alert("아이디를 정지 시키겠습니까?")
+			$("#state").val("1")
+			$("#frm").attr("action", "/stateUpdate")
+			$("#frm").submit();
+		})
+		
+		function sanUpdate() {
+			alert("아이디 정지를 해제 하시겠습니까?")
+			$("#state").val("0")
+			$("#frm").attr("action", "/stateUpdate")
+			$("#frm").submit();
+		}
 	</script>
 
 
