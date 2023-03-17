@@ -13,4 +13,7 @@ public class TagVO {
 		 
 		 //태그 언급 수
 		 int TagCnt;
+		 
+		 //
+		 int myCourseCode;
 }

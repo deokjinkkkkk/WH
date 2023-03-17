@@ -44,10 +44,13 @@ public class TripVO {
 	String couOrd; // myCourseFree 코스 순서
 	String myCouId; // 유저...
 	
+
 	String myCouContent; //코스설명
 	int myCouState; // 코스 공유 상태값
 
-	
+	private String imgPath;
+	private String imgName;
+
 	
 	
 

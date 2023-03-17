@@ -43,7 +43,7 @@ public class MyCourseController {
 	MyCourseFreeService myCourseFreeService;
 
 	@Autowired
-	TagService tagService;
+	TagService tagservice;
 
 	@Autowired
 	TagMapper tagMapper;
@@ -96,6 +96,7 @@ public class MyCourseController {
 	@PostMapping("/myCouIntroUpdate")
 	@ResponseBody
 	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
+		
 		int result = myCourseMapper.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
@@ -206,6 +207,7 @@ public class MyCourseController {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
+
 			
 			
 			
@@ -218,22 +220,7 @@ public class MyCourseController {
 //				return "trip/tripCourseDetail";
 //			}
 			
-			//===============
-			//		Tag 추가
-			//================
-		    if (newTag != null && !newTag.isEmpty()) {
-		    	TagVO tagCode = tagService.findTagBytag(newTag);
-		    	if (tagCode == null) {
-		    	    int newTagCode = tagService.saveTag(newTag);
-		    	    tagCode = new TagVO();
-		    	    tagCode.setTagCode(newTagCode);
-		    	} 
-		    	tagService.addCntTag(tagCode.getTagCode());
-		    }
-		    //==============================================
-			
-			return "trip/myCourseDetail";
-		}
+	
 
 
 }
