@@ -35,6 +35,7 @@ public class CourseVO {
 	String tripLon; //경도
 	String tripName; // 여행지 이름	
 	String couOrd; // MyCourseFreeVO에 있는 나만의 코스 상세페이지 여행지 순서
+	String gb; // 나만의 코스(m)와 API 코스(a) 구분
 
 	
 }

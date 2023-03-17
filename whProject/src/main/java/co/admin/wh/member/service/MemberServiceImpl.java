@@ -88,4 +88,10 @@ public class MemberServiceImpl implements MemberService {
 		return member.MemberSearchList(vo);
 	}
 
+	@Override
+	public int memUpstate(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.memUpstate(vo);
+	}
+
 }

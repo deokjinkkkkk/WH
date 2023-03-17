@@ -1,13 +1,12 @@
 package co.admin.wh.trip.service;
 
 import java.util.List;
-
-import co.admin.wh.trip.vo.MyCourseFreeVO;
-
 import co.admin.wh.trip.vo.MyCourseVO;
+
 
 public interface MyCourseService {
 
+	
 	List<MyCourseVO> myCourseList();
 
 	int titleInsert(MyCourseVO vo); // 코스명 등록
@@ -22,6 +21,8 @@ public interface MyCourseService {
 
 	
 	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
+	
+	
 	
 
 }

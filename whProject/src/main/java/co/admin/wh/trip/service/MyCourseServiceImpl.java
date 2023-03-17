@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import co.admin.wh.tag.service.TagService;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -12,6 +14,8 @@ public class MyCourseServiceImpl implements MyCourseService {
 	
 	@Autowired
 	private MyCourseMapper map;
+	@Autowired
+	private TagService tService;
 
 	@Override
 	public List<MyCourseVO> myCourseList() {
@@ -52,8 +56,10 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Override
 	public int myCouIntroUpdate(MyCourseVO vo) {
 		// 소개글 업데이트
+//		tService.saveTag(, 0);
 		return map.myCouIntroUpdate(vo);
 	}
+
 	
-		
 }
+
