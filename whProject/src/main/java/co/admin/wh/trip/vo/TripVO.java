@@ -41,9 +41,12 @@ public class TripVO {
 	String myCouName; // 코스명 들고오기
 	String myCourseCode; // 나만의 코스 게시판 번호...
 	int myCouFreeCode; // 나만의 코스 상세게시판 번호...
-	String couOrd; //코스 순서
+	String couOrd; // myCourseFree 코스 순서
 	String myCouId; // 유저...
 	
+	String myCouContent; //코스설명
+	int myCouState; // 코스 공유 상태값
+
 	
 	
 	

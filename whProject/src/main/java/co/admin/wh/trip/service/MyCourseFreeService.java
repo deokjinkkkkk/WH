@@ -19,5 +19,7 @@ public interface MyCourseFreeService {
 	int myCouUpdate(MyCourseFreeVO vo); // 여행지 순서 수정
 
 	int couOrdUpdate(MyCourseFreeVO vo); // 여행지 삭제 시 순서번호 수정
+	
+	List<MyCourseFreeVO> myCouDetSel(MyCourseFreeVO vo); // 여행코스에 등록된 나만의코스 상세페이지 출력
 		
 }
