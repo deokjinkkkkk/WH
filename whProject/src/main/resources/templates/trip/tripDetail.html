@@ -208,7 +208,8 @@ position: absolute;
                                     </div>
                                     <div class="row margin-30px-bottom">
                                         <div class="col-6">
-                                            <img th:src="${trip.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
+                                            <img th:if="${trip.tripCode < 2221}" th:src="${trip.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
+                                            <img th:if="${trip.tripCode >= 2221}" th:src="${trip.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
                                         </div>
                                         <div class="col-6">
                                             <img src="img/blog/blog-11.jpg" class="rounded" alt="" />
