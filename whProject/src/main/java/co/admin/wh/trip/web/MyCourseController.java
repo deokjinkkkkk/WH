@@ -101,6 +101,7 @@ public class MyCourseController {
 				resultValue = "success";
 			}
 			return resultValue;
+		}
 
 	
 
@@ -168,46 +169,45 @@ public class MyCourseController {
 			return resultValue;
 		}
 
+		// 상세페이지 보기 
+		@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
+		public String CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
+				 @RequestParam(value = "newTag", required = false) String newTag,Model model) { //태그를 위한 추가
+			
+			ObjectMapper object = new ObjectMapper();
+			vo.setMyCourseCode(myCourseCode);
 
+			MyCourseVO myCourse = myCourseService.detailSelect(vo);
+			
 
-	// 상세페이지 보기 
-	@RequestMapping(value = "/myCourseDetail/{myCourseCode}", method = RequestMethod.GET)
-	public void CourseDetail(@PathVariable("myCourseCode") int myCourseCode, MyCourseVO vo, MyCourseFreeVO fvo,
-			 @RequestParam(value = "newTag", required = false) String newTag,Model model) { //태그를 위한 추가
-		
-		ObjectMapper object = new ObjectMapper();
-		vo.setMyCourseCode(myCourseCode);
+			model.addAttribute("myCourse", myCourseService.detailSelect(vo));
+			model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
 
-		MyCourseVO myCourse = myCourseService.detailSelect(vo);
-		
-
-		model.addAttribute("myCourse", myCourseService.detailSelect(vo));
-		model.addAttribute("myCouDet", myCourseFreeService.myCourseSelect(fvo));
-
-		try {
-			model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			try {
+				model.addAttribute("json", object.writeValueAsString(myCourseFreeService.myCourseSelect(fvo)));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			
+			
+			//===============
+			//		Tag 추가
+			//================
+		    if (newTag != null && !newTag.isEmpty()) {
+		    	TagVO tagCode = tagService.findTagBytag(newTag);
+		    	if (tagCode == null) {
+		    	    int newTagCode = tagService.saveTag(newTag);
+		    	    tagCode = new TagVO();
+		    	    tagCode.setTagCode(newTagCode);
+		    	} 
+		    	tagService.addCntTag(tagCode.getTagCode());
+		    }
+		    //==============================================
+			
+			return "trip/myCourseDetail";
 		}
-		
-		/*
-		// 새로운 tag db 저장
-	    if (newTag != null && !newTag.isEmpty()) {
-	        TagVO tagCode = tagService.findTagBytag(newTag);
-	        if (tagCode == 0) {
-	            tagService.saveTag(newTag);
-	            tagCode = tagService.findTagBytag(newTag);
-	        }
-	        tagService.addCntTag(tagCode);
-	    }
-		
-		return "trip/myCourseDetail";
-	}*/
 
-	
-
-	
 
 }
-}
+
 

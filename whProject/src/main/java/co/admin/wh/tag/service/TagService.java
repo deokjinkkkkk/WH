@@ -14,7 +14,7 @@ public interface TagService {
 	
 	int saveTag(@Param("tagName")String tagName);//새로운 태그를 db에 추가하고 해당 태그의 tagCode에 반환
 	
-	int addCntTag(@Param("tagCode")Integer tagCode);//tagCode에 해당하는 태그의 사용 횟수를 1씩 증가
+	int addCntTag(@Param("tagCode")int tagCode);//tagCode에 해당하는 태그의 사용 횟수를 1씩 증가
 		
 	List<TagVO> findByTagCnt();
 

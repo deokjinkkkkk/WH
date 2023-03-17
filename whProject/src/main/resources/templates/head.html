@@ -313,41 +313,49 @@
 
 
 /* ===================
-		태그 실시간 인기 
+		Tag 실시간 인기 시작
 	==================	 */
 #tagContainer{
 border: dotted;
 }
 
 #rank {
-float: right;
-border:2px solid yellowgreen; 
-width: 200px;
-height: 40px; 
-margin: 100px; 
-position: relative; 
+  float: right;
+  border: 2px solid yellowgreen;
+  width: 200px;
+  height: 40px;
+  margin: 100px;
+  position: relative;
+  overflow: hidden; /* 요소 내부 넘침 처리 */
 }
 
 #box {
-width : 200px;
- height : 200px;
- position : absolute;
- top:0;
- left: 0;
-  
-   }
-#box {
-text-align: center;
-height: 40px; 
-line-height: 40px;
+  width: 200px;
+  height: auto; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  line-height: 40px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+  transition: transform 0.5s ease-out; /* transform속성의 값이 변경될 때 움직임  */
+  transform: translateY(0); /* 초기 위치 */
+}
 
- }
+/* 마우스 오버시 애니메이션효과 멈춤 기능인데 안먹힘... */
+#rank:hover #box {
+  transition: none;
+  transform: translateY(0);
+}
  
 #tagRank{
 text-align: center;
 height: 40px; 
 
 }
+/* ===================
+		Tag 실시간 인기 끝
+	==================	 */
 
 </style>
 
