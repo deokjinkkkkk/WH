@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.admin.wh.tag.mapper.TagMapper;
-import co.admin.wh.tag.vo.TagVO;
+import co.admin.wh.tag.service.TagService;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -16,7 +15,7 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Autowired
 	private MyCourseMapper map;
 	@Autowired
-	private TagMapper tmap;
+	private TagService tService;
 
 	@Override
 	public List<MyCourseVO> myCourseList() {
@@ -57,30 +56,10 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Override
 	public int myCouIntroUpdate(MyCourseVO vo) {
 		// 소개글 업데이트
+//		tService.saveTag(, 0);
 		return map.myCouIntroUpdate(vo);
 	}
 
-	//==============태그를위한추가
-	@Override
-	public Boolean saveTag(String tags, int myCourseCode) {
-		String[] taglist = tags.split(" ");
-		TagVO vo = new TagVO();
-		vo.setMyCourseCode(myCourseCode);
-		
-		//기존 tag_map 지우고 
-		tmap.delTagMyCourse(myCourseCode);
-		
-		for(int i=0; i<taglist.length; i++) {
-			System.out.println("============="+taglist[i]); //taglist = tagName
-			// tag table 정리
-			vo.setTagName(taglist[i]);
-			tmap.saveTag(vo);
-			
-			//tag_map 추가
-			tmap.saveTagMyCourse(taglist[i],myCourseCode);
-		}
-		return true;
-	}
-	//=====================================
+	
 }
 

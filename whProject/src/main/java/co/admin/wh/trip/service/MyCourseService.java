@@ -22,9 +22,6 @@ public interface MyCourseService {
 	
 	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
 	
-	//Tag를 위한 추가================================
-	public Boolean saveTag(String tags, int myCourseCode); 
-	//=======================
 	
 	
 
