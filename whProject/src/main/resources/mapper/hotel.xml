@@ -301,32 +301,31 @@
 	  from reservation r
 	  inner join hotel h on r.hotel_id = h.hotel_id
 	  left join cancel c on r.res_id = c.res_id
-	  <choose>
-	    <when test="option == 'resId'.toString()">
+
+	    <if test="option == 'resId'.toString()">
 	      where r.res_id like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'hotelName'.toString()">
+	    </if>
+	    <if test="option == 'hotelName'.toString()">
 	      where h.hotel_name like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'roomGrade'.toString()">
+	    </if>
+	    <if test="option == 'roomGrade'.toString()">
 	      where h.room_grade like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'checkIn'.toString()">
+	    </if>
+	    <if test="option == 'checkIn'.toString()">
 	      where r.check_in like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'checkOut'.toString()">
+	    </if>
+	    <if test="option == 'checkOut'.toString()">
 	      where r.check_out like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'resName'.toString()">
+	    </if>
+	    <if test="option == 'resName'.toString()">
 	      where r.res_name like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'resTel'.toString()">
+	    </if>
+	    <if test="option == 'resTel'.toString()">
 	      where r.res_tel like '%'|| (#{content}) ||'%'
-	    </when>
-	    <when test="option == 'resEmail'.toString()">
+	    </if>
+	    <if test="option == 'resEmail'.toString()">
 	      where r.res_email like '%'|| (#{content}) ||'%'
-	    </when>
-	  </choose>
+	    </if>
 	</select>
 	
 	<!-- 관리자 취소승인 할 때 취소 테이블에 환불정보 업데이트 -->
@@ -347,5 +346,14 @@
 <!-- 		WHERE (r.check_in IS NULL and r.check_out IS NULL) -->
 <!-- 		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out) -->
 <!-- 	</select> -->
+
+<!-- 예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false) -->
+	<select id="compareToDate" resultType="boolean">
+		SELECT h.*
+		FROM hotel h
+		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
+		WHERE (r.check_in IS NULL and r.check_out IS NULL)
+		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out)
+	</select>
 
 </mapper>

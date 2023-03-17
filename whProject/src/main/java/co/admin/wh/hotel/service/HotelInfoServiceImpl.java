@@ -143,6 +143,11 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		
 	}
 
+	@Override
+	public boolean compareToDate(CancelVO vo) {
+		return hotelMapper.compareToDate(vo);
+	}
+
 //	@Override
 //	public List<CancelVO> adminDateSearch(CancelVO vo) {
 //		// TODO Auto-generated method stub

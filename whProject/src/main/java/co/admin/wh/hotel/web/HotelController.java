@@ -315,4 +315,12 @@ public class HotelController {
 //		model.addAttribute("hotelList",hotelInfoService.adminDateSearch(vo));
 //		return "y";
 //	}
+	
+	//예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false)
+	@PostMapping("/compareToDate")
+	@ResponseBody
+	public boolean compareToDate(@RequestBody CancelVO vo, Model model) {
+		boolean bool = hotelInfoService.compareToDate(vo);
+		return bool; // true면 예약가능, false면 예약불가
+	}
 };
