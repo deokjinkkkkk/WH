@@ -11,7 +11,14 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-
+<style>
+.title{
+display: inline-block;;
+width:20%;
+font-size: large;
+color:black;
+}
+</style>
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(/img/banner/bg2.jpg)|">
@@ -32,6 +39,7 @@
 			<div class="container">
 				<form id="frm" method="post" action="/companionDelete"
 					enctype="multipart/form-data">
+				<div class="row">	
 					<div class="col-lg-6 mb-5 ftco-animate">
 						<img th:src="'/image/'+${c.imgPath}" alt="Colorlib Template"
 							width="400px" height="auto">
@@ -39,40 +47,40 @@
 
 					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 						<h1>
-							제목 : <span th:text="${c.compTitle}"></span>
+							<span th:text="${c.compTitle}"></span>
 						</h1>
 						<hr>
 						<p>
-							인원수 : <span th:text="${c.compCount}"></span>
+							<span class="title">인원수   :</span> <span th:text="${c.compCount}"></span>
 						</p>
 						<hr>
 						<p>
-							그룹유형 : <span th:text="${c.comName}"></span>
+							<span class="title">그룹유형 :</span> <span th:text="${c.comName}"></span>
 						</p>
 						<hr>
 						<p>
-							여행지역 : <span th:text="${lo.comName}"></span>
+							<span class="title">여행지역 :</span> <span th:text="${lo.comName}"></span>
 						</p>
 						<hr>
 						<p>
-							여행 기간 : <span th:text="${c.compStartDate}"></span> ~ <span
+							<span class="title">여행 기간 :</span> <span th:text="${c.compStartDate}"></span> ~ <span
 								th:text="${c.compEndDate}"></span>
 						</p>
 						<hr>
-						<p>여행 내용
+						<p><span class="title">여행 내용</span>
 						<p th:text="${c.compContent}"></p>
 						<hr>
-					</div>
+					</div></div>
 					<input type="hidden" th:value="${c.imgGroCode}" id="imgGroCode"
 						name="imgGroCode"> <a
 						th:href="|/companionUpdateForm?compCode=${c.compCode}|"
-						class="btn btn-primary btn-lg" th:if="${c.id == session.name}">수정하기</a>
+						class="btn btn-primary btn-lg" th:if="${c.id == session.name}" style="float: right;">수정하기</a>
 					<input type="hidden" name="compCode" th:value="${c.compCode}" />
 					<button type="submit" class="btn btn-danger btn-lg"
-						th:if="${c.id == session.name}">삭제하기</button>
+						th:if="${c.id == session.name}" style="float: right;">삭제하기</button>
 					<button type="button" class="btn btn-danger btn-lg"
 						data-toggle="modal" data-target="#myModal"
-						th:if="${c.id != session.name}">신고해보자고</button>
+						th:if="${c.id != session.name}" style="float: right;">신고해보자고</button>
 				</form>
 				<form method="post" action="/comListInsert"
 				enctype="multipart/form-data">
@@ -87,7 +95,7 @@
 					type="hidden" id="coState" name="coState" value="000"> <input
 					type="hidden" id="gender" name="gender" th:value="${me.gender}">
 				<button th:if="${se == 0 and c.id != session.name}" type="submit"
-					class="btn btn-primary btn-lg" id="submit-btn">신청하기</button>
+					class="btn btn-primary btn-lg" id="submit-btn" style="float: right;">동행자 신청하기</button>
 			</form>
 			        <!-- 댓글 시작 -->
 			<section class="blogs">
