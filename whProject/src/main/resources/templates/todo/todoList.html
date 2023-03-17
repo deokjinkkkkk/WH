@@ -111,8 +111,7 @@
       
     	//tolist 리스트 시작
       getList(1) 
-     // completeList()
-    };
+    }; //이 함수호출이 없으면 list가 뜨지않음!!!
 
  
         
@@ -125,7 +124,7 @@
 		let todoArea;
 	
 	  	if (todoFlag == 1){ //todoFlag가 1일때는
-	  		todoArea = $(".todolist-area"); // 전체리스트에 보이도록
+	  		todoArea = $(".todolist-area"); // "전체"리스트에 보이도록
 	  	}else {
 	  		todoArea = $(".todolost-complete") //아니면 완료에 보이도록 
 	  	}
@@ -254,32 +253,6 @@
     
      
 
-     /*  //버튼 클릭 시 들어가는 데이터
-      $(document).on('click', '.btn-add-to-list', function() {
-         var todoContent = $(this).data('todoContent');
-         var id = $(this).data('id');
-         var todoDate = $(this).data('todoDate');
-         var todoCode = $('.nav-link.active').attr('href');
-         $.ajax({
-            type : 'POST',
-            url : '/todoGetList',
-            data : {
-               "todoContent" : todoContent,
-               "id" : todoId,
-               "todoDate" : todoDate,
-               "todoCode" : todoCode,
-               "todoFlag" : todoFlag
-            },
-            success : function(response) {
-               // 리스트에 추가되었음을 알리는 메시지를 보여줌
-               alert(response);
-            },
-            error : function(xhr) {
-               // 에러 발생 시 에러 메시지를 보여줌
-               alert(xhr.responseText);
-            }
-         });
-      });  */ 
 
       //삭제
         function todoDel(){
