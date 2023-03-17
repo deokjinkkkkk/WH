@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org">
-
+   <script>
+   		function gopage(page) {
+   			location.href = "videoSelect?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+   		}   		
+   </script>
 						<div class="row margin-30px-bottom" id="hotelListContent">
 							<div th:each="v : ${videoSelect}"
 								class="hotels col-md-6 margin-30px-bottom">
@@ -16,7 +22,26 @@
 								<a th:href="@{/videoDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
 								</div>
 							</div>
+							<div class="gopage" align="center">
+										<nav aria-label="Page navigation example" class="gopage">
+											<ul class="pagination">
+											<li class="page-item" th:if="${paging.startPage > 1}">
+												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
+												</li>											
+												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
+												</li>										
+												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+												</li>
+											</ul>
+										</nav>
+									</div> 
 						</div>
-						
+
+					<!-- 페이징 추가 해주세요 -->
+									
+                   				<!-- 페이징 끝 -->	
 						
 </html>
