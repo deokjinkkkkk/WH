@@ -197,10 +197,9 @@ public class HotelController {
 	}
 	
 	@PostMapping("/updateInfo") // 예약자 정보수정
-	@ResponseBody
-	public String updateInfo(@RequestBody ReservationVO vo, Model model) {
+	public String updateInfo(ReservationVO vo, Model model) {
 		hotelInfoService.ReservUpdate(vo);
-		return "y";
+		return "redirect:/myReservation";
 	}
 	
 	@RequestMapping("/ajax/autocomplete") // 호텔검색 자동완성
@@ -308,4 +307,12 @@ public class HotelController {
 	    model.addAttribute("hotelList", hotelInfoService.adminSearch(option, content));
 	    return "hotel/ajaxAdminReservList";
 	}
+	
+//	/adminDateSearch
+//	@PostMapping("/adminDateSearch") // 관리자 예약 기간별 검색
+//	@ResponseBody
+//	public String adminDateSearch(@RequestBody CancelVO vo, Model model) {
+//		model.addAttribute("hotelList",hotelInfoService.adminDateSearch(vo));
+//		return "y";
+//	}
 };

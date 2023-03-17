@@ -20,6 +20,7 @@
         <th>상태</th>
         <th>결제금액</th>
         <th>취소신청일자</th>
+        <th>환불금액</th>
         <th>관리</th>
       </tr>
       <tr th:each="h : ${hotelList}">
@@ -36,8 +37,12 @@
           <td data-th="상태" th:text="${h.resState == 0 ? '결제완료' : h.resState == 1 ? '환불요청' : h.resState == 2 ? '환불완료' : ''}">-</td>
           <td data-th="결제금액" th:text="|₩${#numbers.formatInteger(h.totalPay, 3, 'COMMA')}|">-</td>
           <td data-th="취소신청일자" th:text="${h.submitDate}">-</td>
-          <td data-th="관리">
           
+<!-- if, unless 사용하여 환불금액 출력 -->          
+          <td th:if="${h.returnPay >= 1}" th:text="|₩${#numbers.formatInteger(h.returnPay, 3, 'COMMA')}|"></td>
+          <td th:unless="${h.returnPay >= 1}" th:text="null"></td>
+          
+          <td data-th="관리">
           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modifyModal" 
           		id="modalForm" onclick="setResInfo()">정보수정</button> <!-- h.resId 값 넘기기 위한 함수 생성 -->
 		  <button th:if="${h.resState == 1}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal" 
