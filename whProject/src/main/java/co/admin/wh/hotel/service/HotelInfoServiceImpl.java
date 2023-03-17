@@ -143,4 +143,10 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		
 	}
 
+//	@Override
+//	public List<CancelVO> adminDateSearch(CancelVO vo) {
+//		// TODO Auto-generated method stub
+//		return hotelMapper.adminDateSearch(vo);
+//	}
+
 }

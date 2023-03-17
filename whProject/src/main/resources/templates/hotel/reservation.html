@@ -176,9 +176,23 @@
 																<div class="form-group col-md-6">
 																	<label for="exampleInputAddress1"
 																		class="margin-10px-bottom">예약자 전화번호</label> <input
-																		type="tel" class="form-control" required
-																		name="resTel" id="resTel" th:value="${m.tel}">
+																		type="text" class="form-control" required placeholder="하이픈(-)없이 입력해주세요. ex.01012341234"
+																		name="resTel" id="resTel" th:value="${m.tel}" onkeydown="return onlyNumber();" >
 																</div>
+																
+																<script type="text/javascript">
+																function onlyNumber(){
+																	   if((event.keyCode > 48 && event.keyCode < 57 ) 
+																	      || event.keyCode == 8 //backspace
+																	      || event.keyCode == 37 || event.keyCode == 39 //방향키 →, ←
+																	      || event.keyCode == 46  // delete
+																	      || event.keyCode == 39){
+																	   }else{
+																	   event.returnValue=false;
+																	   }
+																	}
+																</script>
+																
 																<div class="form-group col-md-12">
                                                                     <label for="exampleInputTextarea1" class="margin-10px-bottom">요청사항</label>
                                                                     <textarea class="form-control" id="resRequest" name="resRequest" rows="5"></textarea>

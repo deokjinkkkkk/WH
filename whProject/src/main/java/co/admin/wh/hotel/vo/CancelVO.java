@@ -12,5 +12,5 @@ public class CancelVO extends ReservationVO{ // join해서 select해야해서 �
 	public int returnPay; // 환불금액
 	public Date submitDate; // 환불신청일자
 	
-	public int diffDate; // 체크인일자 - 환불요청일자(환불기준때문에 필요)
+//	public int diffDate; // 체크인일자 - 환불요청일자(환불기준때문에 필요)
 }
