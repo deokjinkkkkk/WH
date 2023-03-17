@@ -21,7 +21,7 @@ public class TagServiceImpl implements TagService{
 	}
 
 	@Override
-	public int addCntTag(Integer tagCode) {
+	public int addCntTag(int tagCode) {
 		// TODO Auto-generated method stub
 		return map.addCntTag(tagCode);
 	}

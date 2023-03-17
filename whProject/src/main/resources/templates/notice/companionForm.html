@@ -46,20 +46,20 @@
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
-							[필수]연락처<input type="text" name="tel" id="tel" th:value="${me.tel}">
+							연락처<input type="text" name="tel" id="tel" th:value="${me.tel}" required="required">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]이름<input type="text" name="name" id="name" th:value="${me.name}">
+							이름<input type="text" name="name" id="name" th:value="${me.name}" readonly>
 						</div>
 						<div class="form-group col-md-7">
-							[필수]성별<input type="text" name="gender" id="gender" th:value="${me.gender}">
+							성별<input type="text" name="gender" id="gender" th:value="${me.gender}" readonly>
 						</div>
 
 						<div class="form-group col-md-12">
 							함께 여행하고 싶은 그룹 유형<br>
 							<div th:each="c : ${gr}">
 								<input type="radio" th:value="${c.comCode}" th:text="${c.comName}" 
-									   name="comCode" id="comCode" onclick="setComName(this)"> 
+									   name="comCode" id="comCode" onclick="setComName(this)" required="required"> 
 							<br>
 						</div>
 									<input type="hidden" name="comName" id="comName"> </div>
@@ -74,10 +74,10 @@
 						
 						
 						<div class="form-group col-md-7">
-							제목<input type="text" name="compTitle" id="compTitle">
+							제목<input type="text" name="compTitle" id="compTitle" required="required">
 						</div>
 						<div class="form-group col-md-7">
-							인원수<select name="compCount" id="compCount">
+							인원수<select name="compCount" id="compCount" required="required">
 								<option value="2">2</option>
 								<option value="3">3</option>
 								<option value="4">4</option>
@@ -86,9 +86,9 @@
 							</select>
 						</div>
 						<div class="form-group col-md-7">
-							지역<select name="compLocal">
+							지역<select name="compLocal" required="required">
 								<option th:each="c : ${co}" th:value="${c.comCode}"
-									th:text="${c.comName}"></option>
+									th:text="${c.comName}" ></option>
 							</select>
 						</div>
 
@@ -97,9 +97,9 @@
 
 						<div class="input-group input-daterange">
 							<input type="text" class="form-control input1"
-								placeholder="Start Date" name="compStartDate" id="compStartDate">
+								placeholder="Start Date" name="compStartDate" id="compStartDate" required="required">
 							<input type="text" class="form-control input2"
-								placeholder="End Date" name="compEndDate" id="compEndDate">
+								placeholder="End Date" name="compEndDate" id="compEndDate" required="required">
 						</div>
 
 						<script>
@@ -142,7 +142,7 @@
 									<td>
 										<form>
 											<textarea rows="10" class="form-control" id="compContent"
-												name="compContent" onkeyup="fn_checkByte(this,'1000')"></textarea>
+												name="compContent" onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
 										</form>
 									</td>
 								</tr>
@@ -150,9 +150,6 @@
 						</div>
 						<div class="form-group col-md-12">
 							<input type="file" name="imgFile" id="imgFile">
-						</div>
-						<div class="form-group col-md-12">
-							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
 						</div>
 						<input type="hidden" name="id" id="id" th:value="${session.name}"> <input
 						
