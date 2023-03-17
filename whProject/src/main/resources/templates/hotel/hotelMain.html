@@ -282,34 +282,34 @@
 // 									}
 // 								});
 // 							}
-                              $(function() {
-                                 $(document).ready(function() {
+//                               $(function() {
+//                                  $(document).ready(function() {
          
-                                    $('#checkIn').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        startDate : '0d',
-                                        language : "ko",
-                                        todayHighlight : true,
-                                        autoclose : true
-                                    }).on('changeDate', function(selected){
-                                        var startDate = new Date(selected.date.valueOf());
-                                        $('#checkOut').datepicker('setStartDate', startDate);
-                                    });
+//                                     $('#checkIn').datepicker({
+//                                         format : "yyyy-mm-dd",
+//                                         startDate : '0d',
+//                                         language : "ko",
+//                                         todayHighlight : true,
+//                                         autoclose : true
+//                                     }).on('changeDate', function(selected){
+//                                         var startDate = new Date(selected.date.valueOf());
+//                                         $('#checkOut').datepicker('setStartDate', startDate);
+//                                     });
          
-                                    $('#checkOut').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        language : "ko",
-                                        todayHighlight : true,
-                                        autoclose : true
-                                    }).on('changeDate', function(selected){
-                                        var endDate = new Date(selected.date.valueOf());
-                                        $('#checkIn').datepicker('setEndDate', endDate);
-                                    });
+//                                     $('#checkOut').datepicker({
+//                                         format : "yyyy-mm-dd",
+//                                         language : "ko",
+//                                         todayHighlight : true,
+//                                         autoclose : true
+//                                     }).on('changeDate', function(selected){
+//                                         var endDate = new Date(selected.date.valueOf());
+//                                         $('#checkIn').datepicker('setEndDate', endDate);
+//                                     });
                                     
                                     
-                                 });
+//                                  });
          
-                              });
+//                               });
                            </script>
 									<div class="form-group">
 										<label class="margin-5px-bottom">지역</label> <select
@@ -336,18 +336,18 @@
 											<option value="5">5명</option>
 										</select>
 									</div>
-<!-- 									<div class="form-group margin-30px-bottom"> -->
-<!-- 										<label class="margin-5px-bottom">유아(7세 이하)</label> <select -->
-<!-- 											class="form-control padding-10px-tb" id="childCount" -->
-<!-- 											name="childCount"> -->
-<!-- 											<option value="0" selected>해당 없음</option> -->
-<!-- 											<option value="1">1명</option> -->
-<!-- 											<option value="2">2명</option> -->
-<!-- 											<option value="3">3명</option> -->
-<!-- 											<option value="4">4명</option> -->
-<!-- 											<option value="5">5명</option> -->
-<!-- 										</select> -->
-<!-- 									</div> -->
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
+											class="form-control padding-10px-tb" id="childCount"
+											name="childCount">
+											<option value="0" selected>해당 없음</option>
+											<option value="1">1명</option>
+											<option value="2">2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
+										</select>
+									</div>
 									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
@@ -362,12 +362,13 @@
 							  let checkOut = document.getElementsByName("checkOut")[0].value;
 							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
 							  let humanCount =  document.getElementsByName("humanCount")[0].value;
+							  let childCount =  document.getElementsByName("childCount")[0].value;
 							  
-							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount;
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount;
 							  
-							  console.log(checkIn)
-							  console.log(hotelRegion)
-							  console.log(humanCount)
+// 							  console.log(checkIn)
+// 							  console.log(hotelRegion)
+// 							  console.log(humanCount)
 							 };
 							</script>
 							<div class="widget">
