@@ -2,11 +2,9 @@ package co.admin.wh.diary.web;
 
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,18 +69,13 @@ public class FollowController {
 	}
 	
 	
-	@GetMapping("/followCount/{followingId}/{followId}")
-	public Map<String, Object> followCount(@PathVariable("followingId") String followingId, @PathVariable("followId") String followId) {
-	    Map<String, Object> resultMap = new HashMap<>();
-
-	    Map<String, Object> followerCount = mapper.followCount(followId);
-	    Map<String, Object> followeeCount = mapper.followCount(followingId);
-
-	    resultMap.put("followerCount", followerCount);
-	    resultMap.put("followeeCount", followeeCount);
-
-	    return resultMap;
+	@GetMapping("/followCount/{followId}")
+	public Map<String, Object> followCount(@PathVariable("followId") String followId) {
+	    
+		return mapper.followCount(followId);
 	}
+
+
 
 
 }

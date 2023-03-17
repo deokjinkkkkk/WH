@@ -1,107 +1,25 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
 
 
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- Google Material icon -->
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet">
-
-<title>Hello, world!</title>
-
-<!-- 요기에 구글 머티리얼 아이콘 -->
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet">
-
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-
-<!-- modernizr js -->
-<script src="/js/modernizr.js"></script>
-
-<!-- bootstrap -->
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- Serch -->
-<script src="/search/search.js"></script>
-
-<!-- navigation -->
-<script src="/js/nav-menu.js"></script>
-
-<!-- owl carousel -->
-<script src="/js/owl.carousel.js"></script>
-
-<!-- jquery.counterup.min -->
-<script src="/js/jquery.counterup.min.js"></script>
-
-<!-- stellar js -->
-<script src="/js/jquery.stellar.min.js"></script>
-
-<!-- waypoints js -->
-<script src="/js/waypoints.min.js"></script>
-
-<!-- countdown js -->
-<script src="/js/countdown.js"></script>
-
-<!-- jquery.magnific-popup js -->
-<script src="/js/jquery.magnific-popup.min.js"></script>
-
-<!-- datepicker js -->
-<script src="/js/datepicker.min.js"></script>
-
-<!-- isotope.pkgd.min js -->
-<script src="/js/isotope.pkgd.min.js"></script>
-
-<!-- range slider -->
-<script src="/js/ion.rangeSlider.min.js"></script>
-
-<!--  clipboard js -->
-<script src="/js/clipboard.min.js"></script>
-
-<!--  prism js -->
-<script src="/js/prism.js"></script>
 
 
-<!-- 결제창에 필요한 js 추가 시작 -->
-<!-- jquery validation -->
-<script src="js/jquery.validate.min.js"></script>
-
-<!-- jquery wizard -->
-<script src="js/jquery.bootstrap.wizard.min.js"></script>
-
-<!-- form-wizard -->
-<script src="js/form-wizard.js"></script>
-
-<!-- custom scripts -->
-<script src="/js/main.js"></script>
-<!-- 결제창에 필요한 js 추가 끝 -->
-
-
+<body>
+	<div layout:fragment="content" class="content">
 <style>
-a {
-	text-decoration-line: none;
-	color: black;
-}
+/* a { */
+/* 	text-decoration-line: none; */
+/* 	color: black; */
+/* } */
 
-.navbar {
-	position: fixed;
-	width: 100%;
-	background-color: white;
-	border-bottom: solid 1px rgb(202, 202, 202);
-}
+/* .navbar { */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	background-color: white; */
+/* 	border-bottom: solid 1px rgb(202, 202, 202); */
+/* } */
 
 .container-fluid {
 	justify-content: space-between;
@@ -109,10 +27,10 @@ a {
 	width: 1000px
 }
 
-.navbar-search {
-	width: 300px;
-	font-size: 14px;
-}
+/* .navbar-search { */
+/* 	width: 300px; */
+/* 	font-size: 14px; */
+/* } */
 
 .body {
 	padding-top: 100px;
@@ -138,11 +56,11 @@ a {
 	margin-left: 650px;
 }
 
-.feed-box {
-	border: solid 1px rgb(202, 202, 202);
-	background-color: white;
-	margin-bottom: 25px;
-}
+/* .feed-box { */
+/* 	border: solid 1px rgb(202, 202, 202); */
+/* 	background-color: white; */
+/* 	margin-bottom: 25px; */
+/* } */
 
 .profile {
 	display: flex;
@@ -494,73 +412,44 @@ span {
 	width: 500px;
 }
 </style>
-</head>
 
-<body>
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(/img/banner/bg2.jpg)|">
+			<div class="container">
 
-	<!-- 헤더 영역 -->
-	<nav class="navbar">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"></a>
-			<div class="navbar_icons">
-				<a class="material-icons" href="/main">home</a>
-				<!-- 홈링크 걸기 -->
-				<a class="material-icons-outlined">send</a>
-				<!-- 채팅기능 걸기 -->
-				<span class="material-icons-outlined" id="add_feed">add_box</span>
-				<!-- 등록 -->
-				<!--  <span class="material-icons-outlined">favorite_border</span>   좋아요 -->
+				<h1 class="text-white font-weight-600">여행리뷰</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">여행리뷰</span></li>
+				</ul>
 			</div>
-		</div>
-	</nav>
+		</section>
+		<!-- 배너종료 -->
+		
+
+	
+      <div class="container-fluid">
+         <a class="navbar-brand" href="#"> </a>
+         <div class="navbar_icons">
+            <a class="material-icons" href="/main">home</a>
+            <!-- 홈링크 걸기 -->
+            <a class="material-icons-outlined">send</a>
+            <!-- 채팅기능 걸기 -->
+            <span class="material-icons-outlined" id="add_feed">add_box</span>
+            <!-- 등록 -->
+         </div>
+      </div>
+
 
 	<!-- 바디 영역 -->
 	<div class="body">
+	
 		<div class="left-body">
 			<div class="container">
 		<div class="posts">
 			<input type="hidden" name="id" th:value="${session.name}" id="id">
-			<div class="feed-box" id="inst" style="padding: 20px">
-				<!--	
-
-			<div th:each="d : ${diarys}"  class="diaryCode"  th:data-code="${d.diaryCode}">
-				<div class="profile-id" th:text="${d.id}" style="margin: 10px">
-					<div class="profile-id" ></div>
-				</div>
-				<div class="feed-img" > 
-					<img id="feed-img" th:src="'/image/'+${d.imgPath}">
-				</div>
-
-				<div class="icon">
-				
-				</div>
-				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div>
-				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
-				<br><br>
-				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
-				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
-				</div>
-
-				<div class="comment">
-					<div>
-						<b>기덕</b> 장고 화이팅
-					</div>
-					<div>
-						<b>재명</b> 알고리즘 화이팅
-					</div>
-					<div>
-						<b>이성</b> 파이썬 화이팅
-					</div>
-				</div>
-				<div class="input-comment">
-					<input id="input-comment" type="text" class="form-control"
-						placeholder="댓글 달기...">
-				</div>
-				<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;
-				<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>
-			</div>
-			  -->
+			<div class="feed-box">
 				</div>
 			</div>
 		</div>
@@ -676,10 +565,10 @@ function getDiaryList() {
             //console.log("조회되나????????");
             $(result).each(function(index,item){
                 if(id === item.id){ // diary -> item 수정
-                    str += '<div class="diaryCode" data-code="' + item.diaryCode + '">' 
+                    str += '<div class="diaryCode" style="border: 1px solid black; background-color:white;" data-code="' + item.diaryCode + '">' 
                     str += '<div class="profile-id">' + item.id + '</div>' 
                     str += '<div class="feed-img">' 
-                    str += '<img id="feed-img" src="/image/' + item.imgPath + '">'
+                    str += '<img id="feed-img" style="width:400px;" src="/image/' + item.imgPath + '">'
                     str +='</div>'
                     str +='<div class="like" id="diaryStartDate">' + item.diaryStartDate + '</div>'
                     str +='<div class="like" id="diaryEndDate">' + item.diaryEndDate + '</div>'
@@ -688,7 +577,7 @@ function getDiaryList() {
                     str +='<div class="feed-text" id="diaryContent">' + item.diaryContent + '</div>' 
                     str +='<button type="button" class="btn btn-primary">수정</button>&nbsp;&nbsp;&nbsp;' 
                     str +='<button type="button" class="btn btn-danger" id="Delbtn">삭제</button>' 
-                    str +='</div>';
+                    str +='</div><br><br><br><br><br><br>';
                 }
             });
             diaryArea.html(str);
@@ -935,4 +824,6 @@ $(".feed-box").on("click", ".btn-primary", () => {
 
 
 </script>
+</div>
+</body>
 </html>
