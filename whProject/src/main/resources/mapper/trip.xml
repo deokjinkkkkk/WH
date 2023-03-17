@@ -60,7 +60,7 @@
 		WHERE TRIP_NAME LIKE '%'|| (#{value}) ||'%'
 	</select>
 	
-	<!-- 여행지 주소 검색 -->
+	<!-- 여행지 이름 검색 -->
 	<select id="tripNameSearchList" resultType="co.admin.wh.trip.vo.TripVO">
 	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
 		SELECT * 
@@ -73,8 +73,20 @@
 		]]>		
 	</select>
 	
+	
+	<!-- 여행지 지역 검색 -->
+	<select id="tripRegionSearchList" resultType="co.admin.wh.trip.vo.TripVO">
+	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	    	select *
+	    	from trip
+	    	where trip_addr like ''|| (#{tripAddr}) ||'%'
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>	
+	</select>
+	
 	<!-- 최신순 정렬 -->
-	<select id="latestList" parameterType="co.admin.wh.trip.vo.TripVO" resultType="co.admin.wh.trip.vo.TripVO">
+	<select id="latestList" parameterType="TripVO" resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 	    	SELECT * 
 		FROM TRIP t
@@ -83,6 +95,27 @@
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>	
+	</select>
+	
+	<!-- 좋아요순 정렬 -->
+	<select id="tripGoodRatingList" parameterType="TripVO"
+		resultType="co.admin.wh.trip.vo.TripVO">
+	SELECT * FROM( SELECT rownum rn, a.* FROM(
+	SELECT t.TRIP_CODE, t.TRIP_NAME, t.TRIP_TEL, t.trip_addr, t.TRIP_LAT, t.TRIP_LON, t.TRIP_SUMM, 
+             t.trip_content, t.homepage, t.trip_region, t.img_gro_code, t.trip_date, t.cou_code,
+             t.COU_ORDER, t.trip_unique_number, t.trip_announce, t.rest_date, t.use_time,
+             t.trip_parking, t.trip_child, t.trip_pet, t.trip_chk_card, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+      FROM TRIP t
+      LEFT JOIN GREAT g
+      ON t.TRIP_CODE = g.GREAT_N_CODE
+      GROUP BY t.TRIP_CODE, t.TRIP_NAME, t.TRIP_TEL, t.trip_addr, t.TRIP_LAT, t.TRIP_LON, t.TRIP_SUMM, 
+             t.trip_content, t.homepage, t.trip_region, t.img_gro_code, t.trip_date, t.cou_code,
+             t.COU_ORDER, t.trip_unique_number, t.trip_announce, t.rest_date, t.use_time,
+             t.trip_parking, t.trip_child, t.trip_pet, t.trip_chk_card
+      ORDER BY GREAT_COUNT DESC
+      <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>
 	</select>
 	
 		<!-- 종아요순 사진 셀렉 -->

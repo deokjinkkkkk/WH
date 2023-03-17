@@ -21,6 +21,8 @@ public interface MyCourseService {
 
 	
 	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
+
+	
 	
 	
 	
