@@ -103,8 +103,6 @@ public class MyCourseController {
 		}
 		return resultValue;
 	}
-
-
 	
 	// 리스트 삭제 시 순서 번호 업데이트
 	@PostMapping("/myCouSeqUpdate")

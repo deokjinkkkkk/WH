@@ -16,7 +16,6 @@ public class TagServiceImpl implements TagService{
 	@Autowired
 	private TagMapper map;
 
-	
 	@Override
 	public Boolean saveTag(String tags, int myCourseCode) {
 		

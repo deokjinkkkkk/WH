@@ -223,4 +223,12 @@
 		=#{videoCode}
 
 	</update>
+	
+	<!-- 조회수 -->
+	<update id="videoHit" parameterType="int">
+		update video
+		set video_Hit
+		= video_Hit + 1
+		where video_Code = #{videoCode}
+	</update>
 </mapper>

@@ -64,10 +64,10 @@
 		insert into
 		trip(trip_code,trip_Name,trip_addr,trip_lat,trip_lon,trip_summ,
 		trip_content,trip_region,img_gro_code,trip_announce,rest_date,use_time,
-		trip_parking,trip_child,trip_chk_card,trip_unique_number)
+		trip_parking,trip_pet,trip_child,trip_chk_card,trip_unique_number)
 		values(#{tourId},#{tourTitle},#{tourAddr},#{tourLat},#{tourLon}
 		,#{tourSumm},#{tourContent},#{tourRegion},#{imgGroCode}
-		,#{tourTel},#{restDate},#{useTime},#{tourParking}
+		,#{tourTel},#{restDate},#{useTime},#{tourParking},#{tourPet}
 		,#{tourChild},#{tourChkCard},(select NVL(max(trip_unique_number),0)+1 trip_unique_number from trip))
 	</insert>
 </mapper>
