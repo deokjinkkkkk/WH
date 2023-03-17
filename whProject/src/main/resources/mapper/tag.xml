@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.tag.mapper.TagMapper">
 	
-	<select id="findTagBytag" resultType="co.admin.wh.tag.vo.TagVO">
-    	SELECT * FROM TAG WHERE TAG_NAME = #{tagName}
-	</select>
-
-	
-	
 	<insert id="saveTag" parameterType="co.admin.wh.tag.vo.TagVO">
 		<selectKey keyProperty="tagCode" resultType="int"
 			order="BEFORE">
@@ -15,16 +9,15 @@
 			NVL(MAX(TAG_CODE),0)+1
 			FROM TAG
 		</selectKey>
-		INSERT INTO TAG
-		VALUE (#{tagCode},#{tagName},#{tagCnt})
+		MERGE INTO TAG t
+		USING DUAL ON(t.tag_name = #{tagName})
+		WHEN MATCHED THEN
+			UPDATE 
+			   SET TAG_CNT = TAG_CNT + 1
+		WHEN NOT MATCHED THEN	   
+			INSERT 
+			VALUES (#{tagCode},#{tagName},1)
 	</insert>
-	
-	<!-- tag_cnt에 1씩 추가  -->
-	<update id="addCntTag">
-		UPDATE TAG
-		SET TAG_CNT = TAG_CNT + 1
-		WHERE TAG_CODE = #{tagCode}
-	</update>
 	
 	
 	<!-- tag_cnt기준 상위 10개만 조회 -->
@@ -38,4 +31,19 @@
 		)
 		WHERE ROWNUM <= 10 ]]>
 	</select>
+	
+		<!-- tag_map code저장 -->
+<!--tag_name으로 tag_code찾기  -->
+	<insert id="saveTagMyCourse">
+		INSERT INTO TAG_MAP
+		VALUES (#{myCourseCode}, (select tag_code
+					from tag
+					where tag_name =#{tagName}  )) 
+					
+	</insert>
+	<!-- MY코스 삭제 시 tag_map 함께 삭제  -->
+	<delete id="delTagMyCourse">
+		DELETE FROM TAG_MAP
+		WHERE MY_COURSE_CODE = #{myCourseCode}
+	</delete>
 </mapper>

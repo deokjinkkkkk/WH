@@ -2,15 +2,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.tag.mapper.TagMapMapper">
 	
-	<!-- tag_map code저장 -->
-	<insert id="saveTagMyCourse">
-		INSERT INTO TAG_MAP
-		VALUES (#{tagCourseCode},#{tagCode})
-	</insert>
 
-	<!-- MY코스 삭제 시 tag_map 함께 삭제  -->
-	<delete id="delTagMyCourse">
-		DELETE FROM TAG_MAP
-		WHERE MY_COURSE_CODE = #{tagCourseCode}
-	</delete>
 </mapper>
