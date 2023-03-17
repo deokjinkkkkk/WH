@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.tag.mapper.TagMapper">
 	
+	
+	<!--tag에서 tag_name이 겹치는게 있으면 tag_cnt 를 +1 하고
+	없으면 tag_name에 추가 ==오라클 merge into사용  -->
 	<insert id="saveTag" parameterType="co.admin.wh.tag.vo.TagVO">
 		<selectKey keyProperty="tagCode" resultType="int"
 			order="BEFORE">
