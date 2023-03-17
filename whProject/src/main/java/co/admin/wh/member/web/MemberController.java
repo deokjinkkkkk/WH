@@ -53,7 +53,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("/myPage")
-	public String myPageForm() {
+	public String myPageForm(Model model, MemberVO vo, Principal principal) {
+		vo.setId(principal.getName());
+		model.addAttribute("mem", memberMapper.memberSelect(vo));
 		return "member/myPage";
 	}
 
