@@ -75,7 +75,8 @@ public class MyCourseController {
 		if (result > 0) {
 			resultValue = "success";
 		}
-
+		return resultValue;
+	}
 		
 		// 나만의 코스 리스트에 있는 항목 삭제하기
 		@PostMapping("/myCourseDelete")
@@ -95,18 +96,6 @@ public class MyCourseController {
 	@ResponseBody
 	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
 		int result = myCourseMapper.myCouIntroUpdate(vo);
-		String resultValue = "fail";
-		if (result > 0) {
-			resultValue = "success";
-		}
-		return resultValue;
-	}
-
-	// 나만의 코스 리스트에 있는 항목 삭제하기
-	@PostMapping("/myCourseDelete")
-	@ResponseBody
-	public String myCourseDelete(@RequestBody MyCourseVO vo) {
-		int result = myCourseMapper.myCourseDelete(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";
