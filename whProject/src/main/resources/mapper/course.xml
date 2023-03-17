@@ -61,23 +61,30 @@
 	
 	<!-- 나만의 코스 리스트를 올리기 동의 시, 여행 코스에 출력 -->
 	<select id="myCouSharing" resultType="co.admin.wh.trip.vo.CourseVO">
-		SELECT * FROM (
+		  SELECT * FROM (
     	SELECT ROWNUM AS rnum, t.* FROM (
-        select 'a' gb , TO_NUMBER(cou_code) AS cou_code, cou_name, img_gro_code
-        FROM COURSE 
-        	union all
-        select 'm' gb , my_course_code, my_cou_name, (
-            SELECT t.img_gro_code
-              from my_course_free c join trip t on c.trip_unique_number = t.trip_unique_number 
-            where my_course_code = m.my_course_code
-            AND cou_ord = '1' AND rownum = 1
-        ) img from my_course m
-        WHERE m.my_cou_state = '1'
-        ORDER BY gb desc, cou_code
+    	
+    	SELECT *
+    	FROM (
+	        select 'a' gb , TO_NUMBER(cou_code) AS cou_code, cou_name, region_code AS region_code , img_gro_code 
+	         FROM COURSE
+	          
+	        union all
+	        
+	        select 'm' gb , 
+	               my_course_code, my_cou_name, my_cou_state,
+	               ( SELECT t.img_gro_code
+	                   from my_course_free c join trip t on c.trip_unique_number = t.trip_unique_number 
+	                  where my_course_code = m.my_course_code
+	                    AND cou_ord = #{couOrd} AND rownum = 1 ) img
+	        from my_course m
+	        WHERE m.my_cou_state = '1'
+	        ORDER BY gb desc )
+    	    <include refid="criteria"></include>
+       
     	) t
-    	<![CDATA[
-    	WHERE ROWNUM <= #{last}) WHERE rnum >= #{first}
-    	]]>	
+    	<![CDATA[ WHERE ROWNUM <= #{last}    	
+    	) WHERE rnum >= #{first} ]]>	
 	</select> 
 	
 

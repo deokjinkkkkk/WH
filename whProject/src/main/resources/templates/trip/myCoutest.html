@@ -88,7 +88,7 @@ position: absolute;
 				<div class="row">
 					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
 						<div class="posts">
-
+						
 									<!-- 작성자 프로필 시작 -->								
 									 <div class="author-thumb">
                                         <img src="img/blog/01.png" class="rounded-circle width-5 xs-width-5" alt="" />
@@ -108,26 +108,27 @@ position: absolute;
 														th:value="${session.name}">
 											</div>
 											<!--좋아요 버튼 기능html 종료-->
-						
+											
 							<!-- post 시작 -->
 							<div class="post">
 								<div class="content">
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
 										<div class="post-title-g margin-20px-bottom text-center">
-											<h5 th:text="${onecourse.couName}"></h5>
-											<p th:text="${onecourse.couContent}" class="margin-30px-bottom"></p>
+											<h5 th:text="${onemvo.myCouName}">나만의 코스명(단일)</h5>
+											<p th:text="${onemvo.myCouContent}" class="margin-30px-bottom">소개글 출력(단일)</p>
 										</div>
 										
-										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력), 해당 여행지 이름 얹기 -->
+										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력) -->
                               			<!-- 사진 클릭 이벤트 걸려면 이 덩어리에 id 걸어줘야 함 -->
                                         <div class="owl-carousel owl-theme tour">
-                                            <div th:each="c : ${course}">
-                                              <div class="tour-item" style="width:500; height:300px; top: 0; left: 0; position: relative;">                                           	
-                                            	<a th:href="@{/tripDetail/{tripCode}(tripCode=${c.tripCode})}">
-                                                <img th:src="${c.imgGroCode}"  class="border-radius-4" style="width:500; height:300px;"/>
-                                                 <p th:text="${c.tripName}" style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;"></p>
+                                            <div th:each="m : ${myCouDetail}">
+                                               <div class="tour-item" style="width:500; height:300px; top: 0; left: 0; position: relative;">                                           	                                            	
+                                            	<!-- tripCode로 해당 여행지로 이동하는 th:href 나중에 걸기... -->
+                                            	<a th:href="@{/tripDetail/{tripCode}(tripCode=${m.tripCode})}">
+                                                <img th:src="${m.imgGroCode}"  class="border-radius-4" style="width:500; height:300px;"/>
+                                                 <p th:text="${m.tripName}" style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;"></p>                                           		
                                            		</a>
-                                           	  </div>
+                                           		</div>
                                             </div>                                
                                         </div>
                               			<!-- 코스 종류 사진 끝 -->
@@ -136,16 +137,15 @@ position: absolute;
                              	<div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <div><p id="total-distance" >총 거리 : </p></div>
                                 <script type="text/javascript">
-                                
                                 var map;
-                                var tripMap = [(${couJson})]
+                                var tripMap = [(${json})]
                                 console.log(tripMap);
                                 
                                 // 각 위도와 경도값을 ajax
                                 function initMap() {
                                     
                                     var defaultOptions = {
-                                        zoom: 12.5,
+                                        zoom: 8,
                                         center:  {
                                 			lat: Number(tripMap[0].tripLat),
                                 			lng: Number(tripMap[0].tripLon)
@@ -166,7 +166,7 @@ position: absolute;
                                     	}
                                     	
                                     	// 코스 순서 번호 
-                                    	var couOrder = Number(tripMap[i].couOrder)
+                                    	var couOrd = Number(tripMap[i].couOrd)
                                     	
                                     	if (i > 0) {
                                     		  var polyline = new google.maps.Polyline({
@@ -188,7 +188,7 @@ position: absolute;
                                     	var marker = new google.maps.Marker({
 	                                        position: cityHall,
 	                                        map: map,                       
-	                                        index: couOrder  // 순서 정보를 가진 변수 추가
+	                                        index: couOrd  // 순서 정보를 가진 변수 추가
 		                                    });
                                     	
                                     	// 마커 위에 말풍선 추가
@@ -223,8 +223,6 @@ position: absolute;
                                 </script>
 								<!-- api 끝 -->
                               			
-
-												
 									</div>
 								</div>
 							</div>

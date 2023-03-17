@@ -12,11 +12,12 @@ public class MyCourseFreeVO {
 	int myCouFreeCode; // 나만의코스지역번호
 	
 	String tripName; // 여행지명
+	int tripCode; // 여행지 기본키
 	String imgGroCode; // 이미지
 	String tripAddr; // 주소
 	String tripLat; //위도
 	String tripLon; //경도
 
-	String myCouIntro; // 코스 소개글
+	String myCouContent; //코스설명
 
 }
