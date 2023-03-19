@@ -17,15 +17,20 @@
 							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">관광정보요청</h3>
 						<form method="post" action="/tourInsert" id="frm" enctype="multipart/form-data">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-9">
 									<div class="form-group">
 										<p>제목</p>
 										<input type="text" name="tourTitle" id="tourTitle"
 											placeholder="제목" maxlength="70" required>
 									</div>
 								</div>
-								<input type="button" onclick="sample6_execDaumPostcode()"
-									value="주소 검색"><br>
+								<div class="col-md-3">
+									<div class="form-group">
+										<p>주소 검색</p>
+										<input type="button" onclick="sample6_execDaumPostcode()"
+									value="주소 검색" class="butn btn-block">
+									</div>
+								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<p>주소</p>

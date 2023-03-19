@@ -8,8 +8,11 @@ import co.admin.wh.member.vo.MemberVO;
 
 public interface TourSerivce {
 	int tourInsert(TourVO vo);
-	List<TourVO> tourList();
+	List<TourVO> tourList(TourVO vo);
 	int imgInsert(ImageVO ivo);
 	int tourUpdate(TourVO vo);
 	int tourAdminInsert(TourVO vo);
+	
+	List<TourVO>tourSearchList(TourVO vo);
+	int getCountTotal(TourVO vo); //총게시글
 }

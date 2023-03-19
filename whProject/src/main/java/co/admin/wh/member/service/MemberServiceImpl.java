@@ -94,4 +94,10 @@ public class MemberServiceImpl implements MemberService {
 		return member.memUpstate(vo);
 	}
 
+	@Override
+	public String idFind(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return member.idFind(vo);
+	}
+
 }
