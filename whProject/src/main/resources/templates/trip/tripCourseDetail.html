@@ -9,11 +9,185 @@
 	<div layout:fragment="content" class="content">
 		<!--좋아요 버튼 css-->
 		<style>
+		/* 댓글 css  */
+.btnDel {
+  width: 70px;
+  height: 40px;
+
+}
+.comment-box {
+margin-bottom: 50px;
+position: relative;
+}
+
+.comment-box .author-thumb {
+float: left;
+margin-right: 15px;
+position: relative;
+z-index: 1;
+}
+
+.comment-box .author-thumb img {
+max-width: 100%;
+}
+
+.comment-box .comment-info h6 {
+margin-top: 0;
+margin-bottom: 5px;
+}
+
+.comment-box .reply {
+margin-top: 10px;
+font-size: 14px;
+}
+
+.comment-box .reply a {
+color: #999;
+margin-left: 10px;
+}
+
+.comment-box .rep-form {
+margin-left: 100px;
+}
+
+.comment-box .comRep {
+width: 100%;
+height: 100px;
+border: 1px solid #ddd;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.comment-box .reButn {
+background-color: #2d8bff;
+color: #fff;
+border: none;
+padding: 8px 20px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+margin-right: 10px;
+}
+
+.comment-box .btnDel {
+float: right;
+background-color: #d9534f;
+color: #fff;
+border: none;
+padding: 8px 20px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+margin-right: 10px;
+}
+
+.comment-box .secChk {
+margin-left: 10px;
+}
+
+.comment-box .comContent {
+white-space: pre-line;
+}
+
+.comment-box p {
+margin: 0;
+font-size: 14px;
+line-height: 1.5;
+color: #666;
+}
+
+.comment-box .title-g {
+margin-bottom: 30px;
+}
+
+.comment-box .title-g h3 {
+margin-top: 0;
+margin-bottom: 15px;
+font-size: 28px;
+line-height: 1.3;
+font-weight: 700;
+color: #333;
+}
+ .posts {
+  margin-top: 40px;
+}
+
+.comments-area {
+  margin-bottom: 40px;
+}
+
+.comment-form {
+  margin-bottom: 60px;
+}
+
+.controls {
+  padding-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.butn {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  padding: 12px 24px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.butn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.butn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.butn:hover span {
+  padding-right: 25px;
+}
+
+.butn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.secChk {
+  margin-left: 10px;
+}
 a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
 	
+}
+/* 댓글 css 끝 */
+		
+a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
 }
 
 .right_area .icon {
@@ -25,8 +199,6 @@ a {
 	border-radius: 50%;
 	border: solid 2px #eaeaea;
 	background-color: #fff;
-	
-	
 }
 
 .icon.heart img {
@@ -37,44 +209,49 @@ a {
 .icon.heart.fas {
 	color: red;
 	position: absolute;
-     left: 700px;
-      top: 50px;
-	
+	left: 700px;
+	top: 50px;
 }
 
 .heart {
 	transform-origin: center;
-	
-	
 }
 
 .heart.active img {
 	animation: animateHeart .3s linear forwards;
-	
 }
 
-@keyframes animateHeart { 0%{
+@
+keyframes animateHeart { 0%{
 	transform: scale(.2);
-	
 }
-40%
+
+40
+%
 {
-transform:scale(1.2);
-
+transform
+:
+scale(
+1.2
+);
 }
-100%
+100
+%
 {
-transform:scale(1);
+transform
+:
+scale(
+1
+);
 }
 }
-#greatBtn{
-position: absolute;
-     left: 700px;
-      top: 50px;
+#greatBtn {
+	position: absolute;
+	left: 700px;
+	top: 50px;
 }
 
-
-#tripBtn{
+#tripBtn {
 	position: absolute;
 	left: 650px;
 	top: 50px;
@@ -86,56 +263,68 @@ position: absolute;
 		<section>
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
+					<div
+						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
 						<div class="posts">
 
-									<!-- 작성자 프로필 시작 -->								
-									 <div class="author-thumb">
-                                        <img src="img/blog/01.png" class="rounded-circle width-5 xs-width-5" alt="" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">쫜덕</a></h6>
-                                        </div>
-                                    <!-- 작성자 프로필 끝 -->
-                                     <!--좋아요 버튼 기능html-->
-											<div class="right_area" id="greatBtn">
-												<button type="button" class="icon heart">
-													<img
-															src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
-															id="greatImg"> 
-												</button>
-													<input type="hidden" id="id" name="id"
-														th:value="${session.name}">
-											</div>
-											<!--좋아요 버튼 기능html 종료-->
-						
+							<!-- 작성자 프로필 시작 -->
+							<div class="author-thumb">
+								<img src="img/blog/01.png"
+									class="rounded-circle width-5 xs-width-5" alt="" />
+							</div>
+							<div class="comment-info">
+								<h6>
+									<a href="javascript:void(0);">쫜덕</a>
+								</h6>
+							</div>
+							<!-- 작성자 프로필 끝 -->
+							<!--좋아요 버튼 기능html-->
+							<div class="right_area" id="greatBtn">
+								<button type="button" class="icon heart">
+									<img
+										src="https://cdn-icons-png.flaticon.com/512/812/812327.png"
+										id="greatImg">
+								</button>
+								<input type="hidden" id="id" name="id"
+									th:value="${session.name}">
+							</div>
+							<!--좋아요 버튼 기능html 종료-->
+
 							<!-- post 시작 -->
 							<div class="post">
 								<div class="content">
 									<div class="blog-list-simple-text post-meta margin-20px-bottom">
 										<div class="post-title-g margin-20px-bottom text-center">
 											<h5 th:text="${onecourse.couName}"></h5>
-											<p th:text="${onecourse.couContent}" class="margin-30px-bottom"></p>
+											<p th:text="${onecourse.couContent}"
+												class="margin-30px-bottom"></p>
 										</div>
-										
+
 										<!-- 코스 종류 사진(옆으로 넘어감, 클릭 시 코스에 대한 상세설명과 관련 사진 출력), 해당 여행지 이름 얹기 -->
-                              			<!-- 사진 클릭 이벤트 걸려면 이 덩어리에 id 걸어줘야 함 -->
-                                        <div class="owl-carousel owl-theme tour">
-                                            <div th:each="c : ${course}">
-                                              <div class="tour-item" style="width:500; height:300px; top: 0; left: 0; position: relative;">                                           	
-                                            	<a th:href="@{/tripDetail/{tripCode}(tripCode=${c.tripCode})}">
-                                                <img th:src="${c.imgGroCode}"  class="border-radius-4" style="width:500; height:300px;"/>
-                                                 <p th:text="${c.tripName}" style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;"></p>
-                                           		</a>
-                                           	  </div>
-                                            </div>                                
-                                        </div>
-                              			<!-- 코스 종류 사진 끝 -->
-                              			
-                              			<!-- 구글 지도 API 이용 -->
-                             	<div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <div><p id="total-distance" >총 거리 : </p></div>
-                                <script type="text/javascript">
+										<!-- 사진 클릭 이벤트 걸려면 이 덩어리에 id 걸어줘야 함 -->
+										<div class="owl-carousel owl-theme tour">
+											<div th:each="c : ${course}">
+												<div class="tour-item"
+													style="width: 500; height: 300px; top: 0; left: 0; position: relative;">
+													<a
+														th:href="@{/tripDetail/{tripCode}(tripCode=${c.tripCode})}">
+														<img th:src="${c.imgGroCode}" class="border-radius-4"
+														style="width: 500; height: 300px;" />
+														<p th:text="${c.tripName}"
+															style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;"></p>
+													</a>
+												</div>
+											</div>
+										</div>
+										<!-- 코스 종류 사진 끝 -->
+
+										<!-- 구글 지도 API 이용 -->
+										<div id="map" style="height: 600px; width: 600px;"></div>
+										&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+										<div>
+											<p id="total-distance">총 거리 :</p>
+										</div>
+										<script type="text/javascript">
                                 
                                 var map;
                                 var tripMap = [(${couJson})]
@@ -218,67 +407,49 @@ position: absolute;
 		                           }
                                                                     
                                 </script>
-                                <script 
-                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&libraries=geometry&callback=initMap">
+										<script
+											src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&libraries=geometry&callback=initMap">
                                 </script>
-								<!-- api 끝 -->
-                              			
+										<!-- api 끝 -->
 
-												
+
+
 									</div>
 								</div>
 							</div>
 							<!-- 포스트 끝 -->
-							
-							<!--  댓글 시작 -->
-                            <div class="comments-area">
-                                <div class="title-g margin-30px-bottom">
-                                    <h3>댓글</h3>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/01.png" class="rounded-circle width-85 xs-width-100" alt="" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Alex Joyrina</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/02.png" alt="" class="rounded-circle width-85 xs-width-100" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Jama Karleny</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box">
-                                    <div class="author-thumb">
-                                        <img src="img/blog/03.png" alt="" class="rounded-circle width-85 xs-width-100" />
-                                    </div>
-                                    <div class="comment-info">
-                                        <h6><a href="javascript:void(0);">Ivonne Drennen</a></h6>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="reply">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 댓글 끝 -->
+
+							<section class="blogs">
+								<div class="posts">
+									<div class="posts">
+										<div class="comments-area"></div>
+										<div class="comment-form">
+											<form id='comment-form' method='post'>
+												<div class="controls">
+													<div class="row">
+														<input type="hidden" th:value="${session.perm}" id="perm">
+														<div class="col-md-12 form-group">
+															<textarea id="comContent" name="comContent"
+																placeholder="댓글 내용" rows="2" required="required"></textarea>
+														</div>
+														<div class="col-md-12">
+															<button type="button" id="butn" class="butn">
+																<span>댓글 달기</span>
+															</button>
+															<label><input type="checkbox" id="lockChk"
+																class="secChk" value="1">비밀</label>
+														</div>
+													</div>
+												</div>
+												<input type="hidden" id="comBoardCode" name="comBoardCode"
+													th:value="${onecourse.couCode}"> <input type="hidden"
+													id="comFlag" name="comFlag" value="CCO">
+											</form>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- 댓글 끝 -->
 						</div>
 					</div>
 				</div>
@@ -287,7 +458,7 @@ position: absolute;
 		<!-- 여행 코스 상세정보 끝 -->
 
 
-<script>
+		<script>
 
 //좋아요 기능 시작
 
@@ -384,6 +555,279 @@ function greatDown(){
           });
     } 
 
+/* 댓글  시작*/
+$(document).ready(function(){
+	getComList() 
+})
+
+$("#butn").click(function(){ //댓글 등록
+	let comContent = $("#comContent").val(); //댓글내용
+	let comId =$("#id").val(); //회원아이디
+	let comOrder = 1 //댓글순서
+	let comBlock = 1 //댓글계층
+	let comFlag = $("#comFlag").val();  //게시물구분
+	let comBoardCode = $("#comBoardCode").val(); //게시물번호
+
+	let comLock = $("#lockChk").val() //비밀댓글
+	if($("#lockChk").is(':checked') == true){
+		comLock = 0
+	}
+	if(comId == ""){
+		alert("로그인 후 이용하세요")
+		return;
+	}; // 로그인 안했을시 댓글 작성 x
+	
+	$.ajax({
+		url:"/comInsert",
+		type:"POST",
+		data: JSON.stringify(
+			{
+				"block" : comBlock, //댓글계층
+				"comContent" :comContent,
+				"id" :comId,
+				"comLock" : comLock,
+				"comOrder" : comOrder,
+				"comFlag" : comFlag, //게시물 구분
+				"comBoardCode" : comBoardCode// 게시물 번호
+			}
+		),
+		contentType:'application/json',
+		success : function(data){
+			console.log("댓글등록")
+			$("#comContent").val("")
+			console.log("====")
+			getComList()
+		},
+		error:function(){
+			alert('등록실패');
+		}
+	});
+});
+
+function getComList(){ //댓글 리스트
+	let str = ""
+	id = $("#id").val()
+	author = $("#perm").val()
+	perm = author.slice(1,-1)
+	console.log(perm)
+	console.log(id)
+	let comFlag = $("#comFlag").val();  //게시물구분
+	let comBoardCode = $("#comBoardCode").val(); //게시물번호
+	    str += '<div class="title-g margin-30px-bottom">'
+		str +='<h3>댓글</h3>'
+		str +='</div>'
+	let comArea =$(".comments-area");
+	$.ajax({
+		url:"/comGetList",
+		type:"POST",
+		data: JSON.stringify(
+				{
+					"comFlag" : comFlag, //게시물 구분
+					"comBoardCode" : comBoardCode// 게시물 번호
+				}
+			),
+		contentType:'application/json',
+		success : function(result){
+			$(".title-g margin-30px-bottom").remove()
+			$(result).each(function(index,item){
+				if(item.block == 1){
+					str += "<div class='comment-box' id='"+item.comCode+"' >"
+					str += '<div class="author-thumb">'
+					str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+					str += '<div class="comment-info">'
+					str += '<h6> <a href="javascript:void(0);" >'+item.name+' </a></h6>'
+					if(item.comLock != 0 || item.id == id || perm == "ADMIN"){
+					str	+= '<p>'+item.comContent+'</p>'
+					}else{
+					str += 	'<p>비밀 댓글입니다.</p>'
+					}
+					if( perm == "ADMIN" || item.id == id){
+					str += '<button type="button" class="btnDel" onclick="comDelete()">삭제</button>'
+					str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
+					}
+					str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
+				}else{
+					str += "<div class='comment-box' id='"+item.comCode+"' style='margin-left: 100px;'>"
+					str += '<div class="author-thumb">'
+					str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
+					str += '<div class="comment-info"> '
+					str += '<h6> <a href="javascript:void(0);" >'+item.name+'</a></h6>'
+					if(item.comLock != '0' || item.id == id || perm == "ADMIN"){
+					str	+= '<p>'+item.comContent+'</p>'
+					}else{
+					str += 	'<p>비밀 댓글입니다.</p>'
+					}
+					if(perm == "ADMIN" || item.id == id){
+					str += '<button type="button" class="btnDel" onclick="reComDelete()">삭제</button>'
+					str += '<button type="button" class="btnDel" onclick="comUpdateForm()">수정</button>'
+					}
+				}
+			//if(item.block == 1){
+				str += '<div class="reply">'
+				str += '<h6>'+item.comDate+'</h6>'
+				str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
+				str += '</div> </div> </div>'
+				str += '<div class="rep-form" id="'+item.comCode+'" style="display:none" text-align: right;>'
+				str += 	'<form id="reply-form " method="post">'
+				str +=  '<div class="controls">'
+				str +=  '<div class="row">'
+				str += '<div class="col-md-12 form-group">'
+				str += '<textarea id="comRep" name="comContent" class="comRep"'
+				str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'
+				str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
+				str += '<button type="button" id="reButn" class="butn" onclick="comReplyInsert()">답글등록</button>'
+				str += '<label><input type="checkbox" class="secChk" value="1">비밀</label>'
+				str +=	'</div>'
+				str += '<div class="col-md-12">'
+				str += '<input type="hidden" name="comGroup" value="'+item.comGroup+'"'
+				str += '</div></div></div></form></div></div>'
+				//}
+			})
+			comArea.html(str);
+		}
+	})
+}
+
+function reComDelete(){ //댓글 삭제
+	let comBox = $(event.target).closest(".comment-box")
+	let reply = comBox.next()
+	console.log($(event.target).text())
+	let comGroup = $(event.target).find("#comGroup").val()
+	let comOrder = 1
+	let comCode = comBox.attr('id')
+	console.log(comCode)
+	//alert 후 true 일경우 삭제 누른 댓글 삭제
+	//false 후 
+	$.ajax({
+		url:"/reComDelete",
+		type:"delete",
+		data:{
+						
+						
+				 comCode
+						//게시물 번호
+					    //댓글 비밀여부
+					}
+		,
+		success : function(data){
+			console.log(data)
+			getComList()
+		}
+	})
+}
+
+function comDelete(){ //댓글 삭제
+	let comBox = $(event.target).closest(".comment-box")
+	let reply = comBox.next()
+	let comGroup = $(event.target).next().next().val()
+	//alert 후 true 일경우 삭제 누른 댓글 삭제
+	//false 후 
+	$.ajax({
+		url:"/comDelete",
+		type:"delete",
+		data:{	
+			comGroup		
+		}	   
+		,
+		success : function(data){
+			console.log(data)
+			getComList()
+		}
+	})
+}
+
+function comReply(){ //답글창 on,off
+	let comBox = $(event.target).closest(".comment-box")
+	let recom = comBox.next()
+	if(recom.is(':visible') != true){	
+		recom.show();
+	}else{
+		recom.hide();
+	}
+	
+}
+//대댓글 댓글 그룹,  
+function comReplyInsert(){
+	let rep = $(event.target).closest(".rep-form").attr('id')
+	let reContent =$(event.target).prev().prev().val()
+	let comId =$("#id").val();
+	let comGroup = $(event.target).prev().val()
+	let comLock = $(event.target).next().val() //비밀댓글
+	let comBlock = '2'
+	let comFlag = $("#comFlag").val();
+	let comBoardCode = $("#comBoardCode").val();
+	if($(event.target).next().is(':checked') == true){
+		comLock = 0
+	}
+	$.ajax({
+		url:"/reComInsert",
+		type:"POST",
+		data: JSON.stringify(
+			{
+				"comContent" :reContent,
+				"id" :comId,
+				"comGroup" : comGroup,
+				"comLock" : comLock,
+				"block" : comBlock,
+				"comFlag" : comFlag, //게시물 구분
+				"comBoardCode" : comBoardCode// 게시물 번호
+				//게시물 번호
+			   //댓글 비밀여부
+			}
+		),
+		contentType:'application/json',
+		success : function(data){
+			console.log("답글등록")
+			$(event.target).prev().val("")
+			getComList()
+		},
+		error:function(){
+			alert('등록실패');
+		}
+	});
+}
+$(".btnUp").on("click")
+
+ function comUpdate(){
+	let comContent =$(event.target).prev().prev().val();
+	let comCode =$(event.target).closest(".comment-box").attr('id');
+	$.ajax({
+		url:"/comUpdate",
+		type:"POST",
+		data: JSON.stringify(
+			{
+				"comContent" :comContent,
+				"comCode" : comCode,
+			}
+		),
+		contentType:'application/json',
+		success : function(data){
+			console.log("답글등록")
+			getComList()
+		},
+		error:function(){
+			alert('등록실패');
+		}
+	});
+}
+
+function comUpdateForm(){
+	
+	let pTag = $(event.target).prev().prev()
+	let content = pTag.text()
+	console.log(content)
+	let delBtn =  $(event.target).prev()
+	let upBtn = $(event.target)
+	
+	$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">'+content+'');
+	$(delBtn).replaceWith('<button type="button" class="btnDel" onclick="resetBtn()">취소</button>')
+	let up = $(upBtn).replaceWith('<button type="button" class="btnDel" onclick="comUpdate()">저장</button>')
+}
+
+function resetBtn(){
+	getComList()
+}
+/* 댓글  끝*/
 
 </script>
 

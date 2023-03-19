@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.member.mapper.MemberMapper">
-	
+	<!-- 로그인  -->
 	<select id="memberSelect"
 			resultType="co.admin.wh.member.vo.MemberVO">
 			SELECT id, pass,name,gender,tel,email,perm,login_way,token,retoken,state
@@ -16,7 +16,7 @@
 		INNER JOIN common c on c.comCode = m.perm
 		where m.id = #{id}
 	</select>
-	
+	<!-- 회원가입 -->
 	<insert id="memberInsert">
 	
 		insert into member(id,pass,name,gender,tel,email,perm ,
@@ -31,6 +31,8 @@
 		<if test="state != null">#{state}</if>
 		)
 	</insert>
+	
+	<!--관리자 회원 리스트  -->
 	<select id="adMemberList" resultType="co.admin.wh.member.vo.MemberVO">
 	select * from (select rownum rn, a.*
 		from (
@@ -40,12 +42,12 @@
 	 )a  where rownum <= #{last} ) b  where rn  >= #{first} 	
 	]]>
 	</select>
-	
+	<!-- 아이디 중복체크  -->
 	<select id="idChk" resultType="boolean">
 		SELECT CASE WHEN COUNT(id) = 1 THEN 0 ELSE 1 END AS ID 
 		FROM MEMBER WHERE id = #{id}
 	</select>
-	
+	<!-- 회원 정보수정  -->
 	<update id="memberUpdate">
 	update member 
 	<set>
@@ -56,22 +58,22 @@
 	</set>
 	where id =#{id}
 	</update>
-	
+	<!-- 회원탈퇴 -->
 	<delete id="memberDelete">
 		delete from member
 		where id = #{id}
 	</delete>
-	
+	<!-- 비밀번호 체크 -->
 	<select id="passChk" resultType="boolean">
 		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
 		FROM MEMBER WHERE id = #{id} AND pass = #{pass}
 	</select>
-	
+	<!--탈퇴 테이블에 회원 정보 이전  -->
 	<insert id="memDel">
 	insert into quit
 	values(#{id},#{pass},#{name},#{gender},#{tel},#{email})
 	</insert>
-	
+
 	<update id="passUpdate">
 	update member
 	<set>
@@ -79,19 +81,19 @@
 	</set>
 	where id = #{id}
 	</update>
-	
+	 <!--아이디 이메일 확인  -->	
 	<select id="emailChk" resultType="boolean">
 		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
 		FROM MEMBER WHERE id = #{id} AND email = #{email}
 	</select>
-	
+	<!-- 회원 수  -->
 	<select id="getCountTotal"
 		parameterType="co.admin.wh.member.vo.MemberVO" 
 		resultType="int">
 		SELECT COUNT(*)
 		FROM MEMBER
 	</select>
-	
+	<!-- 회원 검색 -->
 	<select id="MemberSearchList" resultType="co.admin.wh.member.vo.MemberVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM
 		(
@@ -102,11 +104,20 @@
 	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 	]]>
 	</select>
-	
+	<!-- 회원 상태 변경  -->
 	<update id="memUpstate">
 		UPDATE member
 		SET
 		state= #{state}
 		where id =#{id}
 	</update>
+	
+	<!-- 아이디 찾기 -->
+	<select id="idFind" resultType="String">
+		select id
+		from member
+		where name =#{name}
+		and email = #{email}
+	</select>
+	
 </mapper>
