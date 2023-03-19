@@ -23,9 +23,8 @@
    
    
    <!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
- 			<div class="container">
-               
+		 <section  class="page-title-section bg-img cover-background" 
+			th:style="|background: url('/img/banner/bg1.jpg')|">
                 <h1 class="text-white font-weight-600">여행 지역</h1>
                 <ul>
                     <li>
@@ -35,7 +34,6 @@
                         <span class="active">여행 지역</span>
                     </li>
                 </ul>
-               </div>
         </section>
 	 <!-- 배너끝 -->
 	 
@@ -47,23 +45,26 @@
                                  
                         <p style="font-size: 30px;">전체 여행지<p><hr>
                  <div id="product_order_list">
-			<p><a href="javascript:seoul();">서울</a>&nbsp|&nbsp
-			<a href="javascript:busan();">부산</a>&nbsp|&nbsp
-			<a href="javascript:daegu();">대구</a>&nbsp|&nbsp
-			<a href="javascript:incheon();">인천</a>&nbsp|&nbsp
-			<a href="javascript:gwangju();">광주</a>&nbsp|&nbsp
-			<a href="javascript:daejeon();">대전</a>&nbsp|&nbsp
-			<a href="javascript:ulsan();">울산</a>&nbsp|&nbsp
-			<a href="javascript:sejong();">세종</a>&nbsp|&nbsp
-			<a href="javascript:gyeonggi();">경기</a>&nbsp|&nbsp
-			<a href="javascript:gangwon();">강원</a>&nbsp|&nbsp
-			<a href="javascript:chungbuk();">충북</a>&nbsp|&nbsp
-			<a href="javascript:chungnam();">충남</a>&nbsp|&nbsp
-			<a href="javascript:jeonbuk();">전북</a>&nbsp|&nbsp
-			<a href="javascript:jeonnam();">전남</a>&nbsp|&nbsp
-			<a href="javascript:kyungbuk();">경북</a>&nbsp|&nbsp
-			<a href="javascript:kyungnam();">경남</a>&nbsp|&nbsp
-			<a href="javascript:jeju ();">제주</a>&nbsp|&nbsp</p>
+                 
+			<p>
+			<a href="javascript:region(1);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(6);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(4);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(2);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(5);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(3);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(7);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(8);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(37);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(38);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(35);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(36);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</p>
 		</div>
             	<div id="product_order_list">
 					<p>
@@ -72,6 +73,21 @@
 					</p>
 				</div>
 				<script th:inline="javascript">
+				
+				// 지역...
+				var region = function(tripRegion) {
+					$.ajax({
+						type: 'post',
+						url: "/tripRegion",
+						data: {tripRegion},
+						success: function(data) {
+							$("#tripListContent").replaceWith(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+					});
+				};
 				
 				// 최신순 정렬
 				var latestList = function(url) {
@@ -109,11 +125,7 @@
 				<form action="/tripNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
                 	<br><input type="text" class="form-control" id="selfSearch" name="tripName" placeholder="여행지를 검색하세요"><br><br>
                 </form>
-                
-                <form action="/tripRegionSearchList" method="post" name="searchFrm">
-                	<br><input type="text" class="form-control" id="selfSearch" name="tripAddr" placeholder="주소를 검색하세요"><br><br>
-                </form>
-                
+  
                 <script>
                 
                 // 여행지명 검색 리스트
@@ -167,7 +179,6 @@
    					 }
    				});
        			</script>
-               [[${tripList}]]
           <div class="row margin-30px-bottom" id="tripListContent">
              <div class="col-12 margin-40px-bottom">                
                 <div  th:each="t, nStat: ${tripList}" class="card card-list margin-15px-bottom">

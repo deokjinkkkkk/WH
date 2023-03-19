@@ -23,6 +23,7 @@ public interface TripMapper {
 
 	List<Map<String, Object>> selfsearch(Map<String, Object> paramMap) throws Exception; // 여행지이름 검색어 자동완성
 
+	List<TripVO> tripRegion(TripSearchVO tvo); // 지역 정렬
 	
 	// 정렬
 	List<TripVO> latestList(TripSearchVO vo); // 최신순 정렬

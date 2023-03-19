@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script>
+function gopage(page) {
+		location.href = "trip?page=" + page;
+	frmSearch.page.value = page;
+	frmSearch.submit();
+	}  
+</script>
+
+<div class="row margin-30px-bottom" id="tripListContent">
+	<div class="col-12 margin-40px-bottom">
+		<div th:each="t, nStat: ${tripSelect}"
+			class="card card-list margin-15px-bottom">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
+					<div class="card-list-img">
+						 <img th:if="${t.tripCode < 2221}" th:src="${t.imgGroCode}" style="width:440; height:280px;" class="rounded" alt="" />
+                         <img th:if="${t.tripCode >= 2221}" th:src="'/image/'+${t.imgPath}" style="width:440; height:280px;" class="rounded" alt="" />
+					</div>
+					<div class="card-list-img"></div>
+				</div>
+				<div class="col-md-7 col-lg-8" id="trip">
+					<div
+						class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
+						<div class="d-flex justify-content-between align-items-center">
+							<h5 class="card-title no-margin-bottom font-size22">
+								<a th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"
+									class="text-extra-dark-gray">[[${t.tripName}]]</a>
+							</h5>
+						</div>
+						<p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
+						<!-- 해시태그 -->
+						<ul class="tags">
+							<li><a href="#">#</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- 페이징 추가 해주세요 -->
+		<div class="gopage" align="center">
+			<nav aria-label="Page navigation example" class="gopage">
+				<ul class="pagination">
+					<li class="page-item" th:if="${paging.startPage > 1}"><a
+						class="page-link"
+						th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
+					<li class="page-item"
+						th:classappend="${paging.page}==${num} ? 'active'"
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+						<a class="page-link" th:href="|javascript:gopage(${num})|">
+							[[${num}]] </a>
+					</li>
+					<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+						<a class="page-link"
+						th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<!-- 페이징 끝 -->
+
+	</div>
+</div>
+</html>
