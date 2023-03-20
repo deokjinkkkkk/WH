@@ -77,10 +77,13 @@
 		t.trip_code,
 		t.img_gro_code,
 		t.trip_unique_number,
-		m.cou_ord
+		m.cou_ord,
+        i.img_path
 		FROM
-		my_course_free m left join trip t
-		on m.trip_unique_number = t.trip_unique_number
+        trip t left outer join my_course_free m
+        on m.trip_unique_number = t.trip_unique_number
+        left outer join image i
+        on t.img_gro_code = i.img_gro_code
 		WHERE m.my_course_code = #{myCourseCode}
 	</select>
 
