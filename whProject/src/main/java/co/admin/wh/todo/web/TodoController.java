@@ -1,6 +1,7 @@
 package co.admin.wh.todo.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.todo.mapper.TodoMapper;
+import co.admin.wh.todo.service.TodoService;
 import co.admin.wh.todo.vo.TodoVO;
 
 @Controller
 public class TodoController {
 	@Autowired TodoMapper todoMapper;
-	
+	@Autowired TodoService todoService;
 	//todolist 페이지
 	@RequestMapping("/todolist") 
 	public String todoList(Model model) {
@@ -86,5 +88,17 @@ public class TodoController {
 		int count = todoMapper.todoCount(vo);
 		return count;
 	}
+	
+	//태그 자동완성
+	@RequestMapping("/todoTagAuto")
+	@ResponseBody
+	public Map<String, Object> todoTagAuto(@RequestParam Map<String, Object> paramMap) throws Exception{
+		List<Map<String,Object>>resultList = todoService.tagSearch(paramMap);
+		paramMap.put("resultList", resultList);
+		return paramMap;
+	}
+	
+	//slice기능
+	
   
 }

@@ -17,6 +17,6 @@ public class TagServiceTest {
 	@Transactional
 	@Commit
 	public void 태그테스트() {
-		tagservice.saveTag("밥 먹 어 #qqqq #미국여행", 1);
+		tagservice.saveTag("여기는 내용입니다 #순심 #경아 #바다", 1);
 	}
 }
