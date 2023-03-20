@@ -25,5 +25,7 @@ public interface MemberService {
 	List<MemberVO>MemberSearchList(MemberVO vo);
 	int getCountTotal(MemberVO vo); //총회원수
 	int memUpstate(MemberVO vo);
+	
+	String idFind(MemberVO vo); // 아이디 찾기
 
 }

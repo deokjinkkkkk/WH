@@ -31,4 +31,7 @@ public class TourVO {
 	
 	String tripUniqueNumber;
 	
+	Integer first;  //페이징 
+	Integer last;
+	
 }

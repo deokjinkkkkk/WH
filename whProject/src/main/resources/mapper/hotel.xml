@@ -26,11 +26,8 @@
 		#{hotelName} AS hotel_name,
 		#{star} AS star,
 		#{hotelAddr} AS hotel_addr,
-		#{hotelInfo} AS hotel_info,
-		#{hotelContent} AS hotel_content,
 		#{hotelRegion} AS hotel_region,
 		#{roomGrade} AS room_grade,
-		#{roomCount} AS room_count,
 		#{roomPrice} AS room_price,
 		#{roomLimit} AS room_limit,
 		#{img1} AS img1,
@@ -43,15 +40,13 @@
 		ON (HOTEL.hotel_name = new.hotel_name)
 		WHEN MATCHED THEN
 		UPDATE SET HOTEL.room_price = new.room_price,
-		hotel.room_grade = new.room_grade,
-		hotel.room_count = new.room_count
+		hotel.room_grade = new.room_grade
 		WHEN NOT MATCHED THEN
-		INSERT (hotel_id, hotel_name, star, hotel_addr, hotel_info,
-		hotel_content, hotel_region, room_grade, room_count,
+		INSERT (hotel_id, hotel_name, star, hotel_addr, hotel_region, room_grade,
 		room_price, room_limit, img1, img2, img3, img4, img5)
 		VALUES (new.hotel_id, new.hotel_name, new.star,
-		new.hotel_addr, new.hotel_info, new.hotel_content,
-		new.hotel_region, new.room_grade, new.room_count,
+		new.hotel_addr, 
+		new.hotel_region, new.room_grade,
 		new.room_price, new.room_limit, new.img1,
 		new.img2, new.img3, new.img4, new.img5)
 	</insert>
@@ -76,7 +71,17 @@
 		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
 		WHERE ((r.check_in IS NULL and r.check_out IS NULL)
 		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
-		 AND h.hotel_region = #{hotelRegion} AND h.room_limit >= #{humanCount}
+		   <choose>
+		   		<!-- 제주로 검색하면 서귀포도 함께 검색되도록 -->
+			   <when test="hotelRegion == '제주'">
+			   AND (h.hotel_region = '제주' or h.hotel_region = '서귀포')
+			   </when>
+		   	   <otherwise>
+		   	   AND h.hotel_region = #{hotelRegion}
+		   	   </otherwise>
+		   </choose>
+		  AND h.room_limit >= #{humanCount}
+		  and (h.room_price between #{priceRangeMin} and #{priceRangeMax})
 	<![CDATA[
 	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 	]]>
@@ -117,17 +122,8 @@
 		</selectKey>
 		insert into Reservation
 		values
-		(#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{payState},#{hotelId},#{id},0)
+		(#{resId},#{childCount},#{humanCount},#{resName},#{resTel},#{resEmail},#{resRequest},#{checkIn}+1,#{checkOut}+1,sysdate,#{totalPay},#{id},0,#{hotelId})
 	</insert>
-
-	<!-- 예약 후 hotel테이블 room_count-1 -->
-	<update id="minusRoomCount" parameterType="int">
-		update hotel
-		<set>
-			<if test="roomCount != null">room_count = room_count-1</if>
-		</set>
-		where hotel_id = #{hotelId}
-	</update>
 
 	<!-- 예약정보 조회 -->
 	<select id="readReservInfo"
@@ -241,16 +237,14 @@
 	<select id="goodRatingList" parameterType="HotelVO"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-		h.HOTEL_CONTENT,
-		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		SELECT h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_PRICE, h.ROOM_LIMIT,
 		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5, COUNT(g.GREAT_N_CODE) as GREAT_COUNT
 		FROM HOTEL h
 		LEFT JOIN GREAT g
 		ON h.HOTEL_ID = g.GREAT_N_CODE
-		GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR, h.HOTEL_INFO,
-		h.HOTEL_CONTENT,
-		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_COUNT, h.ROOM_PRICE, h.ROOM_LIMIT,
+		GROUP BY h.HOTEL_ID, h.HOTEL_NAME, h.STAR, h.HOTEL_ADDR,
+		h.HOTEL_REGION, h.ROOM_GRADE, h.ROOM_PRICE, h.ROOM_LIMIT,
 		h.IMG1, h.IMG2, h.IMG3, h.IMG4, h.IMG5
 		ORDER BY GREAT_COUNT DESC
 		<![CDATA[
@@ -301,30 +295,27 @@
 	  from reservation r
 	  inner join hotel h on r.hotel_id = h.hotel_id
 	  left join cancel c on r.res_id = c.res_id
-
-	    <if test="option == 'resId'.toString()">
-	      where r.res_id like '%'|| (#{content}) ||'%'
+		<if test="checkIn != null and checkOut != null">
+			where (#{checkIn} BETWEEN r.check_in AND r.check_out
+	   		AND #{checkOut} BETWEEN r.check_in AND r.check_out)
+		</if>
+	    <if test="option == 'id'.toString()">
+	      and r.res_id like '%'|| (#{content}) ||'%'
 	    </if>
 	    <if test="option == 'hotelName'.toString()">
-	      where h.hotel_name like '%'|| (#{content}) ||'%'
+	      and h.hotel_name like '%'|| (#{content}) ||'%'
 	    </if>
-	    <if test="option == 'roomGrade'.toString()">
-	      where h.room_grade like '%'|| (#{content}) ||'%'
-	    </if>
-	    <if test="option == 'checkIn'.toString()">
-	      where r.check_in like '%'|| (#{content}) ||'%'
-	    </if>
-	    <if test="option == 'checkOut'.toString()">
-	      where r.check_out like '%'|| (#{content}) ||'%'
+	    <if test="option == 'grade'.toString()">
+	      and h.room_grade like '%'|| (#{content}) ||'%'
 	    </if>
 	    <if test="option == 'resName'.toString()">
-	      where r.res_name like '%'|| (#{content}) ||'%'
+	      and r.res_name like '%'|| (#{content}) ||'%'
 	    </if>
-	    <if test="option == 'resTel'.toString()">
-	      where r.res_tel like '%'|| (#{content}) ||'%'
+	    <if test="option == 'tel'.toString()">
+	      and r.res_tel like '%'|| (#{content}) ||'%'
 	    </if>
-	    <if test="option == 'resEmail'.toString()">
-	      where r.res_email like '%'|| (#{content}) ||'%'
+	    <if test="option == 'email'.toString()">
+	      and r.res_email like '%'|| (#{content}) ||'%'
 	    </if>
 	</select>
 	
@@ -337,23 +328,17 @@
 		</set>
 		where res_id = #{resId}
 	</update>
-	
-	<!-- 관리자 예약내역 기간별 검색 -->
-<!-- 	<select id="adminDateSearch" resultType="co.admin.wh.hotel.vo.CancelVO"> -->
-<!-- 		SELECT h.* -->
-<!-- 		FROM hotel h -->
-<!-- 		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id -->
-<!-- 		WHERE (r.check_in IS NULL and r.check_out IS NULL) -->
-<!-- 		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out) -->
-<!-- 	</select> -->
 
-<!-- 예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false) -->
-	<select id="compareToDate" resultType="boolean">
-		SELECT h.*
-		FROM hotel h
-		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
-		WHERE (r.check_in IS NULL and r.check_out IS NULL)
-		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out)
+<!-- 예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false) => select 내역 없으면 예약안됨 -->
+	<select id="compareToDate" resultType="co.admin.wh.hotel.vo.ReservationVO">
+	   SELECT h.*
+	   FROM hotel h 
+	   LEFT JOIN reservation r 
+	   ON h.hotel_id = r.hotel_id 
+	   WHERE ((r.check_in IS NULL and r.check_out IS NULL)
+	   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out - INTERVAL '1' DAY
+	   		AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
+	   and h.hotel_id=#{hotelId}
 	</select>
 
 </mapper>

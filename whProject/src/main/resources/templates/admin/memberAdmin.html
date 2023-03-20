@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin/indexAdmin}">
+	layout:decorate="~{admin/indexAdmin}">
 <body layout:fragment="adminContent">
 	<!-- 페이징 -->
 	<script>
@@ -13,7 +13,8 @@
 
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<form class="form-inline mr-auto w-100 navbar-search" action="/memberSearch">
+			<form class="form-inline mr-auto w-100 navbar-search"
+				action="/memberSearch">
 				<div class="input-group">
 					<input type="text" class="form-control bg-light border-0 small"
 						placeholder="ID 검색" aria-label="Search"
@@ -27,7 +28,6 @@
 			</form>
 			<h6 class="m-0 font-weight-bold text-primary">회원정보</h6>
 		</div>
-
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%"
@@ -52,60 +52,58 @@
 							<td th:text=${m.email}></td>
 							<td th:if="${m.state == 0}">정상</td>
 							<td th:if="${m.state == 1}">정지</td>
-							<td><button type="button" class="btn btn-danger"
-									data-toggle="modal" data-target="#myModal" onclick="memModal()">회원관리</button></td>
+							<td>
+								<button type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#myModal" onclick="memModal()">회원관리</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</div>
 
-	<div class="modal hide" id="myModal">
-		<form id="frm" method="post">
-			<div class="modal-header">
-				<!--<button class="close" data-dismiss="modal">x</button> -->
-				<div class="modal-dialog" role="document">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">회원정보</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<div class="modal-body" id="modal2"></div>
-							</div>
-							<div class="modal-body">
-								<input type="button" class="btn btn-primary" value="회원삭제"
-									id="del"> 
-									<input type="button" class="btn btn-primary" value="회원제재" id="san">
+		<div class="modal fade" id="myModal">
+			<form id="frm" method="post">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">회원정보</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div id="modal2"></div>
+							<div class="d-flex justify-content-center">
+								<button type="button" class="btn btn-danger mr-2" id="del">회원삭제</button>
+								<button type="button" class="btn btn-warning" id="san">회원제재</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>
-	<!-- 페이징 추가 해주세요 -->
-	<div class="gopage" align="center">
-		<nav aria-label="Page navigation example" class="gopage">
-			<ul class="pagination">
-				<li class="page-item" th:if="${paging.startPage > 1}"><a
-					class="page-link"
-					th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
-				<li class="page-item"
-					th:classappend="${paging.page}==${num} ? 'active'"
-					th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-					<a class="page-link" th:href="|javascript:gopage(${num})|">
-						[[${num}]] </a>
-				</li>
-				<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-					<a class="page-link"
-					th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-				</li>
-			</ul>
-		</nav>
+			</form>
+		</div>
+		<!-- 페이징 추가 해주세요 -->
+		<div class="gopage" align="center">
+			<nav aria-label="Page navigation example" class="gopage">
+				<ul class="pagination">
+					<li class="page-item" th:if="${paging.startPage > 1}"><a
+						class="page-link"
+						th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
+					<li class="page-item"
+						th:classappend="${paging.page}==${num} ? 'active'"
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+						<a class="page-link" th:href="|javascript:gopage(${num})|">
+							[[${num}]] </a>
+					</li>
+					<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+						<a class="page-link"
+						th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 	<!-- 페이징 끝 -->
 	<script type="text/javascript">
@@ -119,28 +117,48 @@
 			tel = $(event.target).parent().prev().prev().prev().text()
 			email = $(event.target).parent().prev().prev().text()
 			state = $(event.target).parent().prev().text()
-			
-			
+
 			var sanBtn = $('#san')
-			if(state == "정지"){
-				$(sanBtn).replaceWith('<input type="button" class="btn btn-primary" value="정지해제" id="san2" onclick="sanUpdate()">');
-			}else
-			
-			console.log(id)
-			let str = '<form id="frm" method="post">'
-			str +=	'<label class="rad-label"> <input type="text" value="'+id+'" name="id" id="id">'
-			str += '<label class="rad-label"><input type="text" value="'+name+'" name="name" id="name"> </label>'
-			str += '<label class="rad-label"><input type="text" value="'+gender+'" name="gender" id="gender"> </label>'
-			str += '<label class="rad-label"><input type="tel" value="'+tel+'" name="tel" id="tel"> </label>'
-			str += '<label class="rad-label"><input type="text" value="'+email+'" name="email" id="email"></label>'
+			if (state == "정지") {
+				$(sanBtn)
+						.replaceWith(
+								'<button type="button" class="btn btn-warning" id="san2" onclick="sanUpdate()">정지해제</button>');
+			} else
+
+				console.log(id)
+			let str = '<div class="form-group">'
+			str += '<label class="rad-label">아이디</label>'
+			str += '<input type="text" value="'+id+'" name="id" id="id" readonly>'
+			str += '</div>'
+			str += '<div class="form-group">'
+			str += '<label class="rad-label">이름</label>'
+			str += '<input type="text" value="'+name+'" name="name" id="name" readonly>'
+			str += '</div>'
+			str += '<div class="form-group">'
+			str += '<label class="rad-label">성별</label>'
+			str += '<input type="text" value="'+gender+'" name="gender" id="gender" readonly>'
+			str += '</div>'
+			str += '<div class="form-group">'
+			str += '<label class="rad-label">전화번호</label>'
+			str += '<input type="text" value="'+tel+'" name="tel" id="tel" readonly>'
+			str += '</div>'
+			str += '<div class="form-group">'
+			str += '<label class="rad-label">이메일</label>'
+			str += '<input type="text" value="'+email+'" name="email" id="email" readonly>'
+			str += '</div>'
+			str += '<div class="form-group">'
+			str += '<label class="rad-label">회원상태</label>'
+
 			if (state == "정상") {
-				str += '<label class="rad-label"><input type="text" value="정상" id="state2"  eadonly></label>'
+
+				str += '<input type="text" class="form-control" value="정상" id="state2"  readonly>'
 				str += '<input type="hidden" value="0" name="state" id="state" text="정상">'
+				str += '</div>'
 			} else {
-				str += '<label class="rad-label"><input type="text" value="정지" id="state2" readonly></label>'
+				str += '<label class="rad-label"><input type="text" class="form-control" value="정지" id="state2" readonly></label>'
 				str += '<input type="hidden" value="1" name="state" id="state" text="정상">'
+				str += '</div>'
 			}
-			str += '</form>'
 			let modalBody = $("#modal2")
 			modalBody.html(str)
 		}
@@ -166,14 +184,14 @@
 			$("#frm").attr("action", "/adminDelete")
 			$("#frm").submit();
 		})
-		
+
 		$("#san").click(function() {
 			alert("아이디를 정지 시키겠습니까?")
 			$("#state").val("1")
 			$("#frm").attr("action", "/stateUpdate")
 			$("#frm").submit();
 		})
-		
+
 		function sanUpdate() {
 			alert("아이디 정지를 해제 하시겠습니까?")
 			$("#state").val("0")

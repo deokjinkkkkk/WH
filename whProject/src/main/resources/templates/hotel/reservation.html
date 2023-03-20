@@ -137,15 +137,15 @@
 																						</div>
 																					</li>																			
 																					<li>
-<!-- 																						<div class="row align-items-center"> -->
-<!-- 																							<div class="col-md-6"> -->
-<!-- 																								<h6 class="font-size17 no-margin-bottom">Price</h6> -->
-<!-- 																							</div> -->
-<!-- 																							<div> -->
-<!-- 																								<p th:text="|${h.roomPrice}원|" -->
-<!-- 																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p> -->
-<!-- 																							</div> -->
-<!-- 																						</div> -->
+																						<div class="row align-items-center">
+																							<div class="col-md-6">
+																								<h6 class="font-size17 no-margin-bottom">Price</h6>
+																							</div>
+																							<div>
+																								<p th:text="|${#numbers.formatInteger(param.price, 3, 'COMMA')}원|"
+																									class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																							</div>
+																						</div>
 																					</li>
 																				</ul>
 																			</div>
@@ -183,6 +183,7 @@
 																<script type="text/javascript">
 																function onlyNumber(){
 																	   if((event.keyCode > 48 && event.keyCode < 57 ) 
+																		  || (event.keyCode >= 96 && event.keyCode <= 105)
 																	      || event.keyCode == 8 //backspace
 																	      || event.keyCode == 37 || event.keyCode == 39 //방향키 →, ←
 																	      || event.keyCode == 46  // delete
@@ -198,25 +199,11 @@
                                                                     <textarea class="form-control" id="resRequest" name="resRequest" rows="5"></textarea>
                                                                 </div>
 															</div>
-<!-- 															<div class="margin-30px-top"> -->
-<!-- 																<h5>Card Info</h5> -->
-<!-- 															</div> -->
-
-															
-
 														</div>
 													</div>
 												</div>
 												<div class="tab-pane fade" id="finish3" role="tabpanel">
 													<p style="margin-top: 25px; font-size: 30px;">곧 예약이 완료됩니다!</p>
-<!-- 													<div class="alert alert-success m-t-sm m-b-lg" role="alert"> -->
-<!-- 														Thank you! Your booking is confirmed. Invoice Sent in your -->
-<!-- 														email address</div> -->
-<!-- 													<h5>Booking Details</h5> -->
-<!-- 													<img src="img/content/booking-complete.jpg" alt="" -->
-<!-- 														class="rounded" /> -->
-<!-- 													<div class="padding-30px-top"> -->
-<!-- 														<h6>예약정보 확인</h6> -->
 														<div class="checkbox_group">
 														  <p class="scheme-g">숙박 약관</p>
 												            <textarea style="font-size:13px;" rows="7">
@@ -428,19 +415,6 @@ Store Room에서의 보관품 3개월
 	    $("#check_all").prop("checked", is_checked);
 	});
 </script>
-<!-- 														<p>Lorem ipsum dolor sit amet, consectetur adipisicing -->
-<!-- 															elit, sed do eiusmod tempor incididunt ut labore et -->
-<!-- 															dolore magna aliqua. Ut enim ad minim veniam, quis -->
-<!-- 															nostrud exercitation ullamco laboris nisi ut aliquip ex -->
-<!-- 															ea commodo consequat. Duis aute irure dolor in -->
-<!-- 															reprehenderit in voluptate velit esse cillum dolore eu -->
-<!-- 															fugiat nulla pariatur. Excepteur sint occaecat cupidatat -->
-<!-- 															non proident, sunt in culpa qui officia deserunt mollit -->
-<!-- 															anim id est laborum. Sed ut perspiciatis unde omnis iste -->
-<!-- 															natus error sit voluptatem accusantium doloremque -->
-<!-- 															laudantium, totam rem aperiam, eaque ipsa quae ab illo -->
-<!-- 															inventore veritatis et quasi architecto beatae vitae -->
-<!-- 															dicta sunt explicabo.</p> -->
 														<div class="row margin-30px-top margin-40px-bottom">
 															<div class="col-md-4">
 																<ul class="list-style-1 no-margin">
@@ -469,7 +443,7 @@ Store Room에서의 보관품 3개월
 															</div>
 															<div class="col-md-4">
 																<h5 class="no-margin-bottom">
-																	Total: <span class="text-theme-color">[[${h.roomPrice}]]원</span>
+																	Total: <span class="text-theme-color">[[${#numbers.formatInteger(param.price, 3, 'COMMA')}]]원</span>
 																</h5>
 																<br><br>
 													<button id="check_module" class="butn" type="button">결제</button>
@@ -481,10 +455,10 @@ Store Room에서의 보관품 3개월
 					    $("#check_module").click(function () {
 					    	// 약관 동의여부 체크
 					    	 if($("#check_1").is(":checked") == false){
-					             alert("숙박 약관에 동의해주세요.");
+					             swal("숙박 약관에 동의해주세요.","","warning");
 					             return;
 					         }else if($("#check_2").is(":checked") == false){
-					             alert("예약 대행 약관에 동의해주세요.");
+					        	 swal("예약 대행 약관에 동의해주세요.","","warning");
 					             return;
 					         }else{
 					        	 // 결제정보 DB에 저장
@@ -494,6 +468,7 @@ Store Room에서의 보관품 3개월
 								let resRequest = $('#resRequest').val(); // 요청사항
 								let checkIn = new Date('[[${res.checkIn}]]'); // 체크인날짜
 								let checkOut = new Date('[[${res.checkOut}]]'); // 체크아웃날짜
+								let totalPay = parseInt([[${param.price}]])
 								
 							        var IMP = window.IMP; // 생략가능
 							        IMP.init('imp53270324'); 
@@ -537,9 +512,9 @@ Store Room에서의 보관품 3개월
 														"checkIn": checkIn,
 														"checkOut": checkOut,
 														"id": 'userId',
-														"totalPay": '[[${h.roomPrice}]]',
+														"totalPay": totalPay,
 						//			 					payState: rsp.status,
-														"payState": 2,
+// 														"payState": 2,
 														"hotelId": '[[${h.hotelId}]]'
 													}
 												),

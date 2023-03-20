@@ -9,10 +9,10 @@
 <body>
 	<div layout:fragment="content" class="content">
 <style>
-/* a { */
-/* 	text-decoration-line: none; */
-/* 	color: black; */
-/* } */
+ a { 
+text-decoration-line: none; 
+	color: black; 
+ } 
 
 /* .navbar { */
 /* 	position: fixed; */
@@ -24,7 +24,10 @@
 .container-fluid {
 	justify-content: space-between;
 	min-width: 1000px;
-	width: 1000px
+	text-align: center;
+	width: 1000px;
+	background-color: #FAFAFA;
+	
 }
 
 /* .navbar-search { */
@@ -105,6 +108,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	margin: 10px;
+	
 }
 
 .like {
@@ -432,11 +436,12 @@ span {
       <div class="container-fluid">
          <a class="navbar-brand" href="#"> </a>
          <div class="navbar_icons">
-            <a class="material-icons" href="/main">home</a>
+            <a class="material-icons" href="/main"></a>
             <!-- 홈링크 걸기 -->
-            <a class="material-icons-outlined">send</a>
+            <a class="material-icons-outlined"></a>
             <!-- 채팅기능 걸기 -->
-            <span class="material-icons-outlined" id="add_feed">add_box</span>
+            <span class="material-icons-outlined" id="add_feed">등록하기</span>
+          
             <!-- 등록 -->
          </div>
       </div>
@@ -565,7 +570,7 @@ function getDiaryList() {
             //console.log("조회되나????????");
             $(result).each(function(index,item){
                 if(id === item.id){ // diary -> item 수정
-                    str += '<div class="diaryCode" style="border: 1px solid black; background-color:white;" data-code="' + item.diaryCode + '">' 
+                    str += '<div class="diaryCode" style="border: 2px double black; background-color:white;   border-radius: 10px;" data-code="' + item.diaryCode + '">' 
                     str += '<div class="profile-id">' + item.id + '</div>' 
                     str += '<div class="feed-img">' 
                     str += '<img id="feed-img" style="width:400px;" src="/image/' + item.imgPath + '">'

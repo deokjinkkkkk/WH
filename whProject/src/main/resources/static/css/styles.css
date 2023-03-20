@@ -1203,10 +1203,10 @@ ul.countdown li {
   .blogs .comments-area .comment-box:last-child {
     margin-bottom: 30px; }
 .blogs .comment-box .author-thumb {
-  width: 80px;
+  width: 0px;
   float: left; }
 .blogs .comment-box .comment-info {
-  margin-left: 100px; }
+  margin-left: 30px; }
   .blogs .comment-box .comment-info h6 {
     font-size: 16px;
     font-weight: 600;
