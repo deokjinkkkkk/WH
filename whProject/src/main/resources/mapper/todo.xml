@@ -28,6 +28,8 @@
 </insert>
  
  
+
+ 
  <!-- "keyProperty" = 해당 값을 어떤 변수에 저장할 것인지를 지정,
   "order"= "BEFORE" : "INSERT" 문 실행 전 
   			"AFTER" : 실행 후에 "SELECT" 문이 실행 -->
@@ -51,20 +53,16 @@
 	WHERE to_do_code = #{todoCode}
 </delete>
 
- <!-- id 값이 일치하는 행 중에서 to_do_flag ==1 만 업데이트 -->
-<!-- <update id="todoComplete" parameterType="map">
-  UPDATE to_do_list 
-  SET to_do_flag = 2
-   WHERE  
-    AND to_do_flag = 1
-</update> -->
 
-<!--todoFlag값이 1인것을 찾아서 2로 변경시켜주기!  -->
+
+<!--todoFlag값이 1인것을 찾아서 2로 변경시켜주기! 
+		**완료->전체 로 변경 가능하도록 or을 사용하여 2->1변경도 가능하도록 수정
+  -->
 <update id="todoComplete" parameterType="map">
   UPDATE to_do_list 
   SET to_do_flag = #{todoFlag}
   WHERE to_do_code = #{todoCode}
-   AND to_do_flag = 1
+   AND (to_do_flag = 1 OR to_do_flag = 2)
 </update>
 
  <!--  -->

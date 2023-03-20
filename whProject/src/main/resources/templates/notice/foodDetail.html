@@ -17,6 +17,28 @@
       </ul>
    </section>
 		<!-- 배너끝 -->
+		
+		<script>
+		function deletePost() {
+		    var id = id;
+		    var foodCode = foodCode;
+		    
+		    if (confirm("게시글을 삭제하시겠습니까?")) {
+		        $.ajax({
+		            type: "POST",
+		            url: "/foodDelete",
+		            data: {id: id, foodCode: foodCode},
+		            success: function(result) {
+		                alert("게시글이 삭제되었습니다.");
+		                window.location.href = "/food";
+		            },
+		            error: function(xhr, status, error) {
+		                alert("게시글 삭제 중 오류가 발생했습니다.");
+		            }
+		        });
+		    }
+		}
+		</script>
 	 <form id="frm" method="post" action="/foodDelete">
 	<div class="container">
 		<table class="table">
@@ -28,7 +50,7 @@
 			</tr>
 			<tr>
 				<th width=20% class="text-center warning">작성자</th>
-				<td width=30% class="text-center" th:text="${food.id}"></td>
+				<td width=30% class="text-center" th:value="${food.id}"></td>
 				<th width=20% class="text-center warning">조회수</th>
 				<td width=30% class="text-center" th:text="${food.foodHit}"></td>
 			</tr>
@@ -51,9 +73,11 @@
 			</tr>
 			<tr>
 				<td colspan="4" class="text-right">
-					<a th:href="@{/foodUpdateForm(foodCode=${food.foodCode})}" class="btn btn-xs btn-info">수정</a>
+					<a th:href="@{/foodUpdateForm(foodCode=${food.foodCode})}" class="btn btn-xs btn-info"
+					th:if="${food.id == session.name}">수정</a>
 					<input type="hidden" name="foodCode" th:value="${food.foodCode}" />
-					<button type="submit" class="btn btn-xs btn-warning">삭제</button>
+					<button type="submit" class="btn btn-xs btn-warning"
+					th:if="${food.id == session.name}" onclick="deletePost">삭제</button>
 					<a href="/food" class="btn btn-xs btn-success">목록</a>
 				</td>
 			</tr>

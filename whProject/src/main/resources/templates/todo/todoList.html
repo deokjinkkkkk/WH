@@ -47,7 +47,10 @@
                  <div class="controls">
                   <div class="row">
                     <input type="hidden" name="id" id="id" th:value="${session.name}">
+                    
                     <div class="col-md-12 form-group">
+                    <div class="tax">
+                   <div class="col-md-9 form-group">
                      <textarea
                        id="todoContent"
                        name="todoContent"
@@ -55,6 +58,16 @@
                        rows="1"
                        required="required"
                      ></textarea>
+                     </div>
+                     <div>
+                      <div class="col-md-3 form-group">
+                     	<form  name="tag-search" id="tag-search" autocomplete="on">
+                    <input type="text" name="keyword" value="" placeholder="#태그검색"  style="width: 100px;"/>
+                     	
+                     	</form>
+                     	</div>
+                     	</div>
+                     </div>
                      <div class="input-group input-daterange">
                        <input id="todoDate" type="date" />
                      </div>
@@ -97,7 +110,8 @@
          </div>
         </div>
      </section>
-
+  <div id="js-btn-wrap" class="btn-wrap"> <a href="" class="button"  onclick="moreList()">더보기</a> </div>
+  
      <script>
      
     /*--------------------------------
@@ -211,10 +225,10 @@
 	console.log($(this))
  	   let golist = $(this)
  	   let todoContent = $(this).find("#todoContent").val(); //내용
-        let todoId = $(this).find("#id").val(); //회원아이디
-        let todoDate = $(this).find("#todoDate").val(); //날짜
-        let todoCode = $(this).attr("id");//리스트 순서 --> 이거를 1로 고정시켜놔서 code가 1인 컬럼만 바뀌고있었음 ㅜㅜ
-        let todoFlag = 2//구분(1.todolist - 2.완료)
+       let todoId = $(this).find("#id").val(); //회원아이디
+       let todoDate = $(this).find("#todoDate").val(); //날짜
+       let todoCode = $(this).attr("id");//리스트 순서 --> 이거를 1로 고정시켜놔서 code가 1인 컬럼만 바뀌고있었음 ㅜㅜ
+       let todoFlag = 2//구분(1.todolist - 2.완료)
 
               
               
@@ -237,6 +251,40 @@
              }
         });
     });
+    
+    
+    /*--------------------------------
+    //완료->전체리스트 이동
+    -----------------------------------*/  
+    $(".todolost-complete").on('dblclick', '.golist', function(e){
+        console.log($(this));
+        let golist = $(this);
+        let todoContent = $(this).find("#todoContent").val(); //내용
+        let todoId = $(this).find("#id").val(); //회원아이디
+        let todoDate = $(this).find("#todoDate").val(); //날짜
+        let todoCode = $(this).attr("id"); //리스트 순서
+        let todoFlag = 1; //구분(1.todolist - 2.완료)
+
+        // to_do_list 테이블에서 todoFlag 컬럼의 상태가 2에서 1로 변경
+        $.ajax({
+            url: "/updateTodoFlag",
+            type: "POST",
+            data: JSON.stringify({
+                "todoCode" : todoCode,
+                "todoFlag": todoFlag
+            }),
+            contentType: 'application/json',
+            success: function (data) {
+            	golist.removeClass("todolost-complete").addClass("todolist-area"); //"완료"에서 "전체"로 바꾸기
+            	$(".todolist-area").append(golist);      
+                golist.remove(); //리스트에서 삭제
+            },
+            error: function () {
+                alert('to_do_list 테이블 todoFlag 변경 실패');
+            }
+        });
+    });
+
     
     
  
@@ -286,7 +334,11 @@
          
          });  
          
-         
+    
+        
+        
+        
+        
 
 
          
