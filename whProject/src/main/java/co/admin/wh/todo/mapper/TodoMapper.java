@@ -21,4 +21,6 @@ public interface TodoMapper {
 	List<TodoVO> TodoList(int todoFlag);
 
 	int updateTodoFlag(TodoVO vo); // 상태변경 설정
+	
+	public int getMaxNo(); // 게시물 max 번호
 }

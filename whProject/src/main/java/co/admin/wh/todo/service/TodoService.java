@@ -24,6 +24,8 @@ public interface TodoService {
 
 	int tagInsert(TodoVO vo);
 	
+	public int getMaxNo(); // 게시물 max 번호
+	
 	
 	
 }

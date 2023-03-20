@@ -24,16 +24,23 @@ import co.admin.wh.todo.vo.TodoVO;
 public class TodoController {
 	@Autowired TodoMapper todoMapper;
 	@Autowired TodoService todoService;
+	
+	
 	//todolist 페이지
 	@RequestMapping("/todolist") 
 	public String todoList(Model model) {
 		
 		model.addAttribute("todoList", todoMapper.TodoList(1)); //1을 안넣어주니까 todoFlag 값이 0이였음..
+		
+		//게시글 max 번호
+		model.addAttribute("maxNo", todoService.getMaxNo());
+		
 		return "todo/todoList";
 	}
 	
 	
-	//db에 담긴 todolist 띄우기
+	
+	//db에 담긴 todolist 띄우기 + 더보기 페이징
 	@GetMapping("/todoGetList")
 	@ResponseBody
 	public List<TodoVO> todoCount(@RequestParam int todoFlag, TodoVO vo, Model model) {

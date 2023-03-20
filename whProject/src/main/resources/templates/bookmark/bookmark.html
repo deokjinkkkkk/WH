@@ -27,37 +27,38 @@
 	</section>
 	<!-- 배너끝 -->
 
-	<section class="blogs">
-	<div class="col-lg-2 col-sm-6 sm-margin-30px-bottom">
-                            <h3 class="footer-title-style1">북마크</h3>
-                            <ul class="list-style-1 no-margin-bottom">
-                                <li><a href="/bookmark" role="tab" data-flag="HT">숙소</a></li>
-                                <li><a href="/bookmarkTr" role="tab" data-flag="TR">여행지</a></li>
-                            </ul>
-                        </div>
-                        </section>
-                        <section>
+	<section class="blogs" style="position: left;">
 		<div class="container">
 			<div class="row">
+				<div class="col-lg-2 col-sm-6 sm-margin-30px-bottom">
+					<h3 class="footer-title-style1">북마크</h3>
+					<ul class="list-style-1 no-margin-bottom">
+						<li><a href="/bookmark" role="tab" data-flag="HT">숙소</a></li>
+						<li><a href="/bookmarkTr" role="tab" data-flag="TR">여행지</a></li>
+					</ul>
+				</div>
+
+
 				<div
 					class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 
 
-					
+
 
 					<div id="mainHide">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-md-2">번호</th>
-									<th class="col-md-8" style="text-align: center;">호텔 이름</th>
+
+									<th class="col-md-8" style="text-align: center;">호텔명</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="h : ${bookHotel}">
-									<td th:text="${h.bookCode}"></td>
-									
-									<td style="text-align: center;"><a th:text="${h.hotelName}"
+
+
+									<td style="text-align: center;"><a
+										th:text="${h.hotelName}"
 										th:href="@{/hotelDetail/{hotelId}(hotelId=${h.hotelId})}"></a>
 									</td>
 								</tr>
