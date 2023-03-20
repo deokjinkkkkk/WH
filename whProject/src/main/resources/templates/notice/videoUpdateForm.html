@@ -6,17 +6,48 @@
 
 	<!-- 내용 시작 -->
 <section layout:fragment="adminContent">
-<section>
+<section>		<script th:inline="javascript">
+   		function gopage(page) {
+   			$("#page").val(page)
+   			goregion()
+
+   		}  
+   		
+   		function region(videoRegion){
+   			$("#videoRegion").val(videoRegion);
+   			$("#page").val(1)
+   			goregion()
+   		}
+		// 서울 -->
+ 		var goregion = function(){
+ 			var videoRegion = $("#videoRegion").val()
+ 			var page = $("#page").val()
+ 			$.ajax({ 
+ 				type: 'post', 
+				url: "/regions",
+				data: {videoRegion, page},
+ 				success: function(data) { 
+ 					$("#hotelListContent").replaceWith(data);
+ 				}, 
+ 				error: function(request, status, error) { 
+ 					swal("","에러가 발생했습니다.","error"); 
+ 				} 
+			}); 
+ 		};
+ 		
+ 		
+ 	
+		</script>
 			<div class="container">
 	<h4>영상게시판 수정페이지</h4><hr>
 				<form id="frm" action="/videoUpdate" method="post">
 					<div class="row">
 					<div id="a" style="border-top:1px groove; border-bottom:10px solid; border-left:1px groove; border-right:1px groove; padding:10px; width:800px;">
 						<div class="form-group col-md-7">
-							[필수]제목<input type="text" th:value="${d.videoName}" name="videoName" id="videoName">
+							제목<input type="text" th:value="${d.videoName}" name="videoName" id="videoName">
 						</div>
-						<div class="form-group col-md-7">
-							[필수]내용<input type="text"  th:value="${d.videoContent}" name="videoContent" id="videoContent">
+						<div class="form-group col-md-7">내용<textarea rows="10" cols="100"  name="videoContent" id="videoContent">[[${d.videoContent}]]</textarea>
+						
 						</div>		
 						<div class="form-group col-md-7">
 							지역<select name="videoRegion" id="videoRegion">

@@ -15,10 +15,14 @@ xmlns:util="http://www.springframework.org/schema/util"
 	
 	<iframe width="500" height="400" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div><hr>
-<span>[[${d.videoContent}]]</span>
+<pre>[[${d.videoContent}]]</pre>
 <hr>
 <span></span>
-<a th:href="|/videoUpdateForm?videoCode=${d.videoCode}|" class="btn btn-primary btn-lg">수정하기</a>
+<a href="/video" class="btn btn-primary btn-lg" style="float:left;">목록</a>
+<a th:href="|/videoUpdateForm?videoCode=${d.videoCode}|" class="btn btn-primary btn-lg" style="float:right;">수정하기</a>
+<form action="/videoDelete">
+<input type="hidden" th:value="${d.videoCode}" name="videoCode" id="videoCode">
+<button class="btn btn-primary btn-lg" style="float:right;">삭제하기</button></form>
 </div>
 </section>
 </body>

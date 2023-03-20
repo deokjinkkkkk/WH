@@ -74,4 +74,8 @@
 		= video_Hit + 1
 		where video_Code = #{videoCode}
 	</update>
+	
+	<delete id="videoDelete">
+		Delete from video where video_code=#{videoCode}
+	</delete>
 </mapper>

@@ -63,13 +63,13 @@
  			var page = $("#page").val()
  			$.ajax({ 
  				type: 'post', 
-				url: "/region",
+				url: "/regions",
 				data: {videoRegion, page},
  				success: function(data) { 
  					$("#hotelListContent").replaceWith(data);
  				}, 
  				error: function(request, status, error) { 
- 					alert(error); 
+ 					swal("","에러가 발생했습니다.","error"); 
  				} 
 			}); 
  		};
@@ -80,6 +80,7 @@
 <!-- 페이징 -->
 
    <!-- 페이징 끝-->
+   <div class="container">
 				<div class="row margin-30px-bottom" id="hotelListContent">
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
 						<div class="hotel border border-radius-4 package h-100">
@@ -96,7 +97,7 @@
 					</div>
 				</div>
 
-				
+				</div>
 	
 </section>
 </div>

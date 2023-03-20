@@ -83,13 +83,14 @@
 	    },
 	    createRoom: function () {
 	        if ('' === this.room_name) {
-	            alert('방 제목을 입력해 주십시요.');
+	           // alert('방 제목을 입력해 주십시요.');
+	           swal("","방 제목을 입력해 주십시요","warning");
 	            return;
 	        } else {
 	            // 이미 같은 이름의 채팅방이 있는지 확인
 	            const existingRoom = this.chatrooms.find(room => room.roomName === this.room_name);
 	            if (existingRoom) {
-	                alert('이미 같은 이름의 채팅방이 존재합니다.');
+	                swal("","이미 같은 이름의 채팅방이 존재합니다.","warning");
 	                return;
 	            }
 
@@ -116,7 +117,8 @@
 	        }
 	    },
 	    enterRoom: function (roomId) {
-	    	  var sender = prompt('대화명을 입력해 주세요.');
+	    	
+	    	  var sender = prompt("대화명을 입력해 주세요.");
 	    	  if (sender !== '' && sender !== null) {
 	    	    var password = prompt('비밀번호를 입력해 주세요.');
 	    	    if (password !== null) { // 변경된 부분
@@ -136,7 +138,7 @@
 	    	          location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
 	    	        })
 	    	        .catch((error) => {
-	    	          alert('비밀번호가 일치하지 않습니다.');
+	    	        	swal("","비밀번호가 일치하지 않습니다.","warning");
 	    	        });
 	    	    } else { // 변경된 부분
 	    	      localStorage.setItem('wschat.sender', sender);
@@ -144,7 +146,7 @@
 	    	      location.href = '/chat/room/enter/' + roomId + '?roomId=' + roomId;
 	    	    }
 	    	  } else {
-	    	    alert('대화명을 입력해주세요.');
+	    		  swal("","대화명을 입력해주세요.","warning");
 	    	  }
 	    	},
 
@@ -152,11 +154,12 @@
         deleteRoom(roomId) {
             axios.post(`/chat/room/delete/${roomId}`)
               .then(response => {
-                alert('채팅방이 삭제되었습니다.');
+            	  swal("","채팅방이 삭제되었습니다.","warning");
+                
                 this.findAllRoom();
               })
               .catch(error => {
-                alert('채팅방을 생성한 사람만 삭제할 수 있습니다.');
+            	  swal("","채팅방을 생성한 사람만 삭제할 수 있습니다.","warning");
                 console.error(error);
               });
           },

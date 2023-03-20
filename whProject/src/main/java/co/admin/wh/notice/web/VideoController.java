@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.admin.wh.common.service.CommonService;
-import co.admin.wh.common.vo.CommonVO;
 import co.admin.wh.notice.mapper.VideoMapper;
 import co.admin.wh.notice.service.VideoService;
-import co.admin.wh.notice.vo.CompanionVO;
 import co.admin.wh.notice.vo.Paging;
 import co.admin.wh.notice.vo.VideoSearchVO;
 import co.admin.wh.notice.vo.VideoVO;
@@ -32,36 +30,43 @@ public class VideoController {
 	
 	@RequestMapping("/video")
 	public String video(Model model,VideoVO vo, @ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
-		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
-		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		paging.setPageUnit(6);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(5); // 한 페이지에 보여질 페이지 갯수
 
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		
-		paging.setTotalRecord(videoService.videoTotal(svo));
 		
-		model.addAttribute("video", videoService.videoSelect(svo));
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		 if (svo.getVideoRegion() == null) {
+		        svo.setVideoRegion("11");
+		    }
+		  
+		model.addAttribute("video", videoService.region(svo));
+		
 		return "notice/video";
 	}
 	
 	@RequestMapping("/videoSelect")
 	public String videoSelect(Model model,VideoVO vo, @ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
-		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
-		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		paging.setPageUnit(6);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(5); // 한 페이지에 보여질 페이지 갯수
 		
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		
 		paging.setTotalRecord(videoService.videoTotal(svo));
-		
+		 if (svo.getVideoRegion() == null) {
+		        svo.setVideoRegion("11");
+		    }
 		model.addAttribute("video", videoService.region(svo));
 		return "notice/videoSelect";
 	}
 	
 	@RequestMapping("/region")
-	public String seoul(Model model,@ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
-		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
-		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+	public String region(Model model,@ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(6);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(5); // 한 페이지에 보여질 페이지 갯수
 		
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
@@ -74,7 +79,21 @@ public class VideoController {
 		return "notice/sortingVideo";
 	}
 	
-	
+	@RequestMapping("/regions")
+	public String regions(Model model,@ModelAttribute("hvo") VideoSearchVO svo, Paging paging) {
+		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+		
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(videoService.videoTotal(svo));
+		
+		List<VideoVO> videoSelect = videoService.region(svo);
+		model.addAttribute("videoSelect", videoSelect);
+		
+		return "notice/sortingVideoSelect";
+	}
 	
 	@RequestMapping("/videoForm")
 	public String videoForm(Model model) {
@@ -120,5 +139,10 @@ public class VideoController {
 		return "redirect:video";
 	}
 	
-	
+	@RequestMapping("/videoDelete")
+	public String videoDelete(VideoVO vo) {
+		videoService.videoDelete(vo);
+		return "redirect:video";
+		
+	}
 }
