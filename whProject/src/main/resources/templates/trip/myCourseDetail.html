@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/index}">
+	layout:decorate="~{index}">
 
 
 <body>
@@ -70,7 +70,8 @@
 											<tr th:each="m : ${myCouDet}">
 												<td class="couOrd" th:text="${m.couOrd}" th:data-freecode="${m.myCouFreeCode}" th:id="${m.couOrd}"></td>
 												<td><a th:href="@{/tripDetail/{tripCode}(tripCode=${m.tripCode})}">
-													<img th:src="${m.imgGroCode}" style="width:200px; height:130px;"></a></td>											
+													<img th:if="${m.tripCode < 2221}"  th:src="${m.imgGroCode}" style="width:200px; height:130px;">
+													<img th:if="${m.tripCode >= 2221}"  th:src="'/image/'+${m.imgPath}" style="width:200px; height:130px;"></a></td>											
 												<td><a th:href="@{/tripDetail/{tripCode}(tripCode=${m.tripCode})}" th:text="${m.tripName}"></a></td>
 												<td th:text="${tripAddr}"></td>
 												<td><button onclick="myCouDetailDel()" type="button" class="btn btn-danger">삭제</button></td>
