@@ -275,16 +275,48 @@ body {
 									<div class="form-group">
 										<!-- 여기 datepicker안먹어서 일단 인풋타입 text에서 date로 바꿔둠 자동완성이랑 충돌나는듯 -->
 										<label class="margin-5px-bottom">checkin</label> <input
-											type="date"
+											type="text"
 											class="form-control date no-margin-bottom padding-10px-tb"
 											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
 									</div>
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkout</label> <input
-											type="date"
+											type="text"
 											class="form-control date no-margin-bottom padding-10px-tb"
 											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
 									</div>
+									
+									<script>
+                              $(function() {
+                                 $(document).ready(function() {
+         
+                                    $('#checkIn').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        startDate : '0d',
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var startDate = new Date(selected.date.valueOf());
+                                        $('#checkOut').datepicker('setStartDate', startDate);
+                                    });
+         
+                                    $('#checkOut').datepicker({
+                                        format : "yyyy-mm-dd",
+                                        language : "ko",
+                                        todayHighlight : true,
+                                        autoclose : true
+                                    }).on('changeDate', function(selected){
+                                        var endDate = new Date(selected.date.valueOf());
+                                        $('#checkIn').datepicker('setEndDate', endDate);
+                                    });
+                                    
+                                    
+                                 });
+         
+                              });
+                           </script>
+                           
 									<div class="form-group">
 										<label class="margin-5px-bottom">지역</label> <select
 											class="form-control padding-10px-tb" id="hotelRegion"
@@ -372,7 +404,7 @@ body {
 
 							
 
-		<!-- 가격 검색 -->
+		// 가격 검색
 		var numberSetComma = function(val){
 		 while (/(\d+)(\d{3})/ .test(val.toString())){
 			val = val.toString().replace( /(\d+)(\d{3})/, '$1' + ',' + '$2' );
