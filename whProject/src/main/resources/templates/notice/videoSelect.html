@@ -4,6 +4,8 @@
 	layout:decorate="~{index}">
 <body>
 	<div layout:fragment="content" class="content">
+<input type="hidden" id="page" name="page" value="1">
+<input type="hidden" id="videoRegion" name="videoRegion" th:value="${param.videoRegion}">
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
@@ -42,14 +44,27 @@
 			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 
 		</div>
+		</div>
 		<script th:inline="javascript">
-		
+   		function gopage(page) {
+   			$("#page").val(page)
+   			goregion()
+
+   		}  
+   		
+   		function region(videoRegion){
+   			$("#videoRegion").val(videoRegion);
+   			$("#page").val(1)
+   			goregion()
+   		}
 		// 서울 -->
- 		var region = function(videoRegion){
+ 		var goregion = function(){
+ 			var videoRegion = $("#videoRegion").val()
+ 			var page = $("#page").val()
  			$.ajax({ 
  				type: 'post', 
 				url: "/region",
-				data: {videoRegion},
+				data: {videoRegion, page},
  				success: function(data) { 
  					$("#hotelListContent").replaceWith(data);
  				}, 
@@ -58,6 +73,8 @@
  				} 
 			}); 
  		};
+ 		
+ 		
  	
 		</script>
 <!-- 페이징 -->
@@ -82,5 +99,6 @@
 				
 	
 </section>
+</div>
 </body>
 </html>
