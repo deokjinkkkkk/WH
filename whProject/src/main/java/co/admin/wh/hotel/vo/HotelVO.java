@@ -8,8 +8,6 @@ public class HotelVO{
 	public String hotelName; // 호텔이름
 	public double star; // 별점
 	public String hotelAddr;
-	public String hotelInfo; // 객실정보
-	public String hotelContent; // 상세정보
 	public String hotelRegion; // 지역
 	public String roomGrade; // 방 등급
 	public long roomCount; // 방 개수
@@ -23,18 +21,14 @@ public class HotelVO{
 	public HotelVO() {};
 
    public HotelVO(String hotelName,
-		   double star, String hotelAddr, String hotelInfo,
-           String hotelContent, String hotelRegion,String roomGrade,
-		   long roomCount, long roomPrice, long roomLimit, String img1,
+		   double star, String hotelAddr, String hotelRegion,String roomGrade,
+		   long roomPrice, long roomLimit, String img1,
 		   String img2,String img3,String img4,String img5){
 	  this.hotelName = hotelName;
 	  this.star = star;
 	  this.hotelAddr = hotelAddr;
-	  this.hotelInfo = hotelInfo;
-	  this.hotelContent = hotelContent;
 	  this.hotelRegion = hotelRegion;
 	  this.roomGrade = roomGrade;
-	  this.roomCount = roomCount;
 	  this.roomPrice = roomPrice;
 	  this.roomLimit = roomLimit;  
 	  this.img1 = img1;
@@ -43,5 +37,9 @@ public class HotelVO{
 	  this.img4 = img4;
 	  this.img5 = img5;
    }
+	
+	//예약 가능한 호텔 검색 시 필요
+	public int priceRangeMin; // 최저금액
+	public int priceRangeMax; // 최고금액
 	
 }

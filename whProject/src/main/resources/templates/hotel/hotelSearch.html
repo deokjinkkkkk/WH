@@ -2,7 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
+<style type="text/css">
+::-webkit-input-placeholder{color:#ccc;}
+		::-moz-placeholder{color:#ccc;}
+		:-ms-input-placeholder{color:#ccc;}
 
+		body{background:#eee;}
+		#wrap{margin:0 auto;}
+		#wrap h1{padding:20px 0;border-bottom:2px solid #aaa;margin-bottom:40px;font-size:24px;color:#000000;text-align:center;}
+		#wrap h1 span{font-size:14px;color:#000;}
+		.home{background:#e93a84;right:10px;top:10px;margin-right:inherit;}
+
+		.slider-price-wrap{margin:0 auto;width:240px;}
+		.slider-price{position:relative;margin:0 auto;width:222px;height:2px;background:#41465c;}
+		.slider-price .ui-slider-handle{position:absolute;top:-9px;width:18px;height:18px; margin-left:-9px;border-radius:50%;border:1px solid #41465c;background:#fff;box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);outline:none;}
+		.slider-price .ui-slider-range{position:absolute;height:2px;background:#41465c;}
+		.slider-price-wrap .slider-result{margin-top:20px;width:240px;font-size:14px;}
+		.slider-price-wrap .slider-result:after{content:"";display:block;clear:both;}
+		.slider-price-wrap .slider-result .left{float:left;width:50%;}
+		.slider-price-wrap .slider-result .right{float:right;width:50%;text-align:right;}
+		.slider-price-wrap .slider-result .num{font-size:14px;color:#000000;width:inherit;}
+		.slider-price-wrap .slider-result .right .num{text-align:right;}
+		.slider-price-wrap .slider-result .unit{position:relative;top:4px;}
+</style>
 <body>
 	<div layout:fragment="content" class="content">
 	
@@ -34,7 +56,7 @@
 		<!-- start blog section -->
 		<section>
 			<div class="container">
-				<p style="font-size: 30px;">추천 호텔<p><hr>
+				<p style="font-size: 30px;">검색 결과<p><hr>
 				<div class="row">
 					<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom blogs">
 						<div class="row margin-30px-bottom">
@@ -52,11 +74,10 @@
 													th:text="${h.hotelRegion}" class="ti-location-pin"></span></span>
 											</div>
 											<div>
-												<!--<span class="font-size30 text-dark">549$</span> -->
+												<span th:text="|₩${#numbers.formatInteger(h.roomPrice, 3, 'COMMA')}|"></span>
 											</div>
 										</div>
 										<a th:href="@{/hotelDetail/{hotelId}(hotelId = ${h.hotelId}, checkIn=${paging.checkIn}, checkOut=${paging.checkOut}, hotelRegion=${paging.hotelRegion}, humanCount=${paging.humanCount}, childCount=${paging.childCount})}" class="butn">Details</a>
-
 									</div>
 								</div>
 							</div>
@@ -85,7 +106,7 @@
 						<div class="side-bar">
 							<div class="widget">
 								<button class="butn btn-block" onClick="location.href='/hotelToday'">
-									<i class="fa fa-search"></i> go jeju
+									<i class="fa fa-search"></i> 오늘 예약 가능한 제주 호텔은?
 								</button>
 								<br><br>
 								<hr>
@@ -95,13 +116,13 @@
 								<form action="#!" method="post">
 									<div class="form-group">
 										<label class="margin-5px-bottom">checkin</label> <input
-                                 type="text" th:value="${paging.checkIn}"
+                                 type="date" th:value="${paging.checkIn}"
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
                            </div>
                            <div class="form-group">
                               <label class="margin-5px-bottom">checkout</label> <input
-                                 type="text" th:value="${paging.checkOut}"
+                                 type="date" th:value="${paging.checkOut}"
                                  class="form-control date no-margin-bottom padding-10px-tb"
                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
                            </div>
@@ -173,41 +194,137 @@
 											<option th:value="5" th:selected="${paging.childCount eq '5'}">5명</option>
 										</select>
 									</div>
+									<!-- 가격 범위 검색 -->
+									<div id="wrap">
+										<div class="slider-price-wrap">
+											<div id="priceRangeSet" class="slider-price"></div><br>
+											<div class="slider-result"  style="margin-bottom: 20px;">
+												<span class="left">
+													<input type="text" th:value=${paging.priceRangeMin} class="num col-md-4" id="priceRangeMin" name="priceRangeMin" title="50000" style="ime-mode:disabled;" onkeypress="txtOnlyNum(event)" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"  />
+													<span class="unit">원 ~ </span>
+												</span>
+												<span class="right">
+													<input type="text" th:value=${paging.priceRangeMax} class="num col-md-4" id="priceRangeMax" name="priceRangeMax" title="1000000" style="ime-mode:disabled;" onkeypress="txtOnlyNum(event)" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"  />
+													<span class="unit">원</span>
+												</span>
+											</div>
+										</div><!-- // slider-price-wrap -->
+							
+									</div>
+									<!-- // wrap -->
 									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
 								</form>
 							</div>
 							
-							<script>
-							
-							 // 예약할 수 있는 호텔 검색어
+														<script>
+							// 페이징할 때 검색 정보 계속 가지고 있게
+							 document.getElementById("searchBtn").onclick = function () {
+							    
 							  let checkIn = document.getElementsByName("checkIn")[0].value;
 							  let checkOut = document.getElementsByName("checkOut")[0].value;
 							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
 							  let humanCount =  document.getElementsByName("humanCount")[0].value;
 							  let childCount =  document.getElementsByName("childCount")[0].value;
+							  let priceRangeMin = (document.getElementsByName("priceRangeMin")[0].value).replace(/,/g,''); // replace함수 이용하여 모든 ,를 제거
+							  let priceRangeMax = (document.getElementsByName("priceRangeMax")[0].value).replace(/,/g,'');
 							  
-							// 페이징할 때 검색 정보 계속 가지고 있게
-							 document.getElementById("searchBtn").onclick = function () {
-							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+"&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount;
-							  
-// 							  console.log(checkIn)
-// 							  console.log(hotelRegion)
-// 							  console.log(humanCount)
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+
+									  "&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount
+									  +"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax;
 							 };
 							 
-// 							 function detailBtn(e){
-// 								 $(e.target)
-// 							 }
+							 var numberSetComma = function(val){
+								 while (/(\d+)(\d{3})/ .test(val.toString())){
+									val = val.toString().replace( /(\d+)(\d{3})/, '$1' + ',' + '$2' );
+								 }
+								 return val;
+								};
+								var numberDelComma = function(val){
+								 return parseInt(val.replace(/,/g, ""));
+								};
+								var txtOnlyNum = function(e){
+									var keycode = (window.netscape) ? e.which : e.keyCode;
+									if(!(keycode == 0 || keycode == 8 ||(keycode >=48 && keycode <= 57 ))){
+										if(window.netscape){
+											e.preventDefault();
+										}else{
+											e.returnValue = false;
+										}
+									}
+								}
+								var initPriceRange = function(minVal,maxVal){
+									//슬라이더 init
+									var priceRS = $("#priceRangeSet");
+									var priceRMax = $("#priceRangeMax");
+									var priceRMin = $("#priceRangeMin");
+
+									priceRS.slider({
+										range: true,
+										min: minVal,
+										max: maxVal,
+										values: [ minVal, maxVal ],
+										slide: function( event, ui ) {
+											priceRMin.val(numberSetComma(ui.values[0]));
+											priceRMax.val(numberSetComma(ui.values[1]));
+										}
+									});
+									//텍스트 폼에 최초 최대값 세팅
+									priceRMin.val(numberSetComma(priceRS.slider( "values", 0 ))).attr("title","가격 최소값(숫자만 입력 가능, " + numberSetComma(priceRS.slider( "values", 0 )) + " 이상)");
+									priceRMax.val(numberSetComma(priceRS.slider( "values", 1 ))).attr("title","가격 최대값(숫자만 입력 가능, " + numberSetComma(priceRS.slider( "values", 1 )) + " 이하)");
+
+									//접근성 처리를 위한 텍스트 폼과 slider UI 연동
+									priceRMin.bind({
+										keyup : function(){
+											if($(this).val().length > 0){
+												$(this).val(numberSetComma(numberDelComma($(this).val())));
+											}
+										},
+										blur : function(){
+											var originNum = numberDelComma($(this).val());
+											var maxFormVal = numberDelComma(priceRMax.val());
+											if(originNum < minVal){
+												alert("최소 기준가격은  " + numberSetComma(minVal) + "원 입니다. 최소 기준가격 이상으로 입력해주세요.");
+												$(this).val(numberSetComma(minVal));
+												$(this).focus();
+											}
+											if(originNum >= maxFormVal){
+												alert("가격 검색 시작값이 끝값보다 크거나 같습니다. 끝값인 " + priceRMax.val() + "보다 작은 값을 입력해주세요.");
+												$(this).val(numberSetComma(minVal));
+												$(this).focus();
+											}
+											priceRS.slider({values : [numberDelComma(priceRMin.val()), numberDelComma(priceRMax.val())]});
+										}
+									});
+									priceRMax.bind({
+										keyup : function(){
+											if($(this).val().length > 0){
+												$(this).val(numberSetComma(numberDelComma($(this).val())));
+											}
+										},
+										blur : function(){
+											var originNum = numberDelComma($(this).val());
+											var minFormVal = numberDelComma(priceRMin.val());
+											if(originNum > maxVal){
+												alert("최대 기준가격은  " + numberSetComma(maxVal) + "원 입니다. 최대 기준가격 이하로 입력해주세요.");
+												$(this).val(numberSetComma(maxVal));
+												$(this).focus();
+											}
+											if(originNum <= minFormVal){
+												alert("가격 검색 끝값이 시작값보다 작거나 같습니다. 시작값인 " + priceRMin.val() + "보다 큰 값을 입력해주세요.");
+												$(this).val(numberSetComma(maxVal));
+												$(this).focus();
+											}
+											priceRS.slider({values : [numberDelComma(priceRMin.val()), numberDelComma(priceRMax.val())]});
+										}
+									});
+								};
+
+								$(function(){
+									initPriceRange(50000,1000000); //로드시 혹은 로드 후 리스팅된 상품가격의 최소 최대값
+								});
 							</script>
-							
-							<div class="widget">
-								<div class="widget-title">
-									<h3>Destination</h3>
-								</div>
-								<div class="price-range"></div>
-							</div>
 						</div>
 					</div>
 				</div>

@@ -6,9 +6,10 @@
 
 <style>
 .top-search {
-    padding: 5px 0;
-    display: block;
+	padding: 5px 0;
+	display: block;
 }
+
 .box-wrapper {
 	display: flex;
 	flex-wrap: wrap;
@@ -26,341 +27,302 @@
 	line-height: 1.4em;
 	height: 100px;
 }
+
 .shadow-inset-all {
-  box-shadow: inset 0 0 5px #333;
-  position: relative;
+	box-shadow: inset 0 0 5px #333;
+	position: relative;
 }
+
 .shadow-bottom-right {
 	box-shadow: 5px 5px 5px -5px #333;
-	
-}
-@media (min-width: 992px){
-.col-lg-4 {
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
 }
 
-.line-banner {
-	height: 680px;
-}
-
-#sectionMain {
-	margin: 0 auto;
-	display: inline-block;
-	text-align: center;
-	padding: 0;
-}
-
-.page-container .title {
-	font-size: 139px;
-	line-height: 1;
-	margin-bottom: 30px;
-}
-
-@font-face {
-	font-family: 'TheJamsil5Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
-		format('woff2');
-	font-weight: 500;
-	font-style: normal;
-}
-
-* {
-	font-family: 'TheJamsil5Bold';
-}
-
-.modal {
-	text-align: center;
-
-}
-
-@media screen and (min-width: 768px) {
-	.modal:before {
-		display: inline-block;
-		vertical-align: middle;
-		content: " ";
+@media ( min-width : 992px) {
+	.col-lg-4 {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
 	}
-}
+	.line-banner {
+		height: 680px;
+	}
+	#sectionMain {
+		margin: 0 auto;
+		display: inline-block;
+		text-align: center;
+		padding: 0;
+	}
+	.page-container .title {
+		font-size: 139px;
+		line-height: 1;
+		margin-bottom: 30px;
+	}
+	@font-face {
+		font-family: 'TheJamsil5Bold';
+		src:
+			url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+			format('woff2');
+		font-weight: 500;
+		font-style: normal;
+	}
+	* {
+		font-family: 'TheJamsil5Bold';
+	}
+	.modal {
+		text-align: center;
+	}
+	@media screen and (min-width: 768px) {
+		.modal:before {
+			display: inline-block;
+			vertical-align: middle;
+			content: " ";
+		}
+	}
+	.modal-dialog {
+		display: inline-block;
+		text-align: left;
+		vertical-align: middle;
+		width: 800px;
+		height: 800px;
+	}
+	.rad-label {
+		display: flex;
+		align-items: center;
+		border-radius: 100px;
+		padding: 14px 16px;
+		margin: 10px 0;
+		cursor: pointer;
+		transition: .3s;
+	}
+	.rad-label:hover, .rad-label:focus-within {
+		background: hsla(0, 0%, 80%, .14);
+	}
+	.rad-input {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+		z-index: -1;
+	}
+	.rad-design {
+		width: 22px;
+		height: 22px;
+		border-radius: 100px;
+		background: linear-gradient(to right bottom, hsl(154, 97%, 62%),
+			hsl(225, 97%, 62%));
+		position: relative;
+	}
+	.rad-design::before {
+		content: '';
+		display: inline-block;
+		width: inherit;
+		height: inherit;
+		border-radius: inherit;
+		background: hsl(0, 0%, 90%);
+		transform: scale(1.1);
+		transition: .3s;
+	}
+	.rad-input:checked+.rad-design::before {
+		transform: scale(0);
+	}
+	.rad-text {
+		color: hsl(0, 0%, 60%);
+		margin-left: 14px;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		font-size: 18px;
+		font-weight: 900;
+		transition: .3s;
+	}
+	.rad-input:checked ~.rad-text {
+		color: hsl(0, 0%, 40%);
+	}
 
-.modal-dialog {
-	display: inline-block;
-	text-align: left;
-	vertical-align: middle;
-		width:800px;
-	height:800px;
-}
+	/* 페이징 css 시작 */
+	.gopage {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	.pagination {
+		margin: 0;
+	}
+	/* 페이징 css 끝 */
 
-.rad-label {
-	display: flex;
-	align-items: center;
-	border-radius: 100px;
-	padding: 14px 16px;
-	margin: 10px 0;
-	cursor: pointer;
-	transition: .3s;
-}
-
-.rad-label:hover, .rad-label:focus-within {
-	background: hsla(0, 0%, 80%, .14);
-}
-
-.rad-input {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 1px;
-	height: 1px;
-	opacity: 0;
-	z-index: -1;
-}
-
-.rad-design {
-	width: 22px;
-	height: 22px;
-	border-radius: 100px;
-	background: linear-gradient(to right bottom, hsl(154, 97%, 62%),
-		hsl(225, 97%, 62%));
-	position: relative;
-}
-
-.rad-design::before {
-	content: '';
-	display: inline-block;
-	width: inherit;
-	height: inherit;
-	border-radius: inherit;
-	background: hsl(0, 0%, 90%);
-	transform: scale(1.1);
-	transition: .3s;
-}
-
-.rad-input:checked+.rad-design::before {
-	transform: scale(0);
-}
-
-.rad-text {
-	color: hsl(0, 0%, 60%);
-	margin-left: 14px;
-	letter-spacing: 3px;
-	text-transform: uppercase;
-	font-size: 18px;
-	font-weight: 900;
-	transition: .3s;
-}
-
-.rad-input:checked ~.rad-text {
-	color: hsl(0, 0%, 40%);
-}
-
-/* 페이징 css 시작 */
-.gopage {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-
-.pagination {
-	margin: 0;
-}
-/* 페이징 css 끝 */
-
-/* -----------
+	/* -----------
  북마크 css 시작
  ------------*/
-* /
+	* /
 
 .fa-regular.fa-bookmark {
-	width: 50px;
-	height: 30px;
-	font-size: x-large;
-	position: absolute;
-	left: 650px;
-	top: 60px;
-}
+		width: 50px;
+		height: 30px;
+		font-size: x-large;
+		position: absolute;
+		left: 650px;
+		top: 60px;
+	}
+	.fullMark {
+		width: 50px;
+		height: 30px;
+		font-size: x-large;
+		position: absolute;
+		left: 650px;
+		top: 60px;
+	}
+	.emptyMark {
+		width: 50px;
+		height: 30px;
+		font-size: x-large;
+		position: absolute;
+		left: 650px;
+		top: 60px;
+	}
+	#navbarScroll {
+		text-align: right;
+	}
+	[v-cloak] {
+		display: none;
+	}
+	.list-group {
+		margin-top: 20px;
+		max-height: 300px;
+		width: 500px;
+		height: 500px;
+		overflow-y: scroll;
+		/* 스크롤바가 보이도록 설정 */
+		scrollbar-width: thin;
+		scrollbar-color: gray transparent;
+	}
+	.list-group::-webkit-scrollbar {
+		width: 5px; /* 스크롤바의 너비 */
+	}
+	.list-group::-webkit-scrollbar-thumb {
+		background-color: gray; /* 스크롤바 색상 */
+		border-radius: 10px; /* 스크롤바 모양 */
+	}
+	.list-group-item {
+		padding: 10px;
+	}
+	.sent {
+		color: blue;
+		text-align: right;
+		margin-right: 10px;
+		background-color: #e6f2ff; /* light blue */
+	}
+	.received {
+		color: red;
+		text-align: left;
+		margin-left: 10px;
+		background-color: #ffe6e6; /* light red */
+	}
+	.notification {
+		color: gray;
+		text-align: center;
+		margin: 10px 0;
+		font-style: italic;
+	}
+	.input-group {
+		display: flex;
+		align-items: center;
+		width: 500px;
+	}
+	.input-group input {
+		flex: 1;
+		margin-right: 10px;
+	}
+	.input-group .input-group-append {
+		flex: none;
+	}
+	.containerChat {
+		background-color: #fffec8; /* light blue */
+		width: 500px;
+		margin: auto; /* 수평 중앙 정렬을 위한 margin */
+		position: absolute; /* 수직 중앙 정렬을 위한 position */
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.w-btn {
+		position: relative;
+		border: none;
+		display: inline-block;
+		padding: 15px 30px;
+		border-radius: 15px;
+		font-family: "paybooc-Light", sans-serif;
+		text-decoration: none;
+		font-weight: 600;
+		box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+		transition: 0.25s;
+		width: auto;
+	}
+	.w-btn-outline {
+		position: relative;
+		padding: 15px 30px;
+		border-radius: 15px;
+		font-family: "paybooc-Light", sans-serif;
+		box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+		text-decoration: none;
+		font-weight: 600;
+		transition: 0.25s;
+	}
+	.inputChat {
+		width: 300px;
+		height: 32px;
+		font-size: 15px;
+		font-family: "paybooc-Light", sans-serif;
+		text-decoration: none;
+		border: 0;
+		border-radius: 15px;
+		outline: none;
+		padding-left: 10px;
+		background-color: rgb(233, 233, 233);
+		text-decoration: none;
+	}
 
-.fullMark {
-	width: 50px;
-	height: 30px;
-	font-size: x-large;
-	position: absolute;
-	left: 650px;
-	top: 60px;
-}
-
-.emptyMark {
-	width: 50px;
-	height: 30px;
-	font-size: x-large;
-	position: absolute;
-	left: 650px;
-	top: 60px;
-}
-
-#navbarScroll {
-	text-align: right;
-}
-
-[v-cloak] {
-	display: none;
-}
-
-.list-group {
-	margin-top: 20px;
-	max-height: 300px;
-	width: 500px;
-	height: 500px;
-	overflow-y: scroll;
-	/* 스크롤바가 보이도록 설정 */
-	scrollbar-width: thin;
-	scrollbar-color: gray transparent;
-}
-
-.list-group::-webkit-scrollbar {
-	width: 5px; /* 스크롤바의 너비 */
-}
-
-.list-group::-webkit-scrollbar-thumb {
-	background-color: gray; /* 스크롤바 색상 */
-	border-radius: 10px; /* 스크롤바 모양 */
-}
-
-.list-group-item {
-	padding: 10px;
-}
-
-.sent {
-	color: blue;
-	text-align: right;
-	margin-right: 10px;
-	background-color: #e6f2ff; /* light blue */
-}
-
-.received {
-	color: red;
-	text-align: left;
-	margin-left: 10px;
-	background-color: #ffe6e6; /* light red */
-}
-
-.notification {
-	color: gray;
-	text-align: center;
-	margin: 10px 0;
-	font-style: italic;
-}
-
-.input-group {
-	display: flex;
-	align-items: center;
-	width: 500px;
-}
-
-.input-group input {
-	flex: 1;
-	margin-right: 10px;
-}
-
-.input-group .input-group-append {
-	flex: none;
-}
-
-.containerChat {
-	background-color: #fffec8; /* light blue */
-	width: 500px;
-	margin: auto; /* 수평 중앙 정렬을 위한 margin */
-	position: absolute; /* 수직 중앙 정렬을 위한 position */
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.w-btn {
-	position: relative;
-	border: none;
-	display: inline-block;
-	padding: 15px 30px;
-	border-radius: 15px;
-	font-family: "paybooc-Light", sans-serif;
-	text-decoration: none;
-	font-weight: 600;
-	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-	transition: 0.25s;
-	width: auto;
-}
-
-.w-btn-outline {
-	position: relative;
-	padding: 15px 30px;
-	border-radius: 15px;
-	font-family: "paybooc-Light", sans-serif;
-	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-	text-decoration: none;
-	font-weight: 600;
-	transition: 0.25s;
-}
-
-.inputChat {
-	width: 300px;
-	height: 32px;
-	font-size: 15px;
-	font-family: "paybooc-Light", sans-serif;
-	text-decoration: none;
-	border: 0;
-	border-radius: 15px;
-	outline: none;
-	padding-left: 10px;
-	background-color: rgb(233, 233, 233);
-	text-decoration: none;
-}
-
-
-/* ===================
+	/* ===================
 		Tag 실시간 인기 시작
 	==================	 */
-#tagContainer{
-border: dotted;
-}
+	#tagContainer {
+		border: dotted;
+	}
+	#rank {
+		float: right;
+		border: 2px solid yellowgreen;
+		width: 200px;
+		height: 40px;
+		margin: 100px;
+		position: relative;
+		overflow: hidden; /* 요소 내부 넘침 처리 */
+	}
+	#box {
+		width: 200px;
+		height: auto;
+		position: absolute;
+		top: 0;
+		left: 0;
+		text-align: center;
+		line-height: 40px;
+		white-space: nowrap; /* 줄바꿈 방지 */
+		transition: transform 0.5s ease-out; /* transform속성의 값이 변경될 때 움직임  */
+		transform: translateY(0); /* 초기 위치 */
+	}
 
-#rank {
-  float: right;
-  border: 2px solid yellowgreen;
-  width: 200px;
-  height: 40px;
-  margin: 100px;
-  position: relative;
-  overflow: hidden; /* 요소 내부 넘침 처리 */
-}
-
-#box {
-  width: 200px;
-  height: auto; 
-  position: absolute;
-  top: 0;
-  left: 0;
-  text-align: center;
-  line-height: 40px;
-  white-space: nowrap; /* 줄바꿈 방지 */
-  transition: transform 0.5s ease-out; /* transform속성의 값이 변경될 때 움직임  */
-  transform: translateY(0); /* 초기 위치 */
-}
-
-/* 마우스 오버시 애니메이션효과 멈춤 기능인데 안먹힘... */
-#rank:hover #box {
-  transition: none;
-  transform: translateY(0);
-}
- 
-#tagRank{
-text-align: center;
-height: 40px; 
-
+	/* 마우스 오버시 애니메이션효과 멈춤 기능인데 안먹힘... */
+	#rank:hover #box {
+		transition: none;
+		transform: translateY(0);
+	}
+	#tagRank {
+		text-align: center;
+		height: 40px;
+	}
 }
 /* ===================
 		Tag 실시간 인기 끝
 	==================	 */
-
 </style>
 
 
@@ -484,6 +446,7 @@ height: 40px;
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-
+<!-- alert css -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 </html>

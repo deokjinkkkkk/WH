@@ -38,14 +38,14 @@
                                     <!-- start menu area -->
                                     <ul class="navbar-nav ml-auto" id="nav" style="display: none; margin:0 auto;">
                                         <li><a href="/main">Home</a></li>
-                                        <li><a href="/notice">공지사항</a>
-                                        <li><a href="/course">여행지</a>
+                                        <li><a href="/notice">notice</a>
+                                        <li><a href="/course">trip</a>
                                             <ul>
                                                 <li><a href="/trip">여행 지역</a></li>
                                                 <li><a href="/course">여행 코스</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="javascript:void(0)">커뮤니티</a>
+                                        <li><a href="javascript:void(0)">community</a>
                                             <ul>
                                                 <li><a href="/food">맛집</a></li>
                                                 <li><a href="/videoSelect">영상</a></li>
@@ -53,12 +53,12 @@
                                                 <li><a href="/diaryAll">여행 리뷰</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="/hotel">숙소</a></li>
-                                        <li><a href="/chat/room">채팅</a></li>
-                                        <li th:if="${session.name != null}"><a href="/myPage">마이페이지</a></li>
-                                        <li th:if="${session.name == 'ADMIN'}"><a href="/admin">관리자페이지</a></li>
-                                        <li th:if="${session.name == null}"><a href="/login">로그인</a></li>
-                                        <li th:if="${session.name != null}"><a href="/logout">로그아웃</a></li>
+                                        <li><a href="/hotel">hotel</a></li>
+                                        <li><a href="/chat/room">chat</a></li>
+                                        <li th:if="${session.name != null}"><a href="/myPage">my page</a></li>
+                                        <li th:if="${session.name == 'ADMIN'}"><a href="/admin">admin page</a></li>
+                                        <li th:if="${session.name == null}"><a href="/login">login</a></li>
+                                        <li th:if="${session.name != null}"><a href="/logout">logout</a></li>
                                     </ul>
                                     <!-- end menu area -->
 
