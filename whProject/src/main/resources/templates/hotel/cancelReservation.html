@@ -37,7 +37,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">예약번호</h6>
+																			<p style="font-size:17px;">예약번호</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.resId}" id="resId" data-no="${r.resId}"
@@ -48,7 +48,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">호텔명</h6>
+																			<p style="font-size:17px;">호텔명</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.hotelName}"
@@ -59,7 +59,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">방 등급</h6>
+																			<p style="font-size:17px;">방 등급</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.roomGrade}"
@@ -70,7 +70,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">숙박일자</h6>
+																			<p style="font-size:17px;">숙박일자</p>
 																		</div>
 																		<div>
 																			<p
@@ -84,7 +84,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">인원</h6>
+																			<p style="font-size:17px;">인원</p>
 																		</div>
 																		<div>
 																			<p
@@ -96,7 +96,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">예약자명</h6>
+																			<p style="font-size:17px;">예약자명</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.resName}" id="resName"
@@ -107,8 +107,8 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">예약자
-																				전화번호</h6>
+																			<p style="font-size:17px;">예약자
+																				전화번호</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.resTel}" id="resTel"
@@ -119,7 +119,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">예약자 이메일</h6>
+																			<p style="font-size:17px;">예약자 이메일</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.resEmail}" id="resEmail"
@@ -130,7 +130,7 @@
 																<li>
 																	<div class="row align-items-center">
 																		<div class="col-md-6">
-																			<h6 class="font-size17 no-margin-bottom">요청사항</h6>
+																			<p style="font-size:17px;">요청사항</p>
 																		</div>
 																		<div>
 																			<p th:text="${r.resRequest}" id="resRequest"
@@ -138,10 +138,21 @@
 																		</div>
 																	</div>
 																</li>
+																<li>
+																	<div class="row align-items-center">
+																		<div class="col-md-6">
+																			<p style="font-size:17px;">환불진행상황</p>
+																		</div>
+																		<div>
+																			<p th:text="${r.resState == 1 ? '환불요청중' : r.resState == 2 ? '환불완료' : ''}" id="resState"
+																				class="no-margin-bottom xs-padding-15px-left text-extra-dark-gray">디럭스</p>
+																		</div>
+																	</div>
+																</li>
 															</ul>
 														
 												
-														</div>
+														</div><hr>
 												</div>
 											
 											</div>
@@ -151,20 +162,9 @@
                     <!--  start blog right-->
                     <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
                         <div class="side-bar">
-                        
-                        		<!-- 검색창 -->
-<!--                             <div class="widget search"> -->
-<!--                                 <div class="input-group mb-3"> -->
-<!--                                     <input type="text" class="form-control" placeholder="Type here..." aria-label="Recipient's username" aria-describedby="button-addon2"> -->
-<!--                                     <div class="input-group-append"> -->
-<!--                                         <button class="butn" type="button" id="button-addon2"><span class="ti-search"></span></button> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
                             <div class="widget">
-                                <div class="widget-title margin-20px-bottom" style="margin-top: 40px;">
-								    <p style="font-size: 20px;">예약 목록</p>
+                                <div class="widget-title margin-17px-bottom" style="margin-top: 40px;">
+								    <p style="font-size: 17px;">예약 목록</p>
 								</div>
                                 <ul class="widget-list">
                                     <li>
@@ -183,48 +183,6 @@
                                     </li>
                                 </ul>
                             </div>
-
-<!--                             <div class="widget"> -->
-<!--                                 <div class="widget-title"> -->
-<!--                                     <h3>Recent Posts</h3> -->
-<!--                                 </div> -->
-<!--                                 <div class="media margin-20px-bottom align-items-center"> -->
-<!--                                     <img src="img/blog/blog-8.jpg" class="mr-3 border-radius-4" alt="" /> -->
-<!--                                     <div class="media-body"> -->
-<!--                                         <h5 class="no-margin-top margin-5px-bottom font-size17"><a href="#" class="text-extra-dark-gray">I think that's a really good motto</a></h5> -->
-<!--                                         <span class="font-size14">20 Jan, 2020</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="media margin-20px-bottom align-items-center"> -->
-<!--                                     <img src="img/blog/blog-9.jpg" class="mr-3 border-radius-4" alt="" /> -->
-<!--                                     <div class="media-body"> -->
-<!--                                         <h5 class="no-margin-top margin-5px-bottom font-size17"><a href="#" class="text-extra-dark-gray">get in the mood for your next epic trip</a></h5> -->
-<!--                                         <span class="font-size14">12 Feb, 2020</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="media align-items-center"> -->
-<!--                                     <img src="img/blog/blog-12.jpg" class="mr-3 border-radius-4" alt="" /> -->
-<!--                                     <div class="media-body"> -->
-<!--                                         <h5 class="no-margin-top margin-5px-bottom font-size17"><a href="#" class="text-extra-dark-gray">Life is either adventure or nothing</a></h5> -->
-<!--                                         <span class="font-size14">17 Feb, 2020</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
-<!--                             <div class="widget"> -->
-<!--                                 <div class="widget-title"> -->
-<!--                                     <h3>Tags</h3> -->
-<!--                                 </div> -->
-<!--                                 <ul class="tags"> -->
-<!--                                     <li><a href="#">Destination</a></li> -->
-<!--                                     <li><a href="#">Travel</a></li> -->
-<!--                                     <li><a href="#">Tip</a></li> -->
-<!--                                     <li><a href="#">Discover</a></li> -->
-<!--                                     <li><a href="#">Tour</a></li> -->
-<!--                                     <li><a href="#">Explore</a></li> -->
-<!--                                 </ul> -->
-<!--                             </div> -->
-
                         </div>
                     </div>
                     <!--  end blog right-->

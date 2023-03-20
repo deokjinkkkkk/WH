@@ -22,6 +22,8 @@ public class Paging {
 	String hotelRegion;
 	String humanCount;
 	String childCount;
+	int priceRangeMin;
+	int priceRangeMax;
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;

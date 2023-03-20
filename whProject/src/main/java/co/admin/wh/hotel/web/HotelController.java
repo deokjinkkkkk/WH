@@ -65,7 +65,8 @@ public class HotelController {
 	
 	@RequestMapping("/hotelSearch") // 검색 결과 + 페이징
 	public String hotelSearch(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging, 
-							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount, @RequestParam("checkOut") Date checkOut, @RequestParam("childCount") String childCount) {
+							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount, @RequestParam("checkOut") Date checkOut, @RequestParam("childCount") String childCount,
+							@RequestParam("priceRangeMin") int priceRangeMin, @RequestParam("priceRangeMax") int priceRangeMax) {
 
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -74,11 +75,15 @@ public class HotelController {
 		vo.setLast(paging.getLast());
 		
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+		
 		paging.setCheckIn(checkIn);
 		paging.setHotelRegion(hotelRegion);
 		paging.setHumanCount(humanCount); // model에 직접 담지 않아도 담김.
 		paging.setCheckOut(checkOut);
 		paging.setChildCount(childCount);
+		paging.setPriceRangeMin(priceRangeMin);
+		paging.setPriceRangeMax(priceRangeMax);
+		
 		model.addAttribute("hotelList",hotelInfoService.hotelSearchList(vo));
 		return "hotel/hotelSearch";
 	}
@@ -140,7 +145,9 @@ public class HotelController {
     }
 	
 	@PostMapping("/reservation") // 예약페이지
-    public String reservation(ReservationVO vo, HotelVO hvo, MemberVO mvo, Model model, Principal principal) {
+    public String reservation(ReservationVO vo, HotelVO hvo, MemberVO mvo, Model model, Principal principal, @RequestParam("price") int price) {
+		System.out.println(price);
+		System.out.println("=============================================");
 		mvo.setId(principal.getName());
 		model.addAttribute("m",memberMapper.memberSelect(mvo));
 		model.addAttribute("res",vo);
@@ -155,7 +162,7 @@ public class HotelController {
 		//id를 가지고 나머지 member값 가져오기
 		vo.setId(principal.getName()); // 로그인한 id값을 예약vo에 set
 		hotelInfoService.insertReservInfo(vo);
-		int hotelId = vo.getHotelId();
+//		int hotelId = vo.getHotelId();
 //		hotelInfoService.minusRoomCount(hotelId); // hotel테이블의 방 개수 -1
 		return "y";
 	}
@@ -303,8 +310,8 @@ public class HotelController {
 	}
 	
 	@PostMapping("/adminReservSearch") // 관리자 예약검색
-	public String adminReservSearch(@RequestParam String option, @RequestParam String content, Model model) {
-	    model.addAttribute("hotelList", hotelInfoService.adminSearch(option, content));
+	public String adminReservSearch(CancelVO vo, Model model) {
+	    model.addAttribute("hotelList", hotelInfoService.adminSearch(vo));
 	    return "hotel/ajaxAdminReservList";
 	}
 	
@@ -319,8 +326,12 @@ public class HotelController {
 	//예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false)
 	@PostMapping("/compareToDate")
 	@ResponseBody
-	public boolean compareToDate(@RequestBody CancelVO vo, Model model) {
-		boolean bool = hotelInfoService.compareToDate(vo);
-		return bool; // true면 예약가능, false면 예약불가
+	public boolean compareToDate(@RequestBody ReservationVO vo, Model model) {
+		List<ReservationVO> hotel = hotelInfoService.compareToDate(vo);
+		if(hotel != null) {
+			return true; // true면 예약가능, false면 예약불가			
+		}else {			
+			return false;
+		}
 	}
 };

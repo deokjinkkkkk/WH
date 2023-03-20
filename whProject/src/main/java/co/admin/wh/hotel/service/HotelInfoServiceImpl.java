@@ -1,6 +1,7 @@
 package co.admin.wh.hotel.service;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -128,8 +129,8 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public List<CancelVO> adminSearch(String option, String content) {
-		return hotelMapper.adminSearch(option, content);
+	public List<CancelVO> adminSearch(CancelVO vo) {
+		return hotelMapper.adminSearch(vo);
 	}
 
 	@Override
@@ -144,7 +145,7 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 	}
 
 	@Override
-	public boolean compareToDate(CancelVO vo) {
+	public List<ReservationVO> compareToDate(ReservationVO vo) {
 		return hotelMapper.compareToDate(vo);
 	}
 
