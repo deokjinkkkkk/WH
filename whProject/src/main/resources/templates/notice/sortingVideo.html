@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org">
-   <script>
-   		function gopage(page) {
-   			location.href = "videoSelect?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}   		
-   </script>
+						<div class="row">
 						<div class="row margin-30px-bottom" id="hotelListContent">
 							<div th:each="v : ${videoSelect}"
 								class="hotels col-md-6 margin-30px-bottom">
@@ -21,7 +15,7 @@
 									</div>
 								<a th:href="@{/videoDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
 								</div>
-							</div>
+							</div></form>
 							<div class="gopage" align="center">
 										<nav aria-label="Page navigation example" class="gopage">
 											<ul class="pagination">
@@ -39,7 +33,7 @@
 										</nav>
 									</div> 
 						</div>
-
+</div>
 					<!-- 페이징 추가 해주세요 -->
 									
                    				<!-- 페이징 끝 -->	
