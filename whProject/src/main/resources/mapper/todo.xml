@@ -27,25 +27,13 @@
 				#{todoFlag})
 </insert>
  
+ <!--게시물 max번호  -->
+<select id="getMaxNo" resultType="int">
+	select MAX(to_do_code) MAX_NO
+		FROM TO_DO_LIST
+</select>
  
-
  
- <!-- "keyProperty" = 해당 값을 어떤 변수에 저장할 것인지를 지정,
-  "order"= "BEFORE" : "INSERT" 문 실행 전 
-  			"AFTER" : 실행 후에 "SELECT" 문이 실행 -->
-<!-- <insert id="todoInsert">
-	<selectKey keyProperty="todoCode" resultType="int" order="AFTER">
-		SELECT NVL(MAX(to_do_code), 0) + 1 FROM TO_DO_LIST
-	</selectKey>
-	INSERT INTO TO_DO_LIST
-	VALUES(
-		#{todoCode},
-		#{id},
-		#{todoContent},
-		#{todoDate},
-		#{todoFlag}
-	)
-</insert> -->
 
 
 <delete id="todoDelete">
@@ -55,7 +43,7 @@
 
 
 
-<!--todoFlag값이 1인것을 찾아서 2로 변경시켜주기! 
+<!-- todoFlag값이 1인것을 찾아서 2로 변경시켜주기! 
 		**완료->전체 로 변경 가능하도록 or을 사용하여 2->1변경도 가능하도록 수정
   -->
 <update id="todoComplete" parameterType="map">

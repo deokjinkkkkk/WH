@@ -51,8 +51,14 @@ public class TodoServiceImpl implements TodoService	{
 
 	@Override
 	public List<Map<String, Object>> tagSearch(Map<String, Object> paramMap) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+	@Override
+	public int getMaxNo() {
+		//게시물 max번호
+		return mapper.getMaxNo();
 	}
 
 

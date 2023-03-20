@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -111,14 +113,15 @@ public class FoodController {
 	
 	//삭제
 	@PostMapping("/foodDelete")
-	public String foodDelete(FoodVO vo, RedirectAttributes redirectAttributes) {
+	@ResponseBody
+	public String foodDelete(@RequestBody FoodVO vo, RedirectAttributes redirectAttributes) {
 		int n = foodService.foodDelete(vo);
 		if (n != 0) {
 			redirectAttributes.addFlashAttribute("message","정상적으로 삭제되었습니다.");
 		}else {
 			redirectAttributes.addFlashAttribute("message","삭제가 정상적으로 처리되지 않았습니다.");
 		}
-		return "redirect:/food";
+		return "result";
 	}
 	
 	//수정폼
