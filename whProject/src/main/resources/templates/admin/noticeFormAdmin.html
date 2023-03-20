@@ -70,10 +70,10 @@
           var title = $('#noticeTitle').val();
           var content = $('#noticeContent').val();
           if (!title) {
-            alert('제목을 입력하세요');
+            swal("","제목을 입력하세요","warning");
           } else if (!content) {
-            alert('내용을 입력하세요');
-          } else {
+            swal("","내용을 입력하세요","warning");
+          } else  {
             this.submit();
           }
         });

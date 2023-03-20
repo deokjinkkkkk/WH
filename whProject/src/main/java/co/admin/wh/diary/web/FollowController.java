@@ -1,6 +1,7 @@
 package co.admin.wh.diary.web;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,11 @@ public class FollowController {
 	
 	//회원정보체크 하기
 	@GetMapping("/checkFollow/{id}/{followId}")
-	public boolean checkFollow(@PathVariable("id") String id, FollowVO vo, MemberVO mvo, Principal principal, @PathVariable("followId") String followId) {
+	public boolean checkFollow(@PathVariable("id") String id, 
+								@PathVariable("followId") String followId
+								,FollowVO vo)
+	{
 	    boolean isFollowing = false; 
-	    // 로그인한 사용자 정보 가져오기
-	    mvo.setId(principal.getName());
 
 	    // 팔로우 정보 조회
 	    vo.setFollowingId(id);
@@ -44,48 +46,47 @@ public class FollowController {
 
 	
 	@PostMapping("/insertFollow/{followingId}")
-	public Map<String, Object> insertFollow(@PathVariable("followingId") String followingId, @RequestParam("followId") String followId, FollowVO vo) {
-	    vo.setFollowId(followId);
-	    System.out.println(followId);
-	    vo.setFollowingId(followingId);
-	    System.out.println(followingId);
-	    
-	    Map<String, Object> resultMap = new HashMap<>();
+	public Map<String, Object> insertFollow(@PathVariable("followingId") String followingId, FollowVO vo) {
 
-	    mapper.insertFollow(vo);
-	    return resultMap;
+	    vo.setFollowingId(followingId);
+	  	    
+	    int r = mapper.insertFollow(vo);
+	    return Collections.singletonMap("cnt", r);
 	}
 	
 	@PostMapping("/unFollow/{followingId}")
-	public Map<String, Object> unFollow(@PathVariable("followingId") String followingId, @RequestParam("followId") String followId, FollowVO vo) {
-	    vo.setFollowId(followId);
-	    System.out.println(followId);
-	    vo.setFollowingId(followingId);
-	    System.out.println(followingId);
-	    
-	    Map<String, Object> resultMap = new HashMap<>();
+	public Map<String, Object> unFollow(@PathVariable("followingId") String followingId, FollowVO vo) {
 
-	    mapper.unFollow(vo);
+	    vo.setFollowingId(followingId);
+	    
+	    int r = mapper.unFollow(vo);
+	    Map<String, Object> resultMap = new HashMap<>();
+	    resultMap.put("cnt", r); //빈 map 넘길때 사용 한다 
 	    return resultMap;
 	}
 	
 	
 	@GetMapping("/followCount/{followId}")
 	public Map<String, Object> followCount(@PathVariable("followId") String followId) {
-	    
-		return mapper.followCount(followId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("followCount", mapper.followCount(followId));
+		map.put("followingCount", mapper.followingCount(followId));
+		return map;
+
 	}
+	
+
 
 	@PostMapping("/follower/{followId}")
-		public List<Map<String, Object>> followerList(@PathVariable String followId) {
-			return mapper.followerList(followId);
-		}
+	public List<Map<String, Object>> followerList(@PathVariable String followId) {
+		return mapper.followerList(followId);
+	}
 
-	@PostMapping("/following/{followingId}")
-		public List<Map<String, Object>> followingIdList(@PathVariable String followingId) {
+	@PostMapping("/following/{followId}")
+		public List<Map<String, Object>> followingList(@PathVariable String followId) {
 		
-		return mapper.followingList(followingId);
-		}
+		return mapper.followingList(followId);
+	}
 
 
 }

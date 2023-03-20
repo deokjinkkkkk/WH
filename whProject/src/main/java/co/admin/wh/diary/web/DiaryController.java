@@ -22,18 +22,22 @@ import co.admin.wh.diary.mapper.DiaryMapper;
 import co.admin.wh.diary.service.DiaryService;
 import co.admin.wh.diary.vo.DiaryVO;
 
-
+/*
+ * 작성자 : 노채원
+ * 작성일자: 2023-03-20
+ * 작성내용: 여행리뷰 페이지 Controller
+ * 수정자 :
+ * 수정일자:
+ * 수정내용:
+ * */
 
 @Controller
 public class DiaryController {
-	@Autowired
-	DiaryService service;
+
 	
 	@Autowired
 	DiaryMapper diaryMapper;
-	
-	@Autowired
-	ServletContext servletContext;
+
 	
 	@Value("${wh.saveimg}")
 	private String saveimg;
@@ -106,7 +110,6 @@ public class DiaryController {
 	@PostMapping("/diaryDelete/{diaryCode}/{id}")
 	@ResponseBody
 	public Map<String, Object> diaryDelete(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id,ImageVO ivo ) {
-		  System.out.println("삭제 오나?=============");
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		diaryMapper.diaryDelete(vo);
@@ -119,7 +122,6 @@ public class DiaryController {
 	@PostMapping("/diaryUpdate/{diaryCode}/{id}")
 	@ResponseBody
 	public Map<String, Object> diaryUpdate(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id ) {
-		  System.out.println("수정 오나?=============");
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		diaryMapper.diaryUpdate(vo);

@@ -1,10 +1,11 @@
 package co.admin.wh.notice.web;
 
-import javax.servlet.ServletContext;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,18 +27,15 @@ import co.admin.wh.notice.vo.Paging;
 public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
+	
+	@Autowired
+	ImageService imageService;
 
 	@Autowired
 	NoticeMapper noticeMapper;
 
-	@Autowired
-	ServletContext servletContext;
-
 	@Value("${wh.saveimg}")
 	private String saveimg;
-
-	@Autowired
-	ImageService imageService;
 
 	
 	@RequestMapping("/notice")
@@ -94,12 +92,11 @@ public class NoticeController {
 				ivo.setImgGroCode(image);
 				ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
 				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				noticeMapper.imgInsert(ivo);
+				vo.setImgGroCode(ivo.getImgGroCode());
 			}
-			ivo.getImgGroCode();
-			noticeMapper.imgInsert(ivo);
-			vo.setImgGroCode(ivo.getImgGroCode());
-			noticeMapper.noticeInsert(vo);
 		}
+		noticeMapper.noticeInsert(vo);
 		return "redirect:/noticeAdmin";
 	}
 	
@@ -133,7 +130,9 @@ public class NoticeController {
 	//관리자 업로드
 	@PostMapping("/noticeUpdate")
 	public String noticeUpdate(NoticeVO vo, Model model) {
+		
 		noticeService.noticeUpdate(vo); // 수정된 공지사항 정보를 DB에 반영
+		
 		return "redirect:/noticeDetails/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
 	}
 	//관리자 삭제
