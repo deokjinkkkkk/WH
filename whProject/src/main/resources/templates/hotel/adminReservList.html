@@ -142,7 +142,7 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 <div class="container">
 <p style="font-size:30px;">예약내역 조회</p>
 <form id="searchInput" name="searchFrm" style="margin-top: 20px;">
-<input type="date" id="checkIn" name="checkIn"> ~ <input type="date" id="checkOut" name="checkOut">
+<input type="date" id="checkIn" name="checkIn" class="col-md-2"> ~ <input type="date" id="checkOut" name="checkOut" class="col-md-2"><br><br>
   <select name="option" class="select col-md-2" style="display: inline-block">
     <option selected>옵션</option>
     <option value="id">예약번호</option>
@@ -152,7 +152,7 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
     <option value="tel">연락처</option>
     <option value="email">이메일</option> 
   </select>
-<input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션을 선택하세요." style="display: inline-block" >
+<input type="text" class="form-control col-md-5" name="content" id="content" placeholder="옵션을 선택하세요." style="display: inline-block" >
 <button onclick="searchInfo()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br>
 </form>
 </div>

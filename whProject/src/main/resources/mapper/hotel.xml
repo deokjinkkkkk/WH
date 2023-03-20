@@ -331,7 +331,7 @@
 
 <!-- 예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false) => select 내역 없으면 예약안됨 -->
 	<select id="compareToDate" resultType="co.admin.wh.hotel.vo.ReservationVO">
-	   SELECT h.*
+	   SELECT *
 	   FROM hotel h 
 	   LEFT JOIN reservation r 
 	   ON h.hotel_id = r.hotel_id 
