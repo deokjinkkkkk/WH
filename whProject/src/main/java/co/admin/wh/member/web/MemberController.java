@@ -161,10 +161,11 @@ public class MemberController {
 	//회원 탈퇴 비밀번호 체크
 	@RequestMapping("/passChk")
 	@ResponseBody
-	public String passCheck(MemberVO vo, boolean n) {
+	public String passCheck(MemberVO vo, boolean n, Principal principal) {
+		vo.setId(principal.getName());
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		vo.setPass(passwordEncoder.encode(vo.getPass()));
-		n = memberMapper.passChk(vo.getId(), vo.getPass());
+		MemberVO dbvo = memberMapper.memberSelect(vo);
+		n = passwordEncoder.matches(vo.getPass(), dbvo.getPass());
 		if (n) {
 			return "success";
 		} else {
@@ -181,9 +182,9 @@ public class MemberController {
 	//회원가입 이메일 비밀번호 발급
 	@PostMapping("/login/mailConfirm")
 	@ResponseBody
-	public String mailCheck(@RequestParam String email) throws Exception {
+	public String mailCheck(@RequestParam String email,HttpSession session) throws Exception {
 		String code = emailService.sendSimpleMessage(email);
-
+		session.setAttribute("emailCode", code);
 		return code;
 	}
 	//비밀번호 찾기 이메일 비밀번호 발급
@@ -195,13 +196,11 @@ public class MemberController {
 		try {
 			code = emailService.passFindMessage(email, vo);
 			vo.setPass(passwordEncoder.encode(code));
+			memberMapper.passUpdate(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		memberMapper.passUpdate(vo);
 		
 		return "redirect:/login";
 
@@ -230,12 +229,10 @@ public class MemberController {
 	@RequestMapping("/memberSearch")
 	public String memberSearch(MemberVO vo, Model model, Paging paging) {
 		paging.setPageUnit(10);//한 페이지에 출력할 레코드 건수
-		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
+		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수		
 		
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
 		paging.setTotalRecord(memberMapper.getCountTotal(vo));
 		
 		model.addAttribute("mem", memberMapper.MemberSearchList(vo));
