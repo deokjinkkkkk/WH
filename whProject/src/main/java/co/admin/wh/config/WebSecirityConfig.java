@@ -52,7 +52,7 @@ public class WebSecirityConfig {
 				.anyRequest().permitAll())
 				.formLogin(
 						(form) -> form.loginPage("/login").loginProcessingUrl("/memberLogin").passwordParameter("pass")
-								.usernameParameter("id").successHandler(new LoginSuccessHandler()).failureHandler(new DisabledAccountHandler()).permitAll())
+								.usernameParameter("id").failureHandler(new DisabledAccountHandler()).successHandler(new LoginSuccessHandler()).permitAll())
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout").logoutSuccessUrl("/main")).csrf().disable()
 				
 				.headers().frameOptions().sameOrigin().and().oauth2Login().loginPage("/login")

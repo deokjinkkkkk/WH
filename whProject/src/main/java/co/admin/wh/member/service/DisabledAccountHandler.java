@@ -16,23 +16,19 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 
 public class DisabledAccountHandler implements AuthenticationFailureHandler {
 
-	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
-		  
-		String path = request.getContextPath();
-		if(exception instanceof AuthenticationServiceException) {
-			response.sendRedirect("/login?error");
-		}
-		else if (exception instanceof BadCredentialsException || exception instanceof InternalAuthenticationServiceException) {
-			 response.sendRedirect("/login?error"); //비밀번호 체크
-		}
-		else if (exception instanceof DisabledException) {
-	         response.sendRedirect(path + "/disabled"); // 로그인 차단 페이지로 리다이렉트
-	    }else if(exception instanceof SessionAuthenticationException) {
-	    	response.sendRedirect("/login?error");  //중복로그인
-		}
-		
-	}
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+            throws IOException, ServletException {
 
+    	  String path = request.getContextPath();
+          if (exception instanceof AuthenticationServiceException) {
+              response.sendRedirect("/login?error");
+          } else if (exception instanceof BadCredentialsException || exception instanceof InternalAuthenticationServiceException) {
+              response.sendRedirect("/login?error"); // 비밀번호 체크
+          } else if (exception instanceof SessionAuthenticationException) {
+              response.sendRedirect("/login?error"); // 중복로그인
+          } else if (exception instanceof DisabledException) {
+              response.sendRedirect(path + "/disabled"); // 로그인 차단 페이지로 리다이렉트
+          }
+      }
 }
