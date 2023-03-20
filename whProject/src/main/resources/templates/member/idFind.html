@@ -77,10 +77,10 @@
 	    name = $("#name").val()
 	    email = $("#email").val()
 	    if (name == '') {
-	        alert("아이디를 입력해주세요")
+	        swal("","아이디를 입력해주세요","warning")
 	        return false
 	    } else if (email == '') {
-	        alert("이메일을 입력해주세요")
+	        swal("","이메일을 입력해주세요","warning")
 	        return false
 	    }
 	    $.ajax({
@@ -100,12 +100,12 @@
 	                $("#idResultModal").modal("show");
 
 	            } else {
-	                alert("아이디와 이메일이 일치하지 않습니다.");
+	                swal("","아이디와 이메일이 일치하지 않습니다.","waning");
 	                return false;
 	            }
 	        },
 	        error : function() {
-	            alert("오류")
+	            swal("","오류","error")
 	        }
 	    })
 	});
