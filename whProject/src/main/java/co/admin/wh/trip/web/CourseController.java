@@ -68,7 +68,7 @@ public class CourseController {
 		List<TagVO> tagList = tagMapper.findByTagCnt();
 		model.addAttribute("tagList", tagList); 
 		//Tag 끝==========================================
-		return "trip/tripcourseList";
+		return "trip/tripCourseList";
 		
 	}	
 	
