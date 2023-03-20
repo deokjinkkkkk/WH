@@ -55,8 +55,14 @@ public class CourseServiceImpl implements CourseService{
 
 	@Override
 	public List<CourseVO> myCouSharing(CourseVO vo) {
-		// 나만의 코스 공유...test
+		// 나만의 코스 공유
 		return courseMapper.myCouSharing(vo);
+	}
+
+	@Override
+	public List<CourseVO> tripCourseRegion(CourseSearchVO cvo) {
+		// 지역별 선택
+		return courseMapper.tripCourseRegion(cvo);
 	}
 
 }

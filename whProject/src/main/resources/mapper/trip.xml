@@ -33,6 +33,14 @@
 	<!-- 전체 건수 조회 -->
 	<select id="getCountTotla" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
 		SELECT COUNT(*) FROM TRIP	
+		<where>
+		<if test="tripRegion != null and tripRegion != ''">		
+		trip_region =  #{tripRegion}
+		</if>
+		<if test="tripName != null and tripName != ''">		
+		AND trip_name like '%'|| (#{tripName}) ||'%'
+		</if>
+		</where>
 	</select>
 	
 	<!-- 상세페이지 보기 -->
@@ -66,23 +74,15 @@
 		SELECT * 
 		FROM TRIP t
 		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
-		 where trip_name like '%'|| (#{tripName}) ||'%'
+		<where>
+		<if test="tripName != null and tripName != ''">
+		trip_name like '%'|| (#{tripName}) ||'%'
+		</if>
+		</where>
 		ORDER BY TRIP_NAME
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>		
-	</select>
-	
-	
-	<!-- 여행지 지역 검색 -->
-	<select id="tripRegionSearchList" resultType="co.admin.wh.trip.vo.TripVO">
-	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
-	    	select *
-	    	from trip
-	    	where trip_addr like ''|| (#{tripAddr}) ||'%'
-	    <![CDATA[
-		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>	
 	</select>
 	
 	<!-- 여행지 지역별 선택하여 보기 -->
@@ -90,7 +90,26 @@
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		select *
-		from trip where trip_region =  #{tripRegion}
+		from trip 
+		<where>
+		<if test="tripRegion != null and tripRegion != ''">	   	
+		trip_region =  #{tripRegion}
+		</if>
+		<if test="tripName != null and tripName != ''">
+		AND trip_name like '%'|| (#{tripName}) ||'%'
+		</if>
+		</where>
+		<choose>
+		<when test="orders=='a'.toString()">
+			order by trip_name desc
+		</when>
+		<when test="orders=='b'.toString()">
+			order by trip_date desc
+		</when>
+		<otherwise>
+		ORDER BY TRIP_CODE
+		</otherwise>
+		</choose>
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>

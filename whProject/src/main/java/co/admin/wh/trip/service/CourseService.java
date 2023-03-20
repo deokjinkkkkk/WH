@@ -24,6 +24,8 @@ public interface CourseService {
 	
 	CourseVO oneSelect(CourseVO vo);// 코스 단건조회
 	
-	List<CourseVO> myCouSharing(CourseVO vo); // 나만의 코스 공유...test
+	List<CourseVO> myCouSharing(CourseVO vo); // 나만의 코스 공유
+	
+	List<CourseVO> tripCourseRegion(CourseSearchVO cvo); //지역별 정렬
 	
 }

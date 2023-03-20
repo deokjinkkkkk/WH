@@ -46,7 +46,9 @@
 	<update id="couOrdUpdate">
 	    UPDATE MY_COURSE_FREE
 	    SET COU_ORD = COU_ORD - 1
-	    WHERE COU_ORD > #{couOrd}
+	    <![CDATA[
+	    WHERE COU_ORD > #{couOrd} AND MY_COU_FREE_CODE <> #{myCouFreeCode}
+	    ]]>		
 	</update>
 	
 	<!-- 나만의 코스 상세페이지에 담은 각 여행지 위아래로 이동 -->

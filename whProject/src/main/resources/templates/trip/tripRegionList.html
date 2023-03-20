@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<script>
-function gopage(page) {
-		location.href = "trip?page=" + page;
-	frmSearch.page.value = page;
-	frmSearch.submit();
-	}  
-</script>
 
 <div class="row margin-30px-bottom" id="tripListContent">
 	<div class="col-12 margin-40px-bottom">
@@ -39,7 +32,7 @@ function gopage(page) {
 				</div>
 			</div>
 		</div>
-
+		
 		<!-- 페이징 추가 해주세요 -->
 		<div class="gopage" align="center">
 			<nav aria-label="Page navigation example" class="gopage">

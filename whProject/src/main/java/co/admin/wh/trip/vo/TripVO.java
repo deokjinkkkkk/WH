@@ -50,6 +50,8 @@ public class TripVO {
 
 	private String imgPath;
 	private String imgName;
+	
+	String orders;
 
 	
 	

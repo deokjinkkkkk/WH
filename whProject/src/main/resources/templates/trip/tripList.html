@@ -9,17 +9,13 @@
 
 <body>
 
-   <div layout:fragment="content" class="content">
-   
-   <!-- 페이징 -->
-   <script>
-   		function gopage(page) {
-   			location.href = "trip?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}
-   </script>
-   <!-- 페이징 끝-->
+<div layout:fragment="content" class="content">
+<style>
+.active {
+	background-color : green;
+}
+</style>
+
    
    
    <!-- 배너시작 -->  
@@ -40,46 +36,94 @@
       <!-- start tour-list section -->
       <section>
          <div class="container">
-            <div class="row">
-               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                                 
-                        <p style="font-size: 30px;">전체 여행지<p><hr>
+                 <p style="font-size: 30px;">지역별 여행지<p><hr>
+                 <hr>
                  <div id="product_order_list">
                  
-			<p>
-			<a href="javascript:region(1);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(6);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(4);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(2);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(5);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(3);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(7);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(8);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(37);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(38);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(35);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(36);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<p id="regionSection">
+			<a href="#" onclick="region('');" class="active">전체</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(1);">서울</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(6);">부산</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(4);">대구</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(2);">인천</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(5);">광주</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(3);">대전</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(7);">울산</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(8);">세종</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(31);">경기</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(32);">강원</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(33);">충북</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(34);">충남</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(37);">전북</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(38);">전남</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(35);">경북</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(36);">경남</a>&nbsp&nbsp|&nbsp&nbsp
+			<a href="#" onclick="region(39);">제주</a>&nbsp&nbsp|&nbsp&nbsp
 			</p>
 		</div>
             	<div id="product_order_list">
-					<p>
-					<a href="javascript:latestList();">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+					<p id="ordersRegion">
+					<a href="#" onclick="orders(a)">이름순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+					<a href="#" onclick="orders(b)">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 					<a href="javascript:tripGoodRatingList()">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					</p>
 				</div>
-				<script th:inline="javascript">
+                 <!-- 검색 폼 -->
 				
-				// 지역별 출력
-				var region = function(tripRegion) {
+					<input type="hidden" id="page" name="page" value="1">
+					<input type="hidden" id="tripRegion" name="tripRegion" th:value="${param.tripRegion}">
+                	<input type="text" onkeypress="tripNameFind()" id="tripName" name="tripName" th:value="${param.tripName}" class="form-control"  placeholder="여행지를 검색하세요">
+                	<input type="hidden" id="orders" name="orders" th:value="${param.orders}">
+  
+                
+               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom" style="float: left;">
+          		<div class="row margin-30px-bottom" id="tripListContent">
+             
+               </div>
+             </div>
+             	<script th:inline="javascript">
+
+             	function tripNameFind() {
+             		if(event.keyCode == 13) {
+             			goregion();
+             		} 
+             	}
+             	
+				function gopage(page) {
+		   			$("#page").val(page)
+		   			goregion()
+
+		   		}  
+		   		
+		   		function region(tripRegion){
+					event.preventDefault()
+		   			$(".active").removeClass("active");
+		   			$(event.target).addClass("active");
+		   			$("#tripRegion").val(tripRegion);
+		   			$("#page").val(1)
+		   			$("#tripName").val("");
+		   			$("#orders").val();
+		   			goregion()
+		   		}
+		   		
+		   		function orders(orders) {
+		   			event.preventDefault()
+		   			$("#page").val(1)
+		   			$("#orders").val("");
+					goregion()
+		   		}
+				
+				// 지역별 / 이름 입력 시 출력
+				var goregion = function() {
+					var tripRegion = $("#tripRegion").val()
+		 			var page = $("#page").val()
+		 			var tripName = $("#tripName").val()
+		 			var orders = $("#orders").val()
+		 			console.log(orders)
 					$.ajax({
 						type: 'post',
 						url: "/tripRegion",
-						data: {tripRegion},
+						data:{tripRegion, page, tripName, orders},
 						success: function(data) {
 							$("#tripListContent").replaceWith(data);
 						},
@@ -116,23 +160,15 @@
 						}
 					})
 				}
-				
-				</script>
- 			
- 			
-                
-                 <!-- 검색 폼 -->
-				<form action="/tripNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
-                	<br><input type="text" class="form-control" id="selfSearch" name="tripName" placeholder="여행지를 검색하세요"><br><br>
-                </form>
-  
-                <script>
+			
                 
                 // 여행지명 검색 리스트
                 function tripNameSearchList() {
+		 			var page = $("#page").val()
                 	$.ajax({
                 		type: 'post',
                 		url: "/tripNameSearchList",
+                		data: {page},
                 		success: function(data) {
                 			$("#tripListContent").realaceWith(data);
                 		},
@@ -141,6 +177,8 @@
                 		}
                 	});
                 };
+                
+               	goregion();
                 
                 // 자동완성
                 $('#selfSearch').selfsearch({
@@ -178,67 +216,14 @@
    							console.log(ui.item.idx);
    					 }
    				});
+                
+          
        			</script>
-          <div class="row margin-30px-bottom" id="tripListContent">
-             <div class="col-12 margin-40px-bottom">                
-                <div  th:each="t, nStat: ${tripList}" class="card card-list margin-15px-bottom">
-                   <div class="row align-items-center">
-                   <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
-                   <div class="card-list-img">
-                         <img th:if="${t.tripCode < 2221}" class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"/>
-                             <img th:if="${t.tripCode >= 2221}" th:src="'/image/'+${t.imgPath}" style="width:300; height:200px;" class="border-radius-5"/>
-                      </div>
-                      <div class="card-list-img">
-                      </div>
-                   </div>
-                   <div class="col-md-7 col-lg-8" id="trip">
-                      <div
-                         class="card-body padding-15px-tb xs-no-padding-top xs-padding-20px-left padding-40px-right no-padding-left">
-                         <div
-                            class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title no-margin-bottom font-size22">
-                               <a th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}" class="text-extra-dark-gray">[[${t.tripName}]]</a>
-                            </h5>
-                         </div>
-                         <p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
-                         <!-- 해시태그 -->
-                         <ul class="tags">
-                         <li><a href="#">#</a></li>
-                         </ul>
-                      </div>
-
-                   </div>
-                </div>
-             </div>
-
-								<!-- 페이징 추가 해주세요 -->
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-											<li class="page-item" th:if="${paging.startPage > 1}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
-												</li>											
-												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
-												</li>										
-												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-												</li>
-											</ul>
-										</nav>
-									</div> 
-                   				<!-- 페이징 끝 -->
-
-                  </div>
-               </div>
-          	   </div>
-             </div>
         </div>
    </section>
       <!-- end tour-list section -->
       
 
-
+</div>
 </body>
 </html>

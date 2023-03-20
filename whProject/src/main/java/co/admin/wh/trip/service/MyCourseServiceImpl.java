@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import co.admin.wh.tag.mapper.TagMapper;
 import co.admin.wh.tag.service.TagService;
+import co.admin.wh.tag.vo.TagVO;
 import co.admin.wh.trip.mapper.MyCourseMapper;
 import co.admin.wh.trip.vo.MyCourseVO;
 
@@ -61,7 +62,9 @@ public class MyCourseServiceImpl implements MyCourseService {
 	public int myCouIntroUpdate(MyCourseVO vo) {
 		// 소개글 업데이트
 		//=====tag 적용시키기!~!!!!====
-		tservice.saveTag("", 1);
+		TagVO tvo = new TagVO();
+		tvo.setTagName(vo.getMyCouContent());
+		tservice.saveTag(tvo.getTagName(), vo.getMyCourseCode());
 		return map.myCouIntroUpdate(vo);
 	}
 
