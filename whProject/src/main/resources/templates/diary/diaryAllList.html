@@ -3,29 +3,35 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 
-<style>
-a {
-	text-decoration-line: none;
-	color: black;
-}
 
-.navbar {
-	position: fixed;
-	width: 100%;
-	background-color: white;
-	border-bottom: solid 1px rgb(202, 202, 202);
-}
+<body>
+	<div layout:fragment="content" class="content">
+<style>
+ a { 
+text-decoration-line: none; 
+	color: black; 
+ } 
+
+/* .navbar { */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	background-color: white; */
+/* 	border-bottom: solid 1px rgb(202, 202, 202); */
+/* } */
 
 .container-fluid {
 	justify-content: space-between;
 	min-width: 1000px;
-	width: 1000px
+	text-align: center;
+	width: 1000px;
+	background-color: #FAFAFA;
+	
 }
 
-.navbar-search {
-	width: 300px;
-	font-size: 14px;
-}
+/* .navbar-search { */
+/* 	width: 300px; */
+/* 	font-size: 14px; */
+/* } */
 
 .body {
 	padding-top: 100px;
@@ -39,7 +45,7 @@ a {
 .left-body {
 	width: 630px;
 	min-width: 630px;
-	height: 1000px;
+	min-height: 1000px;
 	margin-right: 350px;
 }
 
@@ -51,11 +57,11 @@ a {
 	margin-left: 650px;
 }
 
-.feed-box {
-	border: solid 1px rgb(202, 202, 202);
-	background-color: white;
-	margin-bottom: 25px;
-}
+/* .feed-box { */
+/* 	border: solid 1px rgb(202, 202, 202); */
+/* 	background-color: white; */
+/* 	margin-bottom: 25px; */
+/* } */
 
 .profile {
 	display: flex;
@@ -100,6 +106,7 @@ a {
 	flex-direction: row;
 	justify-content: space-between;
 	margin: 10px;
+	
 }
 
 .like {
@@ -406,12 +413,7 @@ span {
 .col-sm-5 {
 	width: 500px;
 }
-
-
-</style>	
-<body>
-	<div layout:fragment="content" class="content">
-
+</style>
 	<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(img/banner/bg2.jpg)|">
@@ -426,26 +428,28 @@ span {
 		</section>
 	
 	<!-- 바디 영역 -->
-	<div class="body" style="padding-left: 100px; border: 1px solid slategray;"   >
+	<div class="body" style="padding-left: 100px; border: 1px solid slategray;"  >
 		<div class="left-body">
 		<div class="posts">
-			<div class="feed-box" id="inst" style="padding: 20px">
-			<div th:each="d : ${diaryss}"  class="diaryCode"  th:data-code="${d.diaryCode}">
+			<div class="feed-box" id="inst" >
+			<div th:each="d : ${diaryss}"  class="diaryCode"  th:data-code="${d.diaryCode}" id="dir" style="border: 2px double; border-radius: 10px; margin: 30px;">
 			<a class="profile-id" th:text="${d.id}" style="margin: 10px;" id="id" th:href="@{/diarys/{id}(id=${d.id})}"></a>
 					<div class="profile-id" ></div>  
 				<div class="feed-img" > 
 					<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px" height="300px">
 				</div>
-				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}" style="float: left;"></div><br>
-				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}" style="float: left;"></div>
+				<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}"></div>
+				<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"></div>
 				<br><br>
-				<h5><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" style="float: none;" ></div></h5></b>
-				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;" >
+				<h3><b><div class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}" ></div></h3></b>
+				<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" >
 				</div>
 				</div>
-
+		
 			</div>
+			
 		</div>
+			
 	</div>
 	</div>
 	</div>
