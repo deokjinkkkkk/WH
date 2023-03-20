@@ -29,7 +29,15 @@ import co.admin.wh.notice.service.CompanionService;
 import co.admin.wh.notice.vo.CompanionSearchVO;
 import co.admin.wh.notice.vo.CompanionVO;
 import co.admin.wh.notice.vo.Paging;
-
+/*
+ * 작성자 :  김지은 
+ * 작성일자:2023/03/20
+ * 작성내용 : 동행자 게시판
+ * */
+/**
+ * @author admin
+ * 동행자 관련 게시판
+ * */
 @Controller
 public class CompanionController {
 	@Autowired
@@ -58,7 +66,17 @@ public class CompanionController {
 
 	@Value("${wh.saveimg}")
 	private String saveimg;
-
+	
+	/**
+	 * 
+	 * @param model
+	 * @param cvo
+	 * @param paging
+	 * @param ivo
+	 * @param vo
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping("/companion")
 	public String companion(Model model, @ModelAttribute("fcvo") CompanionSearchVO cvo, Paging paging, ImageVO ivo, MemberVO vo, Principal principal) {
 		
