@@ -50,13 +50,12 @@ public class tourController {
 				ivo.setImgGroCode(image);
 				ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
 				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				tourService.imgInsert(ivo);
+				vo.setImgGroCode(ivo.getImgGroCode());
 			}
-			ivo.getImgGroCode();
-			tourService.imgInsert(ivo);
-			vo.setImgGroCode(ivo.getImgGroCode());
-			tourService.tourInsert(vo);
-			
 		}
+		tourService.tourInsert(vo);
+		
 		return "content/main";
 	}
 	//관리자 관광정보요청 리스트
@@ -77,10 +76,8 @@ public class tourController {
 		paging.setPageUnit(10);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
 		
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
 		paging.setTotalRecord(tourService.getCountTotal(vo));
 		
 		model.addAttribute("tour", tourService.tourSearchList(vo) );
@@ -96,7 +93,7 @@ public class tourController {
 	//관광정보요청 수락
 	@PostMapping("/tourTripInsert")
 	public String adminTourTripInsert(TourVO vo) {
-		tourService.tourUpdate(vo);
+	
 		tourService.tourAdminInsert(vo);
 		return "redirect:adminTourForm";
 	}

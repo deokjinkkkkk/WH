@@ -30,7 +30,6 @@ public class CommentsController {
 	@PostMapping("/comInsert") //댓글 등록
 	@ResponseBody
 	public String commentsInsert(@RequestBody CommentsVO vo) {
-		System.out.println("댓글 등록하자");
 
 		commentsMapper.commentsInsert(vo);
 		return "success";
@@ -39,7 +38,6 @@ public class CommentsController {
 	@PostMapping("/reComInsert") //대댓글 등록
 	@ResponseBody
 	public String reCommentsInsert(@RequestBody CommentsVO vo) {
-		System.out.println("댓글 등록하자");
 //		if(id == null) {
 //		 로그인 안하면 댓글 달지 못하게 하기	
 //		}
@@ -51,7 +49,6 @@ public class CommentsController {
 	@DeleteMapping("/reComDelete") //댓글 삭제
 	@ResponseBody
 	public String reCommentsDelete(CommentsVO vo) {
-		System.out.println("삭제");
 		System.out.println(vo.getComCode());
 		
 		commentsMapper.reCommentsDelete(vo);
@@ -61,8 +58,6 @@ public class CommentsController {
 	@DeleteMapping("/comDelete") //댓글 삭제
 	@ResponseBody
 	public String commentsDelete(CommentsVO vo) {
-		System.out.println("삭제");
-		System.out.println(vo.getComCode());
 		
 		commentsMapper.commentsDelete(vo);
 		return "success";

@@ -64,9 +64,10 @@
 		where id = #{id}
 	</delete>
 	<!-- 비밀번호 체크 -->
+	
 	<select id="passChk" resultType="boolean">
-		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID 
-		FROM MEMBER WHERE id = #{id} AND pass = #{pass}
+		SELECT COUNT(*)  AS ID 
+		FROM MEMBER WHERE id = #{id} 
 	</select>
 	<!--탈퇴 테이블에 회원 정보 이전  -->
 	<insert id="memDel">

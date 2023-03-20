@@ -56,7 +56,7 @@
                                         <li><a href="/hotel">hotel</a></li>
                                         <li><a href="/chat/room">chat</a></li>
                                         <li th:if="${session.name != null}"><a href="/myPage">my page</a></li>
-                                        <li th:if="${session.name == 'ADMIN'}"><a href="/admin">admin page</a></li>
+                                        <li th:if="${session.name == 'ADMIN'}"><a href="/admemList">admin page</a></li>
                                         <li th:if="${session.name == null}"><a href="/login">login</a></li>
                                         <li th:if="${session.name != null}"><a href="/logout">logout</a></li>
                                     </ul>
