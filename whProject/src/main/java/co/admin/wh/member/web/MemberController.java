@@ -23,6 +23,14 @@ import co.admin.wh.member.vo.MemberSearchVO;
 import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.vo.Paging;
 
+/*
+ * 작성자 : 서덕진	
+ * 작성일자 : 2023-03-20
+ * 작성내용 : 회원 컨트롤러 :로그인,로그아웃,회원가입,비밀번호찾기,아이디찾기,이메일인증
+*/
+
+
+
 @Controller
 public class MemberController {
 	@Autowired
@@ -218,7 +226,7 @@ public class MemberController {
 	    return "아이디는 " + id + "입니다.";
 	}
 	
-	//관리자 회원 아이디 찾기
+	//관리자 회원검색 아이디로 찾기
 	@RequestMapping("/memberSearch")
 	public String memberSearch(MemberVO vo, Model model, Paging paging) {
 		paging.setPageUnit(10);//한 페이지에 출력할 레코드 건수
