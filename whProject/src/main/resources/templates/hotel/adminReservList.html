@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin/indexAdmin}">
+	layout:decorate="~{admin/indexAdmin}">
 <body>
 	<!-- 각자 내용 -->
 	<body layout:fragment="adminContent">
@@ -143,30 +143,27 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 <p style="font-size:30px;">예약내역 조회</p>
 <form id="searchInput" name="searchFrm" style="margin-top: 20px;">
 <input type="date" id="checkIn" name="checkIn"> ~ <input type="date" id="checkOut" name="checkOut">
-<!-- <button onclick="dateSearch()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br> -->
   <select name="option" class="select col-md-2" style="display: inline-block">
-    <option disabled selected>옵션</option>
-    <option value="resId">예약번호</option>
+    <option selected>옵션</option>
+    <option value="id">예약번호</option>
     <option value="hotelName">호텔명</option>
-    <option value="roomGrade">방등급</option>
-<!--     <option value="checkIn">입실일</option> -->
-<!--     <option value="checkOut">퇴실일</option> -->
+    <option value="grade">방등급</option>
     <option value="resName">예약자명</option>
-    <option value="resTel">연락처</option>
-    <option value="resEmail">이메일</option> 
+    <option value="tel">연락처</option>
+    <option value="email">이메일</option> 
   </select>
-<input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션 선택 후 검색 가능합니다." style="display: inline-block" >
+<input type="text" class="form-control col-md-9" name="content" id="content" placeholder="옵션을 선택하세요." style="display: inline-block" >
 <button onclick="searchInfo()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="ti-search"></span></button><br><br>
 </form>
 </div>
 
 <script>
 // 검색(form 데이터 ajax로 전송)
- function searchInfo(){ // 이거 매퍼문 중첩검색바궈야댐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ function searchInfo(){
 	 if($(".select").val() == ''){
-		 alert("검색 옵션을 선택하세요.")
+		 swal("","검색 옵션을 선택하세요.","warning")
 	 }else if($("#content").text() == ''){
-		 alert("검색 내용을 입력하세요.")
+		 swal("","검색 내용을 입력하세요.","warning")
 	 }else{
 		 var queryString = $("#searchInput").serialize(); // form데이터
 		 
@@ -185,29 +182,6 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 
 	 }
  }
- 
-//  //날짜검색
-//  function dateSearch(){
-// 	let checkIn = $("#checkIn").val();
-// 	let checkOut = $("#checkOut").val();
-	
-// 	$.ajax({
-// 		type: "post",
-// 		url: "/adminDateSearch",
-// 		dataType: 'json',
-// 		data: JSON.stringify({
-// 			"checkIn":checkIn,
-// 			"checkOut":checkOut
-// 		}),
-// 		contentType:"application/json",
-// 		success: function(data){
-			
-// 		},
-// 		error: function(xhr, status, error){
-// 			alert("ajax실패 :" + error);
-// 		}
-// 	})
-//  }
 </script>
   <table class="rwd-table" id="ReservList">
     <tbody>
@@ -282,8 +256,6 @@ function setResInfo() {
 								<div class="modal-body" id="modal2"></div>
 							</div>
 							<div class="modal-body">
-<!-- 								입실일<input type="text" class="modifyInput" id="modifyInput1"> -->
-<!-- 								퇴실일<input type="text" class="modifyInput" id="modifyInput2"> -->
 								예약자명<input type="text" name="resName" id="resName" required>
 								연락처<input type="text" name="resTel" id="resTel" required>
 								이메일<input type="text" name="resEmail" id="resEmail" required>
@@ -301,7 +273,7 @@ function setResInfo() {
 
 
   <script>
-  	// 
+  	// 환불승인 버튼으로 실행되는 함수
   	function cancelOK(){
   			// 예약번호넘김
  			let resId = $(event.target).parent().parent().find('td:nth-child(1)').text(); 
@@ -356,33 +328,38 @@ function setResInfo() {
  			
  			let returnPay = Math.floor(old_returnPay); // 최종 환불금액
  			
-  		var result = confirm("환불요청을 승인하시겠습니까? 예상환불금액은 "+returnPay+"원입니다.");
- 		if(result == true){
- 			
- 			$.ajax({
-				url : "/Admin/cancel",
-				type : "POST",
-				data : JSON.stringify(
-					{"resId": resId,
-// 					"checkIn": checkIn,
-// 					"submitDate": submitDate
-					"returnPay": returnPay // 환불금액
-					}
-				),
-				contentType:'application/json',
-				success : function(result){
-					if(result == "y") {
-						alert("환불이 완료되었습니다.");
-					}else{
-						alert("디비입력실패");
-						return false;
-					}
-				},
-				error : function(a,b,c){}
-			});
-			}else{
-				return false;
-			}
+ 			swal({
+ 				  title: "요청을 승인하시겠습니까?",
+ 				  text: "환불예상금액 : " + returnPay +"원",
+ 				  icon: "warning",
+ 				  buttons: true,
+ 				  dangerMode: true,
+ 				})
+ 				.then((ok) => {
+ 				  if (ok) {
+ 					 $.ajax({
+		 				url : "/Admin/cancel",
+		 				type : "post",
+		 				data : JSON.stringify(
+		 					{"resId": resId,
+		 					"returnPay": returnPay // 환불금액
+		 					}
+		 				),
+		 				contentType:'application/json',
+		 				success : function(result){
+		 					if(result == "y") {
+		 						swal("","환불이 완료되었습니다.","success");
+		 					}else{
+		 						alert("-");
+		 						return false;
+		 					}
+		 				},
+		 				error : function(a,b,c){}
+		 			});
+ 				  } else {
+ 				    swal("환불이 취소되었습니다.");
+ 				  }
+ 				});
  		}
   	
   </script>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.common.mapper.TourMapper">
-
+	<!--관광정보요청 요청보내기  -->
 	<insert id="tourInsert">
 		<selectKey keyProperty="tourId" resultType="int"
 			order="BEFORE">
@@ -17,12 +17,34 @@
 		,#{tourTel},#{restDate},#{useTime},#{tourParking}
 		,#{tourChild},#{tourChkCard},0,#{id},sysdate)
 	</insert>
-
+	<!-- 관리자 요청 목록보기 --> 
 	<select id="tourList" resultType="co.admin.wh.common.vo.TourVO">
+	select * from (select rownum rn, a.*
+		from (
 		Select *
 		from tour
+		<![CDATA[
+	 )a  where rownum <= #{last} ) b  where rn  >= #{first} 	
+	]]>
 	</select>
-
+	<!--관리자 제목 검색 목록  -->
+	<select id="tourSearchList" resultType="co.admin.wh.common.vo.TourVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM
+		(
+		SELECT *
+		FROM tour
+		WHERE tour_title like '%'|| (#{tourTitle}) ||'%'
+	<![CDATA[
+	) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+	]]>
+	</select>
+	<!-- 관광정보요청 개수  -->
+	<select id="getCountTotal"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM tour
+	</select>
+	<!-- 이미지 등록  -->
 	<insert id="imgInsert"
 		parameterType="co.admin.wh.common.vo.ImageVO">
 		<selectKey keyProperty="imgCode" resultType="int"
@@ -33,7 +55,7 @@
 		VALUES
 		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
 	</insert>
-	
+	<!-- 이미지 불러오기  -->
 	<select id="imgSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT *
@@ -45,7 +67,7 @@
 		WHERE r.COMP_CODE =
 		#{compCode}
 	</select>
-	
+	<!-- 관광정보 요청 싱테변경  -->
 	<update id="tourUpdate">
 		UPDATE TOUR
 		<set>
@@ -53,7 +75,7 @@
 		</set>
 		WHERE tour_Id = ${tourId}
 	</update>
-	
+	<!-- 관광정보요청 관리자 수락  -->
 	<insert id="tourAdminInsert">
 		<selectKey keyProperty="tourId" resultType="int"
 			order="BEFORE">

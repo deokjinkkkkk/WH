@@ -88,6 +88,12 @@ public class TripServiceImpl implements TripService{
 		return tripMapper.tripRegionSearchList(vo);
 	}
 
+	@Override
+	public List<TripVO> tripRegion(TripSearchVO tvo) {
+		// 지역 정렬
+		return tripMapper.tripRegion(tvo);
+	}
+
 
 	
 }

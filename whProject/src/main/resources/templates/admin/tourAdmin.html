@@ -1,15 +1,50 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/admin/indexAdmin}">
+<style>
+.card {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border: none;
+}
+
+.card-header h6 {
+	color: #007bff;
+	font-weight: bold;
+}
+
+.table td {
+	vertical-align: middle;
+}
+</style>
 <body layout:fragment="adminContent">
+	<!-- 페이징 -->
+	<script>
+		function gopage(page) {
+			location.href = "adminTourForm?page=" + page;
+			frmSearch.page.value = page;
+			frmSearch.submit();
+		}
+	</script>
+
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
+			<form class="form-inline mr-auto w-100 navbar-search"
+				action="/tourSearch">
+				<div class="input-group">
+					<input type="text" class="form-control bg-light border-0 small"
+						placeholder="제목 검색" aria-label="Search"
+						aria-describedby="basic-addon2" name="tourTitle">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="submit">
+							<i class="fas fa-search fa-sm"></i>
+						</button>
+					</div>
+				</div>
+			</form>
 			<h6 class="m-0 font-weight-bold text-primary">관광정보요청</h6>
 		</div>
 		<div class="card-body">
-		
 			<div class="table-responsive">
-			
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
 					<thead>
@@ -21,7 +56,6 @@
 							<th>승인</th>
 						</tr>
 					</thead>
-					
 					<tbody>
 						<tr th:each="t : ${tour}" id="tour">
 							<td th:text=${t.id}></td>
@@ -30,98 +64,79 @@
 							<td th:if="${t.tourState == '0'}">승인대기</td>
 							<td th:if="${t.tourState == '1'}">승인</td>
 							<td th:if="${t.tourState == '2'}">승인거부</td>
-							<td><button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="sd">승인거부</button>
-							<button th:if="${t.tourState == '0'}" type="button" class="btn btn-danger" id="su">승인</button>
-							<span th:if="${t.tourState != '0'}">X</span>
-							<form action="" id="frm" method="post">
-							<input type="hidden" value="1" name="tourState">
-							<input type="hidden" th:value="${t.tourId}" name="tourId">
-							<input type="hidden" th:value="${t.tourTitle}" name="tourTitle">
-							<input type="hidden" th:value="${t.tourAddr}" name="tourAddr">
-							<input type="hidden" th:value="${t.tourLat}" name="tourLat">
-							<input type="hidden" th:value="${t.tourLon}" name="tourLon">
-							<input type="hidden" th:value="${t.tourSumm}" name="tourSumm">
-							<input type="hidden" th:value="${t.tourContent}" name="tourContent">
-							<input type="hidden" th:value="${t.tourRegion}" name="tourRegion">
-							<input type="hidden" th:value="${t.imgGroCode}" name="imgGroCode">
-							<input type="hidden" th:value="${t.tourTel}" name="tourTel">
-							<input type="hidden" th:value="${t.restDate}" name="tourRestDate">
-							<input type="hidden" th:value="${t.useTime}" name="useTime">
-							<input type="hidden" th:value="${t.tourParking}" name="tourParking">
-							<input type="hidden" th:value="${t.tourPet}" name="tourPet">
-							<input type="hidden" th:value="${t.tourChild}" name="tourChild">
-							<input type="hidden" th:value="${t.tourChkCard}" name="tourChkCard">
-							</form>							
+							<td>
+								<button th:if="${t.tourState == '0'}" type="button"
+									class="btn btn-danger" id="sd">승인거부</button>
+								<button th:if="${t.tourState == '0'}" type="button"
+									class="btn btn-danger" id="su">승인</button> <span
+								th:if="${t.tourState != '0'}">=</span>
+								<form action="" id="frm" method="post">
+									<input type="hidden" value="1" name="tourState"> <input
+										type="hidden" th:value="${t.tourId}" name="tourId"> <input
+										type="hidden" th:value="${t.tourTitle}" name="tourTitle">
+									<input type="hidden" th:value="${t.tourAddr}" name="tourAddr">
+									<input type="hidden" th:value="${t.tourLat}" name="tourLat">
+									<input type="hidden" th:value="${t.tourLon}" name="tourLon">
+									<input type="hidden" th:value="${t.tourSumm}" name="tourSumm">
+									<input type="hidden" th:value="${t.tourContent}"
+										name="tourContent"> <input type="hidden"
+										th:value="${t.tourRegion}" name="tourRegion"> <input
+										type="hidden" th:value="${t.imgGroCode}" name="imgGroCode">
+									<input type="hidden" th:value="${t.tourTel}" name="tourTel">
+									<input type="hidden" th:value="${t.restDate}"
+										name="tourRestDate"> <input type="hidden"
+										th:value="${t.useTime}" name="useTime"> <input
+										type="hidden" th:value="${t.tourParking}" name="tourParking">
+									<input type="hidden" th:value="${t.tourPet}" name="tourPet">
+									<input type="hidden" th:value="${t.tourChild}" name="tourChild">
+									<input type="hidden" th:value="${t.tourChkCard}"
+										name="tourChkCard">
+								</form>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				
+
 			</div>
 		</div>
+		<!-- 페이징 추가 해주세요 -->
+		<div class="gopage" align="center">
+			<nav aria-label="Page navigation example" class="gopage">
+				<ul class="pagination">
+					<li class="page-item" th:if="${paging.startPage > 1}"><a
+						class="page-link"
+						th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
+					<li class="page-item"
+						th:classappend="${paging.page}==${num} ? 'active'"
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+						<a class="page-link" th:href="|javascript:gopage(${num})|">
+							[[${num}]] </a>
+					</li>
+					<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+						<a class="page-link"
+						th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<!-- 페이징 끝 -->
 	</div>
 
 	<script type="text/javascript">
-		$("#su").click(function(){
+		$("#su").click(function() {
 			let tour = $(this).next()
-			tour.children().first().val('1') 
+			tour.children().first().val('1')
 			console.log(tour.children().first().val())
-			$(this).next().attr("action","/tourTripInsert")
-			$(this).next().submit(); 
-			/* let tourId = $(this).next().val()
-			console.log(tourId)
-			let tourTitle = tour.next().val()
-			let tourAddr = tour.next().next().val()
-			let tourLon = tour.next().next().next().val()
-			let tourLat = tour.next().next().next().next().val()
-			let tourSumm = tour.next().next().next().next().next().val()
-			let tourContent = tour.next().next().next().next().next().next().val()
-			let tourRegion = tour.next().next().next().next().next().next().next().val()
-			let imgGroCode = tour.next().next().next().next().next().next().next().next().val()
-			let tel = tour.next().next().next().next().next().next().next().next().val()
-			let restDate = tour.next().next().next().next().next().next().next().next().next().val()
-			let useTime = tour.next().next().next().next().next().next().next().next().next().next().val()
-			let tourParking = tour.next().next().next().next().next().next().next().next().next().next().next().val()
-			let tourChild = tour.next().next().next().next().next().next().next().next().next().next().next().next().val()
-			let tourChkCard = tour.next().next().next().next().next().next().next().next().next().next().next().next().next().val()
-			 $.ajax({
-				url : "/tourTripInsert",
-				type : "POST",
-				data : JSON.stringify({
-					"tourState" : state,
-					"tourId" : tourId,
-					"tourTitle":tourTitle,
-					"tourAddr" : tourAddr,
-					"tourLat" : tourLat,
-					"tourLon" : tourLon,
-					"tourSumm" : tourSumm,
-					"tourContent" : tourContent,
-					"tourRegion" : tourRegion,
-					"imgGroCode" : imgGroCode,
-					"tel" : tel,
-					"restDate" : restDate,
-					"useTime" : useTime,
-					"tourParking" : tourParking,
-					"tourChild" : tourChild,
-					"tourChkCard" : tourChkCard
-				}),
-				contentType : 'application/json',
-				success : function(data) {
-					alert("관광정보요청을 승인하였습니다.")
-				},
-				error : function() {
-					alert('등록실패');
-					return false
-				}
-			})*/
-			
-		}) 
-		$("#sd").click(function(){
+			$(this).next().attr("action", "/tourTripInsert")
+			$(this).next().submit();
+
+		})
+		$("#sd").click(function() {
 			let tour = $(this).next().next()
-			tour.children().first().val('2') 
-			
-			$(this).next().next().attr("action","/tourDelete")
-			$(this).next().next().submit(); 
+			tour.children().first().val('2')
+
+			$(this).next().next().attr("action", "/tourDelete")
+			$(this).next().next().submit();
 
 		})
 	</script>

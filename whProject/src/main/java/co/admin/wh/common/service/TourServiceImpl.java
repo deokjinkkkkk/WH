@@ -21,9 +21,9 @@ public class TourServiceImpl implements TourSerivce{
 	}
 
 	@Override
-	public List<TourVO> tourList() {
+	public List<TourVO> tourList(TourVO vo) {
 		// TODO Auto-generated method stub
-		return tourMapper.tourList();
+		return tourMapper.tourList(vo);
 	}
 
 	@Override
@@ -42,6 +42,18 @@ public class TourServiceImpl implements TourSerivce{
 	public int tourAdminInsert(TourVO vo) {
 		// TODO Auto-generated method stub
 		return tourMapper.tourAdminInsert(vo);
+	}
+
+	@Override
+	public List<TourVO> tourSearchList(TourVO vo) {
+		// TODO Auto-generated method stub
+		return tourMapper.tourSearchList(vo);
+	}
+
+	@Override
+	public int getCountTotal(TourVO vo) {
+		// TODO Auto-generated method stub
+		return tourMapper.getCountTotal(vo);
 	}
 	
 }

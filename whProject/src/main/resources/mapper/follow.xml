@@ -19,7 +19,7 @@
 		from follow f join member m
 		on f.following_id =
 		m.id
-		where f.follow_id =#{id}
+		where f.following_id =#{followingId}
 	</select>
 
 	<!-- 팔로워, 팔로잉 수 -->

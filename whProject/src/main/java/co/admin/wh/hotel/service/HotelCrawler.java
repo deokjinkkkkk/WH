@@ -84,15 +84,12 @@ public class HotelCrawler implements Crawler {
                     JSONObject roomInfo = (JSONObject)topRates.get(0);
                     
                     HotelVO hotelVO = new HotelVO((String)tmp.get("hotelName"),
-//                    		(long)tmp.get("guestRating"),
                     		8.0,
                     		(String)tmp.get("city")+" "+(String)tmp.get("address"), 
-                    		"hotelInfo","hotelContent",
                     		(String)tmp.get("city"),
                     		(String)roomInfo.get("roomName"),
-                    		(long)2,(long)roomInfo.get("totalRate"),(long)2,
+                    		(long)roomInfo.get("totalRate"),(long)2,
                     		img1,img2,img3,img4,img5); // vo에 담음
-//                    System.out.println(hotelVO);
                     
                     
                     hotelList.add(hotelVO);

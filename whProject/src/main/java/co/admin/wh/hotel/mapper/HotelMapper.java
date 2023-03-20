@@ -1,6 +1,7 @@
 package co.admin.wh.hotel.mapper;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,9 +53,10 @@ public interface HotelMapper {
     
     // 관리자
     List<CancelVO> adminReservList(); // 관리자 예약내역 전체조회
-    List<CancelVO> adminSearch(String option, String content); // 관리자 예약내역 검색
+    List<CancelVO> adminSearch(CancelVO vo); // 관리자 예약내역 검색
     void updateCancelInfo(CancelVO vo); // 예약취소승인할 때 취소 테이블에 환불정보 업데이트.
 //    List<CancelVO> adminDateSearch(CancelVO vo); // 관리자 예약내역 기간별 검색
+    List<ReservationVO> compareToDate(ReservationVO vo); // 예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false)
 
 }
 

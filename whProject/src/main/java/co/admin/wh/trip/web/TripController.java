@@ -67,6 +67,24 @@ public class TripController {
 		return "trip/tripList";
 	}
 	
+	// 여행지 지역 선택
+	@RequestMapping("/tripRegion")
+	public String tripRegion(Model model, TripSearchVO tvo, Paging paging) {
+		paging.setPageUnit(5);
+		paging.setPageSize(10);
+		
+		tvo.setFirst(paging.getFirst());
+		tvo.setLast(paging.getLast());
+		
+		paging.setTotalRecord(tripService.getCountTotla(tvo));
+		
+		List<TripVO> tripSelect = tripService.tripRegion(tvo);
+		model.addAttribute("tripSelect",tripSelect);
+		
+		return "trip/tripRegionList";
+		
+	}
+	
 	// 여행지 이름 검색
 	@PostMapping("/tripNameSearchList")
 	public String tripNameSearch(Model model, TripSearchVO vo, Paging paging) {
@@ -83,22 +101,7 @@ public class TripController {
 		return "trip/tripNameSearchList";
 	}
 	
-	
-	// 여행지 지역 검색
-		@PostMapping("/tripRegionSearchList")
-		public String tripRegionSearch(Model model, TripSearchVO vo, Paging paging) {
-			paging.setPageUnit(5);
-			paging.setPageSize(10);
-			
-			vo.setFirst(paging.getFirst());
-			vo.setLast(paging.getLast());
-			
-			paging.setTotalRecord(tripService.getCountTotla(vo));
-			
-			List<TripVO> tripList = tripService.tripRegionSearchList(vo);
-			model.addAttribute("tripList", tripList);
-			return "trip/tripRegionSearchList";
-		}
+
 	
 	// 여행지검색 자동 완성
 	@RequestMapping("/ajax/selfsearch")

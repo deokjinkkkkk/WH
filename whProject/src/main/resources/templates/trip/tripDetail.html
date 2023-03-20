@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/index}">
+	layout:decorate="~{index}">
 
 <body>
   
@@ -9,12 +9,180 @@
   <script src="/js/comments.js"></script>
   <!--좋아요 버튼 css-->
 <style>
+/* 댓글 css  */
+.btnDel {
+  width: 70px;
+  height: 40px;
+
+}
+.comment-box {
+margin-bottom: 50px;
+position: relative;
+}
+
+.comment-box .author-thumb {
+float: left;
+margin-right: 15px;
+position: relative;
+z-index: 1;
+}
+
+.comment-box .author-thumb img {
+max-width: 100%;
+}
+
+.comment-box .comment-info h6 {
+margin-top: 0;
+margin-bottom: 5px;
+}
+
+.comment-box .reply {
+margin-top: 10px;
+font-size: 14px;
+}
+
+.comment-box .reply a {
+color: #999;
+margin-left: 10px;
+}
+
+.comment-box .rep-form {
+margin-left: 100px;
+}
+
+.comment-box .comRep {
+width: 100%;
+height: 100px;
+border: 1px solid #ddd;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.comment-box .reButn {
+background-color: #2d8bff;
+color: #fff;
+border: none;
+padding: 8px 20px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+margin-right: 10px;
+}
+
+.comment-box .btnDel {
+float: right;
+background-color: #d9534f;
+color: #fff;
+border: none;
+padding: 8px 20px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+margin-right: 10px;
+}
+
+.comment-box .secChk {
+margin-left: 10px;
+}
+
+.comment-box .comContent {
+white-space: pre-line;
+}
+
+.comment-box p {
+margin: 0;
+font-size: 14px;
+line-height: 1.5;
+color: #666;
+}
+
+.comment-box .title-g {
+margin-bottom: 30px;
+}
+
+.comment-box .title-g h3 {
+margin-top: 0;
+margin-bottom: 15px;
+font-size: 28px;
+line-height: 1.3;
+font-weight: 700;
+color: #333;
+}
+ .posts {
+  margin-top: 40px;
+}
+
+.comments-area {
+  margin-bottom: 40px;
+}
+
+.comment-form {
+  margin-bottom: 60px;
+}
+
+.controls {
+  padding-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.butn {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  padding: 12px 24px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.butn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.butn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.butn:hover span {
+  padding-right: 25px;
+}
+
+.butn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.secChk {
+  margin-left: 10px;
+}
 a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
 	
 }
+/* 댓글 css 끝 */
 
 .right_area .icon {
 	display: flex;
@@ -120,7 +288,7 @@ position: absolute;
                                 <div class="content">
                                     <div class="blog-list-simple-text post-meta">
                                         <div class="post-title">
-                                            <h5 th:text="${trip.tripName}">팔공산온천관광호텔(온천)예시임</h5>
+                                            <h5 th:text="${trip.tripName}"></h5>
                                         </div>
                         		<!-- 나만의 코스 여행지 담기 버튼 기능 -->
                                         <div class="right_area" id="tripBtn">
@@ -356,7 +524,7 @@ position: absolute;
 												<input type="hidden" th:value="${session.perm}" id="perm">
 												<div class="col-md-12 form-group">
 													<textarea id="comContent" name="comContent"
-														placeholder="댓글 내용" rows="4" required="required"></textarea>
+														placeholder="댓글 내용" rows="2" required="required"></textarea>
 												</div>
 												<div class="col-md-12">
 													<button type="button" id="butn" class="butn">
@@ -697,7 +865,7 @@ position: absolute;
 							$(".title-g margin-30px-bottom").remove()
 							$(result).each(function(index,item){
 								if(item.block == 1){
-									str += "<div class='comment-box' id='"+item.comCode+"'>"
+									str += "<div class='comment-box' id='"+item.comCode+"' >"
 									str += '<div class="author-thumb">'
 									str += '<img src="img/blog/01.png" alt="" class="rounded-circle width-85px width-100px" /> </div>'
 									str += '<div class="comment-info">'
@@ -733,7 +901,7 @@ position: absolute;
 								str += '<h6>'+item.comDate+'</h6>'
 								str += '<a href="javascript:void(0);" onclick="comReply()"> <i class="fa fa-reply" aria-hidden="true"></i> 답글</a>' 
 								str += '</div> </div> </div>'
-								str += '<div class="rep-form" id="'+item.comCode+'" style="display:none">'
+								str += '<div class="rep-form" id="'+item.comCode+'" style="display:none" text-align: right;>'
 								str += 	'<form id="reply-form " method="post">'
 								str +=  '<div class="controls">'
 								str +=  '<div class="row">'
@@ -741,7 +909,7 @@ position: absolute;
 								str += '<textarea id="comRep" name="comContent" class="comRep"'
 								str += 'placeholder="답글" rows="2" required="required">#'+item.id+'</textarea>'
 								str += '<input type="hidden" name="comGroup" id="comGroup" value="'+item.comGroup+'">'
-								str += '<button type="button" id="reButn" class="reButn" onclick="comReplyInsert()">답글등록</button>'
+								str += '<button type="button" id="reButn" class="butn" onclick="comReplyInsert()">답글등록</button>'
 								str += '<label><input type="checkbox" class="secChk" value="1">비밀</label>'
 								str +=	'</div>'
 								str += '<div class="col-md-12">'
@@ -886,8 +1054,8 @@ position: absolute;
 					let upBtn = $(event.target)
 					
 					$( pTag ).replaceWith('<textarea id="coUpText" name="comContent" class="coUpText">'+content+'');
-					$(delBtn).replaceWith('<button type="button" class="btnRet" onclick="resetBtn()">취소</button>')
-					let up = $(upBtn).replaceWith('<button type="button" class="btnUp" onclick="comUpdate()">저장</button>')
+					$(delBtn).replaceWith('<button type="button" class="btnDel" onclick="resetBtn()">취소</button>')
+					let up = $(upBtn).replaceWith('<button type="button" class="btnDel" onclick="comUpdate()">저장</button>')
 				}
 				
 				function resetBtn(){

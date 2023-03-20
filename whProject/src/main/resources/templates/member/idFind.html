@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<body layout:fragment="content">
+<style>
+.modal-dialog {
+    position: absolute;
+    left: 850px;
+    top: calc(50% + 40px);
+    transform: translateX(-50%);
+}
+</style>
+	<section
+		class="full-screen text-center cover-background bg-img no-padding"
+		data-overlay-dark="5" data-background="img/member/1.jpg">
+		<div class="container d-flex flex-column">
+			<div class="row align-items-center justify-content-center min-vh-100">
+				<div class="col-md-8">
+					<div
+						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
+						<h3 class="margin-40px-bottom text-center text-white">아이디 찾기</h3>
+						<form method="post" id="frm">
+							<!-- form 로그인 -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" name="name" id="name" required="required"
+											placeholder="이름" maxlength="70">
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group">
+										<input type="email" name="email" id="email"
+											required="required" placeholder="이메일" maxlength="70">
+									</div>
+								</div>
+								<div class="col-md-12 margin-25px-top">
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#myModal" id="idFindBtn">아이디 찾기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="modal fade" id="idResultModal" tabindex="-1" role="dialog"
+		aria-labelledby="idResultModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="idResultModalLabel">아이디 찾기 결과</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>아이디는 [찾은 아이디] 입니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		
+	$("#idFindBtn").on("click", function() {
+	    // Ajax 요청을 보냅니다.
+	    name = $("#name").val()
+	    email = $("#email").val()
+	    if (name == '') {
+	        alert("아이디를 입력해주세요")
+	        return false
+	    } else if (email == '') {
+	        alert("이메일을 입력해주세요")
+	        return false
+	    }
+	    $.ajax({
+	        url : "/idFind",
+	        type : "POST",
+	        data : JSON.stringify({
+	            "name" : name,
+	            "email" : email
+	        }),
+	        contentType : 'application/json',
+	        success : function(response) {
+	            console.log(response);
+	            if (response != null) {
+	                console.log(response)
+
+	                $("#idResultModal .modal-body").html(response);
+	                $("#idResultModal").modal("show");
+
+	            } else {
+	                alert("아이디와 이메일이 일치하지 않습니다.");
+	                return false;
+	            }
+	        },
+	        error : function() {
+	            alert("오류")
+	        }
+	    })
+	});
+	
+
+		
+	</script>
+</body>
+</html>

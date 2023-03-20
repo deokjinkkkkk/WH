@@ -2,6 +2,7 @@ package co.admin.wh.diary.web;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,16 @@ public class FollowController {
 		return mapper.followCount(followId);
 	}
 
+	@PostMapping("/follower/{followId}")
+		public List<Map<String, Object>> followerList(@PathVariable String followId) {
+			return mapper.followerList(followId);
+		}
 
+	@PostMapping("/following/{followingId}")
+		public List<Map<String, Object>> followingIdList(@PathVariable String followingId) {
+		
+		return mapper.followingList(followingId);
+		}
 
 
 }
