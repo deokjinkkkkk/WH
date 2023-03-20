@@ -184,7 +184,7 @@ public class MyCourseController {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-			return "trip/myCouTest";
+			return "trip/myCouSelect";
 		}
 		
 		

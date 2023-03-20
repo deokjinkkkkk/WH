@@ -61,7 +61,7 @@ public class MyCourseServiceImpl implements MyCourseService {
 	public int myCouIntroUpdate(MyCourseVO vo) {
 		// 소개글 업데이트
 		//=====tag 적용시키기!~!!!!====
-		tservice.saveTag( "", 1);
+		tservice.saveTag("", 1);
 		return map.myCouIntroUpdate(vo);
 	}
 

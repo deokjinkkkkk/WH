@@ -81,7 +81,7 @@ public class TripController {
 		List<TripVO> tripSelect = tripService.tripRegion(tvo);
 		model.addAttribute("tripSelect",tripSelect);
 		
-		return "trip/tripRegionTest";
+		return "trip/tripRegionList";
 		
 	}
 	
