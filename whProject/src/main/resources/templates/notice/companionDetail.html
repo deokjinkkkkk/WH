@@ -378,7 +378,7 @@ $("#butn").click(function(){ //댓글 등록
 		comLock = 0
 	}
 	if(comId == ""){
-		alert("로그인 후 이용하세요")
+		swal("","로그인 후 이용하세요","warning")
 		return;
 	}; // 로그인 안했을시 댓글 작성 x
 	
@@ -404,7 +404,7 @@ $("#butn").click(function(){ //댓글 등록
 			getComList()
 		},
 		error:function(){
-			alert('등록실패');
+			swal("","등록실패","error");
 		}
 	});
 });
