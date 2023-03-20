@@ -1,7 +1,10 @@
 package co.admin.wh.todo.service;
 
 import java.util.List;
+import java.util.Map;
 
+import co.admin.wh.hotel.vo.HotelSearchVO;
+import co.admin.wh.hotel.vo.HotelVO;
 import co.admin.wh.todo.vo.TodoVO;
 
 public interface TodoService {
@@ -17,6 +20,10 @@ public interface TodoService {
 	
 	int todoComplete(TodoVO vo); //완료
 	
+	List<Map<String, Object>>tagSearch(Map<String, Object> paramMap) throws Exception; //태그 검색 자동완성
+
 	int tagInsert(TodoVO vo);
+	
+	
 	
 }

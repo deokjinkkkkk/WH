@@ -16,6 +16,8 @@ public interface VideoMapper {
 	int videoTotal(VideoSearchVO svo);// 페이지 수 관리
 	
 	int videoUpdate(VideoVO vo);//업데이트
+	
+	int videoDelete(VideoVO vo);//삭제
 
 	List<VideoVO> region(VideoSearchVO svo); //서울 정렬
 	

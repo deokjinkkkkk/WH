@@ -71,10 +71,10 @@
 			lId = $("#id").val()
 			lPass = $("#password").val()
 			if (lId == "") {
-				alert("아이디를 입력해주세요")
+				swal("","아이디를 입력해주세요","warning")
 				return false
 			} else if (lPass == "") {
-				alert("비밀번호를 입력해주세요")
+				swal("","비밀번호를 입력해주세요","warning")
 				return false
 			} else {
 				$("#frm").submit()

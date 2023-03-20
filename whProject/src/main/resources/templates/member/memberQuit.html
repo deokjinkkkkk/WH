@@ -56,11 +56,11 @@
 				pass = $("#password1").val()
 				passchk = $("#password2").val()
 				if(pass == ""){
-					alert("비밀번호를 입력해주세요")
+					swal("","비밀번호를 입력해주세요","warning")
 					return false	
 				}	
 				else if(pass != passchk){
-					alert("패스워드가 일치하지 않습니다.")
+					swal("","패스워드가 일치하지 않습니다.","warning")
 					return false	
 				}
 				
@@ -74,11 +74,11 @@
 						if(data == "success"){
 							frm.submit();
 						}else{
-							alert("비밀번호가 일치하지 않습니다.")
+							swal("","비밀번호가 일치하지 않습니다.","warning")
 						}
 					},
 					error : function() {
-						alert("오류")
+						swal("","오류","error")
 					}
 				});
 				

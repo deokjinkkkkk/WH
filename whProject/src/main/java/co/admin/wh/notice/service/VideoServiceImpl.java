@@ -59,4 +59,10 @@ public class VideoServiceImpl implements VideoService {
 		return videoMapper.videoHit(videoCode);
 	}
 
+	@Override
+	public int videoDelete(VideoVO vo) {
+		// TODO Auto-generated method stub
+		return videoMapper.videoDelete(vo);
+	}
+
 }

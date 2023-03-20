@@ -113,10 +113,10 @@ public class Paging {
 	
 	public String getSearchInfo() {
 		 
-		if(checkIn.equals("") || checkOut.equals("") || hotelRegion.equals("") || humanCount.equals("") || childCount.equals("")) {
+		if(checkIn.equals("") || checkOut.equals("") || hotelRegion.equals("") || humanCount.equals("") || childCount.equals("") || priceRangeMin == 0 || priceRangeMax == 0) {
 		  return ""; 
 		 } else {
-		  return "&checkIn=" + checkIn + "&checkOut=" + checkOut + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount + "&childCount=" + childCount; 
+		  return "&checkIn=" + checkIn + "&checkOut=" + checkOut + "&hotelRegion=" + hotelRegion + "&humanCount=" + humanCount + "&childCount=" + childCount+ "&priceRangeMin=" + priceRangeMin+ "&priceRangeMax=" + priceRangeMax; 
 		 }
 		}
 

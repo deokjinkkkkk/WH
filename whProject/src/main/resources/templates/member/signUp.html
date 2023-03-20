@@ -120,11 +120,11 @@
 		$("#idChk").click(function() {
 			uId = $("#id").val()
 			if (uId == '') {
-				alert("아이디를 입력해주세요")
+				swal("","아이디를 입력해주세요","warning")
 				return false
 			}
 			if (uId.length < 5) {
-				alert("아이디는 4글자 이상이어야합니다.")
+				swal("","아이디는 4글자 이상이어야합니다.","warning")
 				return false
 			}
 
@@ -136,17 +136,17 @@
 				success : function(data) {
 					console.log(data);
 					if (data == "success") {
-						alert("사용할 수 있는 아이디 입니다. !!");
+						swal("","사용할 수 있는 아이디 입니다. !!","warning");
 						$("#IdChk").val("Yes")
 						$("#IdChk").attr("disabled", true); //버튼 비활성화
 					} else {
-						alert("아이디가 중복상태입니다.")
+						swal("","아이디가 중복상태입니다.","warning")
 						$("#id").val('')
 						$('#id').focus()
 					}
 				},
 				error : function() {
-					alert("오류")
+					swal("","오류","error")
 				}
 			});
 		})
@@ -157,16 +157,16 @@
 			passchk = $("#password2").val()
 			contChk = $("#terms-condition").is(':checked');
 			if (pass.length < 8) {
-				alert("패스워드 는 8자리 이상이어야 합니다.")
+				swal("","패스워드 는 8자리 이상이어야 합니다.","warning")
 				return false
 			} else if (pass != passchk) {
-				alert("패스워드가 일치하지 않습니다.")
+				swal("","패스워드가 일치하지 않습니다.","warning")
 				return false
 			} else if (contChk == false) {
-				alert("이용약관에 동의하여 주세요")
+				swal("","이용약관에 동의하여 주세요","warning")
 				return false
 			} else if (email_auth_cd != $("#emailKey").val()) {
-				alert("인증번호가 일치하지 않습니다.")
+				swal("","인증번호가 일치하지 않습니다.","warning")
 				return false;
 			}
 			$("#frm").submit()
@@ -176,7 +176,7 @@
 			var email = $('#email').val();
 
 			if (email == '') {
-				alert("이메일을 입력해주세요.");
+				swal("","이메일을 입력해주세요.","warning");
 				return false;
 			}
 
@@ -187,11 +187,11 @@
 					email : email
 				},
 				success : function(data) {
-					alert("인증번호가 발송되었습니다.");
+					swal("","인증번호가 발송되었습니다.","info");
 					email_auth_cd = data;
 				},
 				error : function(data) {
-					alert("메일 발송에 실패했습니다.");
+					swal("","메일 발송에 실패했습니다.","error");
 				}
 			});
 		});

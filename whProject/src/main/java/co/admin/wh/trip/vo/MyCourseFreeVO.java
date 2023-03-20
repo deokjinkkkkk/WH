@@ -19,5 +19,7 @@ public class MyCourseFreeVO {
 	String tripLon; //경도
 
 	String myCouContent; //코스설명
+	private String imgPath;
+	private String imgName;
 
 }

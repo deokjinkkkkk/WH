@@ -5,40 +5,56 @@
 <body>
 <section layout:fragment="adminContent">
 <h5 style="text-align:center;"><p>영상게시판</p></h5>
+<input type="hidden" id="page" name="page" value="1">
+<input type="hidden" id="videoRegion" name="videoRegion" th:value="${param.videoRegion}">
 	<!-- 내용 시작 -->
 <!-- start blog section -->
 		<section style="padding:0px;">
 			<div class="container">
-            	<p style="font-size: 30px; text-align:center;">지역<p><hr>
-            	
+            	<p style="font-size: 30px;">지역<p><hr>
             	<div id="product_order_list">
 			<p>
-			<a href="javascript:seoul();">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:busan();">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:daegu();">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:incheon();">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:gwangju();">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:daejeon();">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:ulsan();">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:sejong();">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:gyeonggi();">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:gangwon();">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:chungbuk();">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:chungnam();">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:jeonbuk();">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:jeonnam();">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:kyungbuk();">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:kyungnam();">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:jeju ();">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(11);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(21);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(22);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(23);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(24);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(25);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(26);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(29);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(35);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(36);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(37);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(38);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 
+		</div>
 		</div>
 		<script th:inline="javascript">
 		
+   		function gopage(page) {
+   			$("#page").val(page)
+   			goregion()
+
+   		}  
+   		
+   		function region(videoRegion){
+   			$("#videoRegion").val(videoRegion);
+   			$("#page").val(1)
+   			goregion()
+   		}
 		// 서울 -->
- 		var seoul = function(url){
+ 		var goregion = function(){
+ 			var videoRegion = $("#videoRegion").val()
+ 			var page = $("#page").val()
  			$.ajax({ 
  				type: 'post', 
-				url: "/seoul",
+				url: "/region",
+				data: {videoRegion, page},
  				success: function(data) { 
  					$("#hotelListContent").replaceWith(data);
  				}, 
@@ -48,225 +64,11 @@
 			}); 
  		};
  		
- 	// 부산 -->
- 		var busan = function(url){
- 			$.ajax({ 
- 				type: 'post', 
-				url: "/busan",
- 				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data);
- 				}, 
- 				error: function(request, status, error) { 
- 					alert(error); 
- 				} 
-			}); 
- 		};
-		
- 		// 대구-->
-		var daegu = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/daegu", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 인천-->
-		var incheon = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/incheon", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 광주-->
-		var gwangju = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/gwangju", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 대전-->
-		var daejeon = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/daejeon", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 울산-->
-		var ulsan = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/ulsan", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 세종-->
-		var sejong = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/sejong", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 경기-->
-		var gyeonggi = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/gyeonggi", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 강원-->
-		var gangwon = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/gangwon", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 충북-->
-		var chungbuk = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/chungbuk", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 충남-->
-		var chungnam = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/chungnam", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 전북-->
-		var jeonbuk = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/jeonbuk", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 전남-->
-		var jeonnam = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/jeonnam", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 경북-->
-		var kyungbuk = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/kyungbuk", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 경남-->
-		var kyungnam = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/kyungnam", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
- 		// 제주-->
-		var jeju = function(url){ 
- 			$.ajax({ 
- 				type: 'post', 
- 				url: "/jeju", 
-				success: function(data) { 
- 					$("#hotelListContent").replaceWith(data); 
-				}, 
- 				error: function(request, status, error) { 
-					alert(error); 
-				} 
-			}); 
- 		}; 
+ 		
+ 	
 		</script>
-<!-- 페이징 -->
-   <script>
-   		function gopage(page) {
-   			location.href = "video?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}   		
-   </script>
    <!-- 페이징 끝-->
+   <div class="container">
 				<div class="row margin-30px-bottom" id="hotelListContent">
 				
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
@@ -286,29 +88,11 @@
 					
 						</div>
 					</div>
-				</div></div></div>
+				</div></div>
 
 
 				<a href="videoForm" class="btn btn-danger" style="float: right;">신청하기</a>
-				
-	<!-- 페이징 추가 해주세요 -->
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-											<li class="page-item" th:if="${paging.startPage > 1}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
-												</li>											
-												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
-												</li>										
-												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-												</li>
-											</ul>
-										</nav>
-									</div> 
-                   				<!-- 페이징 끝 -->
+</div>
 </section></section>
 </body>
 </html>
