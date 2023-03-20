@@ -85,6 +85,17 @@
 		]]>	
 	</select>
 	
+	<!-- 여행지 지역별 선택하여 보기 -->
+	<select id="tripRegion" parameterType="co.admin.wh.trip.vo.TripVO"
+		resultType="co.admin.wh.trip.vo.TripVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from trip where trip_region =  #{tripRegion}
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>
+	</select>
+	
 	<!-- 최신순 정렬 -->
 	<select id="latestList" parameterType="TripVO" resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(

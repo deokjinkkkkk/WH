@@ -10,9 +10,9 @@
 	<div layout:fragment="content" class="content">
 	
 	<!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
- 			<div class="container">
-                 <h1 class="text-white font-weight-600">나만의 코스</h1>
+		 <section  class="page-title-section bg-img cover-background" 
+			th:style="|background: url('/img/banner/bg1.jpg')|">
+                <h1 class="text-white font-weight-600">나만의 코스</h1>
                 <ul>
                     <li>
                         <a href="index.html">My Page</a>
@@ -21,7 +21,6 @@
                         <span class="active">나만의 코스</span>
                     </li>
                 </ul>
-               </div>
         </section>
 	 <!-- 배너끝 -->
 	 
@@ -43,7 +42,6 @@
                     <div class="">
                         <div class="padding-40px-all sm-padding-25px-all shadow text-center border-radius-4 bg-white">
                             <h3 class="margin-5px-bottom">나만의 코스 짜기</h3>
-                            <p class="margin-30px-bottom">\(@^0^@)/</p>
                             <form action="#!" method="post">
                                 <div class="row">
                                     <div class="form-group col-md-6">
