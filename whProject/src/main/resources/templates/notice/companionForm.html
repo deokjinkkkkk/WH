@@ -107,8 +107,8 @@
 								$(document).ready(function() {
 
 									$('#compStartDate').datepicker({
-									    format : "yyyy-mm-dd",
-									    startDate : '0d',
+									    dateFormat : "yy-mm-dd",
+									    minDate : '0d',
 									    language : "ko",
 									    todayHighlight : true,
 									    autoclose : true
@@ -118,7 +118,7 @@
 									});
 
 									$('#compEndDate').datepicker({
-									    format : "yyyy-mm-dd",
+										dateFormat : "yy-mm-dd",
 									    language : "ko",
 									    todayHighlight : true,
 									    autoclose : true
