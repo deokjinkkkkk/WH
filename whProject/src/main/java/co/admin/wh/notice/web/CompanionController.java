@@ -181,7 +181,8 @@ public class CompanionController {
 				ivo.getImgGroCode();
 				companionMapper.imgInsert(ivo);
 				compVO.setImgGroCode(ivo.getImgGroCode());
-				
+				companionMapper.companionDelete(csvo);
+				companionMapper.companionInsert(compVO);
 			}
 		return "redirect:companionDetail/" + compVO.getCompCode();
 	}

@@ -14,6 +14,7 @@
 								<img th:src="${v.thumbnail}"/>
 									</div>
 								<a th:href="@{/videoDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
+								<input type="hidden" id="videoRegion" name="videoRegion" th:value="${v.videoRegion}">
 								</div>
 							</div>
 							<div class="gopage" align="center">
