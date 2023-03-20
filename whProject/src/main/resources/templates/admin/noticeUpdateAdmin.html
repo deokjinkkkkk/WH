@@ -31,11 +31,11 @@
 
 <!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-		<form action="noticeUpdate" method="POST" id="frm">
+		<form action="noticeUpdate" method="POST" id="frm" enctype="multipart/form-data">
 			<input type="hidden" name="noticeCode" th:value="${n.noticeCode}">
 			<input type="text" name="noticeTitle" id="noticeTitle"
 				class="form-control" th:value="${n.noticeTitle }"><br>
-			<input type="file" name="imgName" id="imgName" class="form-control"><br>
+			<input type="file" name="imgFile" id="imgFile" class="form-control"><br>
 			<input type="hidden" name="imgGroCode" id="imgGroCode" value="no">
 			<input type="hidden" name="imgPath" id="imgPath" value="no">
 			<textarea class="editor" id="noticeContent" name="noticeContent"

@@ -129,9 +129,32 @@ public class NoticeController {
 
 	//관리자 업로드
 	@PostMapping("/noticeUpdate")
-	public String noticeUpdate(NoticeVO vo, Model model) {
+	public String noticeUpdate(NoticeVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
 		
-		noticeService.noticeUpdate(vo); // 수정된 공지사항 정보를 DB에 반영
+		String saveFolder = saveimg; // 파일저장위치
+
+		// 그룹번호 조회
+		String image = imageService.imgNotice(ivo);
+		
+		imageService.imageDelete(ivo);
+		 model.addAttribute("n", noticeService.noticeUpdate(vo));
+
+		// for문
+		for (MultipartFile file : imgFile) {
+			String fileName = imageService.saveImage(imgFile, saveFolder);
+			if (fileName != null) {// 첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼
+				// ivo에 담고
+				ivo.setImgGroCode(image);
+				ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
+				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				
+			}
+			ivo.getImgGroCode();
+			noticeMapper.imgInsert(ivo);
+			vo.setImgGroCode(ivo.getImgGroCode());
+			noticeMapper.noticeDelete(vo);
+			noticeMapper.noticeInsert(vo); // 수정된 공지사항 정보를 DB에 반영
+		}
 		
 		return "redirect:/noticeDetails/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
 	}
