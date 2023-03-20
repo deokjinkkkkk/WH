@@ -85,7 +85,6 @@
 		UPDATE NOTICE
 		<set>
 			<if test="noticeTitle != null"> NOTICE_TITLE = #{noticeTitle},</if>
-			<if test="imgGroCode != null"> IMG_GRO_CODE = #{imgGroCode},</if>
 			<if test="noticeContent != null"> NOTICE_CONTENT = #{noticeContent},</if>
 			NOTICE_MOD_DATE = sysdate
 		</set>

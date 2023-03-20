@@ -265,9 +265,7 @@ text-decoration-line: none;
 	justify-content: space-between;
 }
 
-span {
-	padding-right: 5px;
-}
+
 
 .feed_name {
 	padding: 10px;
@@ -415,6 +413,19 @@ span {
 .col-sm-5 {
 	width: 500px;
 }
+
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+}
+
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+  display: none;
+}
+#input_content{
+width: 400px;
+}
 </style>
 
 		<!-- 배너시작 -->
@@ -486,19 +497,16 @@ span {
 						</div>
 						<div>
 							<input type="text" id="diaryTitle" name="diaryTitle"
-								class="feed_content_textarea form-control col-sm-5 diaryTitle">
+								class="feed_content_textarea form-control col-sm-5 diaryTitle" placeholder="제목을 입력해주세요." >
 						</div>
-						<div>
-							여행 기간 : <input type="date" class="diaryStartDate"
-								name="diaryStartDate">
-						</div>
-						<div>
-							<input type="date" class="diaryEndDate" name="diaryEndDate">
+						<div >
+							<input type="date" data-placeholder="여행날짜 선택" required aria-required="true"   class="diaryStartDate" name="diaryStartDate" onChange={StartDateValueHandler} ></input>
+							<input type="date" data-placeholder="여행종료날짜 선택" required aria-required="true"   class="diaryEndDate" name="diaryEndDate" onChange={StartDateValueHandler}></input>
 						</div>
 						<div style="height: 440px">
 							<textarea id="input_content"
 								class="feed_content_textarea form-control col-sm-5" rows="10"
-								placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
+								placeholder="설명을 입력하세요." name="diaryContent"></textarea>
 						</div>
 						<div style="width: 100%; text-align: center">
 							<button id="button_write_feed" type="button"
@@ -527,13 +535,11 @@ span {
           <input type="text" id="diaryTitleeee" name="diaryTitle" class="form-control col-sm-5 diaryTitle">
         </div>
         <div>
-          여행 기간 : <input type="date" class="form-control col-sm-5 diaryStartDateeee" name="diaryStartDate">
-        </div>
-        <div>
-          <input type="date" class="form-control col-sm-5 diaryEndDateeee" name="diaryEndDate">
+		<input type="date" data-placeholder="여행날짜 선택" required aria-required="true"   class="diaryStartDate" name="diaryStartDate" onChange={StartDateValueHandler} ></input>
+		<input type="date" data-placeholder="여행종료날짜 선택" required aria-required="true"   class="diaryEndDate" name="diaryEndDate" onChange={StartDateValueHandler}></input>         
         </div>
         <div style="height: 440px">
-          <textarea id="input_contenteeee" class="form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
+          <textarea id="input_contenteeee"  class="form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -694,7 +700,11 @@ $('#button_write_feed').on('click', ()=>{
     const diaryEndDate = $(".diaryEndDate").val();
     const id = $("#id").val();
 
-
+    if (!diaryTitle || !diaryContent || !diaryStartDate || !diaryEndDate) {
+        swal("","모든 항목을 입력해주세요","warning");
+        return;
+    }
+    
     const file = files[0];
     let fd = new FormData();
 

@@ -4,35 +4,34 @@
 
 	<!-- 팔로워 리스트/ 신청 받은(친구 신청 받은) -->
 	<select id="followerList"
-		resultType="co.admin.wh.diary.vo.FollowVO">
-		select f.*
+		resultType="map">
+		 select f.following_id
 		from follow f join member m
 		on f.following_id =
 		m.id
-		where f.follow_id =#{id}
+		where f.follow_id =#{followId}
 	</select>
 
 	<!-- 팔로잉 리스트 /내가 팔로우 한 회원 (로그인한 회원) -->
 	<select id="followingList"
-		resultType="co.admin.wh.diary.vo.FollowVO">
-		select f.*
+		resultType="map">
+		 select f.follow_id
 		from follow f join member m
 		on f.following_id =
 		m.id
 		where f.following_id =#{followingId}
 	</select>
 
-	<!-- 팔로워, 팔로잉 수 -->
-	<select id="followCount" parameterType="string" resultType="map">
-    SELECT 
-        COUNT(CASE WHEN follow_id = #{followId} THEN 1 END) AS followCount,
-        COUNT(CASE WHEN following_id = #{followId} THEN 1 END) AS followingCount
+	<!-- 팔로워 수 -->
+	<select id="followCount" parameterType="string" resultType="int">
+     SELECT 
+        COUNT(CASE WHEN follow_id =#{followId} THEN 1 END) AS followCount
     FROM follow
 </select>
 	
-	
-	<select id="followingCount">
-	select count(case when
+	<!-- 팔로잉 수 -->
+	<select id="followingCount" parameterType="string" resultType="int">
+		select count(case when
 		following_id = #{followingId} then 1 end)as followingidCount
         from follow
 	
@@ -50,10 +49,8 @@
 
 	<!-- 팔로잉 하기 -->
 	<insert id="insertFollow">
-
 		INSERT INTO FOLLOW
-		VALUES (#{followId},
-		#{followingId})
+		VALUES (#{followId},#{followingId})
 	</insert>
 
 	<!--언팔 -->

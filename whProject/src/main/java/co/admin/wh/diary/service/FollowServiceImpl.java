@@ -52,7 +52,7 @@ public class FollowServiceImpl implements FollowService {
 
 
 	@Override
-	public Map<String,Object> followCount(String id) {
+	public int followCount(String id) {
 		// TODO Auto-generated method stub
 		return mapper.followCount(id);
 	}
@@ -60,7 +60,7 @@ public class FollowServiceImpl implements FollowService {
 
 
 	@Override
-	public Map<String,Object> followingCount(String id) {
+	public int followingCount(String id) {
 		// TODO Auto-generated method stub
 		return mapper.followingCount(id);
 	}

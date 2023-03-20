@@ -4,37 +4,44 @@
 
 	<select id="diaryList" resultType="co.admin.wh.diary.vo.DiaryVO">
 		select * from diary
-
-
 	</select>
 
 
 	<!-- 개인조회 -->
 	<select id="getDiaryList"
 		resultType="co.admin.wh.diary.vo.DiaryVO">
-		select
-		d.diary_code, m.id,m.name, d.diary_content,
-		d.diary_title, d.diary_start_date,
-		d.diary_end_date, d.img_gro_code,
-		i.img_path
-		from diary d, member m , image i
-		where d.id = m.id
-		and
-		d.img_gro_code = i.img_gro_code
-		ORDER by d.diary_code desc
+		select	d.diary_code, 
+		        m.id,m.name, 
+		        d.diary_content,
+		        d.diary_title,
+		        d.diary_start_date,
+		        d.diary_end_date,
+		        d.img_gro_code,
+		        i.img_path
+		  from  diary d, member m , image i
+		  
+		 where  d.id = m.id
+		   and	d.img_gro_code = i.img_gro_code
+		   
+		 ORDER  by d.diary_code desc
 	</select>
 
 	<select id="detailDiary"
 		resultType="co.admin.wh.diary.vo.DiaryVO">
 		select
-		d.diary_code, m.id, m.name, d.diary_content,
-		d.diary_title, d.diary_start_date,
-		d.diary_end_date, d.img_gro_code,
-		i.img_path
+				d.diary_code, m.id, m.name, d.diary_content,
+				d.diary_title, d.diary_start_date,
+				d.diary_end_date, d.img_gro_code,
+				i.img_path
+				
 		from diary d
-		inner join member m on d.id = m.id
-		inner join image i on d.img_gro_code = i.img_gro_code
+		inner join member m 
+		   on d.id = m.id
+		inner join image i 
+		   on d.img_gro_code = i.img_gro_code
+		
 		where d.id = #{id}
+		
 		order by d.diary_code desc
 	</select>
 
@@ -45,8 +52,7 @@
 		from diary d join
 		image i
 		on d.img_gro_code = i.img_gro_code
-		where d.diary_code =
-		#{diaryCode}
+		where d.diary_code = #{diaryCode}
 	</select>
 
 	<insert id="diaryInsert"
@@ -57,7 +63,13 @@
 		</selectKey>
 		INSERT INTO DIARY
 		VALUES
-		(#{diaryCode},#{id},#{diaryTitle},#{diaryStartDate},#{diaryEndDate},#{diaryContent},#{imgGroCode})
+		(#{diaryCode},
+		 #{id},
+		 #{diaryTitle},
+		 #{diaryStartDate},
+		 #{diaryEndDate},
+		 #{diaryContent},
+		 #{imgGroCode})
 	</insert>
 
 	<insert id="imgInsert"
@@ -73,18 +85,18 @@
 
 	<update id="diaryUpdate">
 		UPDATE diary
-		SET diary_title = #{diaryTitle},
-		diary_content = #{diaryContent},
-		diary_start_date = #{diaryStartDate},
-		diary_end_date = #{diaryEndDate}
-		WHERE diary_code = #{diaryCode}
+		   SET diary_title = #{diaryTitle},
+			   diary_content = #{diaryContent},
+			   diary_start_date = #{diaryStartDate},
+			   diary_end_date = #{diaryEndDate}
+		 WHERE diary_code = #{diaryCode}
 	</update>
 
 
 	<delete id="diaryDelete">
 		DELETE FROM DIARY
-		WHERE DIARY_CODE = #{diaryCode} AND
-		id = #{id}
+		WHERE DIARY_CODE = #{diaryCode}
+		  AND id = #{id}
 	</delete>
 
 </mapper>

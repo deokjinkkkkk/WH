@@ -4,14 +4,22 @@
 	layout:decorate="~{index}">
 <!-- Google Material icon -->
 
-<style>
- .modal {
- z-index: 1050;
-}
-</style>
+
 <body>
 	<div layout:fragment="content" class="content">
+		<style>
+.modal {
+	text-align: center;
+}
 
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+	}
+}
+</style>
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(/img/banner/bg2.jpg)|">
@@ -44,51 +52,37 @@
 								<th></th>
 								<th></th>
 								<th>
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">팔로워</button>
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLabel">List</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body" >
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								
-								      </div>
-								    </div>
-								  </div>
-								</div>
-								   <!-- ----------------------- -->  
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#exampleModal">팔로워</button> <!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-header">
+											<!-- 					<button class="close" data-dismiss="modal">x</button> -->
+											<div class="modal-dialog" role="document">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">List</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body"></div>
+													</div>
+													<div class="modal-footer"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									</div> <!-- ----------------------- -->
 								</th>
 								<th>
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">팔로잉</button>
-								<!-- Modal -->
-								<div class="modal fad" id="exampleModals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLabels">List</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body" id="modalBodys" >
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								     
-								      </div>
-								    </div>
-								  </div>
-								</div>
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#exampleModal">팔로잉</button> <!-- Modal -->
+									
 								</th>
 								<th></th>
 							</tr>
@@ -99,199 +93,30 @@
 										<h4 th:text="${diarya[0].id}"></h4>
 									</div>
 								<td></td>
-							<td><span id="follower-counts" ></span></td>
-							<td><span id="following-count"></span></td>
+					<!-- 팔로우수  -->
+								<td id="follow-count"></td>
+								<td id="following-count"></td>
 								<td>
 									<!-- 팔로우 누른경우   -->
 									<div id="followFtn">
-										<button th:if="${isFollowing}" type="button"
-											class="btn btn-secondary btn-sm" id="follow-btn">Unfollow</button>
-										<button th:unless="${isFollowing}" type="button"
+										<button  type="button"
+											class="btn btn-secondary btn-sm" id="unfollow-btn">unFollow</button>
+										<button  type="button"
 											class="btn btn-primary btn-sm" id="follow-btn">Follow</button>
 										<!-- 팔로우 누르지 않은경우   -->
 										<input type="hidden" id="id" name="id"
 											th:value="${session.name}">
 									</div> 
-							
-									<script>
-										// 로그인한 사용자의 ID 정보를 가져옵니다.
-										var id = $('#id').val();
-										// 현재 보고 있는 게시물의 작성자 ID 정보를 가져옵니다.
-										var followId = $('h4').text();
-
-										// 사용자 ID 정보와 게시물 작성자 ID 정보가 일치하는 경우에는 팔로우 버튼을 숨깁니다.
-										if (id === followId) {
-											var btn = document.getElementById("followFtn");
-											if (btn) {
-												btn.style.display = "none";
-											}
-										}
-
-										
-										$(document).ready(function() {
-											getFollow();
-										});
-
-										function getFollow() {
-											$.ajax({
-											url : "/checkFollow/"+ id + "/"+ followId,
-											success : function(
-											response) {
-											if (response) { // response 값이 true인 경우
-										$('#follow-btn').addClass('btn-secondary')
-											.text('Unfollow');
-											} else { // response 값이 false인 경우
-										$('#follow-btn').removeClass(
-										'btn-secondary').text('Follow');
-										}
-											},
-										error : function() {
-										console.log("에러");
-										}
-											});
-										}
-
-								// 팔로우 버튼 클릭 시
-										$("#follow-btn").click(
-										function() {
-										var followingId = $("#id").val();
-										$.ajax({
-										type : "POST",
-										url : "/insertFollow/"+ followingId,
-										dataType : "json",
-										data : {
-										'followId' : followId,
-										'followingId' : followingId
-										},
-										success : function(response) {
-										if (response) { // response 값이 true인 경우
-										$('#follow-btn').addClass('btn-secondary')
-										.text('Unfollow');
-										} else { // response 값이 false인 경우
-										$('#follow-btn')
-										.removeClass('btn-secondary')
-										.text('Follow');
-										}
-										},
-										error : function() {
-										console.log("에러");
-										}
-											});
-										});
-
-								//팔로우 취소
-
-										$("#follow-btn").click(
-										function() {
-										var followingId = $("#id").val();
-										$.ajax({
-											type : "POST",
-											url : "/unFollow/"
-													+ followingId,
-											dataType : "json",
-											data : {
-												'followId' : followId,
-												'followingId' : followingId
-											},
-											success : function(
-													response) {
-												if (response) { // response 값이 true인 경우
-													$('#follow-btn')
-													.removeClass('btn-secondary')
-													.text('Follow');
-												} else { // response 값이 false인 경우
-													$('#follow-btn')
-													.addClass('btn-secondary')
-													.text('Unfollow');
-												}
-											},
-											error : function() {
-												console.log("에러");
-											}
-										});
-							});
-								
-								//팔로우수
-								     $(function() {
-								    	 var followId = $('h4').text();
-								            $.ajax({
-								                url: "/followCount/" + followId,
-								                success: function(response) {
-								                   // console.log(response); // 서버로부터 받은 응답 로그 출력
-								                  
-								                    $('#follower-counts').html(response.FOLLOWCOUNT);
-								                    $('#following-count').html(response.FOLLOWINGCOUNT);
-								                },
-								                error: function() {
-								                    console.log("에러"); // 에러 발생 시 로그 출력
-								                }
-								            });
-								        });
-								
-								
-										var followingId = $("#id").val();
-								
-										function foll(){
-											
-										}
-										
-								
-									    $(document).ready(function() {
-									        $('button[data-target="#exampleModal"]').click(function() {
-									        	var followId = $('h4').text();
-									            $.ajax({
-									                type: "POST",
-									                url: "/follower/" + followId,
-									                success: function(data) {
-									                    var modalBody = $('.modal-body');
-									                    modalBody.empty();
-									                    $.each(data, function(index, item) {
-									                        var listItem = '<p>' + item.id + '</p>';
-									                        modalBody.append(listItem);
-									                       
-									                    });
-									                },
-									                error: function() {
-									                    console.log("에러");
-									                }
-									            });
-									        });
-									    });
-
-									    
-									    
-									    $(document).ready(function() {
-									    	
-									        $('button[data-target="#exampleModals"]').click(function() {
-									        	var followingId = $("#id").val();
-									            $.ajax({
-									            	type: "POST",
-									                url: "/following/" + followingId,
-									                success: function(data) {
-									                	console.log(data);
-									                    var modalBodys = $('#modalBodys');
-									                    modalBodys.empty();
-									                    $.each(data, function(index, item) {
-									                        var list = '<p>' + item.id + '</p>';
-									                        modalBodys.append(list);
-									                    });
-									                },
-									                error: function() {
-									                    console.log("에러");
-									                }
-									            });
-									        });
-									    });
-					</script>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<hr>
-					<div class="feed-box" id="inst" >
+					<div class="feed-box" id="inst">
 						<div th:each="d : ${diarya}" class="diaryCode"
-							th:data-code="${d.diaryCode}" style="border: 2px double; border-radius: 10px; margin: 30px; width: 400px; ">
-							<a class="profile-id" th:text="${d.id}" style="margin: 10px; "
+							th:data-code="${d.diaryCode}"
+							style="border: 2px double; border-radius: 10px; margin: 30px; width: 400px;">
+							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"
 								id="ids"></a>
 							<div class="profile-id"></div>
 							<div class="feed-img">
@@ -299,13 +124,12 @@
 									height="300px">
 							</div>
 							<div class="like" id="diaryStartDate"
-								th:text="${d.diaryStartDate}" ></div>
+								th:text="${d.diaryStartDate}"></div>
 							<br>
-							<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"
-								></div>
+							<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"></div>
 							<br> <br> <b><h5>
 									<div class="feed-text" id="diarytitlet"
-										th:text="${d.diaryTitle}" ></div>
+										th:text="${d.diaryTitle}"></div>
 								</h5></b>
 							<div class="feed-text" id="diaryContent"
 								th:text="${d.diaryContent}" style="float: none;"></div>
@@ -314,7 +138,169 @@
 					</div>
 				</div>
 			</div>
-		</div>
+
+		
+		<script>
+			// 로그인한 사용자의 ID 정보를 가져옵니다.
+			var id = $('#id').val();
+			// 현재 보고 있는 게시물의 작성자 ID 정보를 가져옵니다.
+			var followId = $('h4').text();
+
+			// 사용자 ID 정보와 게시물 작성자 ID 정보가 일치하는 경우에는 팔로우 버튼을 숨깁니다.
+			if (id === followId) {
+				var btn = document
+						.getElementById("followFtn");
+				if (btn) {
+					btn.style.display = "none";
+				}
+			}
+
+			$(document).ready(function() {
+				clickCount();
+				getFollow();
+			});
+
+			function getFollow() {
+				$.ajax({
+							url : "/checkFollow/"
+									+ id + "/"
+									+ followId,
+							success : function(response) {
+								if (response) { // response 값이 true인 경우
+									$('#follow-btn').hide()
+									$('#unfollow-btn').show();
+								} else { // response 값이 false인 경우
+									$('#follow-btn').show()
+									$('#unfollow-btn').hide();
+								}
+							},
+							error : function() {
+								console.log("에러");
+							}
+						});
+			}
+
+			// 팔로우 버튼 클릭 시
+			$("#follow-btn").click(	function() {
+							var followingId = $("#id").val();
+							$.ajax({
+								type : "POST",
+								url : "/insertFollow/"+ followingId,
+								dataType : "json",
+								data : {
+								'followId' : followId,
+								'followingId' : followingId
+								},
+								success : function(response) {
+									if (response) { // response 값이 true인 경우
+										$('#follow-btn').hide()
+										$('#unfollow-btn').show();
+									} else { // response 값이 false인 경우
+										$('#follow-btn').show()
+										$('#unfollow-btn').hide();
+									}
+									clickCount();
+								},
+								error : function() {
+								console.log("에러");
+							  }
+							});
+		});
+
+		//팔로우 취소
+		$("#unfollow-btn").click(	function() {
+							var followingId = $("#id").val();
+							$.ajax({
+										type : "POST",
+										url : "/unFollow/"
+												+ followingId,
+										dataType : "json",
+										data : {
+											'followId' : followId,
+											'followingId' : followingId
+										},
+										success : function(response) {
+											if (response) { // response 값이 true인 경우
+												$('#follow-btn').show()
+												$('#unfollow-btn').hide();
+											} else { // response 값이 false인 경우
+												$('#follow-btn').hide()
+												$('#unfollow-btn').show();
+											}
+											clickCount();
+										},
+										error : function() {
+											console.log("에러");
+										}
+									});
+						});
+
+										
+		//팔로잉수
+		function clickCount() {
+			var followId = $('h4').text();
+
+			
+			$.ajax({
+				url : "/followCount/"+ followId,
+				success : function(response) {
+					//console.log(response);
+					$('#follow-count').html(response.followCount);
+					$('#following-count').html(response.followingCount);
+				},
+				error : function() {
+					console.log("에러"); // 에러 발생 시 로그 출력
+				}
+			});
+		};
+
+		$(document).ready(	function() {
+			$('button[data-target="#exampleModal"]').click(	function() {
+				var followId = $('h4').text();
+				$.ajax({
+					type : "POST",
+					url : "/follower/"+ followId,
+					success : function(data) {
+						console.log(data);
+						var modalBody = $('.modal-body');
+						modalBody.empty();
+						$.each(	data,	function(index,item) {
+							var listItem = '<p>'+ item.FOLLOWING_ID+ '</p>';
+							modalBody.append(listItem);
+						});
+					},
+					error : function() {
+					console.log("에러");
+					}
+				});
+			});
+		});
+		
+		$(document).ready(	function() {
+			$('button[data-target="#exampleModal"]').click(	function() {
+				var followId = $('h4').text();
+				$.ajax({
+					type : "POST",
+					url : "/following/"+ followId,
+					success : function(data) {
+						console.log(data);
+						var modalBody = $('.modal-body');
+						modalBody.empty();
+						$.each(	data,	function(index,item) {
+							var listItem = '<p>'+ item.FOLLOW_ID+ '</p>';
+							modalBody.append(listItem);
+						});
+					},
+					error : function() {
+					console.log("에러");
+					}
+				});
+			});
+		});
+
+									
+		</script>
 	</div>
+			</div>
 </body>
 </html>

@@ -28,7 +28,11 @@ public class GreatController {
   
   @RequestMapping("/greatCheck/{greatNcode}/{id}")
   @ResponseBody
-  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, GreatVO vo, @PathVariable("id")String id,MemberVO mvo , Principal principal) {
+  public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, 
+		  					@PathVariable("id")String id,
+		                    GreatVO vo, 
+		                    MemberVO mvo , 
+		                    Principal principal) {
 	    boolean greatCheck = false; // 좋아요를 누르지 않았다고 가정
 	    mvo.setId(principal.getName());
 	    
@@ -44,13 +48,11 @@ public class GreatController {
 	}
 
   @PostMapping("/greatUP/{greatNcode}")
-  public Map<String, Object> greatUP(@PathVariable("greatNcode") int greatNcode, String greatFlag, GreatVO vo,String id) {
+  public Map<String, Object> greatUP(@PathVariable("greatNcode") int greatNcode, 
+		  							GreatVO vo) {
       Map<String, Object> resultMap = new HashMap<>();
     
-     vo.setId(id);
       vo.setGreatNcode(greatNcode);
-      vo.setGreatFlag(greatFlag);
-      
       
       int result = greatService.greatUP(vo);
 
@@ -69,7 +71,10 @@ public class GreatController {
   
   
   @PostMapping("/greatDown/{greatFlag}/{greatNcode}/{id}")
-  public Map<String, Object> greatDown(@PathVariable("greatFlag")String greatFlag,@PathVariable("greatNcode") int greatNcode, GreatVO vo,@PathVariable("id")String id) {
+  public Map<String, Object> greatDown(@PathVariable("greatFlag")String greatFlag,
+		  								@PathVariable("greatNcode") int greatNcode,
+		  								@PathVariable("id")String id, 
+		  								GreatVO vo) {
       Map<String, Object> resultMap = new HashMap<>();
     
       vo.setId(id);
