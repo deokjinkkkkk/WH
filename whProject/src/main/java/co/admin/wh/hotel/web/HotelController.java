@@ -39,6 +39,13 @@ import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.vo.NoticeSearchVO;
 import co.admin.wh.notice.vo.Paging;
 
+/*
+ * 작성자 : 최유림
+ * 작성일자 : 2023/03/20 
+ * 작성내용 : 연박 예약
+ */
+
+
 @Controller
 public class HotelController {
 	
@@ -48,6 +55,13 @@ public class HotelController {
 	@Autowired
 	private MemberMapper memberMapper;
 	
+	/**
+	 * 
+	 * @param model
+	 * @param vo
+	 * @param paging
+	 * @return
+	 */
 	@GetMapping("/hotel") // 숙소 첫 페이지
 	public String hotel(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
 
@@ -217,7 +231,7 @@ public class HotelController {
 		return paramMap;
 	}
 	
-	@PostMapping("/priceList") // 낮은가격순 정렬
+	@GetMapping("/priceList") // 낮은가격순 정렬
 	public String priceList(Model model, HotelSearchVO vo,Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -228,10 +242,10 @@ public class HotelController {
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
 		List<HotelVO> hotelList = hotelInfoService.priceList(vo);
 		model.addAttribute("hotelList", hotelList);
-		return "hotel/sortingHotelList";
+		return "hotel/priceList";
 	}
 	
-	@PostMapping("/priceListDesc") // 높은가격순 정렬
+	@GetMapping("/priceListDesc") // 높은가격순 정렬
 	public String priceListDesc(Model model, HotelSearchVO vo,Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -242,10 +256,10 @@ public class HotelController {
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
 		List<HotelVO> hotelList = hotelInfoService.priceListDesc(vo);
 		model.addAttribute("hotelList", hotelList);
-		return "hotel/sortingHotelList";
+		return "hotel/priceListDesc";
 	}
 	
-	@PostMapping("/starRatingList") // 별점순 정렬
+	@GetMapping("/starRatingList") // 별점순 정렬
 	public String starRatingList(Model model, HotelSearchVO vo,Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -256,10 +270,10 @@ public class HotelController {
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
 		List<HotelVO> hotelList = hotelInfoService.starRatingList(vo);
 		model.addAttribute("hotelList", hotelList);
-		return "hotel/sortingHotelList";
+		return "hotel/starRatingList";
 	}
 	
-	@PostMapping("/goodRatingList") // 좋아요순 정렬
+	@GetMapping("/goodRatingList") // 좋아요순 정렬
 	public String goodRatingList(Model model, HotelSearchVO vo,Paging paging) {
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -270,7 +284,7 @@ public class HotelController {
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
 		List<HotelVO> hotelList = hotelInfoService.goodRatingList(vo);
 		model.addAttribute("hotelList", hotelList);
-		return "hotel/sortingHotelList";
+		return "hotel/goodRatingList";
 	}
 	
 	@PostMapping("/hotelNameSearchList") // 호텔이름 검색
@@ -315,23 +329,15 @@ public class HotelController {
 	    return "hotel/ajaxAdminReservList";
 	}
 	
-//	/adminDateSearch
-//	@PostMapping("/adminDateSearch") // 관리자 예약 기간별 검색
-//	@ResponseBody
-//	public String adminDateSearch(@RequestBody CancelVO vo, Model model) {
-//		model.addAttribute("hotelList",hotelInfoService.adminDateSearch(vo));
-//		return "y";
-//	}
-	
 	//예약 전 날짜 비교(이미 해당 방에 예약내역 있으면 false)
 	@PostMapping("/compareToDate")
 	@ResponseBody
 	public boolean compareToDate(@RequestBody ReservationVO vo, Model model) {
 		List<ReservationVO> hotel = hotelInfoService.compareToDate(vo);
-		if(hotel != null) {
-			return true; // true면 예약가능, false면 예약불가			
+		if(hotel.size() == 0) {
+			return false; // true면 예약가능, false면 예약불가			
 		}else {			
-			return false;
+			return true;
 		}
 	}
 };

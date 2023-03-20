@@ -226,47 +226,54 @@
 											 			
 											 			let returnPay = Math.floor(old_returnPay); // 최종 환불금액
 											 			
-														var result = confirm("예약 취소를 요청하시겠습니까? 예상환불금액은 "+returnPay+"원입니다.");
-															if(result == true){
-	// 														console.log($.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text()))
-// 															console.log($.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text()))
-															let resId = $.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text());
-															let resName = $.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text());
-															let resTel = $.trim($(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').text());
-															let resEmail = $.trim($(e.target).parent().find('li:nth-child(8)').children().children('div:eq(1)').text());
-															let resRequest = $.trim($(e.target).parent().find('li:nth-child(9)').children().children('div:eq(1)').text());
-															
-															$.ajax({
-																url : "/cancel",
-																type : "POST",
-																data : JSON.stringify(
-																	{
-																		"resId": resId,
-																		"resName": resName,
-																		"resTel": resTel,
-																		"resEmail": resEmail,
-																		"resRequest": resRequest
-																	}
-																),
-																contentType:'application/json',
-																success : function(result){
-																	if(result == "y") {
-																		alert("취소신청이 완료되었습니다. 관리자 확인 후 취소승인 됩니다.");
+											 			swal({
+											 				  title: "예약 취소를 요청하시겠습니까?",
+											 				  text: "환불예상금액 : " + returnPay +"원",
+											 				  icon: "warning",
+											 				  buttons: true,
+											 				  dangerMode: true,
+											 				})
+											 				.then((ok) => {
+											 				  if (ok) {
+											 					  
+											 					 let resId = $.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text());
+																	let resName = $.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text());
+																	let resTel = $.trim($(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').text());
+																	let resEmail = $.trim($(e.target).parent().find('li:nth-child(8)').children().children('div:eq(1)').text());
+																	let resRequest = $.trim($(e.target).parent().find('li:nth-child(9)').children().children('div:eq(1)').text());
+																	
+																	$.ajax({
+																		url : "/cancel",
+																		type : "POST",
+																		data : JSON.stringify(
+																			{
+																				"resId": resId,
+																				"resName": resName,
+																				"resTel": resTel,
+																				"resEmail": resEmail,
+																				"resRequest": resRequest
+																			}
+																		),
+																		contentType:'application/json',
+																		success : function(result){
+																			if(result == "y") {
+																				swal("취소신청이 완료되었습니다.","관리자 확인 후 취소승인 됩니다.","success");
+																			}else{
+																				alert("디비입력실패");
+																				return false;
+																			}
+																		},
+																		error : function(a,b,c){}
+																	});
 																	}else{
-																		alert("디비입력실패");
 																		return false;
 																	}
-																},
-																error : function(a,b,c){}
-															});
-															}else{
-																return false;
-															}
+											 				});
 													})
 													
 													// 예약자 정보 수정
 													$(".updatebtn").on('click', function(e){
-														alert($.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text()));
+// 														alert($.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text()));
 														document.getElementById('mod_resId').value = $.trim($(e.target).parent().find('li:nth-child(1)').children().children('div:eq(1)').text());
 														document.getElementById('mod_resName').value = $.trim($(e.target).parent().find('li:nth-child(6)').children().children('div:eq(1)').text());
 														document.getElementById('mod_resTel').value = $.trim($(e.target).parent().find('li:nth-child(7)').children().children('div:eq(1)').text());
