@@ -53,9 +53,17 @@
 
 	<!-- 여행지 삭제 시, 순서 번호 업데이트 -->
 	<update id="couOrdUpdate">
+<<<<<<< HEAD
+	    UPDATE MY_COURSE_FREE
+	    SET COU_ORD = COU_ORD - 1
+	    <![CDATA[
+	    WHERE COU_ORD > #{couOrd} AND MY_COU_FREE_CODE <> #{myCouFreeCode}
+	    ]]>		
+=======
 		UPDATE MY_COURSE_FREE
 		SET COU_ORD = COU_ORD - 1
 		WHERE COU_ORD > #{couOrd}
+>>>>>>> branch 'main' of https://github.com/deokjinkkkkk/WH.git
 	</update>
 
 	<!-- 나만의 코스 상세페이지에 담은 각 여행지 위아래로 이동 -->

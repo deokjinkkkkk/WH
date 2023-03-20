@@ -1,121 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{index}">
-
-
-
-
-<body>
-
-	<div layout:fragment="content" class="content">
-<input type="hidden" id="page" name="page" value="1">
-<input type="hidden" id="regionCode" name="regionCode" th:value="${param.regionCode}">
-		
-		<!-- =========== ====
-			인기Tag paly효과 시작
-		   ==============-->
-	
-<script>
-  setInterval(play, 800);
-  
-  function play() {
-    $("#box").delay(1000).animate({top:-40}, function(){
-      $("#box p:first").appendTo("#box");
-      $("#box").css({top:0});
-    });
-  }
-  
-  
-  // 첫 번째 p 요소를 #10으로 이동시킴
-  $(document).ready(function(){
-    $("#box p:first").appendTo("#box");
-  });
-  
-  /*===================
-	인기Tag play 효과 끝
-	=================*/
-</script>
-	
-		<!-- 페이징 끝-->
-
-
-		<!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" 
-			th:style="|background: url('/img/banner/bg1.jpg')|">
-                <h1 class="text-white font-weight-600">여행 코스</h1>
-                <ul>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <span class="active">여행 코스</span>
-                    </li>
-                </ul>
-        </section>
-	 <!-- 배너끝 -->
-
-	<!-- start course-list section -->
-	<section>
-			<div class="container">
-					<p style="font-size: 30px;">지역별 여행 코스<p>
-					<hr>
-					<div id="product_order_list">
-						<p>
-			<a href="javascript:region(1);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(6);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(4);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(2);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(5);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(3);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(7);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(8);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(37);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(38);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(35);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(36);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			</p>
-					</div>
-
-					<script type="text/javascript">
-					
-					function gopage(page) {
-			   			$("#page").val(page)
-			   			goregion()
-
-			   		}  
-			   		
-			   		function region(tripRegion){
-			   			$("#regionCode").val(regionCode);
-			   			$("#page").val(1)
-			   			goregion()
-			   		}
-			   		
-			   		var goregion = function() {
-						var tripRegion = $("#regionCode").val()
-			 			var page = $("#page").val()
-						$.ajax({
-							type: 'post',
-							url: "/tripCourseRegion",
-							data: {tripRegion, page},
-							success: function(data) {
-								$("#tripCourseListContent").replaceWith(data);
-							},
-							error: function(request, status, error) {
-								alert(error);
-							}
-						});
-					};
-			   		
-			   		</script>
-					
-					<!-- start tour-list section -->
-					<div
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div
 						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom"  style="float: left;">
 						<div class="row margin-30px-bottom" id="tripCourseListContent">
 							<div class="col-12 margin-40px-bottom">
@@ -137,7 +22,7 @@
 							</div>
 							
 						</div > <!-- th:if문으로 이미지가 없는 건 일단 화면에 출력되지 않게 설정 -->
-						<div th:each="c, nStat: ${courseList}"
+						<div th:each="c, nStat: ${tripCourseSelect}"
 							class="card card-list margin-15px-bottom" th:if="${c.imgGroCode} != null">
 							<div class="row align-items-center">
 								<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
@@ -247,10 +132,4 @@
 					</div>
 				</div>
 			</div>
-</section>
-	<!-- end course-list section -->
-
-
-
-</body>
 </html>

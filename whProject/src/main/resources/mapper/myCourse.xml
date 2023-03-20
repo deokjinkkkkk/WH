@@ -5,7 +5,7 @@
 	<!-- 전체 리스트 -->
 	<select id="myCourseList" resultType="co.admin.wh.trip.vo.MyCourseVO">
 		SELECT * FROM MY_COURSE
-		ORDER BY my_course_code
+		ORDER BY my_course_code desc
 	</select>
 
 	<!-- 코스 제목 등록 -->
@@ -42,8 +42,11 @@
 	<update id="myCouSeqUpdate">
 	    UPDATE MY_COURSE
 	    SET MY_COURSE_CODE = MY_COURSE_CODE - 1
-	    WHERE MY_COURSE_CODE > #{myCourseCode}
-	</update>
+	    <![CDATA[
+	    WHERE MY_COURSE_CODE > #{myCourseCode} AND MY_COURSE_CODE <> #{myCourseCode}
+	    ]]>		
+	    
+	</update> 
 
 	<!-- 나만의 코스에 상태값(코스 공유 유무) 업데이트 test -->
 	<update id="myCouStateUpdate">

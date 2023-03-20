@@ -10,22 +10,13 @@
 <body>
 
    <div layout:fragment="content" class="content">
-   
-   <!-- 페이징 -->
-   <script>
-   		function gopage(page) {
-   			location.href = "trip?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
-   		}   		
-   </script>
-   <!-- 페이징 끝-->
+<input type="hidden" id="page" name="page" value="1">
+<input type="hidden" id="tripRegion" name="tripRegion" th:value="${param.tripRegion}">
    
    
    <!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
- 			<div class="container">
-               
+		 <section  class="page-title-section bg-img cover-background" 
+			th:style="|background: url('/img/banner/bg1.jpg')|">
                 <h1 class="text-white font-weight-600">여행 지역</h1>
                 <ul>
                     <li>
@@ -35,30 +26,92 @@
                         <span class="active">여행 지역</span>
                     </li>
                 </ul>
-               </div>
         </section>
 	 <!-- 배너끝 -->
 	 
       <!-- start tour-list section -->
       <section>
          <div class="container">
-            <div class="row">
-               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                                 
-                        <p style="font-size: 30px;">전체 여행지<p><hr>
+                 <p style="font-size: 30px;">지역별 여행지<p><hr>
+                 <hr>
+                 <div id="product_order_list">
+                 
+			<p>
+			<a href="javascript:region(1);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(6);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(4);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(2);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(5);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(3);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(7);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(8);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(37);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(38);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(35);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(36);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</p>
+		</div>
             	<div id="product_order_list">
 					<p>
-					<a href="/course">코스</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 					<a href="javascript:latestList();">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-					<a href="#">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<a href="javascript:tripGoodRatingList()">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					</p>
 				</div>
 				<script th:inline="javascript">
+				
+				function gopage(page) {
+		   			$("#page").val(page)
+		   			goregion()
+
+		   		}  
+		   		
+		   		function region(tripRegion){
+		   			$("#tripRegion").val(tripRegion);
+		   			$("#page").val(1)
+		   			goregion()
+		   		}
+				
+				// 지역별 출력
+				var goregion = function() {
+					var tripRegion = $("#tripRegion").val()
+		 			var page = $("#page").val()
+					$.ajax({
+						type: 'post',
+						url: "/tripRegion",
+						data: {tripRegion, page},
+						success: function(data) {
+							$("#tripListContent").replaceWith(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+					});
+				};
+				
 				// 최신순 정렬
 				var latestList = function(url) {
 					$.ajax({
 						type: 'post',
 						url: "/latestList",
+						success: function(data) {
+							$("#tripListContent").replaceWith(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+					})
+				}
+				
+				// 좋아요순 정렬
+				var tripGoodRatingList = function(url) {
+					$.ajax({
+						type: 'post',
+						url: "/tripGoodRatingList",
 						success: function(data) {
 							$("#tripListContent").replaceWith(data);
 						},
@@ -76,10 +129,7 @@
 				<form action="/tripNameSearchList" method="post" name="searchFrm" style="margin-top: 20px;">
                 	<br><input type="text" class="form-control" id="selfSearch" name="tripName" placeholder="여행지를 검색하세요"><br><br>
                 </form>
-                <form action="/tripRegionSearchList" method="post" name="searchFrm" style="margin-top: 5px;">
-                	<br><input type="text" class="form-control" id="selfSearch" name="tripAddr" placeholder="주소를 검색하세요"><br><br>
-                </form>
-                
+  
                 <script>
                 
                 // 여행지명 검색 리스트
@@ -97,10 +147,10 @@
                 };
                 
                 // 자동완성
-                $('#selfSearch').selfSearch({
+                $('#selfSearch').selfsearch({
                 	source : function(request, response) { //source: 입력시 보일 목록
                 		$.ajax({
-                			url : "/ajax/selfSearch"   
+                			url : "/ajax/selfsearch"   
    					         , type : "POST"
    					         , dataType: "JSON"
    					         , data : {value: request.term}	// 검색 키워드
@@ -132,15 +182,16 @@
    							console.log(ui.item.idx);
    					 }
    				});
-                
-                </script>
-          <div class="row margin-30px-bottom" id="tripListContent">
-             <div class="col-12 margin-40px-bottom">                
+       			</script>
+               <div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom" style="float: left;">
+          		<div class="row margin-30px-bottom" id="tripListContent">
+             		<div class="col-12 margin-40px-bottom">                
+              
                 <div  th:each="t, nStat: ${tripList}" class="card card-list margin-15px-bottom">
                    <div class="row align-items-center">
                    <div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
                    <div class="card-list-img">
-                            <img th:if="${t.tripCode < 2221}" class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"/>
+                         <img th:if="${t.tripCode < 2221}" class="border-radius-5" th:src="${t.imgGroCode}" style="width:300; height:200px;"/>
                              <img th:if="${t.tripCode >= 2221}" th:src="'/image/'+${t.imgPath}" style="width:300; height:200px;" class="border-radius-5"/>
                       </div>
                       <div class="card-list-img">
@@ -187,36 +238,9 @@
 
                   </div>
                </div>
-               <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-                        <div class="side-bar">
-                       <div class="widget">
-                                   <div class="widget-title">
-                                       <h3>태그</h3>
-                                   </div>
-                                   <p>월별</p>
-                                   <ul class="tags">
-                                       <li><a href="#">#전체</a></li>
-                                       <li><a href="#">#1월</a></li>
-                                       <li><a href="#">#2월</a></li>
-                                       <li><a href="#">#3월</a></li>
-                                       <li><a href="#">#4월</a></li>
-                                       <li><a href="#">#5월</a></li>
-                                       <li><a href="#">#6월</a></li>
-                                       <li><a href="#">#7월</a></li>
-                                       <li><a href="#">#8월</a></li>
-                                       <li><a href="#">#9월</a></li>
-                                       <li><a href="#">#10월</a></li>
-                                       <li><a href="#">#11월</a></li>
-                                       <li><a href="#">#12월</a></li>                                       
-                                   </ul>
-                               </div>
-                         </div>
-                   </div>
-          	   </div>
              </div>
         </div>
-      </section>
-   </div>
+   </section>
       <!-- end tour-list section -->
       
 

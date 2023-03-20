@@ -29,10 +29,26 @@
 	</insert>
 	
 	<!-- 전체 건수 조회 -->
-	<select id="getCountTotal" parameterType="co.admin.wh.trip.vo.TripSearchVO" resultType="int">
+	<select id="getCountTotal" parameterType="co.admin.wh.trip.vo.CourseSearchVO" resultType="int">
 		SELECT COUNT(*) FROM COURSE	
 	<include refid="criteria"></include>
 	</select> 
+	
+	<!-- 코스 지역별 선택하여 보기 -->
+	<select id="tripCourseRegion" parameterType="co.admin.wh.trip.vo.CourseVO"
+		resultType="co.admin.wh.trip.vo.CourseVO">
+		SELECT * FROM( SELECT rownum rn, a.* FROM(
+		select *
+		from course 
+		<where>
+		<if test="regionCode != null and regionCode != ''">
+		REGION_CODE = ${regionCode}
+		</if>
+		</where>
+	    <![CDATA[
+		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
+		]]>
+	</select>
 	
 	<!-- 상세페이지 보기 -->
 	<select id="detailSelect"
@@ -52,7 +68,7 @@
       WHERE c.cou_code = #{couCode}
 	</select> 
 	
-	<!-- test 단건조회 -->
+	<!-- 단건조회 -->
 	<select id="oneSelect" resultType="co.admin.wh.trip.vo.CourseVO">
 		SELECT * FROM COURSE
         WHERE cou_code = #{couCode}

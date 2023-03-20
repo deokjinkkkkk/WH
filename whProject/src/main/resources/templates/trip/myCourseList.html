@@ -189,7 +189,24 @@ function myCouDelete() {
 	          alert("삭제가 완료됐습니다.");
 	          row.remove(); // 행 삭제
 	          
-	          // 순서 바꿀려니, 자식 레코드 때문에 안됨 ㅇㄴ 와이러누 짱난다 진짜 
+	          // 서버에서 행이 삭제된 이후 순서 번호의 값을 1씩 감소
+	          $.ajax({
+	        	  url: "/myCouSeqUpdate",
+	        	  type: "POST",
+                  data: JSON.stringify({
+                      "myCourseCode": myCourseCode
+                  }),
+                  contentType: 'application/json',
+                  success: function (data) {
+                      if (data == "success") {
+                          location.reload(); // 새로고침
+                      } else {
+                    }
+                  },
+                  error: function () {
+                  }
+	          });
+	          
 	          
 	        } else {
 	          alert("삭제 실패");

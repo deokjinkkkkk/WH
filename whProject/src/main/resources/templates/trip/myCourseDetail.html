@@ -36,6 +36,18 @@
 	background-color: #fff;	
 }
 
+
+.application {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-group input[type="text"] {
+  text-align: center;
+}
+</style>
 </style>	 
   <div class="container">
                 <div class="row">
@@ -44,25 +56,13 @@
                             <h3 class="margin-5px-bottom">나만의 코스 짜기</h3>
                             <form action="#!" method="post">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6" id="application">
                                         <input type="text" name="exampleInputName" id="exampleInputName" 
                                         th:placeholder="${myCourse.myCouName}">
                                         <input type="hidden" class="myCourseCode" th:value="${myCourse.myCourseCode}">
                                     </div>
                                     <br><br>
-                                    <div class="form-group col-md-3">
-                                    	<select>
-                                    		<option value="">가족코스</option>
-                                    		<option value="">혼자여행</option>                                    		
-                                    	</select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                    	<select>
-                                    		<option value="">당일여행</option>
-                                    		<option value="">1박2일</option>       
-                                    		<option value="">1박2일 이상</option>                              		
-                                    	</select>
-                                    </div>
+                                   
                                  <!-- 여기에 해당 여행지 집어넣기 -->
                                  <!-- 해당 여행지로 이동 불가한건 나중에 선생님께 여쭤보기 ㅎ... -->
                                     <table class="table table-hover">
@@ -98,6 +98,7 @@
                            			</div>
                            		 </div>
                            		</div>
+                           		<br><hr>
                            		
                                     <!-- 구글 지도 API 이용 -->
                                 <div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -242,8 +243,9 @@
 						alert("삭제가 완료됐습니다.");
 						row.remove(); // 행 삭제
 						location.reload(); // 새로고침
+						
 						 // 서버에서 행이 삭제된 이후 모든 레코드의 couOrd(순서) 값을 1씩 감소시키기 위한 ajax 호출
-	                   /* $.ajax({
+	                    $.ajax({
 	                        url: "/myCouUpdateOrd",
 	                        type: "POST",
 	                        data: JSON.stringify({
@@ -258,7 +260,7 @@
 	                        },
 	                        error: function () {
 	                        }
-	                    }); */
+	                    }); 
 
 					} else {
 						alert("삭제 실패");
@@ -320,9 +322,8 @@
 		
 		// myCouState가 선택되었는지 확인
 	    if (!myCouState) {
-	        alert('여행 코스에 올리시겠습니까?');
-	        return;
-	    }
+	        swal("","여행 코스에 올리시겠습니까?","warning");
+	    } else {
 		
 		$.ajax({
 			url : "/moveSaveTrip",
@@ -330,15 +331,20 @@
 			data : JSON.stringify(data),
 			contentType : 'application/json',
 			success : function(response) {
-				alert('저장되었습니다.');
-			    //var savedData = response.savedData;
-				//location.reload();
+				 swal({
+		                title: "",
+		                text: "저장되었습니다.",
+		                icon: "success",
+		                onClose: function() {
+		                    location.reload();
+		                }
+		            });
 			},
 			error : function(error) {
-				alert('저장에 실패하였습니다.');
+				swal("","저장에 실패하였습니다.","error");
 			}
 		});	
-		
+	}	
 		
 		// 상태값(myCouState)을 myCourse테이블 코스번호(myCourseCode) 이용해서 myCourse테이블에 넘겨 저장하기
 		$.ajax({
@@ -352,7 +358,7 @@
 			success : function(response) {
 				//alert('상태값 넘기기 성공?.');
 			    //var savedData = response.savedData;
-				location.reload();
+				//location.reload();
 			},
 			error : function(error) {
 				//alert('상태값 넘기기 실패.');
@@ -369,12 +375,10 @@
 			}),
 			contentType : 'application/json',
 			success : function(response) {
-				alert('소개글 업데이트 성공?.');
 			    //var savedData = response.savedData;
-				location.reload();
+				//location.reload();
 			},
 			error : function(error) {
-				alert('소개글 업데이트 실패.');
 			}
 		})
 				

@@ -248,7 +248,9 @@ position: absolute;
    top: 50px;
 }
 
-
+#Reg {
+  margin-left: 10px;
+}
 </style>
 <!--좋아요 버튼 css-종료-->	
   
@@ -305,10 +307,14 @@ position: absolute;
                    <div class="modal-content ">
                      <div class="modal-header">
                        <h5 class="modal-title" id="exampleModalLabel">코스 선택</h5>
+                       <br><br>
                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                        </button>
                      </div>
+	                          <div>
+							    <a id="Btn" class="btn btn-primary btn-block">코스만들기</a>
+							  </div>
                      <div th:each="m : ${myCou}" th:if="${m.myCouId == session.name || session.name == 'ADMIN'}" class="modal-body">
                          <div class="form-group">
                          	<label th:text="${m.myCouName}" for="recipient-name" class="col-form-label">코스목록 떠야함</label>
@@ -327,6 +333,36 @@ position: absolute;
                  </div>
                </div>
                <!-- modal 끝 -->
+               
+               
+               <!-- 코스명 입력 Modal-->
+            <div class="modal fade" id="courseNameModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-dialog modal-dialog-centered">
+               <form id="titleForm" method="post">
+                   <div class="modal-content ">
+                     <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLabel">코스명을 입력하세요</h5>
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                       </button>
+                     </div>
+                     <div class="modal-body">
+                       <form>
+                         <div class="form-group">
+                         <!-- 코스명 입력란 -->
+                           <input id="myCouName" name="myCouName" type="text" class="form-control">
+                         </div>
+                       </form>
+                     </div>
+                     <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                       <button type="button" class="btn btn-primary" id="Reg">등록</button>
+                     </div>
+                     <input type="hidden" name="myCouId" id="myCouId" th:value="${session.name}">
+                   </div>
+                 </form>
+                 </div>
+               </div>
                         		
                         		<!--좋아요 버튼 기능html-->
                        						 	<div class="right_area" id="greatBtn">
@@ -468,9 +504,10 @@ position: absolute;
 												</div>
 											</li>
 									</ul>
+									<br><hr>
                             <!-- 상세정보 끝 -->
                             
-                            	<p style="font-size: 30px;">지도<p><hr>
+                            	<p style="font-size: 30px; text-align: center;">지도<p><hr>
                             <!-- 구글 지도 API 이용 TEST -->
                                 <div id="map" style="height: 600px;"
                                 th:attr="data-lat=${trip.tripLat}, data-lon=${trip.tripLon}, data-name=${trip.tripName}"></div>
@@ -777,6 +814,8 @@ position: absolute;
 						success : function(data) {
 							if(data == "success") {
 								alert("해당 코스에 담았습니다");
+								// 해당 코스에 성공적으로 담았을 시 나만의 코스 페이지로 이동
+								location.href = "/myCourse";
 							} else {
 								alert("담기 실패");
 							}
@@ -789,6 +828,7 @@ position: absolute;
 					
 				 }
 				};
+				
 				/* 댓글  시작*/
 				$(document).ready(function(){
 					getComList() 
@@ -1062,6 +1102,43 @@ position: absolute;
 					getComList()
 				}
 				/* 댓글  끝*/
+				
+				
+				
+				/* '코스만들기' 버튼 클릭 시 모달창 뜨기 */
+				$('#Btn').click(function(e){
+				         e.preventDefault();
+				         $('#courseNameModal').modal("show");
+				      });
+				      
+				/* '등록' 버튼 클릭 시 코스명, 회원아이디 db에 담기 */
+				$("#Reg").click(function(){
+					   let myCouName = $("#myCouName").val(); // 코스명 내용
+					   let myCouId = $("#myCouId").val(); // 회원아이디
+					   
+					   $.ajax({
+						   url : "/myCourseInsert",
+						   type: "POST",
+						   data : JSON.stringify({
+							   "myCouName" : myCouName,
+							   "myCouId" : myCouId
+						   }),
+						   contentType : 'application/json',
+						   success : function(data) {
+							   if(data == "success") {
+								   alert("등록 성공");
+								   $('#exampleModal').modal("hide"); // 모달 숨기기
+								   location.reload(true);
+							   } else {
+								   alert("등록 실패");
+							   }
+							   $("#myCouName").val();
+						   },
+					  	   error: function() {
+					  		   alert('등록 실패');
+					  	   }
+					   });
+					});
 				</script>
             
        

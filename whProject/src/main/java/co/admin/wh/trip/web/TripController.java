@@ -27,13 +27,23 @@ import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.TripSearchVO;
 import co.admin.wh.trip.vo.TripVO;
 
+
+/*
+* 작성자 : 정선희 
+* 작성일자 : 2023-03-20 
+* 작성내용 : 여행지 Controller
+* 		   여행지 목록 출력 / 상세페이지 보기 / 여행지 지역 선택 / 여행지 이름 검색 / 
+* 		   최신순, 좋아요순 정렬 / 여행지 DB 저장용 
+*/
+
 @Controller
 public class TripController {
 
 	private TripService tripService;
 	
-	//생성자 주입
 	@Autowired TripMapper tripMapper;
+	
+	//생성자 주입
 	@Autowired
 	public TripController(TripService apiService) {
 		this.tripService = apiService;
@@ -52,18 +62,6 @@ public class TripController {
 	// 여행지 목록
 	@GetMapping("/trip")
 	public String tripSearch(Model model, @ModelAttribute("tsvo")TripSearchVO svo, Paging paging) {
-		
-		paging.setPageUnit(5); // 한 페이지에 출력할 레코드 건수
-		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
-		
-		svo.setFirst(paging.getFirst());
-		svo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(tripMapper.getCountTotla(svo));
-		//model.addAttribute("tripLittleList", tripMapper.tripList(svo));
-	
-		model.addAttribute("tripList", tripService.tripList(svo));
-		
 		return "trip/tripList";
 	}
 	
@@ -84,25 +82,7 @@ public class TripController {
 		return "trip/tripRegionList";
 		
 	}
-	
-	// 여행지 이름 검색
-	@PostMapping("/tripNameSearchList")
-	public String tripNameSearch(Model model, TripSearchVO vo, Paging paging) {
-		paging.setPageUnit(5);
-		paging.setPageSize(10);
-		
-		vo.setFirst(paging.getFirst());
-		vo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(tripService.getCountTotla(vo));
-		
-		List<TripVO> tripList = tripService.tripNameSearchList(vo);
-		model.addAttribute("tripList", tripList);
-		return "trip/tripNameSearchList";
-	}
-	
 
-	
 	// 여행지검색 자동 완성
 	@RequestMapping("/ajax/selfsearch")
 	@ResponseBody

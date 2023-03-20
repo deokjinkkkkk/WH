@@ -21,8 +21,4 @@ public interface MyCourseMapper {
 	
 	int myCouIntroUpdate(MyCourseVO vo); // 소개글 업데이트
 
-
-	
-	
-	
 }

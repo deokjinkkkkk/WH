@@ -27,6 +27,14 @@ import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.MyCourseFreeVO;
 import co.admin.wh.trip.vo.MyCourseVO;
 
+/*
+* 작성자 : 정선희 
+* 작성일자 : 2023-03-20 
+* 작성내용 : 나만의 여행지 Controller
+* 		   나만의 코스 제목 입력 / 여행지 정보 입력 / 리스트에 있는 항목 삭제 / 소개글 업데이트 / 
+* 		   최신순, 좋아요순 정렬 / 여행지 DB 저장용 
+*/
+
 @Controller
 public class MyCourseController {
 
@@ -96,20 +104,7 @@ public class MyCourseController {
 	@PostMapping("/myCouIntroUpdate")
 	@ResponseBody
 	public String myCouIntroUpdate(@RequestBody MyCourseVO vo) {
-		
-		int result = myCourseMapper.myCouIntroUpdate(vo);
-		String resultValue = "fail";
-		if (result > 0) {
-			resultValue = "success";
-		}
-		return resultValue;
-	}
-	
-	// 리스트 삭제 시 순서 번호 업데이트
-	@PostMapping("/myCouSeqUpdate")
-	@ResponseBody
-	public String myCouSeqUpdate(@RequestBody MyCourseVO vo) {
-		int result = myCourseMapper.myCouSeqUpdate(vo);
+		int result = myCourseService.myCouIntroUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";
@@ -122,6 +117,18 @@ public class MyCourseController {
 	@ResponseBody
 	public String myCouDetailDel(@RequestBody MyCourseFreeVO vo) {
 		int result = myCourseFreeMapper.myCouDetailDel(vo);
+		String resultValue = "fail";
+		if (result > 0) {
+			resultValue = "success";
+		}
+		return resultValue;
+	}
+	
+	// 리스트 삭제 시 순서 번호 업데이트
+	@PostMapping("/myCouSeqUpdate")
+	@ResponseBody
+	public String myCouSeqUpdate(@RequestBody MyCourseVO vo) {
+		int result = myCourseMapper.myCouSeqUpdate(vo);
 		String resultValue = "fail";
 		if (result > 0) {
 			resultValue = "success";
