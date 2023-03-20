@@ -1,76 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.trip.mapper.MyCourseFreeMapper">
-	
-	<select id="myCourseTripList" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+
+	<select id="myCourseTripList"
+		resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
 		SELECT * FROM MY_COURSE_FREE
 	</select>
-	
-	
-	<!-- 나만의 코스 상세페이지 제목란에 제목 출력 -->
-	<select id="oneSelect" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
-			SELECT * FROM MY_COURSE_FREE
-			WHERE MY_COURSE_CODE = ${myCourseCode}
-	</select>
-	
-	<!-- 나만의 코스 상세페이지에 여행지 정보 저장하기 -->
-	<insert id="myCourseInsert" parameterType="co.admin.wh.trip.vo.MyCourseFreeVO">
-	<selectKey keyProperty="myCouFreeCode" resultType="int" order="BEFORE">
-		SELECT NVL(MAX(MY_COU_FREE_CODE),0)+1 FROM MY_COURSE_FREE
-	</selectKey>
-	 INSERT INTO MY_COURSE_FREE
-	 (trip_unique_number, my_course_code, 
-	  cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
-	 VALUES (#{tripUniqueNumber}, #{myCourseCode},
-	 (SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE WHERE MY_COURSE_CODE = #{myCourseCode}), 
-	 #{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
-	</insert>
-	
-	<!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
-	<select id="myCourseSelect" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
 
-		SELECT T.TRIP_NAME, T.IMG_GRO_CODE, T.TRIP_ADDR, T.TRIP_UNIQUE_NUMBER, T.TRIP_LAT, T.TRIP_LON, M.MY_COU_FREE_CODE, M.COU_ORD, T.TRIP_CODE
-		FROM TRIP T, MY_COURSE_FREE M
-		WHERE M.TRIP_UNIQUE_NUMBER = T.TRIP_UNIQUE_NUMBER 
-		AND M.MY_COURSE_CODE = #{myCourseCode}
+
+	<!-- 나만의 코스 상세페이지 제목란에 제목 출력 -->
+	<select id="oneSelect"
+		resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+		SELECT * FROM MY_COURSE_FREE
+		WHERE MY_COURSE_CODE = ${myCourseCode}
+	</select>
+
+	<!-- 나만의 코스 상세페이지에 여행지 정보 저장하기 -->
+	<insert id="myCourseInsert"
+		parameterType="co.admin.wh.trip.vo.MyCourseFreeVO">
+		<selectKey keyProperty="myCouFreeCode" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(MY_COU_FREE_CODE),0)+1 FROM MY_COURSE_FREE
+		</selectKey>
+		INSERT INTO MY_COURSE_FREE
+		(trip_unique_number, my_course_code,
+		cou_ord, my_cou_free_code, trip_name, img_gro_code, trip_addr)
+		VALUES (#{tripUniqueNumber}, #{myCourseCode},
+		(SELECT NVL(MAX(cou_ord), 0) + 1 FROM MY_COURSE_FREE WHERE MY_COURSE_CODE =
+		#{myCourseCode}),
+		#{myCouFreeCode}, #{tripName}, #{imgGroCode}, #{tripAddr})
+	</insert>
+
+	<!-- 나만의 코스 상세페이지에 담은 여행지 출력 -->
+	<select id="myCourseSelect"
+		resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+
+		SELECT *
+		FROM TRIP t left outer JOIN image i
+		on t.img_gro_code = i.img_gro_code
+		left outer join my_course_free m
+		on m.TRIP_UNIQUE_NUMBER = T.TRIP_UNIQUE_NUMBER
+		where m.MY_COURSE_CODE = #{myCourseCode}
 		ORDER BY COU_ORD
 	</select>
-	
+
 	<!-- 나만의 코스 상세페이지에 담은 각 여행지 삭제 -->
 	<delete id="myCouDetailDel">
 		DELETE FROM MY_COURSE_FREE
-		WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
+		WHERE MY_COU_FREE_CODE =
+		#{myCouFreeCode}
 	</delete>
-	
+
 	<!-- 여행지 삭제 시, 순서 번호 업데이트 -->
 	<update id="couOrdUpdate">
-	    UPDATE MY_COURSE_FREE
-	    SET COU_ORD = COU_ORD - 1
-	    WHERE COU_ORD > #{couOrd}
+		UPDATE MY_COURSE_FREE
+		SET COU_ORD = COU_ORD - 1
+		WHERE COU_ORD > #{couOrd}
 	</update>
-	
+
 	<!-- 나만의 코스 상세페이지에 담은 각 여행지 위아래로 이동 -->
 	<update id="myCouUpdate">
 		UPDATE MY_COURSE_FREE
 		SET cou_ord = #{couOrd}
-		WHERE MY_COU_FREE_CODE = #{myCouFreeCode}
+		WHERE
+		MY_COU_FREE_CODE = #{myCouFreeCode}
 	</update>
-	
-	
+
+
 	<!-- 여행 코스에 노출된 나만의 코스 상세페이지 출력 -->
-	<select id="myCouDetSel" resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
-	  SELECT 
-	      t.trip_name,
-	      t.trip_lat, 
-	      t.trip_lon,
-	      t.trip_code, 
-	      t.img_gro_code,
-	      t.trip_unique_number,
-	      m.cou_ord
-      FROM 
-	      my_course_free m left join trip t 
-      on m.trip_unique_number = t.trip_unique_number
-      WHERE m.my_course_code = #{myCourseCode}
+	<select id="myCouDetSel"
+		resultType="co.admin.wh.trip.vo.MyCourseFreeVO">
+		SELECT
+		t.trip_name,
+		t.trip_lat,
+		t.trip_lon,
+		t.trip_code,
+		t.img_gro_code,
+		t.trip_unique_number,
+		m.cou_ord
+		FROM
+		my_course_free m left join trip t
+		on m.trip_unique_number = t.trip_unique_number
+		WHERE m.my_course_code = #{myCourseCode}
 	</select>
 
 

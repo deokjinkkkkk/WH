@@ -111,9 +111,7 @@
 			),
 			contentType:'application/json',
 			success : function(data){
-				console.log("댓글등록")
 				$("#comContent").val("")
-				console.log("====")
 				getComList()
 			},
 			error:function(){
@@ -127,8 +125,6 @@
 		id = $("#id").val()
 		author = $("#perm").val()
 		perm = author.slice(1,-1)
-		console.log(perm)
-		console.log(id)
 		    str += '<div class="title-g margin-30px-bottom">'
 			str +='<h3>댓글</h3>'
 			str +='</div>'
@@ -323,7 +319,6 @@
 		
 		let pTag = $(event.target).prev().prev()
 		let content = pTag.text()
-		console.log(content)
 		let delBtn =  $(event.target).prev()
 		let upBtn = $(event.target)
 		

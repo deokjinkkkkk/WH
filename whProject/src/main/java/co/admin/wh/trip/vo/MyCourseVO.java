@@ -14,5 +14,7 @@ public class MyCourseVO {
 	String myCouId; // 회원아이디
 	
 	String imgGroCode; // 이미지
+	private String imgPath;
+	private String imgName;
 	
 }
