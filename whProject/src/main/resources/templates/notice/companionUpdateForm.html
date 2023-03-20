@@ -169,7 +169,7 @@
 						<div class="form-group col-md-12">
 							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
 						</div>
-						<input type="hidden" name="id" id="id" value="ADMIN"> <input
+						<input type="hidden" name="id" id="id" th:value="${session.name}"> <input
 							type="hidden" name="imgGroCode" id="imgGroCode"
 							th:value="${c.imgGroCode}"> <input type="hidden"
 							name="imgPath" id="imgPath" th:value="${c.imgPath}"> <input
