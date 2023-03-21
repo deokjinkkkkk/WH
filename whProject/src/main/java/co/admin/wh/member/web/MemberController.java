@@ -190,13 +190,12 @@ public class MemberController {
 	//비밀번호 찾기 이메일 비밀번호 발급
 	@PostMapping("/login/passMail")
 	public String passMail(@RequestParam String email, MemberVO vo) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-		String code;
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); //비밀번호 암호화
+		String code; 
 		try {
-			code = emailService.passFindMessage(email, vo);
+			code = emailService.passFindMessage(email, vo); //mail로 보내지는 비밀번호값
 			vo.setPass(passwordEncoder.encode(code));
-			memberMapper.passUpdate(vo);
+			memberMapper.passUpdate(vo); //비밀번호 업데이트
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
