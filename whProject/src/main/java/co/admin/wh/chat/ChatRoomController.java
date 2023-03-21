@@ -43,7 +43,7 @@ public class ChatRoomController {
 	// 채팅 리스트 화면
 	@GetMapping("/room")
 	public String rooms(Model model) {
-		return "/chat/room";
+		return "chat/room";
 	}
 
 	// 모든 채팅방 목록 반환
@@ -66,7 +66,7 @@ public class ChatRoomController {
 	@GetMapping("/room/enter/{roomId}")
 	public String roomDetail(Model model, @PathVariable String roomId) {
 		model.addAttribute("roomId", roomId);
-		return "/chat/roomdetail";
+		return "chat/roomdetail";
 	}
 
 	// 특정 채팅방 조회
@@ -75,7 +75,8 @@ public class ChatRoomController {
 	public ChatRoom roomInfo(@PathVariable String roomId) {
 		return chatService.findById(roomId);
 	}
-
+	
+	//비밀번호 체크
 	@PostMapping(value = "/room/check-password", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> checkPassword(@RequestParam("roomId") String roomId,
@@ -108,16 +109,5 @@ public class ChatRoomController {
 	        super(message);
 	    }
 	}
-//	@PostMapping("/room/delete/{roomId}")
-//	@ResponseBody
-//	public String deleteRoom(@PathVariable String roomId, @RequestBody Map<String, Object> requestBody) {
-//	    String currentUserId = (String) requestBody.get("currentUserId");
-//	    ChatRoom chatRoom = chatService.findById(roomId);
-//	    if (!currentUserId.equals(chatRoom.getCreatedBy())) {
-//	        // 현재 로그인한 사용자와 방을 개설한 사용자의 ID가 다를 경우 삭제 불가
-//	        return "fail";
-//	    }
-//	    chatService.deleteRoom(chatRoom);
-//	    return "success";
-//	}
+
 }

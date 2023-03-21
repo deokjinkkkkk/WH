@@ -4,12 +4,6 @@
 	layout:decorate="~{index}">
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
-
 
 <body>
 
@@ -27,72 +21,60 @@
 				</ul>
 			</div>
 		</section>
-		
-        <!-- start blog detail section -->
-        <section class="blogs">
-            <div class="container">
-                <div class="row">
 
-                    <!--  start blog left-->
-                    <div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-                    	<h4>내가 신청한 동행자</h4>
-                        <div class="posts">
-                         <table border="1"  class="table table-bordered" id="dataTable" width="100%"
-					cellspacing="0">
-                         	<thead>
-                         		<tr style="background-color:lightgrey;">
-                         			<td>글제목</td>
-                         			<td>승인상태</td>
-                         		</tr>
-                         	</thead>
-                         		<tbody th:each="c : ${se}">
-                         			<tr>
-                         				<input type="hidden" id="${c.coState}" name="${c.coState}" >
-                         				<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
-                         			
-                         				<td >[[${c.comName}]]</td>
-                         				
-                         			</tr>
-                         		</tbody>
-               
-                         </table>
+		<!-- start blog detail section -->
+		<section class="blogs">
+			<div class="container">
+				<div class="row">
 
-      
-                        </div>
-                    </div>
-                    <!--  end blog left-->
+					<!--  start blog left-->
+					<div
+						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+						<h4>내가 신청한 동행자</h4>
+						<div class="posts">
+							<table border="1" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<thead>
+									<tr style="background-color: lightgrey;">
+										<td>글제목</td>
+										<td>승인상태</td>
+									</tr>
+								</thead>
+								<tbody th:each="c : ${se}">
+									<tr>
+										<input type="hidden" id="${c.coState}" name="${c.coState}">
+										<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
+										<td>[[${c.comName}]]</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--  end blog left-->
 
-                    <!--  start blog right-->
-                    <div class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-                        <div class="side-bar">
-                        
-                            <div class="widget">
-                                <div class="widget-title margin-20px-bottom">
-                                    <h3>Categories</h3>
-                                </div>
-                                <ul class="widget-list">
-                                    <li>
-                                        <a href="/companionList">내 동행자에 신청한 사람들
-                                        </a>
+					<!--  start blog right-->
+					<div
+						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+						<div class="side-bar">
 
-                                    </li>
-                                    <li>
-                                        <a href="/companionSelList">내가 신청한 동행자
-                                        </a>
+							<div class="widget">
+								<div class="widget-title margin-20px-bottom">
+									<h3>Categories</h3>
+								</div>
+								<ul class="widget-list">
+									<li><a href="/companionList">내 동행자에 신청한 사람들 </a></li>
+									<li><a href="/companionSelList">내가 신청한 동행자 </a></li>
+								</ul>
+							</div>
 
-                                    </li>
-                                </ul>
-                            </div>
 
-                           
-                        </div>
-                    </div>
-                    <!--  end blog right-->
+						</div>
+					</div>
+					<!--  end blog right-->
 
-                </div>
-            </div>
-        </section>
-        <!-- end blog detail section -->
-</div>
+				</div>
+			</div>
+		</section>
+		<!-- end blog detail section -->
+	</div>
 </body>
 </html>

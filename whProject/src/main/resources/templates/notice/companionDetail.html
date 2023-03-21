@@ -11,186 +11,187 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-<style>
+		<style>
 /* 댓글 css  */
 .btnDel {
-  width: 70px;
-  height: 40px;
-
+	width: 70px;
+	height: 40px;
 }
+
 .comment-box {
-margin-bottom: 50px;
-position: relative;
+	margin-bottom: 50px;
+	position: relative;
 }
 
 .comment-box .author-thumb {
-float: left;
-margin-right: 15px;
-position: relative;
-z-index: 1;
+	float: left;
+	margin-right: 15px;
+	position: relative;
+	z-index: 1;
 }
 
 .comment-box .author-thumb img {
-max-width: 100%;
+	max-width: 100%;
 }
 
 .comment-box .comment-info h6 {
-margin-top: 0;
-margin-bottom: 5px;
+	margin-top: 0;
+	margin-bottom: 5px;
 }
 
 .comment-box .reply {
-margin-top: 10px;
-font-size: 14px;
+	margin-top: 10px;
+	font-size: 14px;
 }
 
 .comment-box .reply a {
-color: #999;
-margin-left: 10px;
+	color: #999;
+	margin-left: 10px;
 }
 
 .comment-box .rep-form {
-margin-left: 100px;
+	margin-left: 100px;
 }
 
 .comment-box .comRep {
-width: 100%;
-height: 100px;
-border: 1px solid #ddd;
-padding: 10px;
-margin-bottom: 10px;
+	width: 100%;
+	height: 100px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 .comment-box .reButn {
-background-color: #2d8bff;
-color: #fff;
-border: none;
-padding: 8px 20px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;
-margin-right: 10px;
+	background-color: #2d8bff;
+	color: #fff;
+	border: none;
+	padding: 8px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-right: 10px;
 }
 
 .comment-box .btnDel {
-float: right;
-background-color: #d9534f;
-color: #fff;
-border: none;
-padding: 8px 20px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;
-margin-right: 10px;
+	float: right;
+	background-color: #d9534f;
+	color: #fff;
+	border: none;
+	padding: 8px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-right: 10px;
 }
 
 .comment-box .secChk {
-margin-left: 10px;
+	margin-left: 10px;
 }
 
 .comment-box .comContent {
-white-space: pre-line;
+	white-space: pre-line;
 }
 
 .comment-box p {
-margin: 0;
-font-size: 14px;
-line-height: 1.5;
-color: #666;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #666;
 }
 
 .comment-box .title-g {
-margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .comment-box .title-g h3 {
-margin-top: 0;
-margin-bottom: 15px;
-font-size: 28px;
-line-height: 1.3;
-font-weight: 700;
-color: #333;
+	margin-top: 0;
+	margin-bottom: 15px;
+	font-size: 28px;
+	line-height: 1.3;
+	font-weight: 700;
+	color: #333;
 }
- .posts {
-  margin-top: 40px;
+
+.posts {
+	margin-top: 40px;
 }
 
 .comments-area {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
 }
 
 .comment-form {
-  margin-bottom: 60px;
+	margin-bottom: 60px;
 }
 
 .controls {
-  padding-top: 20px;
+	padding-top: 20px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 textarea {
-  width: 100%;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
+	width: 100%;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
 }
 
 .butn {
-  display: inline-block;
-  background-color: #4CAF50;
-  color: #fff;
-  text-align: center;
-  padding: 12px 24px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
+	display: inline-block;
+	background-color: #4CAF50;
+	color: #fff;
+	text-align: center;
+	padding: 12px 24px;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
 }
 
 .butn span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
 }
 
 .butn span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
 }
 
 .butn:hover span {
-  padding-right: 25px;
+	padding-right: 25px;
 }
 
 .butn:hover span:after {
-  opacity: 1;
-  right: 0;
+	opacity: 1;
+	right: 0;
 }
 
 .secChk {
-  margin-left: 10px;
+	margin-left: 10px;
 }
+
 a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
-	
 }
 /* 댓글 css 끝 */
-.title{
-display: inline-block;;
-width:20%;
-font-size: large;
-color:black;
+.title {
+	display: inline-block;;
+	width: 20%;
+	font-size: large;
+	color: black;
 }
 </style>
 		<!-- 배너시작 -->
@@ -202,110 +203,114 @@ color:black;
 				<ul>
 					<li><a href="/main">Home</a></li>
 					<li><a href="/companion">동행자</a></li>
-<!-- 					<li><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}"><span class="active">동행자 상세페이지</span></a></li> -->
+					<li><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}"><span class="active">동행자 상세페이지</span></a></li>
 				</ul>
 			</div>
 		</section>
 		<!-- 배너끝 -->
+		
 		<!-- 각자 내용 -->
 		<section>
 
 			<div class="container">
-				<form id="frm" method="post" action="/companionDelete"
-					enctype="multipart/form-data">
-				<div class="row">	
-					<div class="col-lg-6 mb-5 ftco-animate">
-						<img th:src="'/image/'+${c.imgPath}" alt="Colorlib Template"
-							width="400px" height="auto">
-					</div>
+				<!--  삭제를 위한 폼 -->
+				<form id="frm" method="post" action="/companionDelete" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-lg-6 mb-5 ftco-animate">
+							<img th:src="'image/'+${c.imgPath}" alt="Colorlib Template" width="400px" height="auto"> 
+						</div>
 
-					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-						<h1>
-							<span th:text="${c.compTitle}"></span>
-						</h1>
-						<hr>
-						<p>
-							<span class="title">인원수   :</span> <span th:text="${c.compCount}"></span>
-						</p>
-						<hr>
-						<p>
-							<span class="title">그룹유형 :</span> <span th:text="${c.comName}"></span>
-						</p>
-						<hr>
-						<p>
-							<span class="title">여행지역 :</span> <span th:text="${lo.comName}"></span>
-						</p>
-						<hr>
-						<p>
-							<span class="title">여행 기간 :</span> <span th:text="${c.compStartDate}"></span> ~ <span
-								th:text="${c.compEndDate}"></span>
-						</p>
-						<hr>
-						<p><span class="title">여행 내용</span>
-						<p th:text="${c.compContent}"></p>
-						<hr>
-					</div></div>
-					<a href="/companion" class="btn btn-primary btn-lg">목록</a>
-					<input type="hidden" th:value="${c.imgGroCode}" id="imgGroCode"
-						name="imgGroCode"> <a
-						th:href="|/companionUpdateForm?compCode=${c.compCode}|"
-						class="btn btn-primary btn-lg" th:if="${c.id == session.name}" style="float: right;">수정하기</a>
+						<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+							<h1>
+								<span th:text="${c.compTitle}"></span>
+							</h1>
+							<hr>
+							<p>
+								<span class="title">인원수 :</span> <span th:text="${c.compCount}"></span>
+							</p>
+							<hr>
+							<p>
+								<span class="title">그룹유형 :</span> <span th:text="${c.comName}"></span>
+							</p>
+							<hr>
+							<p>
+								<span class="title">여행지역 :</span> <span th:text="${c.compLocalName}"></span>
+							</p>
+							<hr>
+							<p>
+								<span class="title">여행 기간 :</span> 
+								<span th:text="${c.compStartDate}"></span> ~ 
+								<span th:text="${c.compEndDate}"></span>
+							</p>
+							<hr> 
+							<p>
+								<span class="title">여행 내용</span>
+							<p th:text="${c.compContent}"></p>
+							<hr>
+						</div>
+					</div>
+					<a href="/companion" class="btn btn-primary btn-lg">목록</a> 
+					
+					<input type="hidden" th:value="${c.imgGroCode}" id="imgGroCode" name="imgGroCode"> 
+					<a th:href="|/companionUpdateForm?compCode=${c.compCode}|" class="btn btn-primary btn-lg" 
+					th:if="${c.id == session.name}" style="float: right;">수정하기</a> 
 					<input type="hidden" name="compCode" th:value="${c.compCode}" />
 					<button type="submit" class="btn btn-danger btn-lg"
 						th:if="${c.id == session.name}" style="float: right;">삭제하기</button>
+					
+				</form>
+				
+				<form method="post" action="/comListInsert" enctype="multipart/form-data">
+					<input type="hidden" id="id" name="id" th:value="${session.name}">
+					<input type="hidden" id="compTitle" name="compTitle" th:value="${c.compTitle}"> 
+					<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}"> 
+					<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}"> 
+					<input type="hidden" id="tel" name="tel" th:value="${me.tel}"> 
+					<input type="hidden" id="name" name="name" th:value="${me.name}"> 
+					<input type="hidden" id="coState" name="coState" value="000"> 
+					<input type="hidden" id="gender" name="gender" th:value="${me.gender}">
 					<button type="button" class="btn btn-danger btn-lg"
 						data-toggle="modal" data-target="#myModal"
 						th:if="${c.id != session.name}" style="float: right;">신고해보자고</button>
+					<button th:if="${se == 0 and c.id != session.name}" type="submit"
+						class="btn btn-primary btn-lg" id="submit-btn"
+						style="float: right;">동행자 신청하기</button>
 				</form>
-				<form method="post" action="/comListInsert"
-				enctype="multipart/form-data">
-				<input type="hidden" id="id" name="id" th:value="${session.name}">
-				<input type="hidden" id="compTitle" name="compTitle"
-					th:value="${c.compTitle}"> <input type="hidden"
-					id="compCode" name="compCode" th:value="${c.compCode}"> <input
-					type="hidden" id="compCode" name="compCode"
-					th:value="${c.compCode}"> <input type="hidden" id="tel"
-					name="tel" th:value="${me.tel}"> <input type="hidden"
-					id="name" name="name" th:value="${me.name}"> <input
-					type="hidden" id="coState" name="coState" value="000"> <input
-					type="hidden" id="gender" name="gender" th:value="${me.gender}">
-				<button th:if="${se == 0 and c.id != session.name}" type="submit"
-					class="btn btn-primary btn-lg" id="submit-btn" style="float: right;">동행자 신청하기</button>
-			</form>
-			        <!-- 댓글 시작 -->
-			<section class="blogs">
-				<div class="posts">
+				<!-- 댓글 시작 -->
+				<section class="blogs">
 					<div class="posts">
-                         <div class="comments-area"></div>
+						<div class="posts">
+							<div class="comments-area"></div>
 							<div class="comment-form">
 								<form id='comment-form' method='post'>
 									<div class="controls">
 										<div class="row">
-												<input type="hidden" name="id" th:value="${session.name}" id="id">
-												<input type="hidden" th:value="${session.perm}" id="perm">
-												<div class="col-md-12 form-group">
-													<textarea id="comContent" name="comContent"
-														placeholder="댓글 내용" rows="4" required="required"></textarea>
-												</div>
-												<div class="col-md-12">
-													<button type="button" id="butn" class="butn">
-														<span>댓글 달기</span>
-													</button>
-													<label><input type="checkbox" id="lockChk"class="secChk" value="1">비밀</label>
-												</div>
+											<input type="hidden" name="id" th:value="${session.name}" id="id"> 
+											<input type="hidden" th:value="${session.perm}" id="perm">
+											<div class="col-md-12 form-group">
+												<textarea id="comContent" name="comContent"
+													placeholder="댓글 내용" rows="4" required="required"></textarea>
+											</div>
+											<div class="col-md-12">
+												<button type="button" id="butn" class="butn">
+													<span>댓글 달기</span>
+												</button>
+												<label>
+												<input type="checkbox" id="lockChk" class="secChk" value="1">비밀</label>
 											</div>
 										</div>
-										<input type="hidden" id="comBoardCode" name="comBoardCode" th:value="${c.compCode}">
-										<input type="hidden" id="comFlag" name="comFlag" value="CWT">
-									</form>
-								</div>
+									</div>
+									<input type="hidden" id="comBoardCode" name="comBoardCode" th:value="${c.compCode}"> 
+									<input type="hidden" id="comFlag" name="comFlag" value="CWT">
+								</form>
 							</div>
 						</div>
+					</div>
 				</section>
 				<!-- 댓글 끝 -->
 			</div>
 
-			
+
 		</section>
 		<script type="text/javascript">
 			$(".btn-modal").click(function() {
@@ -317,39 +322,34 @@ color:black;
 
 
 		<div class="modal hide" id="myModal">
-			<form id="frmf" action="/report" method="post"
-				enctype="multipart/form-data">
+			<form id="frmf" action="/report" method="post" enctype="multipart/form-data">
 				<div class="modal-header">
-					<!-- 					<button class="close" data-dismiss="modal">x</button> -->
 					<div class="modal-dialog" role="document">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
 
 									<div th:each="c: ${r}">
-										<label class="rad-label"> <input type="radio"
-											th:text=${c.comName} th:value="${c.comCode}" name="repReason"
-											id="repReason">
+										<label class="rad-label"> 
+										<input type="radio" th:text=${c.comName} th:value="${c.comCode}" 
+										name="repReason" id="repReason">
 										</label>
 									</div>
 
 
-									<input type="hidden" name="id" id="id"
-										th:value="${session.name}"> <input type="hidden"
-										name=repCatCode id="repCatCode" value="RWT">
+									<input type="hidden" name="id" id="id" th:value="${session.name}"> 
+									<input type="hidden" name=repCatCode id="repCatCode" value="RWT">
 								</div>
 								<div class="modal-footer">
-									<input type="hidden" id="compCode" name="compCode"
-										th:value="${c.compCode}"> <input type="hidden"
-										id="targetId" name="targetId" th:value="${c.id}"> <input
-										type="submit" class="btn btn-primary" value="신청하기">
+									<input type="hidden" id="compCode" name="compCode" th:value="${c.compCode}"> 
+									<input type="hidden" id="targetId" name="targetId" th:value="${c.id}"> 
+									<input type="submit" class="btn btn-primary" value="신청하기">
 
 								</div>
 							</div>
@@ -634,7 +634,7 @@ function resetBtn(){
 }
 /* 댓글  끝*/
 </script>
-		
+
 	</div>
 	<!-- 내용 끝 -->
 

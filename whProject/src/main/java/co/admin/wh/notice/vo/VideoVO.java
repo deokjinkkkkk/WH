@@ -9,16 +9,14 @@ import lombok.Data;
 @Data
 public class VideoVO {
 	 
-	int videoCode;
-	String videoName;
-	String videoContent;
+	int videoCode; //영상코드
+	String videoName; //영상 제목
+	String videoContent; //영상 설명
 	int videoHit;
 	@JsonFormat(pattern = "yyyy/mm/dd")
-	Date videoRegDate;
-	@JsonFormat(pattern = "yyyy/mm/dd")
-	Date videoModDate;
-	String videoRegion;
-	String url;
-	String thumbnail;
+	Date videoRegDate; //영상 등록 날짜
+	String videoRegion; //영상 지역
+	String url; //영상 유튜브 주소
+	String thumbnail; //영상 유튜브 썸네일
 	
 }

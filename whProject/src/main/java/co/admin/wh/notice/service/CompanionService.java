@@ -25,7 +25,7 @@ public interface CompanionService {
 	
 	CompanionVO detailSelect(CompanionVO cvo);
 	
-	CompanionVO localSelect(CompanionVO cvo);
+
 
 	CompanionVO imgSelect(CompanionVO cvo);
 	

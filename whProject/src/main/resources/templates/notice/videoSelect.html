@@ -4,14 +4,13 @@
 	layout:decorate="~{index}">
 <body>
 	<div layout:fragment="content" class="content">
-<input type="hidden" id="page" name="page" value="1">
-<input type="hidden" id="videoRegion" name="videoRegion" th:value="${param.videoRegion}">
+		<input type="hidden" id="page" name="page" value="1"> 
+		<input type="hidden" id="videoRegion" name="videoRegion" th:value="${param.videoRegion}">
 
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(/img/banner/bg2.jpg)|">
 			<div class="container">
-
 				<h1 class="text-white font-weight-600">커뮤니티</h1>
 				<ul>
 					<li><a href="/main">Home</a></li>
@@ -19,33 +18,37 @@
 				</ul>
 			</div>
 		</section>
-		<!-- 배너끝 --><!-- start blog section -->
+		<!-- 배너끝 -->
+		<!-- start blog section -->
 		<section>
 			<div class="container">
-            	<p style="font-size: 30px;">지역<p><hr>
-            	<div id="product_order_list">
-			<p>
-			<a href="javascript:region(11);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(21);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(22);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(23);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(24);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(25);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(26);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(29);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(35);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(36);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(37);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(38);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+				<p style="font-size: 30px;">지역
+				<p>
+				<hr>
+				<div id="product_order_list">
+					<p>
+						<a href="javascript:region(11);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(21);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(22);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(23);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(24);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(25);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(26);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(29);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(35);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(36);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(37);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(38);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 
-		</div>
-		</div>
-		<script th:inline="javascript">
+					
+				</div>
+			</div>
+			<script th:inline="javascript">
    		function gopage(page) {
    			$("#page").val(page)
    			goregion()
@@ -57,7 +60,7 @@
    			$("#page").val(1)
    			goregion()
    		}
-		// 서울 -->
+		
  		var goregion = function(){
  			var videoRegion = $("#videoRegion").val()
  			var page = $("#page").val()
@@ -77,29 +80,25 @@
  		
  	
 		</script>
-<!-- 페이징 -->
+			<!-- 페이징 -->
 
-   <!-- 페이징 끝-->
-   <div class="container">
+			<!-- 페이징 끝-->
+			<div class="container">
 				<div class="row margin-30px-bottom" id="hotelListContent">
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
 						<div class="hotel border border-radius-4 package h-100">
-
 							<div class="padding-30px-all">
-								<div
-									class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
+								<div class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
 									<p>[[${v.videoName}]]</p>
 								</div>
 								<img th:src="${v.thumbnail}" />
 							</div>
-						<a th:href="@{/videoSelectDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
+							<a th:href="@{/videoSelectDetail/{videoCode}(videoCode = ${v.videoCode})}">Details</a>
 						</div>
 					</div>
 				</div>
-
-				</div>
-	
-</section>
-</div>
+			</div>
+		</section>
+	</div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 
 	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-	
+
 		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
 			th:style="|background:url(img/banner/bg2.jpg)|">
@@ -28,7 +28,7 @@
 		</section>
 		<!-- 배너끝 -->
 		<script>
-// 			페이징
+			//페이징
 			function gopage(page) {
 				location.href = "companion?page=" + page;
 				frmSearch.page.value = page;
@@ -36,49 +36,49 @@
 			}
 		</script>
 		<!-- 본문 내용 -->
-		<div class="container" style="padding:40px">
+		<div class="container" style="padding: 40px">
 			<div class="card d-flex flex-row align-items-center overflow-hidden"
 				style="height: 200px;" th:each="c : ${companionList}">
 				<div class="card-image w-25 ">
 					<img th:src="'/image/'+${c.imgPath}" width="200px" height="200px">
-				</div><a
-						th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">
-				<div class="card-body">
-					<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
-					<h4
-							class="card-title">[[${c.compTitle}]]</h4> 인원수 : <span th:text="${c.compCount}"></span> <br> 그룹유형 : <span
-						th:text="${c.comName}"></span><br> 여행기간 : <span
-						th:text="${c.compStartDate}"> </span> ~ <span
-						th:text="${c.compEndDate}"></span><br>
-						
-				</div></a>
+				</div>
+				<a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">
+					<div class="card-body">
+						<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
+						<h4 class="card-title">[[${c.compTitle}]]</h4>
+						인원수 : <span th:text="${c.compCount}"></span> <br> 
+						그룹유형 : <span th:text="${c.comName}"></span><br> 
+						여행기간 : <span th:text="${c.compStartDate}"> </span> ~ 
+						<span th:text="${c.compEndDate}"></span><br>
+
+					</div>
+				</a>
 			</div>
-			<br>
-			<a href="companionForm" class="btn btn-danger" style="float: right;;">신청하기</a>
+			<br> <a href="companionForm" class="btn btn-danger" style="float: right;">신청하기</a>
 		</div>
-	<br>
-	<!-- 페이징 추가 해주세요 -->
-									<div class="gopage" align="center">
-										<nav aria-label="Page navigation example" class="gopage">
-											<ul class="pagination">
-											<li class="page-item" th:if="${paging.startPage > 1}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a>
-												</li>											
-												<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
-													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
-													<a class="page-link" th:href="|javascript:gopage(${num})|">	[[${num}]] </a>
-												</li>										
-												<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
-												<a  class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
-												</li>
-											</ul>
-										</nav>
-									</div> 
-                   				<!-- 페이징 끝 -->
-
-
+		<br>
+		<!-- 페이징 추가 해주세요 -->
+		<div class="gopage" align="center">
+			<nav aria-label="Page navigation example" class="gopage">
+				<ul class="pagination">
+					<li class="page-item" th:if="${paging.startPage > 1}">
+					<a class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">이전</a></li>
+					<li class="page-item" th:classappend="${paging.page}==${num} ? 'active'"
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}">
+						<a class="page-link" th:href="|javascript:gopage(${num})|">
+							[[${num}]] </a>
+					</li>
+					<li class="page-item" th:if="${paging.endPage < paging.lastPage}">
+						<a class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">다음</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
+		<!-- 페이징 끝 -->
 
-		<!-- 내용 끝 -->
+
+	</div>
+
+	<!-- 내용 끝 -->
 </body>
 </html>
