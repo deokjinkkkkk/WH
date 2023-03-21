@@ -66,7 +66,8 @@
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		select *
-		from trip 
+		FROM TRIP t
+		left outer JOIN image i  on t.img_gro_code = i.img_gro_code 
 		<where>
 		<if test="tripRegion != null and tripRegion != ''">	   	
 		trip_region =  #{tripRegion}
