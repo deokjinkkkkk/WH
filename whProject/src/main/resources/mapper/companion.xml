@@ -4,35 +4,54 @@
 
 	<insert id="companionInsert"
 		parameterType="co.admin.wh.notice.vo.CompanionVO">
-		<selectKey keyProperty="compCode" resultType="int"
-			order="BEFORE">
+		<selectKey keyProperty="compCode" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(COMP_CODE),0)+1 FROM COMPANION
 		</selectKey>
 
 		INSERT INTO COMPANION (COMP_CODE, 
 		                       ID,
-				com_Name,COMP_TITLE,COMP_COUNT,
-				comp_local, COMP_START_DATE, COMP_END_DATE,
-				COMP_CONTENT,IMG_GRO_CODE,
-				com_code, TEL, Gender, NAME )
+							   COM_NAME,
+							   COMP_TITLE,
+							   COMP_COUNT,
+							   COMP_LOCAL, 
+							   COMP_START_DATE, 
+							   COMP_END_DATE,
+				               COMP_CONTENT,
+				               IMG_GRO_CODE,
+				               COM_CODE, 
+				               TEL, 
+				               GENDER, 
+				               NAME )
 
-		VALUES (#{compCode},#{id},#{comName},
-		#{compTitle},
-		#{compCount},#{compLocal},#{compStartDate},#{compEndDate},
-		#{compContent},
-		#{imgGroCode}, #{comCode}, #{tel}, #{gender}, #{name})
+			  VALUES (#{compCode},
+			  		  #{id},
+			  		  #{comName},
+					  #{compTitle}, 
+					  #{compCount},
+					  #{compLocal},
+					  #{compStartDate},
+					  #{compEndDate}, 
+					  #{compContent}, 
+					  #{imgGroCode}, 
+					  #{comCode}, 
+					  #{tel}, 
+					  #{gender}, 
+					  #{name})
 	</insert>
 
-	<insert id="imgInsert"
-		parameterType="co.admin.wh.common.vo.ImageVO">
-		<selectKey keyProperty="imgCode" resultType="int"
-			order="BEFORE">
+	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
 		</selectKey>
-		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
+		INSERT INTO IMAGE (IMG_CODE,
+						   IMG_NAME, 
+						   IMG_PATH, 
+						   IMG_GRO_CODE)
 
-		VALUES
-		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+		       VALUES (#{imgCode},
+		        	   #{imgName},
+		        	   #{imgPath}, 
+		        	   #{imgGroCode})
 	</insert>
 
 
@@ -71,8 +90,7 @@
 	</select>
 
 
-	<select id="detailSelect"
-		resultType="co.admin.wh.notice.vo.CompanionVO">
+	<select id="detailSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT c.* , 
 		       i.*, 
 		       find_code(c.comp_local) comp_local_name
@@ -83,11 +101,19 @@
 		   
 		WHERE c.COMP_CODE = #{compCode}
 	</select>
-
+	
+	<select id="localSelect"
+		resultType="co.admin.wh.notice.vo.CompanionVO">
+		SELECT co.com_Name
+		
+		FROM COMPANION c inner join common co
+		on c.comp_Local =
+		co.com_Code
+		WHERE c.COMP_CODE = #{compCode}
+	</select>
+	
 	<!-- 전체건수조회 -->
-	<select id="getCountTotal"
-		parameterType="co.admin.wh.notice.vo.CompanionSearchVO"
-		resultType="int">
+	<select id="getCountTotal" parameterType="co.admin.wh.notice.vo.CompanionSearchVO" resultType="int">
 		SELECT COUNT(*)
 		FROM COMPANION
 	</select>
@@ -98,8 +124,8 @@
 			<if test="compTitle != null">COMP_TITLE = #{compTitle},</if>
 			<if test="compCount != null">COMP_COUNT = #{compCount},</if>
 			<if test="compLocal != null">COMP_LOCAL = #{compLocal},</if>
-			<if test="comCode != null">COM_Code = #{comCode},</if>
-			<if test="comName != null">COM_Name = #{comName},</if>
+			<if test="comCode != null">COM_CODE = #{comCode},</if>
+			<if test="comName != null">COM_NAME = #{comName},</if>
 			<if test="compStartDate != null">COMP_START_DATE = #{compStartDate},</if>
 			<if test="compEndDate != null">COMP_END_DATE = #{compEndDate},</if>
 			<if test="compContent != null">COMP_CONTENT = #{compContent}</if>
@@ -111,79 +137,119 @@
 		DELETE FROM COMPANION WHERE COMP_CODE = #{compCode}
 	</delete>
 
-	<select id="imgSelect"
-		resultType="co.admin.wh.notice.vo.CompanionVO">
+	<select id="imgSelect" resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT *
-		FROM COMPANION
-		c
+		
+		FROM COMPANION c
+		
 		JOIN IMAGE i
-		ON c.IMG_GRO_CODE =		i.IMG_GRO_CODE
-		WHERE c.COMP_CODE =		#{compCode}
+		ON c.IMG_GRO_CODE =	i.IMG_GRO_CODE
+		
+		WHERE c.COMP_CODE =	#{compCode}
 	</select>
 	
 	<insert id="comListInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
-	<selectKey keyProperty="seCode" resultType="int"
-			order="BEFORE">
+	<selectKey keyProperty="seCode" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(se_code),0)+1 FROM COMPANION_LIST
 		</selectKey>
-		INSERT INTO COMPANION_LIST (COMP_CODE, COMP_TITLE, TEL, Gender, NAME, CO_STATE, id , se_code)
-		VALUES (#{compCode},#{compTitle}, #{tel}, #{gender}, #{name}, NVL(#{coState}, 0),#{id},#{seCode})
+		INSERT INTO COMPANION_LIST (COMP_CODE, 
+								    COMP_TITLE, 
+								    TEL, 
+								    GENDER, 
+								    NAME, 
+								    CO_STATE, 
+								    ID , 
+								    SE_CODE)
+			   VALUES (#{compCode},
+			   	       #{compTitle}, 
+			   	       #{tel}, 
+			   	       #{gender}, 
+			   	       #{name}, 
+			   	       NVL(#{coState}, 0),
+			   	       #{id},
+			   	       #{seCode})
 	</insert>
 	
-	<select id="comBtn"
-		resultType="int">
-		
-	 select count(*)
-        from companion_list
-        where comp_code=#{compCode}
-        and id=#{id}
+	<select id="comBtn" resultType="int">
+	 SELECT COUNT(*)
+	 
+     FROM   COMPANION_LIST
+     
+     WHERE  COMP_CODE=#{compCode}
+     AND    ID=#{id}
 	</select>
 	
-	<select id="selBtn"
-		resultType="int">
-		
-	 	select *
-        from companion_list
-        where comp_code=#{compCode}
-        and id=#{id}
+	<select id="selBtn" resultType="int">
+	 	SELECT *
+	 	
+        FROM   COMPANION_LIST
+        
+        WHERE  COMP_CODE=#{compCode}
+        AND    ID=#{id}
 	</select>
 	
 	
 	<select id="comSelList" resultType="co.admin.wh.notice.vo.CompanionVO">
-	 SELECT * FROM COMPANION_LIST 
+	 SELECT * 
+	 FROM COMPANION_LIST 
 <!-- 	 orderby추가 -->
 	</select>
 	
 	<select id="comSelMyList" resultType="co.admin.wh.notice.vo.CompanionVO">
-	 SELECT * FROM COMPANION_LIST cl JOIN common c on cl.co_state = c.com_code where id=#{id}
+	 SELECT * 
+	 
+	 FROM COMPANION_LIST CL 
+	 
+	 JOIN COMMON C ON CL.CO_STATE = C.COM_CODE WHERE ID=#{id}
 	</select>
 	
 	<select id="test" resultType="co.admin.wh.notice.vo.CompanionVO">
-	   SELECT c.id as writer, cl.id as login , c.comp_Title, cl.name, cl.tel, cl.gender, cl.comp_code, cl.se_code, cl.co_state
-	   FROM COMPANION_LIST cl  , COMPANION c
-         where cl.comp_code =  c.comp_code 
+	   SELECT C.ID AS WRITER, 
+	   		  CL.ID AS LOGIN , 
+	   		  C.COMP_TITLE, 
+	   		  CL.NAME, 
+	   		  CL.TEL, 
+	   		  CL.GENDER, 
+	   		  CL.COMP_CODE, 
+	   		  CL.SE_CODE, 
+	   		  CL.CO_STATE
+	   		  
+	   FROM   COMPANION_LIST CL  , COMPANION C
+	   
+       WHERE  CL.COMP_CODE =  C.COMP_CODE 
 	</select>
 	
 	<update id="approve">
-		UPDATE companion_list
-		SET
-		co_state='111'
-		WHERE se_code=#{seCode}
+		UPDATE COMPANION_LIST
+		
+		SET CO_STATE='111'
+		
+		WHERE SE_CODE=#{seCode}
 	</update>
 	
 	<update id="reject">
-		UPDATE companion_list
-		SET
-		co_state='222'
-		WHERE se_code=#{seCode}
+		UPDATE COMPANION_LIST
+		
+		SET CO_STATE='222'
+		
+		WHERE SE_CODE=#{seCode}
 	</update>
 	
 	<select id="selTitle" resultType="co.admin.wh.notice.vo.CompanionVO">
-		select * FROM COMPANION_LIST where comp_title=#{compTitle}
+		SELECT * 
+		
+		FROM   COMPANION_LIST
+		 
+		WHERE  COMP_TITLE=#{compTitle}
 	</select>
 	
 	<delete id="comSelDelete">
-		Delete from COMPANION_LIST where COMP_CODE = #{compCode}
+		DELETE 
+		
+		
+		FROM  COMPANION_LIST 
+		
+		WHERE COMP_CODE = #{compCode}
 	</delete>
 </mapper>
 

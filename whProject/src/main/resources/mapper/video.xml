@@ -8,19 +8,32 @@
 			SELECT NVL(MAX(video_code),0)+1 FROM video
 		</selectKey>
 
-		INSERT INTO video (video_code,video_name, video_content, video_hit,
-		video_reg_date, VIDEO_REGION, url,thumbnail )
+		INSERT 
+		INTO VIDEO (VIDEO_CODE,
+				    VIDEO_NAME, 
+				    VIDEO_CONTENT, 
+				    VIDEO_HIT,
+					VIDEO_REG_DATE, 
+					VIDEO_REGION, 
+					URL,
+					THUMBNAIL )
 
-		VALUES
-		(#{videoCode},#{videoName},#{videoContent},
-		0,
-		sysdate,#{videoRegion},#{url},#{thumbnail})
+		VALUES (#{videoCode},
+				#{videoName},
+				#{videoContent},
+				0,
+			    sysdate,
+			    #{videoRegion},
+			    #{url},
+			    #{thumbnail})
 	</insert>
 
 	<select id="videoSelect"
 		resultType="co.admin.wh.notice.vo.VideoVO">
-		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT * FROM VIDEO 
+		SELECT * 
+		FROM( SELECT rownum rn, a.* 
+			  FROM( SELECT * 
+			  		FROM VIDEO 
 	<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>
@@ -29,22 +42,25 @@
 
 	<select id="videoDetail"
 		resultType="co.admin.wh.notice.vo.VideoVO">
-		SELECT * FROM VIDEO where video_code = #{videoCode}
+		SELECT * 
+		FROM VIDEO 
+		WHERE VIDEO_CODE = #{videoCode}
 
 	</select>
 
 	<select id="videoTotal"
 		parameterType="co.admin.wh.notice.vo.VideoSearchVO" resultType="int">
-		select
-		count(*) from video 
-		where video_region =  #{videoRegion}
+		SELECT COUNT(*) 
+		FROM VIDEO 
+		WHERE VIDEO_REGION =  #{videoRegion}
 	</select>
 
 	<select id="region" parameterType="VideoVO"
 		resultType="co.admin.wh.notice.vo.VideoVO">
-		SELECT * FROM( SELECT rownum rn, a.* FROM(
-		select *
-		from video where video_region =  #{videoRegion}
+		SELECT * FROM( SELECT rownum rn, a.* 
+					   FROM( SELECT *
+							 FROM VIDEO 
+							 WHERE VIDEO_REGION =  #{videoRegion}
 	    <![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
 		]]>
@@ -58,24 +74,23 @@
 		SET
 		video_name = #{videoName},
 		video_Content = #{videoContent},
-		video_Region =
-		#{videoRegion},
+		video_Region = #{videoRegion},
 		url = #{url},
 		thumbnail = #{thumbnail}
-		WHERE video_Code
-		=#{videoCode}
+		WHERE video_Code =#{videoCode}
 
 	</update>
 	
 	<!-- 조회수 -->
 	<update id="videoHit" parameterType="int">
 		update video
-		set video_Hit
-		= video_Hit + 1
+		set video_Hit = video_Hit + 1
 		where video_Code = #{videoCode}
 	</update>
 	
 	<delete id="videoDelete">
-		Delete from video where video_code=#{videoCode}
+		Delete 
+		from video 
+		where video_code=#{videoCode}
 	</delete>
 </mapper>
