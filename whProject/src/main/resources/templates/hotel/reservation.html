@@ -138,7 +138,7 @@
 																					</li>																			
 																					<li>
 																						<div class="row align-items-center">
-																							<div class="col-md-6">
+																							<div class="col-md-7">
 																								<h6 class="font-size17 no-margin-bottom">Price</h6>
 																							</div>
 																							<div>
@@ -499,7 +499,7 @@ Store Room에서의 보관품 3개월
 											// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
 							                // 결제내역을 사용자에게 보여주기 위해 필요함.
 							               	$.ajax({
-												url : "/resIng",
+												url : "resIng",
 												type : "POST",
 												data : JSON.stringify(
 													{
@@ -533,8 +533,10 @@ Store Room에서의 보관품 3개월
 											var msg = '결제에 실패하였습니다.';
 											msg += '에러내용 : ' + rsp.error_msg;
 										}
-									swal("",msg,"success");
-									location.href="/myReservation";
+									swal("예약이 완료되었습니다!","","success").then(function(){
+										location.href='/myReservation';
+									})
+// 									location.href="/myReservation";
 									});
 					         }
 						});

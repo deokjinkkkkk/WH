@@ -296,8 +296,8 @@
 	  inner join hotel h on r.hotel_id = h.hotel_id
 	  left join cancel c on r.res_id = c.res_id
 		<if test="checkIn != null and checkOut != null">
-			where (#{checkIn} BETWEEN r.check_in AND r.check_out
-	   		AND #{checkOut} BETWEEN r.check_in AND r.check_out)
+			WHERE (r.check_in BETWEEN #{checkIn} AND #{checkOut}
+       			OR r.check_out BETWEEN #{checkIn} AND #{checkOut})
 		</if>
 	    <if test="option == 'id'.toString()">
 	      and r.res_id like '%'|| (#{content}) ||'%'
