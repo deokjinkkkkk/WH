@@ -291,8 +291,12 @@ body {
                                  $(document).ready(function() {
          
                                     $('#checkIn').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        startDate : '0d',
+                                        dateFormat : "yy-mm-dd",
+//                                       	monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+                                        dayNamesMin:["일","월","화","수","목","금","토"],
+                                      buttonImage: "images/btns.png", // 버튼 이미지
+                                    buttonImageOnly : true,  
+                                        minDate : '0',
                                         language : "ko",
                                         todayHighlight : true,
                                         autoclose : true
@@ -302,7 +306,8 @@ body {
                                     });
          
                                     $('#checkOut').datepicker({
-                                        format : "yyyy-mm-dd",
+                                    	dateFormat : "yy-mm-dd",
+                                    	minDate : '1',
                                         language : "ko",
                                         todayHighlight : true,
                                         autoclose : true
