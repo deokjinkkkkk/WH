@@ -149,6 +149,12 @@ public class HotelInfoServiceImpl implements HotelInfoService {
 		return hotelMapper.compareToDate(vo);
 	}
 
+	@Override
+	public int getSearchCountTotal(HotelSearchVO vo) {
+		// TODO Auto-generated method stub
+		return hotelMapper.getSearchCountTotal(vo);
+	}
+
 //	@Override
 //	public List<CancelVO> adminDateSearch(CancelVO vo) {
 //		// TODO Auto-generated method stub

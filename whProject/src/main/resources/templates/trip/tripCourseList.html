@@ -19,10 +19,6 @@
 				frmSearch.submit();
 			}
 		</script>
-		
-		<!-- =========== ====
-			인기Tag paly효과 시작
-		   ==============-->
 	
 <script>
   setInterval(play, 800);
@@ -143,16 +139,11 @@
 											</h5>
 										</div>
 										<p class="margin-20px-tb sm-margin-10px-top"></p>
-										<!-- 해시태그 -->
-										<ul class="tags">
-											<li><a href="#">#</a></li>
-										</ul>
-									</div>
+								</div>
 
 								</div>
 							</div>
 						</div>
-						</form>
 						<!-- 페이징 TEST -->
 						<div class="gopage" align="center">
 							<nav aria-label="Page navigation example" class="gopage">
@@ -179,22 +170,7 @@
 				
 					
 				</div>
-					<!-- ==================
-						Tag rank				
-				  =====================-->
-						<div class="widget-title" id="tagRank">
-						  <h1>인기 tag</h1>
-						</div>		
-						<div id="rank">
-						  <div id="box">
-						    <div th:each="tag : ${tagList}">
-						      <p><a href="#" th:text="${tag.tagName}"></a></p>
-						    </div>
-						  </div>
-						</div>
-				<div>
-				
-			</div>
+
 </section>
 	<!-- end course-list section -->
 

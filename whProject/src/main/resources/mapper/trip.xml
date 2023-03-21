@@ -59,15 +59,7 @@
 	SELECT M.MY_COU_NAME, M.MY_COURSE_CODE, M.MY_COU_ID, T.TRIP_CODE
 	FROM TRIP T, MY_COURSE M
 	WHERE T.TRIP_CODE = #{tripCode}
-	</select>
-	
-	<!-- 검색어 자동완성 -->
-	<select id="selfsearch" parameterType="map" resultType="map">
-		SELECT DISTINCT TRIP_NAME, TRIP_CODE
-		FROM TRIP
-		WHERE TRIP_NAME LIKE '%'|| (#{value}) ||'%'
-	</select>
-	
+	</select>	
 	
 	<!-- 여행지 지역별 선택하여 보기 -->
 	<select id="tripRegion" parameterType="co.admin.wh.trip.vo.TripVO"
