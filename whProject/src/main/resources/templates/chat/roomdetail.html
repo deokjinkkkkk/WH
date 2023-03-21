@@ -30,11 +30,12 @@
 				</ul>
 			</div>
 		</section>
-
-		<div class="container" id="app" v-cloak style="display: flex; justify-content: center;">
-			<div>
+		<div style="padding:100px; ">
+		<div style="width:110px; margin:0 auto;">
 				<h2>채팅방</h2>
 			</div>
+		<div class="container" id="app" v-cloak style="display: flex; justify-content: center; border:2px solid gray; width:550px; border-radius: 40px; padding:20px;">
+			
 			<div>
 				<div class="list-group" ref="messageList" style="height: 400px; overflow-y: scroll;">
 					<p class="list-group-item" v-for="message in reversedMessages"
@@ -44,13 +45,14 @@
 				<div class="input-group">
 					<input type="text" class="inputChat" v-model="message" v-on:keypress.enter="sendMessage">
 					<div class="input-group-append">
-						<button class="w-btn w-btn-gray" type="button" @click="sendMessage">보내기</button>
+						<button class="w-btn w-btn-gray" type="button" @click="sendMessage">보내기</button><hr>
 					</div>
 				</div>
-				<button @click="disconnect">나가기</button>
+				<div style="padding:10px">
+				<button @click="disconnect" class="btn btn-danger btn-lg" style="float:right;">나가기</button></div>
 				<div></div>
 			</div>
-		</div>
+		</div></div>
 
 		<div id="alert" class="alert alert-warning" role="alert" style="display: none;">값이 입력되지 않았습니다. 입력해주세요.</div>
 		<!-- JavaScript -->

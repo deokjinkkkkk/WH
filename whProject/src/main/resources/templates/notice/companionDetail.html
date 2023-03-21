@@ -256,10 +256,18 @@ a {
 					th:if="${c.id == session.name}" style="float: right;">수정하기</a> 
 					<input type="hidden" name="compCode" th:value="${c.compCode}" />
 					<button type="submit" class="btn btn-danger btn-lg"
-						th:if="${c.id == session.name}" style="float: right;">삭제하기</button>
+						th:if="${c.id == session.name}" style="float: right;" onclick=clickEvent();>삭제하기</button>
 					
 				</form>
-				
+				<script type="text/javascript">
+				function clickEvent(){
+					if(confirm('정말로 삭제 하시겠습니까')){
+						
+					}else{
+						alert("삭제 실패");
+					}
+				}
+				</script>
 				<form method="post" action="/comListInsert" enctype="multipart/form-data">
 					<input type="hidden" id="id" name="id" th:value="${session.name}">
 					<input type="hidden" id="compTitle" name="compTitle" th:value="${c.compTitle}"> 
