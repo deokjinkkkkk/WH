@@ -63,7 +63,8 @@ public class HotelController {
 	 * @return
 	 */
 	@GetMapping("/hotel") // 숙소 첫 페이지
-	public String hotel(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
+	public String hotel(Model model,
+						@ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
 
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -78,9 +79,9 @@ public class HotelController {
 	}
 	
 	@RequestMapping("/hotelSearch") // 검색 결과 + 페이징
-	public String hotelSearch(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging, 
-							@RequestParam("checkIn") Date checkIn, @RequestParam("hotelRegion") String hotelRegion, @RequestParam("humanCount") String humanCount, @RequestParam("checkOut") Date checkOut, @RequestParam("childCount") String childCount,
-							@RequestParam("priceRangeMin") int priceRangeMin, @RequestParam("priceRangeMax") int priceRangeMax) {
+	public String hotelSearch(Model model, 
+							@ModelAttribute("hvo") HotelSearchVO vo, 
+							Paging paging) {
 
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -88,53 +89,16 @@ public class HotelController {
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
 		
-		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
-		
-		paging.setCheckIn(checkIn);
-		paging.setHotelRegion(hotelRegion);
-		paging.setHumanCount(humanCount); // model에 직접 담지 않아도 담김.
-		paging.setCheckOut(checkOut);
-		paging.setChildCount(childCount);
-		paging.setPriceRangeMin(priceRangeMin);
-		paging.setPriceRangeMax(priceRangeMax);
+		paging.setTotalRecord(hotelInfoService.getSearchCountTotal(vo));
 		
 		model.addAttribute("hotelList",hotelInfoService.hotelSearchList(vo));
 		return "hotel/hotelSearch";
 	}
 	
 	@GetMapping("/hotelToday") // 오늘 예약 가능한 숙소
-	public String hotelCommand(Model model, @ModelAttribute("hvo") HotelSearchVO vo, Paging paging) {
-		
-		System.out.println("파싱되나용!!");
-		
-		//날짜 구하기
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); //원하는 데이터 포맷 지정
-		
-		//오늘 날짜
-		String today = simpleDateFormat.format(cal.getTime()); //지정한 포맷으로 변환 
-		
-		//내일 날짜
-		cal.add(cal.DATE, +1); //날짜를 하루 더한다.
-		String tomorrow = simpleDateFormat.format(cal.getTime());
-		
-		//오늘 예약 가능한 숙소 크롤링(크롤링 지역 변경 여기서)
-		HotelCrawler crawler = new HotelCrawler();
-		String url = "https://hotels.naver.com/list?placeFileName=place%3AJeju_Province&adultCnt=2&checkIn="+today+"&checkOut="+tomorrow+"&includeTax=false&sortField=rating&sortDirection=descending";
-		List<HotelVO> hotelList = crawler.hotelCrawling(url); // HotelCrawler.java
-		
-		//for문 돌면서 리스트에서 vo 하나씩 인서트.
-		for (HotelVO hotelVO : hotelList) {
-			try {
-				hotelInfoService.insertHotelInfo(hotelVO);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}
-		}
+	public String hotelCommand(Model model,
+								@ModelAttribute("hvo") HotelSearchVO vo,
+								Paging paging) {
 		
 		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -145,8 +109,6 @@ public class HotelController {
 		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
 		
 		model.addAttribute("hotelList",hotelInfoService.CrawlingList(vo));
-		
-		System.out.println("파싱 정보 입력 완!");
 		
 		return "hotel/hotelToday";
 	}
@@ -159,12 +121,16 @@ public class HotelController {
     }
 	
 	@PostMapping("/reservation") // 예약페이지
-    public String reservation(ReservationVO vo, HotelVO hvo, MemberVO mvo, Model model, Principal principal, @RequestParam("price") int price) {
-		System.out.println(price);
-		System.out.println("=============================================");
+    public String reservation(@ModelAttribute("res")  ReservationVO vo, 
+    						HotelVO hvo, 
+    						MemberVO mvo, 
+    						Model model, 
+    						Principal principal, 
+    						@RequestParam("price") int price) {
+//		System.out.println(price);
+//		System.out.println("=============================================");
 		mvo.setId(principal.getName());
 		model.addAttribute("m",memberMapper.memberSelect(mvo));
-		model.addAttribute("res",vo);
 		model.addAttribute("h",hotelInfoService.detailSelect(hvo));
 		return "hotel/reservation";
     }
@@ -176,8 +142,6 @@ public class HotelController {
 		//id를 가지고 나머지 member값 가져오기
 		vo.setId(principal.getName()); // 로그인한 id값을 예약vo에 set
 		hotelInfoService.insertReservInfo(vo);
-//		int hotelId = vo.getHotelId();
-//		hotelInfoService.minusRoomCount(hotelId); // hotel테이블의 방 개수 -1
 		return "y";
 	}
 	
@@ -287,20 +251,20 @@ public class HotelController {
 		return "hotel/goodRatingList";
 	}
 	
-	@PostMapping("/hotelNameSearchList") // 호텔이름 검색
-	public String hotelNameSearch(Model model, HotelSearchVO vo,Paging paging) {
-		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
-		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
-
-		vo.setFirst(paging.getFirst());
-		vo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
-		
-		List<HotelVO> hotelList = hotelInfoService.hotelNameSearchList(vo);
-		model.addAttribute("hotelList", hotelList);
-		return "hotel/hotelMain";
-	}
+//	@PostMapping("/hotelNameSearchList") // 호텔이름 검색
+//	public String hotelNameSearch(Model model, HotelSearchVO vo,Paging paging) {
+//		paging.setPageUnit(10);// 한 페이지에 풀력할 레코드 건수
+//		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
+//
+//		vo.setFirst(paging.getFirst());
+//		vo.setLast(paging.getLast());
+//		
+//		paging.setTotalRecord(hotelInfoService.getCountTotal(vo));
+//		
+//		List<HotelVO> hotelList = hotelInfoService.hotelList(vo);
+//		model.addAttribute("hotelList", hotelList);
+//		return "hotel/hotelMain";
+//	}
 	
 	@GetMapping("/Admin/reservation") // 관리자 예약내역 전체조회
 	public String adminReservList(Model model){

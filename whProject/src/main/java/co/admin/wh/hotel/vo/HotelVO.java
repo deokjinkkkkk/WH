@@ -42,4 +42,7 @@ public class HotelVO{
 	public int priceRangeMin; // 최저금액
 	public int priceRangeMax; // 최고금액
 	
+	//메인페이지 인기 호텔 출력
+	int cnt;
+	
 }
