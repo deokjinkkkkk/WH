@@ -54,12 +54,6 @@ public class TripServiceImpl implements TripService{
 
 
 	@Override
-	public List<Map<String, Object>> selfsearch(Map<String, Object> paramMap) throws Exception {
-		// 여행지 이름 자동완성
-		return tripMapper.selfsearch(paramMap);
-	}
-
-	@Override
 	public List<TripVO> latestList(TripSearchVO vo) {
 		// 최신순 정렬
 		return tripMapper.latestList(vo);
