@@ -42,7 +42,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int memberDelete(MemberVO vo) {
-		// TODO Auto-generated method stub
+		MemberVO dbvo = member.memberSelect(vo);
+		
+		
+		vo.setPass(dbvo.getPass());
 		return member.memberDelete(vo);
 	}
 

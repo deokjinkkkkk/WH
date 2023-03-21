@@ -7,7 +7,7 @@
 <!-- 뭐야.. CSS 끝 -->
 <body layout:fragment="content">
 	<!-- 헤더 시작 -->
-<!-- start register section -->
+	<!-- start register section -->
 	<section
 		class="full-screen text-center cover-background bg-img no-padding"
 		data-overlay-dark="5" data-background="img/member/1.jpg">
@@ -19,8 +19,7 @@
 						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
 						<h3
 							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">회원수정</h3>
-						<form method="post" action="#!"
-						 id="frm">
+						<form method="post" action="#!" id="frm">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -48,14 +47,14 @@
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" name="gender" th:value="${mem.gender}" readonly >
+										<input type="text" name="gender" th:value="${mem.gender}"
+											readonly>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="tel" name="tel" id="tel" placeholder="전화번호"
-											maxlength="70"
-											th:value="${mem.tel}">
+											maxlength="70" th:value="${mem.tel}">
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -67,7 +66,7 @@
 
 								<div class="col-md-6 margin-25px-top">
 									<button type="button" class="butn btn-block" id="memUpdate">수정</button>
-									</div>
+								</div>
 								<div class="col-md-6 margin-25px-top">
 									<button type="button" class="butn btn-block" id="memDel">탈퇴</button>
 								</div>
@@ -79,34 +78,45 @@
 			</div>
 		</div>
 	</section>
-<script type="text/javascript">
-/*
- * 회원정보를 수정할시에는 아이디와 이름은 변경할수 없고 비밀번호는 비밀번호 확인을 통해서 변경할수 있다.
- */
- $("#memUpdate").click(function(){ 
-	swal("","회원 정보를 수정하시겠습니까?","warning")
-	pass = $("#password1").val()
-	passchk = $("#password2").val()
-		if(pass.length < 8){
-			swal("","패스워드 는 8자리 이상이어야 합니다.","warning")
-			return false				
-		}else if(pass != passchk){
-			swal("","패스워드가 일치하지 않습니다.","warning")
-			return false
-		}
-	
-	 $("#frm").attr("action","/memberUpdate")
-	 $("#frm").submit();
-	 
- })
- 
- $("#memDel").click(function(){ 
-	 $("#frm").attr("action","/memberQuitForm")
-	 $("#frm").submit();
-	 
- })
+	<script type="text/javascript">
+		/*
+		 * 회원정보를 수정할시에는 아이디와 이름은 변경할수 없고 비밀번호는 비밀번호 확인을 통해서 변경할수 있다.
+		 */
+		$("#memUpdate").click(function() {
+			
+			pass = $("#password1").val()
+			passchk = $("#password2").val()
+			if (pass.length < 8) {
+				swal("", "패스워드 는 8자리 이상이어야 합니다.", "warning")
+				return false
+			} else if (pass != passchk) {
+				swal("", "패스워드가 일치하지 않습니다.", "warning")
+				return false
+			}
+			if (confirm("회원정보를 수정 하시겠습니까?") == true) {
+				//true는 확인버튼을 눌렀을 때 코드 작성
+				$("#frm").attr("action", "/memberUpdate")
+				$("#frm").submit();
+			} else {
+				// false는 취소버튼을 눌렀을 때, 취소됨
+				console.log("취소되었습니다");
+			}
 
 
-</script>
+
+		})
+
+		$("#memDel").click(function() {
+			if (confirm("회원탈퇴 하시겠습니까?") == true) {
+				//true는 확인버튼을 눌렀을 때 코드 작성
+				$("#frm").attr("action", "/memberDelete")
+				$("#frm").submit();
+			} else {
+				// false는 취소버튼을 눌렀을 때, 취소됨
+				console.log("취소되었습니다");
+			}
+
+		})
+	</script>
 </body>
 </html>

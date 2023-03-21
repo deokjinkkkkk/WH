@@ -9,8 +9,16 @@
 <body>
 
 	<div layout:fragment="content" class="content">
-<input type="hidden" id="page" name="page" value="1">
-<input type="hidden" id="regionCode" name="regionCode" th:value="${param.regionCode}">
+
+
+		<!-- 페이징 -->
+		<script>
+			function gopage(page) {
+				location.href = "course?page=" + page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+		</script>
 		
 		<!-- =========== ====
 			인기Tag paly효과 시작
@@ -62,62 +70,30 @@
 					<hr>
 					<div id="product_order_list">
 						<p>
-			<a href="javascript:region(1);">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(6);">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(4);">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(2);">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(5);">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(3);">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(7);">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(8);">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(31);">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(32);">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(33);">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(34);">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(37);">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(38);">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(35);">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(36);">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="javascript:region(39);">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			</p>
+							<a href="course?regionCode=1">서울</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=6">부산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=4">대구</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=2">인천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=5">광주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=3">대전</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=7">울산</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=8">세종</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=31">경기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=32">강원</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=33">충북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=34">충남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=37">전북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=38">전남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=35">경북</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=36">경남</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<a href="course?regionCode=39">제주</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+							<input type="hidden" name="regionCode" id="regionCode" value="">
 					</div>
 
-					<script type="text/javascript">
-					
-					function gopage(page) {
-			   			$("#page").val(page)
-			   			goregion()
-
-			   		}  
-			   		
-			   		function region(tripRegion){
-			   			$("#regionCode").val(regionCode);
-			   			$("#page").val(1)
-			   			goregion()
-			   		}
-			   		
-			   		var goregion = function() {
-						var tripRegion = $("#regionCode").val()
-			 			var page = $("#page").val()
-						$.ajax({
-							type: 'post',
-							url: "/tripCourseRegion",
-							data: {tripRegion, page},
-							success: function(data) {
-								$("#tripCourseListContent").replaceWith(data);
-							},
-							error: function(request, status, error) {
-								alert(error);
-							}
-						});
-					};
-			   		
-			   		</script>
-					
 					<!-- start tour-list section -->
 					<div
 						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom"  style="float: left;">
-						<div class="row margin-30px-bottom" id="tripCourseListContent">
+						<div class="row margin-30px-bottom">
 							<div class="col-12 margin-40px-bottom">
 
 								<form class="search-form" action="search.html" method="GET"
@@ -135,8 +111,8 @@
 
 
 							</div>
-							
-						</div > <!-- th:if문으로 이미지가 없는 건 일단 화면에 출력되지 않게 설정 -->
+
+						</div> <!-- th:if문으로 이미지가 없는 건 일단 화면에 출력되지 않게 설정 -->
 						<div th:each="c, nStat: ${courseList}"
 							class="card card-list margin-15px-bottom" th:if="${c.imgGroCode} != null">
 							<div class="row align-items-center">
@@ -216,36 +192,8 @@
 						    </div>
 						  </div>
 						</div>
-			
-				  
 				<div>
 				
-				<div
-					class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-					<div class="side-bar">
-						<div class="widget">
-							<div class="widget-title">
-								<h3>태그</h3>
-							</div>
-							<p>지역</p>
-							<ul class="tags">
-								<li><a href="#">#전체</a></li>
-								<li><a href="#">#1월</a></li>
-								<li><a href="#">#2월</a></li>
-								<li><a href="#">#3월</a></li>
-								<li><a href="#">#4월</a></li>
-								<li><a href="#">#5월</a></li>
-								<li><a href="#">#6월</a></li>
-								<li><a href="#">#7월</a></li>
-								<li><a href="#">#8월</a></li>
-								<li><a href="#">#9월</a></li>
-								<li><a href="#">#10월</a></li>
-								<li><a href="#">#11월</a></li>
-								<li><a href="#">#12월</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
 			</div>
 </section>
 	<!-- end course-list section -->

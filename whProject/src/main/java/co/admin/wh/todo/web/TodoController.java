@@ -96,16 +96,12 @@ public class TodoController {
 		return count;
 	}
 	
-	//태그 자동완성
-	@RequestMapping("/todoTagAuto")
+	
+	@GetMapping("/todoGetMaxNo")
 	@ResponseBody
-	public Map<String, Object> todoTagAuto(@RequestParam Map<String, Object> paramMap) throws Exception{
-		List<Map<String,Object>>resultList = todoService.tagSearch(paramMap);
-		paramMap.put("resultList", resultList);
-		return paramMap;
+	public int getMaxNo() {
+	    return todoService.getMaxNo();
 	}
-	
-	//slice기능
-	
+
   
 }

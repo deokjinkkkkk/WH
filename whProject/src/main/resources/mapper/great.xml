@@ -12,30 +12,32 @@
 
 
 	<insert id="greatUP">
-		<selectKey keyProperty="greatCode" resultType="int"
-			order="BEFORE">
+		<selectKey keyProperty="greatCode" resultType="int" order="BEFORE">
 			select NVL(MAX(GREAT_CODE),0)+1 FROM GREAT
 		</selectKey>
 		INSERT INTO GREAT
-		VALUES(#{id},#{greatCode},#{greatFlag},#{greatNcode}
-		)
+		VALUES
+		(#{id},
+		 #{greatCode},
+		 #{greatFlag},
+		 #{greatNcode})
 	</insert>
 
-	<delete id="greatDown"
-		parameterType="co.admin.wh.common.vo.GreatVO">
+	<delete id="greatDown" parameterType="co.admin.wh.common.vo.GreatVO">
 		DELETE FROM GREAT
-		WHERE GREAT_N_CODE = #{greatNcode} AND
-		id = #{id}
+		 WHERE GREAT_N_CODE = #{greatNcode}
+		   AND id = #{id}
 	</delete>
 
 
 	<select id="greatTotal">
 		SELECT h.HOTEL_NAME,g.GREAT_FLAG, g.GREAT_N_CODE,
-		COUNT(g.GREAT_N_CODE) as GREAT_COUNT
-		FROM GREAT g
-		JOIN HOTEL h ON g.GREAT_N_CODE = h.HOTEL_ID
-		WHERE g.GREAT_N_CODE = #{greatNcode}
-		GROUP BY h.HOTEL_NAME,g.GREAT_FLAG, g.GREAT_N_CODE
+		 COUNT(g.GREAT_N_CODE) as GREAT_COUNT
+		  FROM GREAT g
+		  JOIN HOTEL h 
+		    ON g.GREAT_N_CODE = h.HOTEL_ID
+		 WHERE g.GREAT_N_CODE = #{greatNcode}
+	  GROUP BY h.HOTEL_NAME,g.GREAT_FLAG, g.GREAT_N_CODE
 	</select>
 
 

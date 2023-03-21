@@ -122,9 +122,9 @@ position: absolute;
                                  </div>
                                  <!--좋아요 버튼 기능html 종료-->
 
-                                 <!-- /////////////
-                                 		북마크
-                                 ///////////////// -->
+                                 <!-- ===============
+                                 		  북마크
+                                 ==================== -->
                                  <!--즐찾 버튼 기능html-->
                                  <!-- 즐겨찾기를 누르지 않은 경우  -->
                                  <div class="book_area">
@@ -419,8 +419,9 @@ TV
             // 예약 하기 전 예약 가능한 호텔인지 체크
             function reservCheck(){
             	
-            	var newURL = window.location.href; // 현재 url
-            	let hotelId = newURL.substr(29,3); // url에서 hotelId만 추출
+//             	var newURL = window.location.href; // 현재 url
+//             	let hotelId = newURL.substr(29,3); // url에서 hotelId만 추출
+				let hotelId = [[${h.hotelId}]]
             	
             	$.ajax({
             		type: "POST",
@@ -468,6 +469,39 @@ TV
             	
             }
             
+            $(function() {
+               $(document).ready(function() {
+
+                  $('#checkIn').datepicker({
+                      dateFormat : "yy-mm-dd",
+//                     	monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+                      dayNamesMin:["일","월","화","수","목","금","토"],
+                    buttonImage: "images/btns.png", // 버튼 이미지
+                  buttonImageOnly : true,  
+                      minDate : '0',
+                      language : "ko",
+                      todayHighlight : true,
+                      autoclose : true
+                  }).on('changeDate', function(selected){
+                      var startDate = new Date(selected.date.valueOf());
+                      $('#checkOut').datepicker('setStartDate', startDate);
+                  });
+
+                  $('#checkOut').datepicker({
+                  	dateFormat : "yy-mm-dd",
+                  	minDate : '1',
+                      language : "ko",
+                      todayHighlight : true,
+                      autoclose : true
+                  }).on('changeDate', function(selected){
+                      var endDate = new Date(selected.date.valueOf());
+                      $('#checkIn').datepicker('setEndDate', endDate);
+                  });
+                  
+                  
+               });
+
+            });
             //좋아요 기능 시작
 
             //회원 좋아요 있는지 여부 확인 
@@ -621,7 +655,14 @@ TV
                        if (data.bookCode > 0) {
                          $('.emptyMark').hide();
                          $('.fullMark').show();
-                         //alert('등록완료');
+                       
+                        
+                         // 즐겨찾기 추가 확인 팝업
+                         var confirmation = confirm('즐겨찾기에 추가되었습니다. 즐겨찾기 페이지로 이동하시겠습니까?');
+                         
+                         if (confirmation) {
+                             window.location.href = '/bookmark';
+                         }
                        } else {
                          // 실패했을 때 
                        }

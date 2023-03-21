@@ -30,7 +30,7 @@
 										<div class="posts">
 											<!--  start post-->
 											<div class="post">
-												<div class="content">
+												<div class="content" id="content">
 													<p style="font-size: 30px;">현재 예약내역</p>
 														<div th:each="r : ${res}">
 															<ul class="tour-inner">
@@ -204,7 +204,7 @@
 											 			console.log(diffDate);
 											 			
 																/*
-																	환불규정 : 10일 전 취소 or 예약 당일 취소(100%)
+																	환불규정 : 10일 전 취소(100%)
 																		7일 전까지 취소(90%) // 9,8,7
 																		5일 전까지 취소(70%) // 6,5
 																		2일 전까지 취소(50%) // 4,3,2
@@ -339,17 +339,45 @@
 
                                     </li>
                                     <li>
-                                        <a href="/finReservation">지난 예약내역
+                                        <a href="javascript:finReservation()">지난 예약내역
                                         </a>
 
                                     </li>
                                     <li>
-                                        <a href="/cancelReservation">취소 예약내역
+                                        <a href="javascript:cancelReservation()">취소 예약내역
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-
+							<script type="text/javascript">
+							//지난 예약내역
+							var finReservation = function(url){
+								$.ajax({
+									type: 'get',
+									url: "/finReservation",
+									success: function(data) {
+										$("#content").replaceWith(data);
+									},
+									error: function(request, status, error) {
+										alert(error);
+									}
+								});
+							};
+							
+							//취소 예약내역
+							var cancelReservation = function(url){
+								$.ajax({
+									type: 'get',
+									url: "/cancelReservation",
+									success: function(data) {
+										$("#content").replaceWith(data);
+									},
+									error: function(request, status, error) {
+										alert(error);
+									}
+								});
+							};
+							</script>
 
 
                         </div>

@@ -7,7 +7,7 @@
 
 <body>
 	<div layout:fragment="content" class="content">
-		<style>
+<style>
 .modal {
 	text-align: center;
 }
@@ -20,124 +20,130 @@
 	}
 }
 </style>
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background:url(/img/banner/bg2.jpg)|">
-			<div class="container">
+<!-- 배너시작 -->
+<section class="page-title-section bg-img cover-background"
+	th:style="|background:url(/img/banner/bg2.jpg)|">
+	<div class="container">
 
-				<h1 class="text-white font-weight-600">커뮤니티</h1>
-				<ul>
-					<li><a href="/main">Home</a></li>
-					<li><span class="active">여행 일지</span></li>
-				</ul>
-			</div>
-		</section>
-		<!-- 배너종료 -->
+		<h1 class="text-white font-weight-600">Community</h1>
+		<ul>
+			<li><a href="/main">Home</a></li>
+			<li><span class="active">여행 리뷰</span></li>
+		</ul>
+	</div>
+</section>
+<!-- 배너종료 -->
 
-		<!-- 바디 영역 -->
-		<div class="body" style="padding-left: 100px">
-			<nav class="navbar">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#"> </a>
-				</div>
-			</nav>
-			<br> <br>
-
-			<div class="left-body">
-				<div class="posts">
-					<table class="table table-striped table-hover"
-						style="width: 1000px;">
-						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-								<th>
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#exampleModal">팔로워</button> <!-- Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1"
-										aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-header">
-											<!-- 					<button class="close" data-dismiss="modal">x</button> -->
-											<div class="modal-dialog" role="document">
-												<div class="modal-dialog modal-dialog-centered">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">List</h5>
-															<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body"></div>
-													</div>
-													<div class="modal-footer"></div>
+<!-- 바디 영역 -->
+<div class="body" style="padding-left: 100px">
+	<nav class="navbar">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> </a>
+		</div>
+	</nav>
+	<br> <br>
+	<div class="left-body">
+		<div class="posts">
+			<table class="table table-striped table-hover"
+				style="width: 1000px;">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">팔로워</button> 
+								<!-- Modal 시작-->
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-header">
+									<div class="modal-dialog" role="document">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content" style="width: 350px;">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">List</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
 												</div>
+												<div class="modal-body"></div>
 											</div>
+											<div class="modal-footer"></div>
 										</div>
 									</div>
-									</div> <!-- ----------------------- -->
-								</th>
-								<th>
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#exampleModal">팔로잉</button> <!-- Modal -->
-									
-								</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr data-status="active">
-								<td><div th:if="${not #lists.isEmpty(diarya)}">
-										<h4 th:text="${diarya[0].id}"></h4>
-									</div>
-								<td></td>
-					<!-- 팔로우수  -->
-								<td id="follow-count"></td>
-								<td id="following-count"></td>
-								<td>
-									<!-- 팔로우 누른경우   -->
-									<div id="followFtn">
-										<button  type="button"
-											class="btn btn-secondary btn-sm" id="unfollow-btn">unFollow</button>
-										<button  type="button"
-											class="btn btn-primary btn-sm" id="follow-btn">Follow</button>
-										<!-- 팔로우 누르지 않은경우   -->
-										<input type="hidden" id="id" name="id"
-											th:value="${session.name}">
-									</div> 
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<hr>
-					<div class="feed-box" id="inst">
-						<div th:each="d : ${diarya}" class="diaryCode"
-							th:data-code="${d.diaryCode}"
-							style="border: 2px double; border-radius: 10px; margin: 30px; width: 400px;">
-							<a class="profile-id" th:text="${d.id}" style="margin: 10px;"
-								id="ids"></a>
-							<div class="profile-id"></div>
-							<div class="feed-img">
-								<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px"
-									height="300px">
+								</div>
 							</div>
-							<div class="like" id="diaryStartDate"
-								th:text="${d.diaryStartDate}"></div>
-							<br>
-							<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"></div>
-							<br> <br> <b><h5>
-									<div class="feed-text" id="diarytitlet"
-										th:text="${d.diaryTitle}"></div>
-								</h5></b>
-							<div class="feed-text" id="diaryContent"
-								th:text="${d.diaryContent}" style="float: none;"></div>
-						</div>
-
+								<!-- Modal 종료-->
+						</th>
+						<th>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModals">팔로잉</button>
+							<!-- Modal 시작-->
+							<div class="modal fade" id="exampleModals" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-header">
+									<!-- <button class="close" data-dismiss="modal">x</button> -->
+									<div class="modal-dialog" role="document">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content" style="width: 350px;">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabels">List</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body"></div>
+											</div>
+											<div class="modal-footer"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal 종료-->
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-status="active">
+						<td><div th:if="${not #lists.isEmpty(diarya)}">
+								<h4 th:text="${diarya[0].id}"></h4>
+							</div>
+						<td></td>
+							<!-- 팔로우수  시작-->
+						<td id="follow-count"></td>
+						<td id="following-count"></td>
+						<td>
+							<!-- 팔로우 누른경우   -->
+							<div id="followFtn">
+								<button  type="button" class="btn btn-secondary btn-sm" id="unfollow-btn">unFollow</button> <!-- 팔로우 누른경우 언팔로우 보이게 할것이고   -->
+								<button  type="button" class="btn btn-primary btn-sm" id="follow-btn">Follow</button> <!-- 그게아닐경우 팔로우 보이게 한다.   -->
+								<!-- 팔로우 누르지 않은경우   -->
+								<input type="hidden" id="id" name="id" th:value="${session.name}">
+							</div> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<div class="feed-box" id="inst">
+				<div th:each="d : ${diarya}" class="diaryCode" th:data-code="${d.diaryCode}" style="border: 2px double; border-radius: 10px; margin: 30px; width: 400px;">
+					<a class="profile-id" th:text="${d.id}" style="margin: 10px;" id="ids"></a>
+					<div class="profile-id"></div>
+					<div class="feed-img">
+						<img id="feed-img" th:src="'/image/'+${d.imgPath}" width="300px" height="300px">
 					</div>
+					<div class="like" id="diaryStartDate" th:text="${d.diaryStartDate}"></div>
+					<br>
+					<div class="like" id="diaryEndDate" th:text="${d.diaryEndDate}"></div>
+					<br> <br> <b><div><h5  class="feed-text" id="diarytitlet" th:text="${d.diaryTitle}"></h5></div></b>
+					<div class="feed-text" id="diaryContent" th:text="${d.diaryContent}" style="float: none;"></div>
 				</div>
 			</div>
+		</div>
+	</div>
 
 		
 		<script>
@@ -148,13 +154,13 @@
 
 			// 사용자 ID 정보와 게시물 작성자 ID 정보가 일치하는 경우에는 팔로우 버튼을 숨깁니다.
 			if (id === followId) {
-				var btn = document
-						.getElementById("followFtn");
-				if (btn) {
+				var btn = document.getElementById("followFtn");
+				if (btn) { 
 					btn.style.display = "none";
 				}
 			}
 
+			//들어오자마자 읽는 거
 			$(document).ready(function() {
 				clickCount();
 				getFollow();
@@ -277,7 +283,7 @@
 		});
 		
 		$(document).ready(	function() {
-			$('button[data-target="#exampleModal"]').click(	function() {
+			$('button[data-target="#exampleModals"]').click(	function() {
 				var followId = $('h4').text();
 				$.ajax({
 					type : "POST",

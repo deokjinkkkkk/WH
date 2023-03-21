@@ -15,8 +15,8 @@
 					<div
 						class="bg-black-opacity padding-40px-all sm-padding-25px-all rounded">
 						<h3
-							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">회원탈퇴</h3>
-						<form method="post" action="/memberDelete" id="frm">
+							class="margin-40px-bottom xs-margin-20px-bottom xs-font-size24 text-center text-white">비밀번호 확인</h3>
+						<form method="post" action="/memberUpdateForm" id="frm">
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
@@ -30,7 +30,6 @@
 											placeholder="비밀번호확인" maxlength="70">
 									</div>
 								</div>
-								
 								<div class="col-md-12 margin-25px-top">
 								<input type="hidden" name="id" id="id" th:value="${session.name}">
 								<input type="hidden" name="name" id="name" th:value="${mem.name}">

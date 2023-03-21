@@ -5,7 +5,6 @@ package co.admin.wh.notice.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +21,14 @@ import co.admin.wh.notice.service.NoticeService;
 import co.admin.wh.notice.vo.NoticeSearchVO;
 import co.admin.wh.notice.vo.NoticeVO;
 import co.admin.wh.notice.vo.Paging;
+/*
+ * 작성자 : 노채원
+ * 작성일자: 2023-03-20
+ * 작성내용: 공지사항 Controller
+ * 수정자 :
+ * 수정일자:
+ * 수정내용:
+ * */
 
 @Controller
 public class NoticeController {
@@ -37,9 +44,11 @@ public class NoticeController {
 	@Value("${wh.saveimg}")
 	private String saveimg;
 
-	
+	//공지사항 
 	@RequestMapping("/notice")
-	public String notice(Model model, @ModelAttribute("svo") NoticeSearchVO svo, Paging paging) {
+	public String notice(Model model,
+						@ModelAttribute("svo") NoticeSearchVO svo,
+						Paging paging) {
 
 		paging.setPageUnit(5);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -54,7 +63,9 @@ public class NoticeController {
 
 	//관리자공지사항 
 	@RequestMapping("/noticeAdmin")
-	public String noticeAdmin(Model model, @ModelAttribute("svo") NoticeSearchVO svo, Paging paging) {
+	public String noticeAdmin(Model model,
+							 @ModelAttribute("svo") NoticeSearchVO svo,
+							 Paging paging) {
 
 		paging.setPageUnit(5);// 한 페이지에 풀력할 레코드 건수
 		paging.setPageSize(10); // 한 페이지에 보여질 페이지 갯수
@@ -67,7 +78,7 @@ public class NoticeController {
 		return "admin/noticeListAdmin";
 	}
 	
-	
+	//공지사항 폼
 	@RequestMapping("/noticeForm")
 	public String noticeForm(Model model) {
 		return "admin/noticeFormAdmin";
@@ -77,7 +88,10 @@ public class NoticeController {
 
 	//관리자 등록
 	@RequestMapping("/noticeInsert")
-	public String noticeInsertAdmin(NoticeVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile) {
+	public String noticeInsertAdmin(NoticeVO vo,
+									Model model,
+									ImageVO ivo,
+									MultipartFile[] imgFile) {
 
 		String saveFolder = saveimg; // 파일저장위치
 
@@ -88,7 +102,7 @@ public class NoticeController {
 		for (MultipartFile file : imgFile) {
 			String fileName = imageService.saveImage(imgFile, saveFolder);
 			if (fileName != null) {// 첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼
-				// ivo에 담고
+				
 				ivo.setImgGroCode(image);
 				ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
 				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
@@ -103,7 +117,9 @@ public class NoticeController {
 
 	//관리자 상세페이지
 	@RequestMapping(value = "/noticeDetails/{noticeCode}", method = RequestMethod.GET)
-	public String noticeDetailAdmin(@PathVariable("noticeCode") int noticeCode, NoticeVO vo, Model model) {	
+	public String noticeDetailAdmin(@PathVariable("noticeCode") int noticeCode,
+									NoticeVO vo,
+									Model model) {	
 		vo.setNoticeCode(noticeCode);
 		//noticeService.noticeHit(noticeCode); // 조회수
 		model.addAttribute("n", noticeService.noticendetil(vo));
@@ -112,7 +128,9 @@ public class NoticeController {
 	
 	//회원 상세페이지
 	@RequestMapping(value = "/noticeDetail/{noticeCode}", method = RequestMethod.GET)
-	public String noticeDe(@PathVariable("noticeCode") int noticeCode, NoticeVO vo, Model model) {	
+	public String noticeDe(@PathVariable("noticeCode") int noticeCode,
+							NoticeVO vo,
+							Model model) {	
 		vo.setNoticeCode(noticeCode);
 		noticeService.noticeHit(noticeCode); // 조회수
 		model.addAttribute("n", noticeService.noticendetil(vo));
@@ -120,24 +138,51 @@ public class NoticeController {
 	}
 	
 	
-	//관리자
+	//관리자 수정 폼
 	@RequestMapping("/noticeUpdateForm")
-	public String noticeUpdateForm(@ModelAttribute("n") NoticeVO vo, Model model) {
+	public String noticeUpdateForm(@ModelAttribute("n") NoticeVO vo,
+									Model model) {
 		model.addAttribute("n", noticeService.noticendetil(vo));
 		return "admin/noticeUpdateAdmin";
 	}
 
-	//관리자 업로드
+	//관리자 수정업로드
 	@PostMapping("/noticeUpdate")
-	public String noticeUpdate(NoticeVO vo, Model model) {
+	public String noticeUpdate(NoticeVO vo,
+								Model model,
+								ImageVO ivo,
+								MultipartFile[] imgFile) {
 		
-		noticeService.noticeUpdate(vo); // 수정된 공지사항 정보를 DB에 반영
+		String saveFolder = saveimg; // 파일저장위치
+
+		// 그룹번호 조회
+		String image = imageService.imgNotice(ivo);
+		
+		imageService.imageDelete(ivo);
+		 model.addAttribute("n", noticeService.noticeUpdate(vo));
+
+		// for문
+		for (MultipartFile file : imgFile) {
+			String fileName = imageService.saveImage(imgFile, saveFolder);
+			if (fileName != null) {// 첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼
+				
+				ivo.setImgGroCode(image);
+				ivo.setImgName(file.getOriginalFilename()); // 저장할때는 원본파일명
+				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				
+			}
+			ivo.getImgGroCode();
+			noticeMapper.imgInsert(ivo);
+			vo.setImgGroCode(ivo.getImgGroCode());
+			noticeMapper.noticeDelete(vo);
+			noticeMapper.noticeInsert(vo); // 수정된 공지사항 정보를 DB에 반영
+		}
 		
 		return "redirect:/noticeDetails/" + vo.getNoticeCode(); // 수정된 공지사항의 상세 페이지로 이동
 	}
-	//관리자 삭제
+	//관리자 공지사항 삭제
 	@PostMapping("/noticeDelete")
-	public String noticeDelete(NoticeVO vo, RedirectAttributes redirectAttributes) {
+	public String noticeDelete(NoticeVO vo) {
 		noticeService.noticeDelete(vo);
 		return "redirect:/noticeAdmin";
 	}

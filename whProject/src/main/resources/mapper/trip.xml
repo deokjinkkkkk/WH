@@ -68,22 +68,6 @@
 		WHERE TRIP_NAME LIKE '%'|| (#{value}) ||'%'
 	</select>
 	
-	<!-- 여행지 이름 검색 -->
-	<select id="tripNameSearchList" resultType="co.admin.wh.trip.vo.TripVO">
-	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT * 
-		FROM TRIP t
-		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
-		<where>
-		<if test="tripName != null and tripName != ''">
-		trip_name like '%'|| (#{tripName}) ||'%'
-		</if>
-		</where>
-		ORDER BY TRIP_NAME
-		<![CDATA[
-		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>		
-	</select>
 	
 	<!-- 여행지 지역별 선택하여 보기 -->
 	<select id="tripRegion" parameterType="co.admin.wh.trip.vo.TripVO"
