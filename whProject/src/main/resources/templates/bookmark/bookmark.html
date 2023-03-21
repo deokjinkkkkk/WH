@@ -61,9 +61,7 @@
                                 <img alt="" th:src="${h.img1}" width="120px;"></div></td>
                                 <td style="text-align: center; width: 120px; border:0.1px solid lightgray;">
                                     <a th:text="${h.hotelName}"    th:href="@{/hotelDetail/{hotelId}(hotelId=${h.hotelId})}"></a><hr>
-                                    
                                     <div><th:block th:text="${#strings.substring(h.hotelAddr, 0, 9)}" /></div>
-                                    
                                 </td>
                             </tr>                           
                         </tbody>
