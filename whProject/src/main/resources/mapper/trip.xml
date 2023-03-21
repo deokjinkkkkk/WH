@@ -59,38 +59,15 @@
 	SELECT M.MY_COU_NAME, M.MY_COURSE_CODE, M.MY_COU_ID, T.TRIP_CODE
 	FROM TRIP T, MY_COURSE M
 	WHERE T.TRIP_CODE = #{tripCode}
-	</select>
-	
-	<!-- 검색어 자동완성 -->
-	<select id="selfsearch" parameterType="map" resultType="map">
-		SELECT DISTINCT TRIP_NAME, TRIP_CODE
-		FROM TRIP
-		WHERE TRIP_NAME LIKE '%'|| (#{value}) ||'%'
-	</select>
-	
-	<!-- 여행지 이름 검색 -->
-	<select id="tripNameSearchList" resultType="co.admin.wh.trip.vo.TripVO">
-	 	SELECT * FROM( SELECT rownum rn, a.* FROM(
-		SELECT * 
-		FROM TRIP t
-		left outer JOIN image i  on t.img_gro_code = i.img_gro_code
-		<where>
-		<if test="tripName != null and tripName != ''">
-		trip_name like '%'|| (#{tripName}) ||'%'
-		</if>
-		</where>
-		ORDER BY TRIP_NAME
-		<![CDATA[
-		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
-		]]>		
-	</select>
+	</select>	
 	
 	<!-- 여행지 지역별 선택하여 보기 -->
 	<select id="tripRegion" parameterType="co.admin.wh.trip.vo.TripVO"
 		resultType="co.admin.wh.trip.vo.TripVO">
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		select *
-		from trip 
+		FROM TRIP t
+		left outer JOIN image i  on t.img_gro_code = i.img_gro_code 
 		<where>
 		<if test="tripRegion != null and tripRegion != ''">	   	
 		trip_region =  #{tripRegion}

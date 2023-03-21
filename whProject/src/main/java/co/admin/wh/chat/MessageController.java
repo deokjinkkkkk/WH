@@ -11,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 public class MessageController {
 
     private final SimpMessageSendingOperations sendingOperations;
-
+    
+    //알람 메세지
     @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {

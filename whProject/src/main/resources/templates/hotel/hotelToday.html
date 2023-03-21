@@ -18,17 +18,17 @@
    <!-- 페이징 끝-->
    
 		<!-- start page title section -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background: url('img/banner/bg4.jpg')|">
-			<div class="container">
-				<h1 class="text-white font-weight-600">Hotel</h1>
-				<ul>
-					<li><a href="/main">Home</a></li>
-					<li><span class="active">Hotel</span></li>
-				</ul>
-			</div>
-		</section>
-		<!-- end page title section -->
+      <section class="page-title-section bg-img cover-background"
+            th:style="|background: url('/img/banner/bg3.jpg')|">
+         <div class="container">
+            <h1 class="text-white font-weight-600">Hotel</h1>
+            <ul>
+               <li><a href="/main">Home</a></li>
+               <li><span class="active">Hotel</span></li>
+            </ul>
+         </div>
+      </section>
+      <!-- end page title section -->
 		<!-- start blog section -->
 		<section>
 			<div class="container">
@@ -79,22 +79,42 @@
 						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
 						<div class="side-bar">
 							<div class="widget">
-								<div class="widget">
-								<form action="#!" method="post">
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="margin-5px-bottom">checkin</label> <input -->
-<!--                                  type="text" -->
-<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
-<!--                                  placeholder="체크인 날짜 선택" name="checkIn" id="checkIn"> -->
-<!--                            </div> -->
-                           
-                           <script>
+								<button class="butn btn-block"
+									onClick="location.href='/hotelToday'">
+									<i class="fa fa-search"></i> 지금 바로 예약 가능한 제주 호텔은?
+								</button>
+								<br>
+								<br>
+								<hr>
+								<div class="widget-title">
+									<p style="font-size: 20px;">Search</p>
+								</div>
+								<form action="/hotelSearch" method="post">
+									<div class="form-group">
+										<!-- 여기 datepicker안먹어서 일단 인풋타입 text에서 date로 바꿔둠 자동완성이랑 충돌나는듯 -->
+										<label class="margin-5px-bottom">checkin</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											placeholder="체크인 날짜 선택" name="checkIn" id="checkIn">
+									</div>
+									<div class="form-group">
+										<label class="margin-5px-bottom">checkout</label> <input
+											type="text"
+											class="form-control date no-margin-bottom padding-10px-tb"
+											placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut">
+									</div>
+									
+									<script>
                               $(function() {
                                  $(document).ready(function() {
          
                                     $('#checkIn').datepicker({
-                                        format : "yyyy-mm-dd",
-                                        startDate : '0d',
+                                        dateFormat : "yy-mm-dd",
+//                                       	monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+                                        dayNamesMin:["일","월","화","수","목","금","토"],
+                                      buttonImage: "images/btns.png", // 버튼 이미지
+                                    buttonImageOnly : true,  
+                                        minDate : '0',
                                         language : "ko",
                                         todayHighlight : true,
                                         autoclose : true
@@ -104,7 +124,8 @@
                                     });
          
                                     $('#checkOut').datepicker({
-                                        format : "yyyy-mm-dd",
+                                    	dateFormat : "yy-mm-dd",
+                                    	minDate : '1',
                                         language : "ko",
                                         todayHighlight : true,
                                         autoclose : true
@@ -119,52 +140,186 @@
                               });
                            </script>
                            
-<!--                            <div class="form-group"> -->
-<!--                               <label class="margin-5px-bottom">checkout</label> <input -->
-<!--                                  type="text" -->
-<!--                                  class="form-control date no-margin-bottom padding-10px-tb" -->
-<!--                                  placeholder="체크아웃 날짜 선택" name="checkOut" id="checkOut"> -->
-<!--                            </div> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="margin-5px-bottom">지역</label> <select -->
-<!-- 											class="form-control padding-10px-tb" -->
-<!-- 											id="exampleFormControlSelect1"> -->
-<!-- 											<option selected>지역 선택</option> -->
-<!-- 											<option>서울</option> -->
-<!-- 											<option>경기</option> -->
-<!-- 											<option>부산</option> -->
-<!-- 											<option>대구</option> -->
-<!-- 											<option>인천</option> -->
-<!-- 											<option>광주</option> -->
-<!-- 											<option>대전</option> -->
-<!-- 											<option>울산</option> -->
-<!-- 											<option>세종</option> -->
-<!-- 											<option>경기</option> -->
-<!-- 											<option>강원</option> -->
-<!-- 											<option>충북</option> -->
-<!-- 											<option>충남</option> -->
-<!-- 											<option>전북</option> -->
-<!-- 											<option>전남</option> -->
-<!-- 											<option>경북</option> -->
-<!-- 											<option>경남</option> -->
-<!-- 											<option>제주</option> -->
-<!-- 										</select> -->
-<!-- 									</div> -->
-									
-									<button class="butn btn-block" type="submit">
+									<div class="form-group">
+										<label class="margin-5px-bottom">지역</label> <select
+											class="form-control padding-10px-tb" id="hotelRegion"
+											name="hotelRegion">
+											<option selected>지역 선택</option>
+											<option value="서울">서울</option>
+											<option value="부산">부산</option>
+											<option value="대구">대구</option>
+											<option value="인천">인천</option>
+											<option value="대전">대전</option>
+											<option value="울산">울산</option>
+											<option value="제주">제주</option>
+										</select>
+									</div>
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">성인</label> <select
+											class="form-control padding-10px-tb" id="humanCount"
+											name="humanCount">
+											<option value="1">1명</option>
+											<option value="2" selected>2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
+										</select>
+									</div>
+									<div class="form-group margin-30px-bottom">
+										<label class="margin-5px-bottom">유아(7세 이하)</label> <select
+											class="form-control padding-10px-tb" id="childCount"
+											name="childCount">
+											<option value="0" selected>해당 없음</option>
+											<option value="1">1명</option>
+											<option value="2">2명</option>
+											<option value="3">3명</option>
+											<option value="4">4명</option>
+											<option value="5">5명</option>
+										</select>
+									</div>
+									<!-- 가격 범위 검색 -->
+									<div id="wrap">
+										<div class="slider-price-wrap">
+											<div id="priceRangeSet" class="slider-price"></div>
+											<br>
+											<div class="slider-result" style="margin-bottom: 20px;">
+												<span class="left"> <input type="text"
+													class="num col-md-4" id="priceRangeMin"
+													name="priceRangeMin" title="50000"
+													style="ime-mode: disabled;" onkeypress="txtOnlyNum(event)"
+													onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+													<span class="unit">원 ~ </span>
+												</span> <span class="right"> <input type="text"
+													class="num col-md-4" id="priceRangeMax"
+													name="priceRangeMax" title="1000000"
+													style="ime-mode: disabled;" onkeypress="txtOnlyNum(event)"
+													onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+													<span class="unit">원</span>
+												</span>
+											</div>
+										</div>
+										<!-- // slider-price-wrap -->
+
+									</div>
+									<!-- // wrap -->
+									<button class="butn btn-block" type="button" id="searchBtn">
 										<i class="fa fa-search"></i> Check
 									</button>
 								</form>
 							</div>
-							<div class="widget">
-								<div class="widget-title">
-									<h3>Destination</h3>
-								</div>
-								<div class="price-range"></div>
-							</div>
+
+							<script>
+							// 페이징할 때 검색 정보 계속 가지고 있게
+							 document.getElementById("searchBtn").onclick = function () {
+							    
+							  let checkIn = document.getElementsByName("checkIn")[0].value;
+							  let checkOut = document.getElementsByName("checkOut")[0].value;
+							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
+							  let humanCount =  document.getElementsByName("humanCount")[0].value;
+							  let childCount =  document.getElementsByName("childCount")[0].value;
+							  let priceRangeMin = (document.getElementsByName("priceRangeMin")[0].value).replace(/,/g,''); // replace함수 이용하여 모든 ,를 제거
+							  let priceRangeMax = (document.getElementsByName("priceRangeMax")[0].value).replace(/,/g,'');
+							  
+							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+
+									  "&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount
+									  +"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax;
+							 };
+
+							
+
+		// 가격 검색
+		var numberSetComma = function(val){
+		 while (/(\d+)(\d{3})/ .test(val.toString())){
+			val = val.toString().replace( /(\d+)(\d{3})/, '$1' + ',' + '$2' );
+		 }
+		 return val;
+		};
+		var numberDelComma = function(val){
+		 return parseInt(val.replace(/,/g, ""));
+		};
+		var txtOnlyNum = function(e){
+			var keycode = (window.netscape) ? e.which : e.keyCode;
+			if(!(keycode == 0 || keycode == 8 ||(keycode >=48 && keycode <= 57 ))){
+				if(window.netscape){
+					e.preventDefault();
+				}else{
+					e.returnValue = false;
+				}
+			}
+		}
+		var initPriceRange = function(minVal,maxVal){
+			//슬라이더 init
+			var priceRS = $("#priceRangeSet");
+			var priceRMax = $("#priceRangeMax");
+			var priceRMin = $("#priceRangeMin");
+
+			priceRS.slider({
+				range: true,
+				min: minVal,
+				max: maxVal,
+				values: [ minVal, maxVal ],
+				slide: function( event, ui ) {
+					priceRMin.val(numberSetComma(ui.values[0]));
+					priceRMax.val(numberSetComma(ui.values[1]));
+				}
+			});
+			//텍스트 폼에 최초 최대값 세팅
+			priceRMin.val(numberSetComma(priceRS.slider( "values", 0 ))).attr("title","가격 최소값(숫자만 입력 가능, " + numberSetComma(priceRS.slider( "values", 0 )) + " 이상)");
+			priceRMax.val(numberSetComma(priceRS.slider( "values", 1 ))).attr("title","가격 최대값(숫자만 입력 가능, " + numberSetComma(priceRS.slider( "values", 1 )) + " 이하)");
+
+			//접근성 처리를 위한 텍스트 폼과 slider UI 연동
+			priceRMin.bind({
+				keyup : function(){
+					if($(this).val().length > 0){
+						$(this).val(numberSetComma(numberDelComma($(this).val())));
+					}
+				},
+				blur : function(){
+					var originNum = numberDelComma($(this).val());
+					var maxFormVal = numberDelComma(priceRMax.val());
+					if(originNum < minVal){
+						alert("최소 기준가격은  " + numberSetComma(minVal) + "원 입니다. 최소 기준가격 이상으로 입력해주세요.");
+						$(this).val(numberSetComma(minVal));
+						$(this).focus();
+					}
+					if(originNum >= maxFormVal){
+						alert("가격 검색 시작값이 끝값보다 크거나 같습니다. 끝값인 " + priceRMax.val() + "보다 작은 값을 입력해주세요.");
+						$(this).val(numberSetComma(minVal));
+						$(this).focus();
+					}
+					priceRS.slider({values : [numberDelComma(priceRMin.val()), numberDelComma(priceRMax.val())]});
+				}
+			});
+			priceRMax.bind({
+				keyup : function(){
+					if($(this).val().length > 0){
+						$(this).val(numberSetComma(numberDelComma($(this).val())));
+					}
+				},
+				blur : function(){
+					var originNum = numberDelComma($(this).val());
+					var minFormVal = numberDelComma(priceRMin.val());
+					if(originNum > maxVal){
+						alert("최대 기준가격은  " + numberSetComma(maxVal) + "원 입니다. 최대 기준가격 이하로 입력해주세요.");
+						$(this).val(numberSetComma(maxVal));
+						$(this).focus();
+					}
+					if(originNum <= minFormVal){
+						alert("가격 검색 끝값이 시작값보다 작거나 같습니다. 시작값인 " + priceRMin.val() + "보다 큰 값을 입력해주세요.");
+						$(this).val(numberSetComma(maxVal));
+						$(this).focus();
+					}
+					priceRS.slider({values : [numberDelComma(priceRMin.val()), numberDelComma(priceRMax.val())]});
+				}
+			});
+		};
+
+		$(function(){
+			initPriceRange(50000,750000); //로드시 혹은 로드 후 리스팅된 상품가격의 최소 최대값
+		});
+		</script>
 						</div>
 					</div>
-				</div>
 			</div>
 		</section>
 		<!-- end tour grid section -->

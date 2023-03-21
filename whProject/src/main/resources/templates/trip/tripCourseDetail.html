@@ -6,7 +6,7 @@
 
 <body>
 
-	<div layout:fragment="content" class="content">
+<div layout:fragment="content" class="content">
 		<!--좋아요 버튼 css-->
 		<style>
 		/* 댓글 css  */
@@ -256,8 +256,33 @@ scale(
 	left: 650px;
 	top: 50px;
 }
+
+.container {
+  margin: auto;
+}
+
+
+#map {
+	margin: auto;
+}
 </style>
 		<!--좋아요 버튼 css-종료-->
+		
+		
+		<!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" 
+			th:style="|background: url('/img/banner/bg1.jpg')|">
+                <h1 class="text-white font-weight-600">여행 코스</h1>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <span class="active">여행 코스</span>
+                    </li>
+                </ul>
+        </section>
+	 <!-- 배너끝 -->
 
 		<!-- 여행 코스 상세정보 -->
 		<section>
@@ -457,7 +482,7 @@ scale(
 					</div>
 				</div>
 			</div>
-		</section>
+	</section>
 		<!-- 여행 코스 상세정보 끝 -->
 
 
@@ -836,7 +861,7 @@ function resetBtn(){
 
 
 
-	</div>
+	
 
 </body>
 </html>

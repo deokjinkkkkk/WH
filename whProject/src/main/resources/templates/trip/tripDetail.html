@@ -254,10 +254,9 @@ position: absolute;
 </style>
 <!--좋아요 버튼 css-종료-->	
   
-  <!-- 배너시작 -->  
-		 <section  class="page-title-section bg-img cover-background" data-overlay-dark="6" data-background="img/banner/bg1.jpg">
- 			<div class="container">
-               
+    <!-- 배너시작 -->  
+		 <section  class="page-title-section bg-img cover-background" 
+			th:style="|background: url('/img/banner/bg1.jpg')|">
                 <h1 class="text-white font-weight-600">여행 지역</h1>
                 <ul>
                     <li>
@@ -266,11 +265,7 @@ position: absolute;
                     <li>
                         <span class="active">여행 지역</span>
                     </li>
-                    <li>
-                        <a href="index.html">상세정보</a>
-                    </li>
                 </ul>
-               </div>
         </section>
 	 <!-- 배너끝 -->
 	 
@@ -374,9 +369,9 @@ position: absolute;
 											</div>
 						<!--좋아요 버튼 기능html 종료-->	
 						
-									<!-- /////////////
-                                 		북마크
-                                 ///////////////// -->
+									<!-- ===================
+                                 		   북마크
+                                 ======================= -->
                                  <!--즐찾 버튼 기능html-->
                                  <!-- 즐겨찾기를 누르지 않은 경우  -->
                                  <div class="book_area">
@@ -384,7 +379,7 @@ position: absolute;
                                        <a href="#" class="emptyMark">
                                           <i class="fa-regular fa-bookmark" ></i>
                                        </a>
-                                        <a href="/bookDel/{bookCode}" class="fullMark" style="display: none;   ">
+                                        <a href="/bookDel/{bookCode}" class="fullMark" style="display: none;">
                                      <i class="fa-solid fa-bookmark"></i>                                       
                                        </a> 
                                        <input type="hidden" id="id" name="id"
@@ -739,7 +734,13 @@ position: absolute;
                      if (data.bookCode > 0) {
                        $('.emptyMark').hide();
                        $('.fullMark').show();
-                       //alert('등록완료');
+                    
+                    // 즐겨찾기 추가 확인 팝업
+                       var confirmation = confirm('즐겨찾기에 추가되었습니다. 즐겨찾기 페이지로 이동하시겠습니까?');
+                       
+                       if (confirmation) {
+                           window.location.href = '/bookmarkTr';
+                       }
                      } else {
                        // 실패했을 때 
                      }

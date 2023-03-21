@@ -12,7 +12,7 @@
 <div layout:fragment="content" class="content">
 <style>
 .active {
-	background-color : green;
+	background-color : lightskyblue;
 }
 </style>
 
@@ -37,7 +37,6 @@
       <section>
          <div class="container">
                  <p style="font-size: 30px;">지역별 여행지<p><hr>
-                 <hr>
                  <div id="product_order_list">
                  
 			<p id="regionSection">
@@ -62,9 +61,8 @@
 			</p>
 		</div>
             	<div id="product_order_list">
-					<p id="ordersRegion">
-					<a href="#" onclick="orders(a)">이름순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-					<a href="#" onclick="orders(b)">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+					<p>
+					<a href="javascript:latestList();">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 					<a href="javascript:tripGoodRatingList()">좋아요순</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					</p>
 				</div>
@@ -72,7 +70,7 @@
 				
 					<input type="hidden" id="page" name="page" value="1">
 					<input type="hidden" id="tripRegion" name="tripRegion" th:value="${param.tripRegion}">
-                	<input type="text" onkeypress="tripNameFind()" id="tripName" name="tripName" th:value="${param.tripName}" class="form-control"  placeholder="여행지를 검색하세요">
+                	<input type="text" onkeypress="tripNameFind()" id="tripName" name="tripName" th:value="${param.tripName}" class="form-control"  placeholder="여행지를 검색하세요"><br>
                 	<input type="hidden" id="orders" name="orders" th:value="${param.orders}">
   
                 
@@ -106,24 +104,16 @@
 		   			goregion()
 		   		}
 		   		
-		   		function orders(orders) {
-		   			event.preventDefault()
-		   			$("#page").val(1)
-		   			$("#orders").val("");
-					goregion()
-		   		}
 				
 				// 지역별 / 이름 입력 시 출력
 				var goregion = function() {
 					var tripRegion = $("#tripRegion").val()
 		 			var page = $("#page").val()
 		 			var tripName = $("#tripName").val()
-		 			var orders = $("#orders").val()
-		 			console.log(orders)
 					$.ajax({
 						type: 'post',
 						url: "/tripRegion",
-						data:{tripRegion, page, tripName, orders},
+						data:{tripRegion, page, tripName},
 						success: function(data) {
 							$("#tripListContent").replaceWith(data);
 						},
@@ -178,46 +168,8 @@
                 	});
                 };
                 
-               	goregion();
-                
-                // 자동완성
-                $('#selfSearch').selfsearch({
-                	source : function(request, response) { //source: 입력시 보일 목록
-                		$.ajax({
-                			url : "/ajax/selfsearch"   
-   					         , type : "POST"
-   					         , dataType: "JSON"
-   					         , data : {value: request.term}	// 검색 키워드
-   					         , success : function(data){ 	// 성공
-   					             response(
-   					                 $.map(data.resultList, function(item) {
-   					                     return {
-   					                    	     label : item.TRIP_NAME   	// 목록에 표시되는 값
-   					                           , value : item.TRIP_NAME 		// 선택 시 input창에 표시되는 값
-   					                           , idx : item.TRIP_CODE // index
-   					                     };
-   					                 })
-   					             );    //response
-   					         }
-   					         ,error : function(){ //실패
-   					             alert("오류가 발생했습니다.");
-   					         }
-   					     });
-   					}
-   					,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
-   							return false;
-   					}
-   					,minLength: 1// 최소 글자수
-   					,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
-   					,delay: 50	//selfSearch 딜레이 시간(ms)
-   					,select : function(evt, ui) { 
-   				      	// 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
-   							console.log(ui.item.label);
-   							console.log(ui.item.idx);
-   					 }
-   				});
-                
-          
+               	goregion();               
+               
        			</script>
         </div>
    </section>

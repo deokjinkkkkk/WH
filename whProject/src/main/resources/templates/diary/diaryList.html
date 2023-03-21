@@ -452,7 +452,6 @@ width: 400px;
             <a class="material-icons-outlined"></a>
             <!-- 채팅기능 걸기 -->
             <span class="material-icons-outlined" id="add_feed">등록하기</span>
-          
             <!-- 등록 -->
          </div>
       </div>
@@ -460,7 +459,6 @@ width: 400px;
 
 	<!-- 바디 영역 -->
 	<div class="body">
-	
 		<div class="left-body">
 			<div class="container">
 		<div class="posts">
@@ -497,7 +495,7 @@ width: 400px;
 						</div>
 						<div>
 							<input type="text" id="diaryTitle" name="diaryTitle"
-								class="feed_content_textarea form-control col-sm-5 diaryTitle" placeholder="제목을 입력해주세요." >
+								class="feed_content_textarea form-control diaryTitle" placeholder="제목을 입력해주세요." >
 						</div>
 						<div >
 							<input type="date" data-placeholder="여행날짜 선택" required aria-required="true"   class="diaryStartDate" name="diaryStartDate" onChange={StartDateValueHandler} ></input>
@@ -505,7 +503,7 @@ width: 400px;
 						</div>
 						<div style="height: 440px">
 							<textarea id="input_content"
-								class="feed_content_textarea form-control col-sm-5" rows="10"
+								class="feed_content_textarea form-control" rows="10"
 								placeholder="설명을 입력하세요." name="diaryContent"></textarea>
 						</div>
 						<div style="width: 100%; text-align: center">
@@ -516,7 +514,7 @@ width: 400px;
 				</div>
 			</div>
 		</div>
-		
+		<!-- 공유하기 모달 종료  -->
 		
 	<!-- 수정 창 HTML 코드 -->
 <div class="modal fade" id="editModal">
@@ -524,22 +522,21 @@ width: 400px;
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">수정</h5>
-      	<span id="updateClose" class="close_modal material-icons-outlined" data-dismiss="modal"
-							style="font-size: 30px"> close </span>					
+      	<span id="updateClose" class="close_modal material-icons-outlined" data-dismiss="modal" style="font-size: 30px"> close </span>					
       </div>
       <div class="modal-body">
         <div class="feed_name">
           <span id="input_id" class="feed_name_txt"></span>
         </div>
         <div>
-          <input type="text" id="diaryTitleeee" name="diaryTitle" class="form-control col-sm-5 diaryTitle">
+          <input type="text" id="diaryTitleeee" name="diaryTitle" class="form-control diaryTitle">
         </div>
         <div>
-		<input type="date" data-placeholder="여행날짜 선택" required aria-required="true"   class="diaryStartDate" name="diaryStartDate" onChange={StartDateValueHandler} ></input>
-		<input type="date" data-placeholder="여행종료날짜 선택" required aria-required="true"   class="diaryEndDate" name="diaryEndDate" onChange={StartDateValueHandler}></input>         
+		<input type="date" data-placeholder="여행날짜 선택" required aria-required="true"  id="diaryStartDateeeee" class="diaryStartDateeeee" name="diaryStartDateeeee" onChange={StartDateValueHandler} ></input>
+		<input type="date" data-placeholder="여행종료날짜 선택" required aria-required="true" id="diaryEndDateeeeee"   class="diaryEndDateeeeee" name="diaryEndDateeeeee" onChange={StartDateValueHandler}></input>         
         </div>
         <div style="height: 440px">
-          <textarea id="input_contenteeee"  class="form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
+          <textarea id="input_contenteeee"  class="form-control" rows="10" placeholder="설명을 입력하세요..." name="diaryContent"></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -550,7 +547,7 @@ width: 400px;
 </div>
 		
 	</form>
-	<!-- 공유하기 모달 종료  -->
+	<!-- 수정 창 HTML 코드 종료  -->
 
 	<script>
 
@@ -666,7 +663,7 @@ function uploadFiles(e){
 
     files = e.dataTransfer.files;
     if (files.length > 1) {
-        alert('하나만 올려주세요.');
+    	 swal("","하나만 올려주세요.","warning");
         return;
     }
 
@@ -682,12 +679,10 @@ function uploadFiles(e){
         });
     }else{
     	;
-        alert('이미지가 아닙니다.');
+    	 swal("","이미지가 아닙니다.","warning");
         return;
     }
 };
-
-
 
 
 
@@ -716,16 +711,6 @@ $('#button_write_feed').on('click', ()=>{
     fd.append('diaryEndDate', diaryEndDate)
     fd.append('id', id);
 
- // FormData의 key 확인
-    for (let key of fd.keys()) {
-      console.log(key+"key값+++++++++++++++++++++");
-    }
-
-    // FormData의 value 확인
-    for (let value of fd.values()) {
-      console.log(value+"밸류=======================");
-    }
- 
     writeFeed(fd);
 });
 
@@ -788,25 +773,19 @@ $(".feed-box").on("click", ".btn-primary", () => {
   // 모달 창 띄우기
   $(".fade").modal('show');
  
-  //모달창 x창 
-  //$("#updateClose").hide();
-  
   
   // 모달 창에 데이터 채우기
   $("#diaryTitleeee").val(diaryTitle);
-  $(".diaryStartDateeee").val(diaryStartDate);
-  $(".diaryEndDateeee").val(diaryEndDate);
+  $(".diaryStartDateeeee").val(diaryStartDate);
+  $(".diaryEndDateeeeee").val(diaryEndDate);
   $("#input_contenteeee").val(diaryContent);
 
-
-
-  
   
   // 모달 창에서 수정 버튼 클릭 시 서버에 데이터 보내기
   $(".modal-dialog").on("click",".btn-primary", () => {
     const newDiaryTitle = $("#diaryTitleeee").val();
-    const newDiaryStartDate = $(".diaryStartDateeee").val();
-    const newDiaryEndDate = $(".diaryEndDateeee").val();
+    const newDiaryStartDate = $(".diaryStartDateeeee").val();
+    const newDiaryEndDate = $(".diaryEndDateeeeee").val();
     const newDiaryContent = $("#input_contenteeee").val();
 
     const newData = {
@@ -816,7 +795,6 @@ $(".feed-box").on("click", ".btn-primary", () => {
       diaryStartDate: newDiaryStartDate,
       diaryEndDate: newDiaryEndDate,
     };
-    
    
     
     $.ajax({
@@ -834,8 +812,6 @@ $(".feed-box").on("click", ".btn-primary", () => {
     });
   });
 });
-
-
 
 
 </script>

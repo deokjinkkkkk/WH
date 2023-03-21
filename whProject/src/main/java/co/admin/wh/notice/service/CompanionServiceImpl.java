@@ -69,11 +69,6 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.imgSelect(cvo);
 	}
 
-	@Override
-	public CompanionVO localSelect(CompanionVO cvo) {
-		// TODO Auto-generated method stub
-		return map.localSelect(cvo);
-	}
 
 	@Override
 	public int comListInsert(CompanionVO vo) {
@@ -134,5 +129,13 @@ public class CompanionServiceImpl implements CompanionService {
 		// TODO Auto-generated method stub
 		return map.comSelDelete(vo);
 	}
+
+	@Override
+	public CompanionVO localSelect(CompanionVO cvo) {
+		// TODO Auto-generated method stub
+		return map.localSelect(cvo);
+	}
+
+
 
 }

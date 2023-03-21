@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.admin.wh.notice.mapper.NoticeMapper">
 
-	<select id="getNoticeList"
-		resultType="co.admin.wh.notice.vo.NoticeVO">
+	<!-- 공지사항 리스트  -->
+	<select id="getNoticeList" resultType="co.admin.wh.notice.vo.NoticeVO">
 		select * from ( select rownum rn, a.* from(
 		SELECT
 		n.NOTICE_CODE,
@@ -14,14 +14,13 @@
 		ORDER BY n.NOTICE_CODE DESC
 	<![CDATA[
  		) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
-]]>
+           ]]>
 
 	</select>
 
 
 	<!-- 상세페이지 -->
-	<select id="noticendetil"
-		resultType="co.admin.wh.notice.vo.NoticeVO">
+	<select id="noticendetil" resultType="co.admin.wh.notice.vo.NoticeVO">
 		SELECT DISTINCT
 		n.NOTICE_CODE,
 		n.NOTICE_HIT,
@@ -40,43 +39,45 @@
 
 
 	<!-- 등록 -->
-	<insert id="noticeInsert"
-		parameterType="co.admin.wh.notice.vo.NoticeVO">
-		<selectKey keyProperty="noticeCode" resultType="int"
-			order="BEFORE">
+	<insert id="noticeInsert" parameterType="co.admin.wh.notice.vo.NoticeVO">
+		<selectKey keyProperty="noticeCode" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(NOTICE_CODE),0)+1 FROM NOTICE
 		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeCode},#{noticeTitle},#{noticeContent},0,#{imgGroCode},sysdate,#{noticeModDate})
+		VALUES
+		(#{noticeCode},
+		 #{noticeTitle},
+		 #{noticeContent},
+		 0,
+		 #{imgGroCode},
+		 sysdate,
+		 #{noticeModDate})
 	</insert>
 
-	<insert id="imgInsert"
-		parameterType="co.admin.wh.common.vo.ImageVO">
-		<selectKey keyProperty="imgCode" resultType="int"
-			order="BEFORE">
+	<insert id="imgInsert" parameterType="co.admin.wh.common.vo.ImageVO">
+		<selectKey keyProperty="imgCode" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(IMG_CODE),0)+1 FROM IMAGE
 		</selectKey>
 		INSERT INTO IMAGE (IMG_CODE,IMG_NAME, IMG_PATH, IMG_GRO_CODE)
-
 		VALUES
-		(#{imgCode},#{imgName},#{imgPath}, #{imgGroCode})
+		(#{imgCode},
+		 #{imgName},
+		 #{imgPath}, 
+		 #{imgGroCode})
 	</insert>
 
 
 	<!-- 페이징 -->
-	<select id="getCountTotal"
-		parameterType="co.admin.wh.notice.vo.NoticeSearchVO" resultType="int">
+	<select id="getCountTotal" parameterType="co.admin.wh.notice.vo.NoticeSearchVO" resultType="int">
 		SELECT COUNT(*)
 		FROM NOTICE
-
 	</select>
 
 	<!-- 조회수 -->
 	<update id="noticeHit" parameterType="int">
 		update notice
-		set notice_Hit
-		= notice_Hit + 1
-		where notice_Code = #{noticeCode}
+		   set notice_Hit = notice_Hit + 1
+		 where notice_Code = #{noticeCode}
 	</update>
 
 
@@ -87,7 +88,7 @@
 			<if test="noticeTitle != null"> NOTICE_TITLE = #{noticeTitle},</if>
 			<if test="imgGroCode != null"> img_Gro_Code = #{imgGroCode},</if>
 			<if test="noticeContent != null"> NOTICE_CONTENT = #{noticeContent},</if>
-			NOTICE_MOD_DATE = sysdate
+			  NOTICE_MOD_DATE = sysdate
 		</set>
 		WHERE NOTICE_CODE = #{noticeCode}
 	</update>
@@ -96,4 +97,5 @@
 	<delete id="noticeDelete">
 		DELETE FROM NOTICE WHERE NOTICE_CODE = #{noticeCode}
 	</delete>
+	
 </mapper>

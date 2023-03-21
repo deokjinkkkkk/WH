@@ -3,7 +3,7 @@
 <mapper namespace="co.admin.wh.notice.mapper.FoodMapper">
 
 
-
+	<!-- 전체리스트 -->
 	<select id="getFoodList"
 		resultType="co.admin.wh.notice.vo.FoodVO">
 		select * from (select rownum rn, a.*  
@@ -20,7 +20,7 @@
                i.img_path
                from food f, member m, image i
                where f.id = m.id
-               and f.img_gro_code = i.img_gro_code
+               and f.img_gro_code = i.img_gro_code(+)
 		order by food_code desc
 		<![CDATA[
 	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	
@@ -28,6 +28,7 @@
 
 	</select>
 	
+	<!-- 이미지 넣기  -->
 	<insert id="imgInsert"
 		parameterType="co.admin.wh.common.vo.ImageVO">
 		<selectKey keyProperty="imgCode" resultType="int"
@@ -46,9 +47,7 @@
 		ON f.IMG_GRO_CODE = i.IMG_GRO_CODE
 		WHERE f.FOOD_CODE = #{foodCode}
 	</select>
-	<!-- 총 게시글 갯수 출력 -->
-	<!-- <select id="countFood" resultType="int"> SELECT COUNT(*) FROM FOOD 
-		</select> -->
+
 
 	<!-- 전체 건수 조회 -->
 	<select id="getCountTotal" parameterType="co.admin.wh.notice.vo.FoodSearchVO"

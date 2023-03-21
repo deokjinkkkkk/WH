@@ -52,17 +52,6 @@ public class TripServiceImpl implements TripService{
 		return tripMapper.myCouNameSelect(vo);
 	}
 
-	@Override
-	public List<TripVO> tripNameSearchList(TripSearchVO vo) {
-		// 여행지 이름 검색 리스트 출력
-		return tripMapper.tripNameSearchList(vo);
-	}
-
-	@Override
-	public List<Map<String, Object>> selfsearch(Map<String, Object> paramMap) throws Exception {
-		// 여행지 이름 자동완성
-		return tripMapper.selfsearch(paramMap);
-	}
 
 	@Override
 	public List<TripVO> latestList(TripSearchVO vo) {

@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/indexAdmin}">
 
 <body>
 
 	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-<div class="container">
-<h4>제목 : <span>[[${d.videoName}]]</span></h4><p>조회수 : [[${d.videoHit}]]</p>
-<hr>
-	<div  style="position: relative;">
-	
-	<iframe width="500" height="400" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div><hr>
-<pre>[[${d.videoContent}]]</pre>
-<hr>
-<span></span>
-<a href="/video" class="btn btn-primary btn-lg" style="float:left;">목록</a>
-<a th:href="|/videoUpdateForm?videoCode=${d.videoCode}|" class="btn btn-primary btn-lg" style="float:right;">수정하기</a>
-<form action="/videoDelete">
-<input type="hidden" th:value="${d.videoCode}" name="videoCode" id="videoCode">
-<button class="btn btn-primary btn-lg" style="float:right;">삭제하기</button></form>
-</div>
-</section>
+	<section layout:fragment="adminContent">
+		<div class="container">
+			<h4>
+				제목 : <span>[[${d.videoName}]]</span>
+			</h4>
+			<p>조회수 : [[${d.videoHit}]]</p>
+			<hr>
+			<div style="position: relative;">
+
+				<iframe width="500" height="400" th:src="${d.url}" title="YouTube video player" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+			</div>
+			<hr>
+			<pre>[[${d.videoContent}]]</pre>
+			<hr>
+			<a href="/video" class="btn btn-primary btn-lg" style="float: left;">목록</a> 
+			<a th:href="|/videoUpdateForm?videoCode=${d.videoCode}|"
+				class="btn btn-primary btn-lg" style="float: right;">수정하기</a>
+			<form action="/videoDelete">
+				<input type="hidden" th:value="${d.videoCode}" name="videoCode" id="videoCode">
+				<button class="btn btn-primary btn-lg" style="float: right;">삭제하기</button>
+			</form>
+		</div>
+	</section>
 </body>
 </html>

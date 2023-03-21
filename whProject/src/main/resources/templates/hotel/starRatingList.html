@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<style type="text/css">
+
+<body>
+	<div layout:fragment="content" class="content">
+	<style type="text/css">
 ::-webkit-input-placeholder {
 	color: #ccc;
 }
@@ -113,9 +116,8 @@ body {
 	position: relative;
 	top: 4px;
 }
+
 </style>
-<body>
-	<div layout:fragment="content" class="content">
 <!-- 		<div id="div_load_image" -->
 <!-- 			style="position: absolute; top: 50%; left: 50%; width: 0px; height: 0px; z-index: 9999; background: #f0f0f0; filter: alpha(opacity = 50); opacity: alpha*0.5; margin: auto; padding: 0; text-align: center"> -->
 <!-- 			<img src="/img/loadingbar.gif" style="width: 100px; height: 100px;"> -->
@@ -152,7 +154,7 @@ body {
 				<hr>
 				<div id="product_order_list">
 					<p>
-						<a href="/starRatingList">별점순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="/starRatingList" class="url-active">별점순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 						<a href="/goodRatingList">좋아요순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 						<a href="/priceList">낮은가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 						<a href="/priceListDesc">높은가격순</a>
@@ -169,6 +171,8 @@ body {
 				</form>
 
 				<script>
+				
+				
 				//자동완성
 				$('#autoComplete').autocomplete({
 					source : function(request, response) { //source: 입력시 보일 목록

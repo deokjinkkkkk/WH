@@ -47,7 +47,21 @@
 .form-group input[type="text"] {
   text-align: center;
 }
-</style>
+
+
+.container {
+  margin: auto;
+}
+
+#application{
+	margin: auto;
+}
+
+#map {
+	margin: auto;
+}
+
+
 </style>	 
   <div class="container">
                 <div class="row">
@@ -60,7 +74,7 @@
                                         <input type="text" name="exampleInputName" id="exampleInputName" 
                                         th:placeholder="${myCourse.myCouName}">
                                         <input type="hidden" class="myCourseCode" th:value="${myCourse.myCourseCode}">
-                                    </div>
+                                    </div><br>
                                     <br><br>
                                    
                                  <!-- 여기에 해당 여행지 집어넣기 -->
@@ -90,13 +104,11 @@
 											</tr>
 										</tbody>
                                     </table>
+                                    
+                                    
                                    <div  class="container">
-           							 <div class="row">
-                                     	<div  class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
 				                        <p style="font-size: 30px;">전체 여행지<p><hr>
 		                                <div><p id="total-distance" >총 거리 : </p></div>
-                           			</div>
-                           		 </div>
                            		</div>
                            		<br><hr>
                            		
@@ -322,7 +334,7 @@
 		
 		// myCouState가 선택되었는지 확인
 	    if (!myCouState) {
-	        swal("","여행 코스에 올리시겠습니까?","warning");
+	    	alert('여행 코스에 올리시겠습니까?');
 	    } else {
 		
 		$.ajax({
@@ -331,17 +343,11 @@
 			data : JSON.stringify(data),
 			contentType : 'application/json',
 			success : function(response) {
-				 swal({
-		                title: "",
-		                text: "저장되었습니다.",
-		                icon: "success",
-		                onClose: function() {
-		                    location.reload();
-		                }
-		            });
+				alert('저장했습니다.');
+				location.reload();
 			},
 			error : function(error) {
-				swal("","저장에 실패하였습니다.","error");
+				alert('저장에 실패했습니다.');
 			}
 		});	
 	}	

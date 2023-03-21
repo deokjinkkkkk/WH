@@ -5,37 +5,42 @@
 <body>
 
 	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-<section>
-			<div class="container">
-
+	<section layout:fragment="adminContent">
+		<section>
+		
+			<div class="container" >
+<h4>영상 게시판 등록 페이지</h4>
 				<form id="frm" action="/videoInsert" method="post">
-					<div class="row">
+					<div class="row" style="margin:0 auto; ">
+					<div id="a" style="border-top: 1px groove; border-bottom: 10px solid; border-left: 1px groove; 
+						border-right: 1px groove; padding: 10px; width: 800px;">
 						<div class="form-group col-md-7">
 							제목<input type="text" name="videoName" id="videoName">
 						</div>
 						<div class="form-group col-md-7">
-						내용<textarea rows="10" cols="100" name="videoContent" id="videoContent"></textarea>
-						</div>		
+							내용 <textarea rows="10" cols="100" name="videoContent" id="videoContent"></textarea>
+						</div>
 						<div class="form-group col-md-7">
 							지역<select name="videoRegion" id="videoRegion">
-								<option th:each="c : ${co}" th:value="${c.comCode}"
-									th:text="${c.comName}"></option>
+								<option th:each="c : ${co}" th:value="${c.comCode}" th:text="${c.comName}"></option>
 							</select>
 						</div>
-						
+
 						<div class="form-group col-md-7">
 							url<input type="text" name="url" id="url">
-						</div>	
+						</div>
 						<div class="form-group col-md-7">
 							Thumbnail<input type="text" name="thumbnail" id="thumbnail">
-						</div>	
-						
-						
-						<input type="submit" value="등록">
-						</div></form></div></section>
-				
+						</div>
 
-</section>
+
+						<input type="submit" value="등록" style="width:600px">
+					</div>
+				</form>
+			</div>
+		</section>
+
+
+	</section>
 </body>
 </html>

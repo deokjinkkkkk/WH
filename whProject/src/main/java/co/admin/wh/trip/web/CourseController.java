@@ -34,6 +34,13 @@ import co.admin.wh.trip.vo.CourseVO;
 import co.admin.wh.trip.vo.TripSearchVO;
 import co.admin.wh.trip.vo.TripVO;
 
+/*
+* 작성자 : 정선희 
+* 작성일자 : 2023-03-21
+* 작성내용 : 코스 Controller
+* 		   코스 리스트 출력 / 코스 상세페이지 출력 / DB 저장용 컨트롤러 
+*/
+
 @Controller
 public class CourseController {
 
@@ -50,23 +57,6 @@ public class CourseController {
 		this.courseService = apiService;
 	}
 	
-	// 여행 코스 지역 선택
-	@RequestMapping("/tripCourseRegion")
-	public String tripRegion(Model model, CourseSearchVO cvo, Paging paging) {
-		paging.setPageUnit(5);
-		paging.setPageSize(10);
-		
-		cvo.setFirst(paging.getFirst());
-		cvo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(courseService.getCountTotal(cvo));
-		
-		List<CourseVO> tripCourseSelect = courseService.tripCourseRegion(cvo);
-		model.addAttribute("tripCourseSelect",tripCourseSelect);
-		
-		return "trip/tripCourseRegionList";
-		
-	}
 
 	// 여행 코스 리스트 출력
 	@GetMapping("/course")
@@ -110,6 +100,7 @@ public class CourseController {
 			//System.out.println("파싱 끝");
 			return "trip/courseDb";
 		}
+		
 		// 상세페이지 보기
 		@RequestMapping(value = "/courseDetail/{couCode}", method=RequestMethod.GET)
 		public String courseDetail(@PathVariable("couCode") String couCode, CourseVO vo, Model model) {
@@ -126,22 +117,5 @@ public class CourseController {
 			return "trip/tripCourseDetail";
 		}
 	
-
-//		//==============
-//		// 	태그 추가
-//		//==============
-//	@PostMapping("/saveTags")
-//    public ResponseEntity<?> saveTags(@RequestBody List<String> tags) {
-//        try {
-//            // 전달받은 태그 리스트를 순회하며 DB에 저장
-//            for (String tag : tags) {
-//            	tservice.saveTag(tag);
-//            }
-//            return ResponseEntity.ok().build();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save tags");
-//        }
-//    }
 	
 }

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 </head>
 
-<body layout:fragment="content">
+<body>
 	<style>
 #nav {
 	background-color: white;
@@ -16,25 +16,32 @@
 	align-content: center;
 }
 </style>
-	<!-- 배너시작 -->
-	<section class="page-title-section bg-img cover-background"
-		th:style="|background: url('/img/banner/bg1.jpg')|">
-		<h1 class="text-white font-weight-600">즐겨찾기</h1>
-		<ul>
-			<li><a href="/main">Home</a></li>
-			<li><a href="/">북마크</a></li>
-		</ul>
-	</section>
-	<!-- 배너끝 -->
+
+
+	<div layout:fragment="content" class="content">
+	
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">즐겨찾기</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">즐겨찾기</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
 
 	<section class="blogs" style="position: left;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col-sm-6 sm-margin-30px-bottom">
-					<h3 class="footer-title-style1">북마크</h3>
+					<h3 class="footer-title-style1" style="color: orange;">즐겨찾기</h3>
 					<ul class="list-style-1 no-margin-bottom">
-						<li><a href="/bookmark" role="tab" data-flag="HT">숙소</a></li>
-						<li><a href="/bookmarkTr" role="tab" data-flag="TR">여행지</a></li>
+						<li><a href="/bookmark" role="tab" data-flag="HT">▶ 숙소</a></li>
+						<li><a href="/bookmarkTr" role="tab" data-flag="TR">▶ 여행지</a></li>
 					</ul>
 				</div>
 				<div
@@ -43,15 +50,20 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<!-- <th class="col-md-2">번호</th> -->
-									<th class="col-md-8" style="text-align: center;">여행지</th>
+									<th class="col-md-8" style="text-align: center; color: orange;" colspan="2">여행지</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="t : ${bookTrip}">
-									<!-- <td th:text="${t.bookCode}"></td> -->
-									<td style="text-align: center;"><a th:text="${t.tripName}"
-										th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"></a></td>
+									<td style="width: 20%; border:0.1px solid lightgray;">
+									 <div class="img-container">
+									<img alt="" th:src="${t.imgGroCode}" style="width: 120%"></div></td>
+									<td style="text-align: center; width: 120px; border:0.1px solid lightgray;">
+									    <a th:text="${t.tripName}"	th:href="@{/tripDetail/{tripCode}(tripCode=${t.tripCode})}"></a><hr>
+										<div>[[${t.tripAddr}]]</div><hr>
+										<div><th:block th:text="${#strings.substring(t.tripSumm, 0, 120)}" /></div>
+										
+									</td>
 								</tr>
 							</tbody>
 						</table>
