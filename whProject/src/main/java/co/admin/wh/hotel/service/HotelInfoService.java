@@ -36,6 +36,7 @@ public interface HotelInfoService {
     List<Map<String, Object>>autocomplete(Map<String, Object> paramMap) throws Exception; // 호텔이름 검색어 자동완성
     List<HotelVO> hotelSearchList(HotelSearchVO vo); // 날짜, 지역,인원으로 검색한 리스트 출력
     List<HotelVO> hotelNameSearchList(HotelSearchVO vo); // 호텔이름 검색 리스트 출력
+    int getSearchCountTotal(HotelSearchVO vo); // 호텔검색 리스트 페이징 건수
     
     //예약
     void insertReservInfo(ReservationVO vo); // 호텔예약정보 인서트
