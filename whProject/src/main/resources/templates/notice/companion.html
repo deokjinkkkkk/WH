@@ -46,6 +46,7 @@
 					<div class="card-body">
 						<!-- el표현식은 변수명을 적으면 자동으로 get함수를 호출해준다. -->
 						<h4 class="card-title">[[${c.compTitle}]]</h4>
+						작성자 : <span th:text="${c.id}"></span> <br> 
 						인원수 : <span th:text="${c.compCount}"></span> <br> 
 						그룹유형 : <span th:text="${c.comName}"></span><br> 
 						여행기간 : <span th:text="${c.compStartDate}"> </span> ~ 

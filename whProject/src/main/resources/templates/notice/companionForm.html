@@ -31,7 +31,7 @@
 		<!-- start booking section -->
 		<section>
 			<div class="container">
-
+				<h5>동행자 신청 페이지</h5>
 				<form id="frm" action="companionJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
@@ -83,7 +83,7 @@
 
 
 
-						<div class="input-group input-daterange">
+						<div class="input-group input-daterange" style="margin:0 auto; width:1110px;">
 							<input type="text" class="form-control input1" placeholder="Start Date" 
 							name="compStartDate" id="compStartDate" required="required"> 
 							<input type="text" class="form-control input2" placeholder="End Date"
@@ -91,35 +91,33 @@
 						</div>
 
 						<script>
-							$(function() {
-								// compStartDate의 datepicker 설정
-								$("#compStartDate").datepicker(
-										{
-											dateFormat : "yy-mm-dd",
-											minDate : 0, // 오늘 이전 날짜 선택 불가능
-											language : "ko",
-											todayHighlight : true,
-											autoclose : true,
-											onSelect : function(selected) {
-												// compStartDate에서 선택한 날짜 이후부터 compEndDate 선택 가능
-												$("#compEndDate").datepicker(
-														"option", "minDate",
-														selected);
-											}
-										});
-
-
-								// compEndDate의 datepicker 설정
-								$("#compEndDate").datepicker({
+						$(function() {
+							// compStartDate의 datepicker 설정
+							$("#compStartDate").datepicker({
 									dateFormat : "yy-mm-dd",
+								    minDate : 0, // 오늘 이전 날짜 선택 불가능
 									language : "ko",
 									todayHighlight : true,
 									autoclose : true,
-									minDate : 0
-								// 오늘 이전 날짜 선택 불가능
+									onSelect : function(selected) {
+									// compStartDate에서 선택한 날짜 이후부터 compEndDate 선택 가능
+									$("#compEndDate").datepicker(
+									                  "option", "minDate",
+													  selected);
+										}
+									});
 
-								
+							// compEndDate의 datepicker 설정
+							$("#compEndDate").datepicker({
+												dateFormat : "yy-mm-dd",
+												language : "ko",
+												todayHighlight : true,
+												autoclose : true,
+												minDate : 0 // 오늘 이전 날짜 선택 불가능
+							    });
+						     });
 						</script>
+						
 						<div class="form-group col-md-12">
 							<table class="table border">
 								<tr>
@@ -129,63 +127,64 @@
 									</th>
 									<td>
 										<form>
-											<textarea rows="10" class="form-control" id="compContent" name="compContent" 
-											onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
+											<textarea rows="10" class="form-control" id="compContent"
+												name="compContent" onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
 										</form>
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							<input type="file" name="imgFile" id="imgFile">
+							<input type="file" name="imgFile" id="imgFile" required="required">
 						</div>
 						<input type="hidden" name="id" id="id" th:value="${session.name}">
 						<input type="hidden" name="imgGroCode" id="imgGroCode"> 
-						<input ㄴtype="hidden" name="imgPath" id="imgPath">
+						<input type="hidden" name="imgPath" id="imgPath">
 					</div>
 					<input type="submit" value="모집">
 				</form>
 			</div>
 
-		</section>
-
-	</div>
+		
 
 
 	<!-- 글자수 체크하는 function -->
-	<script type="text/javascript">
-		//Byte 수 체크 제한
-		function fn_checkByte(obj, maxByte) {
-			var str = obj.value;
-			var str_len = str.length;
+		<script type="text/javascript">
+			//Byte 수 체크 제한
+			function fn_checkByte(obj, maxByte) {
+				var str = obj.value;
+				var str_len = str.length;
 
-			var rbyte = 0;
-			var rlen = 0;
-			var one_char = "";
-			var str2 = "";
+				var rbyte = 0;
+				var rlen = 0;
+				var one_char = "";
+				var str2 = "";
 
-			for (var i = 0; i < str_len; i++) {
-				one_char = str.charAt(i);
-				if (escape(one_char).length > 4) {
-					rbyte += 2; //한글2Byte
+				for (var i = 0; i < str_len; i++) {
+					one_char = str.charAt(i);
+					if (escape(one_char).length > 4) {
+						rbyte += 2; //한글2Byte
+					} else {
+						rbyte++; //영문 등 나머지 1Byte
+					}
+					if (rbyte <= maxByte) {
+						rlen = i + 1; //return할 문자열 갯수
+					}
+				}
+				if (rbyte > maxByte) {
+					// alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+					swal("", "메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.", "info")
+					str2 = str.substr(0, rlen); //문자열 자르기
+					obj.value = str2;
+					fnChkByte(obj, maxByte);
+
 				} else {
-					rbyte++; //영문 등 나머지 1Byte
-				}
-				if (rbyte <= maxByte) {
-					rlen = i + 1; //return할 문자열 갯수
+					document.getElementById('byteInfo').innerText = rbyte;
 				}
 			}
-			if (rbyte > maxByte) {
-				// alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
-				swal("", "메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.", "info")
-				str2 = str.substr(0, rlen); //문자열 자르기
-				obj.value = str2;
-				fnChkByte(obj, maxByte);
+		</script>
+		</section>
 
-			} else {
-				document.getElementById('byteInfo').innerText = rbyte;
-			}
-		}
-	</script>
+	</div>
 </body>
 </html>

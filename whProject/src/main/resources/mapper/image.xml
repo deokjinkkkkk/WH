@@ -3,20 +3,24 @@
 <mapper namespace="co.admin.wh.common.mapper.ImageMapper">
 
 	<select id="imageSelect" resultType="String">
-		select 'WT'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		SELECT 'WT'||TO_CHAR(NVL(MAX(SUBSTR(IMG_GRO_CODE,3)+1),0)) 
+		FROM IMAGE
 	</select>
 
 
 	<select id="foodImage" resultType="String">
-		select 'FO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		SELECT 'FO'||TO_CHAR(NVL(MAX(SUBSTR(IMG_GRO_CODE,3)+1),0)) 
+		FROM IMAGE
 	</select>
 
 	<select id="imgNotice" resultType="String">
-		select 'NO'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		SELECT 'NO'||TO_CHAR(NVL(MAX(SUBSTR(IMG_GRO_CODE,3)+1),0)) 
+		FROM IMAGE
 	</select>
 	
 	<select id="diaryImage" resultType="String">
-		select 'DI'||to_char(NVL(MAX(substr(img_gro_code,3)+1),0)) from image
+		SELECT 'DI'||TO_CHAR(NVL(MAX(SUBSTR(IMG_GRO_CODE,3)+1),0)) 
+		FROM IMAGE
 	</select>
 
 	<delete id="imageDelete">

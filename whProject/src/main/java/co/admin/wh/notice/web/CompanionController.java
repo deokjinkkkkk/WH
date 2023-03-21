@@ -92,6 +92,7 @@ public class CompanionController {
 		paging.setTotalRecord(companionMapper.getCountTotal(cvo));
 		
 		model.addAttribute("companionList", companionService.getCompanionList(cvo));
+		
 		return "notice/companion";
 	}
 
@@ -134,7 +135,7 @@ public class CompanionController {
 		vo.setId(principal.getName());
 		model.addAttribute("me", memberMapper.memberSelect(vo));
 		model.addAttribute("c", companionService.detailSelect(compVO));
-
+		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
 		
 		compVO.setId(principal.getName());
