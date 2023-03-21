@@ -21,7 +21,7 @@
 			<h1 class="text-white font-weight-600">맛집리스트</h1>
 			<ul>
 				<li><a href="/main">Home</a></li>
-				<li><span class="active">맛집리스트</span></li>
+				<li><span class="active">맛집리스트 수정</span></li>
 			</ul>
 		</section>
 		<!-- 배너끝 -->
@@ -31,7 +31,7 @@
 		<section>
 			<div class="container">
 
-				<form id="frm" action="./foodUpdate" method="post">
+				<form id="frm" action="./foodUpdate" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="foodCode" th:value="${food.foodCode}">
 					<div class="row">
 						<div class="form-group col-md-12">
@@ -66,12 +66,14 @@
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							첨부파일<input type="file" name="imgGroCode" id="imgGroCode"
+							첨부파일<input type="file" name="imgFile" id="imgFile"
 							th:value ="${food.imgGroCode}">
 						</div>
 
-						<input type="hidden" name="id" id="id" value="1"> <input
-							type="hidden" name="imgGroCode" id="imgGroCode" value="1">
+						<input type="hidden" name="id" id="id" th:value="${session.name}">
+						  <input type="hidden" name="imgGroCode" id="imgGroCode" th:value="${food.imgGroCode}">
+							<input type="hidden" name="imgPath" id="imgPath" th:value="${food.imgPath}"> 
+							<input type="hidden" name="foodCode" id="foodCode" th:value="${food.foodCode}">
 					</div>
 
 					<input type="submit" value="수정완료">

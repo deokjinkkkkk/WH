@@ -20,7 +20,7 @@
                i.img_path
                from food f, member m, image i
                where f.id = m.id
-               and f.img_gro_code = i.img_gro_code
+               and f.img_gro_code = i.img_gro_code(+)
 		order by food_code desc
 		<![CDATA[
 	 ) a  where rownum <= #{last} ) b  where rn  >= #{first} 	

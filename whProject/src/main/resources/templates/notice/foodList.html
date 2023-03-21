@@ -65,8 +65,7 @@ body>.container {
 				style="height: 200px;" th:each="f, nStat: ${foodList}"
 				onmouseover='this.style.background="#fcecae";'
 				onmouseleave='this.style.background="#FFFFFF";'>
-				<span th:text="${f.foodCode}"></span> <br> <a
-					th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"
+				 <br> <a th:href="@{/foodDetail/{foodCode}(foodCode=${f.foodCode})}"
 					class="d-flex flex-row align-items-center" style="width: 100%">
 					<div class="card-image w-25" style="height: 100%">
 						<img class="card-img-top h-100 w-auto"
