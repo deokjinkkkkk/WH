@@ -130,6 +130,12 @@ public class CompanionServiceImpl implements CompanionService {
 		return map.comSelDelete(vo);
 	}
 
+	@Override
+	public CompanionVO localSelect(CompanionVO cvo) {
+		// TODO Auto-generated method stub
+		return map.localSelect(cvo);
+	}
+
 
 
 }

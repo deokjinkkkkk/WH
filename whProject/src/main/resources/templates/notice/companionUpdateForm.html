@@ -29,13 +29,13 @@
 				<form id="frm" action="companionUpdate" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
-							[필수]연락처<input type="text" name="tel" id="tel" th:value="${c.tel}">
+							[필수]연락처<input type="text" name="tel" id="tel" th:value="${c.tel}" required="required">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]이름<input type="text" name="name" id="name" th:value="${c.name}">
+							[필수]이름<input type="text" name="name" id="name" th:value="${c.name}" readonly>
 						</div>
 						<div class="form-group col-md-7">
-							[필수]성별<input type="text" name="gender" id="gender" th:value="${c.gender}">
+							[필수]성별<input type="text" name="gender" id="gender" th:value="${c.gender}" readonly>
 						</div>
 
 
@@ -43,7 +43,7 @@
 							함께 여행하고 싶은 그룹 유형<br>
 							<div th:each="cr : ${gr}">
 								<input type="radio" th:value="${cr.comCode}" th:text="${cr.comName}" name="comCode" 
-								id="comCode" th:checked="${cr.comCode == c.comCode}" onclick="setComName(this)">
+								id="comCode" th:checked="${cr.comCode == c.comCode}" onclick="setComName(this)" required="required">
 							</div>
 							<br> <input type="hidden" name="comName" id="comName">
 						</div>
@@ -57,11 +57,11 @@
 
 
 						<div class="form-group col-md-7">
-							제목<input type="text" name="compTitle" id="compTitle" th:value="${c.compTitle}">
+							제목<input type="text" name="compTitle" id="compTitle" th:value="${c.compTitle}" required="required">
 
 						</div>
 						<div class="form-group col-md-7">
-							<select name="compCount" id="compCount" th:value="${c.compCount}">
+							<select name="compCount" id="compCount" th:value="${c.compCount}" required="required">
 								<option value="2" th:selected="${c.compCount}=='2'">2</option>
 								<option value="3" th:selected="${c.compCount}=='3'">3</option>
 								<option value="4" th:selected="${c.compCount}=='4'">4</option>
@@ -70,14 +70,14 @@
 							</select>
 						</div>
 						<div class="form-group col-md-7">
-							지역 <select name="compLocal">
+							지역 <select name="compLocal" required="required">
 								<option th:each="cc : ${co}" th:value="${cc.comCode}" th:text="${cc.comName}"
 									th:selected="${cc.comCode} == ${c.compLocal}"></option>
 							</select>
 						</div>
 						<div class="input-group input-daterange">
-							<input type="text" class="form-control input1" name="compStartDate" id="compStartDate" th:value="${c.compStartDate}"> 
-						    <input type="text" class="form-control input2" name="compEndDate" id="compEndDate" th:value="${c.compEndDate}">
+							<input type="text" class="form-control input1" name="compStartDate" id="compStartDate" th:value="${c.compStartDate}" required="required"> 
+						    <input type="text" class="form-control input2" name="compEndDate" id="compEndDate" th:value="${c.compEndDate}" required="required">
 						</div>
 
 						<script>
@@ -119,14 +119,14 @@
 									<td>
 										<form>
 											<textarea rows="10" class="form-control" th:text="${c.compContent}" id="compContent"
-												name="compContent" onkeyup="fn_checkByte(this,'1000')"></textarea>
+												name="compContent" onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
 										</form>
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							<input type="file" name="imgFile" id="imgFile">
+							<input type="file" name="imgFile" id="imgFile" required="required">
 
 						</div>
 						<div class="form-group col-md-12">

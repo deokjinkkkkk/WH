@@ -92,11 +92,15 @@ public class CompanionController {
 		paging.setTotalRecord(companionMapper.getCountTotal(cvo));
 		
 		model.addAttribute("companionList", companionService.getCompanionList(cvo));
+		
 		return "notice/companion";
 	}
 
 	@RequestMapping("/companionForm") //동행자 등록
-	public String companionForm(Model model, CommonVO cvo, MemberVO vo, Principal principal) {
+	public String companionForm(Model model, 
+								CommonVO cvo, 
+								MemberVO vo, 
+								Principal principal) {
 		 vo.setId(principal.getName());
 		 //id를 가지고 나머지 member값 가져오기
 		 model.addAttribute("me", memberMapper.memberSelect(vo));
@@ -106,7 +110,11 @@ public class CompanionController {
 	}
 
 	@RequestMapping("/companionJoin.do") //동행자 등록
-	public String companionJoin(CompanionVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile, CommonVO cvo) {
+	public String companionJoin(CompanionVO vo, 
+							    Model model, 
+							    ImageVO ivo, 
+							    MultipartFile[] imgFile, 
+							    CommonVO cvo) {
 		String saveFolder = saveimg; // 파일저장위치
 		// 그룹번호 조회
 		String image = imageService.imageSelect(ivo);
@@ -130,11 +138,17 @@ public class CompanionController {
 
 	
 	@RequestMapping("/companionDetail/{compCode}")//동행자 상세페이지
-	public String companionDetail(Model model, CompanionVO compVO, CommonVO cvo, MemberVO vo, Principal principal, ReportVO rvo) {
+	public String companionDetail(Model model, 
+								  CompanionVO compVO, 
+								  CommonVO cvo, 
+								  MemberVO vo, 
+								  Principal principal, 
+								  ReportVO rvo) {
+		
 		vo.setId(principal.getName());
 		model.addAttribute("me", memberMapper.memberSelect(vo));
 		model.addAttribute("c", companionService.detailSelect(compVO));
-
+		model.addAttribute("lo", companionService.localSelect(compVO));
 		model.addAttribute("r", commomService.commonReport());
 		
 		compVO.setId(principal.getName());
@@ -143,7 +157,9 @@ public class CompanionController {
 	}
 	
 	@RequestMapping("/companionUpdateForm") //동행자 업데이트에 보내는 정보
-	public String companionUpdateForm(CompanionVO compVO, Model model, CommonVO cvo) {
+	public String companionUpdateForm(CompanionVO compVO,
+									  Model model, 
+									  CommonVO cvo) {
 		 model.addAttribute("c", companionService.detailSelect(compVO));
 		 model.addAttribute("co", commomService.commonLocal());
 		 model.addAttribute("gr", commomService.commonGroup());
@@ -151,7 +167,12 @@ public class CompanionController {
 	}
 
 	@PostMapping("/companionUpdate") //동행자 업데이트
-	public String companionUpdate(CompanionVO compVO, Model model, CommonVO cvo, CompanionSearchVO csvo, ImageVO ivo, MultipartFile[] imgFile) {
+	public String companionUpdate(CompanionVO compVO, 
+							      Model model, 
+							      CommonVO cvo, 
+							      CompanionSearchVO csvo, 
+							      ImageVO ivo, 
+							      MultipartFile[] imgFile) {
 		String saveFolder = saveimg; // 파일저장위치
 		// 그룹번호 조회
 		String image = imageService.imageSelect(ivo);

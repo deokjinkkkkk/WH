@@ -202,12 +202,9 @@ keyframes leftRight { 0% {
 							</tr>
 							<tbody th:each="c, status : ${se}">
 								<tr th:if="${c.writer == session.name}">
-									<!-- 중복된 글 제목인 경우, 첫 번째 글에만 제목을 표시하고 나머지는 빈칸으로 대체 -->
-									<th:block th:if="${status.first or c.compTitle != se[status.index - 1].compTitle}">
+							
 										<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
-									</th:block>
-									<th:block th:unless="${status.first or c.compTitle != se[status.index - 1].compTitle}">
-									</th:block>
+									
 									<td>[[${c.name}]]</td>
 									<td>[[${c.tel}]]</td>
 									<td>[[${c.gender}]]</td>

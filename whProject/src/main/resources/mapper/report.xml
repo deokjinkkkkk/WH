@@ -8,39 +8,35 @@
 			SELECT NVL(MAX(rep_code),0)+1 FROM REPORT
 		</selectKey>
 
-		INSERT INTO REPORT (rep_code,id, target_id,rep_date, REP_REASON,
-		REP_CAT_CODE, comp_code)
-		VALUES (#{repCode},#{id}, #{targetId},
-		sysdate, #{repReason}, #{repCatCode}, #{compCode})
+		INSERT INTO REPORT (rep_code,
+							id, 
+							target_id,
+							rep_date, 
+							REP_REASON,
+							REP_CAT_CODE, 
+							comp_code)
+			   VALUES (#{repCode},
+			   		   #{id}, 
+			   		   #{targetId},
+					   sysdate, 
+					   #{repReason}, 
+					   #{repCatCode}, 
+					   #{compCode})
 	</insert>
 
 	<select id="reportCompanion"
 		resultType="co.admin.wh.common.vo.ReportVO">
-		select * from report r JOIN common c on
-		c.com_code=r.rep_reason where rep_cat_code='RWT'
-	</select>
-
-	<select id="reportFree"
-		resultType="co.admin.wh.common.vo.ReportVO">
-		select * from report r JOIN common c on
-		c.com_code=r.rep_reason where rep_cat_code='RFR'
-	</select>
-
-	<select id="reportReview"
-		resultType="co.admin.wh.common.vo.ReportVO">
-		select * from report r JOIN common c on
-		c.com_code=r.rep_reason where rep_cat_code='RRE'
-	</select>
-
-	<select id="reportComment"
-		resultType="co.admin.wh.common.vo.ReportVO">
-		select * from report r JOIN common c on
-		c.com_code=r.rep_reason where rep_cat_code='RCO'
+		select * 
+		from report r JOIN common c 
+		on c.com_code=r.rep_reason
+		where rep_cat_code='RWT'
 	</select>
 
 	<select id="reportCode"
 		resultType="co.admin.wh.common.vo.ReportVO">
-		select * from report where rep_code=#{repCode}
+		select * 
+		from report 
+		where rep_code=#{repCode}
 	</select>
 
 	<update id="durationUpdate"
@@ -52,7 +48,9 @@
 	</update>
 
 	<delete id="reportComDel">
-		Delete from report where rep_code=#{repCode}
+		Delete 
+		from report 
+		where rep_code=#{repCode}
 	</delete>
 
 

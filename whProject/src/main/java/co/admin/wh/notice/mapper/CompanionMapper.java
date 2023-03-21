@@ -24,7 +24,7 @@ public interface CompanionMapper {
 	
 	CompanionVO detailSelect(CompanionVO cvo); //동행자 상세페이지
 	
-
+	CompanionVO localSelect(CompanionVO cvo);
 	
 	CompanionVO imgSelect(CompanionVO cvo); //이비지 가져오기
 	

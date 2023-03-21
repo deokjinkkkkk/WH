@@ -3,18 +3,26 @@
 <mapper namespace="co.admin.wh.common.mapper.CommonMapper">
 
 	<select id="commonLocal" resultType="co.admin.wh.common.vo.CommonVO">
-		SELECT * FROM COMMON WHERE COM_GRO_CODE='RE'
+		SELECT * 
+		FROM COMMON 
+		WHERE COM_GRO_CODE='RE'
 	</select>
 
 	<select id="commonGroup" resultType="co.admin.wh.common.vo.CommonVO">
-		SELECT * FROM COMMON where com_gro_code='WG'
+		SELECT * 
+		FROM COMMON 
+		where com_gro_code='WG'
 	</select>
 	
 	<select id="commonReport" resultType="co.admin.wh.common.vo.CommonVO">
-		SELECT * FROM COMMON where com_gro_code='RR'
+		SELECT * 
+		FROM COMMON 
+		where com_gro_code='RR'
 	</select>
 	
 	<select id="commonState" resultType="co.admin.wh.common.vo.CommonVO">
-		SELECT * FROM COMMON where com_gro_code='SD'
+		SELECT * 
+		FROM COMMON 
+		where com_gro_code='SD'
 	</select>
 </mapper>
