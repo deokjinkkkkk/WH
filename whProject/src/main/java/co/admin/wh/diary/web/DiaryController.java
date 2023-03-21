@@ -45,20 +45,22 @@ public class DiaryController {
 	@Autowired
 	ImageService imageService;
 	
-	@RequestMapping("/diary") //이동
+	//마이페이지 -> 여행후기 리스트
+	@RequestMapping("/diary") 
 	public String diary(Model model) {
 		model.addAttribute("diarys", diaryMapper.getDiaryList());
 		return "diary/diaryList";
 	}
 	
 	
-	
-	@RequestMapping("/diaryAll") //전체이동
+	//전체 리스트 이동
+	@RequestMapping("/diaryAll") 
 	public String diaryAllList(Model model) {
 		 model.addAttribute("diaryss", diaryMapper.getDiaryList());
 		return "diary/diaryAllList";
 	}
 	
+	//전체 리스트에서 -> 해당 id 게시물로 이동
 	@RequestMapping("/diarys/{id}")
 	public String diaryid(Model model,@PathVariable("id") String id) {
 	    List<DiaryVO> diaryList = diaryMapper.detailDiary(id);
@@ -67,20 +69,18 @@ public class DiaryController {
 	}
 
 	
-	
+	//마이페이지 -> 여행후기 리스트 출력
 	@GetMapping("/getDiaryList/{id}")
 	@ResponseBody
 	public List<DiaryVO> getDiaryList(@PathVariable("id") String id, Model model) {
-	    System.out.println("select 오나?=============");
 	    List<DiaryVO> diaryList = diaryMapper.getDiaryList(id);
 	    return diaryList;
 	}
 
-
+	//마이페이지 -> 여행후기 등록
 	@PostMapping("/diaryInsert")
 	@ResponseBody
 	public Map<String, Object> diaryInsert(DiaryVO vo, String id,ImageVO ivo, MultipartFile[] imgFile ) {
-		  System.out.println("insert 오나?=============");
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		String saveFolder = saveimg;//파일저장위치
@@ -106,7 +106,7 @@ public class DiaryController {
 	}
 	
 	
-
+	//마이페이지 -> 여행후기 삭제
 	@PostMapping("/diaryDelete/{diaryCode}/{id}")
 	@ResponseBody
 	public Map<String, Object> diaryDelete(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id,ImageVO ivo ) {
@@ -119,6 +119,7 @@ public class DiaryController {
 		
 	}
 	
+	//마이페이지 -> 여행후기 수정
 	@PostMapping("/diaryUpdate/{diaryCode}/{id}")
 	@ResponseBody
 	public Map<String, Object> diaryUpdate(DiaryVO vo, @PathVariable("diaryCode") int diaryCode, @PathVariable("id") String id ) {

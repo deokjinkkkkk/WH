@@ -25,7 +25,7 @@ public class GreatController {
   @Autowired
   private GreatService greatService;
   
-  
+  //좋아요 여부check 
   @RequestMapping("/greatCheck/{greatNcode}/{id}")
   @ResponseBody
   public boolean greatCheck(@PathVariable("greatNcode") int greatNcode, 
@@ -47,6 +47,7 @@ public class GreatController {
 	   
 	}
 
+  //좋아요 추가
   @PostMapping("/greatUP/{greatNcode}")
   public Map<String, Object> greatUP(@PathVariable("greatNcode") int greatNcode, 
 		  							GreatVO vo) {
@@ -69,7 +70,7 @@ public class GreatController {
       
   }
   
-  
+  //좋아요 취소
   @PostMapping("/greatDown/{greatFlag}/{greatNcode}/{id}")
   public Map<String, Object> greatDown(@PathVariable("greatFlag")String greatFlag,
 		  								@PathVariable("greatNcode") int greatNcode,
@@ -80,7 +81,6 @@ public class GreatController {
       vo.setId(id);
       vo.setGreatNcode(greatNcode);
       vo.setGreatFlag(greatFlag);
-      
       
       int result = greatService.greatDown(vo);
 
