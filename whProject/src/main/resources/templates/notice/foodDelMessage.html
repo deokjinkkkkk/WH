@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{index}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+body {
+	margin-bottom: 60px;
+}
+
+body>.container {
+	padding: 60px 15px 60px;
+}
+</style>
+</head>
+
+
+
+<body>
+
+	<!-- 내용 시작 -->
+	<div layout:fragment="content" class="content">
+	
+		<!-- 배너시작 -->
+		<section class="page-title-section bg-img cover-background"
+			th:style="|background:url(img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">맛집리뷰게시판</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">맛집리뷰</span></li>
+				</ul>
+			</div>
+		</section>
+		<!-- 배너끝 -->
+삭제가 완료되었습니다.
+	<a href="/food" class="btn btn-xs btn-success">목록</a>
+</body>
+</html>

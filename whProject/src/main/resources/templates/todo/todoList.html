@@ -133,15 +133,64 @@
     /*--------------------------------
     //"담기" 버튼 클릭 시 데이터 들어가는 폼...
     -----------------------------------*/  
+    
+ // 현재 보여지는 리스트 개수
+    var currentListCount = 5;
+    // 한 번에 보여줄 리스트 개수
+    var listCount = 5;
+
+    // 최대 게시물 번호를 호출하는 ajax 함수
+    function getMaxNo() {
+      $.ajax({
+        url: '/todoGetMaxNo',
+        type: 'get',
+        success: function(data) {
+          // 최대 게시물 번호를 변수에 저장
+          var maxNo = data.maxNo;
+        },
+        error: function() {
+          alert('게시물 번호 호출에 실패하였습니다.');
+        }
+      });
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	function getList(todoFlag) {
 		let todoArea;
-	
+		  currentListCount = 0;
 	  	if (todoFlag == 1){ //todoFlag가 1일때는
 	  		todoArea = $(".todolist-area"); // "전체"리스트에 보이도록
 	  	}else {
 	  		todoArea = $(".todolost-complete") //아니면 완료에 보이도록 
 	  	}
 	  	
+	  	$.ajax({
+	  	    url: `/todoGetList?todoFlag=${todoFlag}`,
+	  	    type: 'get',
+	  	    data: {
+	  	      // 시작 리스트 번호 (최대 게시물 번호 - 현재 보여지는 리스트 개수)
+	  	      startNo: maxNo - currentListCount,
+	  	      // 한 번에 보여줄 리스트 개수
+	  	      count: listCount
+	  	    },
+	  	    success: function(data) {
+	  	      // 성공적으로 데이터를 받아왔을 때 리스트를 추가하는 함수 호출
+	  	      appendList(data.list);
+	  	    },
+	  	    error: function() {
+	  	      alert('리스트 호출에 실패하였습니다.');
+	  	    }
+	  	  });
+	  	}
+
 		
 
 	  	$.ajax({
@@ -174,7 +223,57 @@
 	      alert("조회실패");
 	    },
 	  });
-	}
+	
+	  	
+	  	
+	  	
+	  	
+	 // 더 보기 버튼을 눌렀을 때 호출되는 ajax 함수
+	  	function moreList() {
+	  	  // 현재 보여지는 리스트 개수를 업데이트
+	  	  currentListCount += listCount;
+	  	  $.ajax({
+	  	    url: `/todoGetList?todoFlag=${todoFlag}`,
+	  	    type: 'get',
+	  	    data: {
+	  	      // 시작 리스트 번호 (최대 게시물 번호 - 현재 보여지는 리스트 개수)
+	  	      startNo: maxNo - currentListCount,
+	  	      // 한 번에 보여줄 리스트 개수
+	  	      count: listCount
+	  	    },
+	  	    success: function(data) {
+	  	      // 성공적으로 데이터를 받아왔을 때 리스트를 추가하는 함수 호출
+	  	      appendList(data.list);
+	  	    },
+	  	    error: function() {
+	  	      alert('리스트 호출에 실패하였습니다.');
+	  	    }
+	  	  });
+	  	}
+
+	  	// 리스트를 추가하는 함수
+	  	function appendList(list) {
+	  	  // 리스트를 추가하는 코드 작성
+	  	}
+	  	
+	  	
+    
+	function moreList() {
+		  const currentTodoFlag = parseInt($("#todoFlag").val());
+		  const nextTodoFlag = currentTodoFlag + 5;
+		  $.ajax({
+		    url: `/todoGetList?todoFlag=${nextTodoFlag}`,
+		    type: "GET",
+		    success: function (response) {
+		      // 서버에서 받은 추가 리스트를 처리하는 코드 작성
+		      $("#todoFlag").val(nextTodoFlag); // todoFlag 업데이트
+		    },
+		    error: function (xhr, status, error) {
+		      // 에러 처리 코드 작성
+		    },
+		  });
+		}
+
 
 
     /*--------------------------------
