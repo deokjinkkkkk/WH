@@ -30,7 +30,5 @@ public interface TripMapper {
 	List<TripVO> tripGoodRatingList(TripSearchVO vo); // 좋아요순 정렬
 	List<TripVO> mainTripList(TripVO vo); // 메인페이지 사진
 	
-	// 검색
-	List<TripVO> tripNameSearchList(TripSearchVO vo); // 여행지 이름 검색 리스트 출력
-	
+		
 }

@@ -50,23 +50,6 @@ public class CourseController {
 		this.courseService = apiService;
 	}
 	
-	// 여행 코스 지역 선택
-	@RequestMapping("/tripCourseRegion")
-	public String tripRegion(Model model, CourseSearchVO cvo, Paging paging) {
-		paging.setPageUnit(5);
-		paging.setPageSize(10);
-		
-		cvo.setFirst(paging.getFirst());
-		cvo.setLast(paging.getLast());
-		
-		paging.setTotalRecord(courseService.getCountTotal(cvo));
-		
-		List<CourseVO> tripCourseSelect = courseService.tripCourseRegion(cvo);
-		model.addAttribute("tripCourseSelect",tripCourseSelect);
-		
-		return "trip/tripCourseRegionList";
-		
-	}
 
 	// 여행 코스 리스트 출력
 	@GetMapping("/course")
