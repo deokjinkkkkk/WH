@@ -6,12 +6,16 @@
 	<select id="mainList" parameterType="HotelVO"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
 
-		SELECT h.IMG1 , h.hotel_name, h.hotel_region, h.hotel_id
-		FROM HOTEL h
-		LEFT JOIN GREAT g ON h.HOTEL_ID = g.GREAT_N_CODE
-		GROUP BY h.IMG1, h.hotel_name, h.hotel_region, h.hotel_id
-		ORDER BY h.IMG1 DESC
-		FETCH FIRST 3 ROWS ONLY
+ 		select * from (
+        	SELECT h.IMG1 , 
+		       h.hotel_name, 
+		       h.hotel_region, 
+		       h.hotel_id,
+               (select count(*) from great g where h.HOTEL_ID = g.GREAT_N_CODE) cnt 
+               
+		  FROM HOTEL h)
+         order by cnt desc 
+         FETCH FIRST 3 ROWS ONLY
 	</select>
 	
 	<!-- 크롤링 후 DB저장 -->
@@ -23,32 +27,35 @@
 		MERGE INTO HOTEL
 		USING (
 		SELECT #{hotelId} AS hotel_id,
-		#{hotelName} AS hotel_name,
-		#{star} AS star,
-		#{hotelAddr} AS hotel_addr,
-		#{hotelRegion} AS hotel_region,
-		#{roomGrade} AS room_grade,
-		#{roomPrice} AS room_price,
-		#{roomLimit} AS room_limit,
-		#{img1} AS img1,
-		#{img2} AS img2,
-		#{img3} AS img3,
-		#{img4} AS img4,
-		#{img5} AS img5
+				#{hotelName} AS hotel_name,
+				#{star} AS star,
+				#{hotelAddr} AS hotel_addr,
+				#{hotelRegion} AS hotel_region,
+				#{roomGrade} AS room_grade,
+				#{roomPrice} AS room_price,
+				#{roomLimit} AS room_limit,
+				#{img1} AS img1,
+				#{img2} AS img2,
+				#{img3} AS img3,
+				#{img4} AS img4,
+				#{img5} AS img5
 		FROM DUAL
 		) new
 		ON (HOTEL.hotel_name = new.hotel_name)
+		
 		WHEN MATCHED THEN
-		UPDATE SET HOTEL.room_price = new.room_price,
-		hotel.room_grade = new.room_grade
+		UPDATE SET 
+		       HOTEL.room_price = new.room_price,
+		       hotel.room_grade = new.room_grade
+		
 		WHEN NOT MATCHED THEN
 		INSERT (hotel_id, hotel_name, star, hotel_addr, hotel_region, room_grade,
-		room_price, room_limit, img1, img2, img3, img4, img5)
+		        room_price, room_limit, img1, img2, img3, img4, img5)
 		VALUES (new.hotel_id, new.hotel_name, new.star,
-		new.hotel_addr, 
-		new.hotel_region, new.room_grade,
-		new.room_price, new.room_limit, new.img1,
-		new.img2, new.img3, new.img4, new.img5)
+			new.hotel_addr, 
+			new.hotel_region, new.room_grade,
+			new.room_price, new.room_limit, new.img1,
+			new.img2, new.img3, new.img4, new.img5)
 	</insert>
 
 	<!-- 전체 호텔 리스트 출력 -->
@@ -56,6 +63,9 @@
 		SELECT * FROM( SELECT rownum rn, a.* FROM(
 		select *
 		from hotel
+			<if test="hotelName != null and hotelName != ''">
+			where hotel_name like '%'|| (#{hotelName}) ||'%'
+			</if>
 		order by hotel_id
 		<![CDATA[
 		) a WHERE rownum <= #{last} ) b WHERE rn >= #{first}		
@@ -70,7 +80,7 @@
 		FROM hotel h
 		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
 		WHERE ((r.check_in IS NULL and r.check_out IS NULL)
-		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
+		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out  AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
 		   <choose>
 		   		<!-- 제주로 검색하면 서귀포도 함께 검색되도록 -->
 			   <when test="hotelRegion == '제주'">
@@ -103,8 +113,32 @@
 		parameterType="co.admin.wh.hotel.vo.HotelSearchVO" resultType="int">
 		SELECT
 		COUNT(*) FROM HOTEL
+		<if test="hotelName != null and hotelName != ''">
+			where hotel_name like '%'|| (#{hotelName}) ||'%'
+		</if>
 	</select>
 
+	<!-- 전체 건수 조회 -->
+	<select id="getSearchCountTotal"
+		parameterType="co.admin.wh.hotel.vo.HotelSearchVO" resultType="int">
+		SELECT
+		COUNT(*) FROM HOTEL h  
+		LEFT JOIN reservation r ON h.hotel_id = r.hotel_id
+		WHERE ((r.check_in IS NULL and r.check_out IS NULL)
+		   OR (#{checkIn} NOT BETWEEN r.check_in AND r.check_out  AND #{checkOut} NOT BETWEEN r.check_in AND r.check_out))
+		   <choose>
+		   		<!-- 제주로 검색하면 서귀포도 함께 검색되도록 -->
+			   <when test="hotelRegion == '제주'">
+			   AND (h.hotel_region = '제주' or h.hotel_region = '서귀포')
+			   </when>
+		   	   <otherwise>
+		   	   AND h.hotel_region = #{hotelRegion}
+		   	   </otherwise>
+		   </choose>
+		  AND h.room_limit >= #{humanCount}
+		  and (h.room_price between #{priceRangeMin} and #{priceRangeMax})
+	</select>
+	
 	<!-- 상세페이지 -->
 	<select id="detailSelect"
 		resultType="co.admin.wh.hotel.vo.HotelVO">
@@ -134,7 +168,7 @@
 		and h.hotel_id = r.hotel_id
 		and r.res_state = 0
 	    <![CDATA[
-	    and r.check_out >= sysdate
+	    and r.check_out >= trunc(sysdate) 
 	    ]]>
 	</select>
 
@@ -172,7 +206,7 @@
 	<!-- 회원이 예약취소신청 시 취소 테이블에 취소정보 인서트 -->
 	<select id="insertCancelInfo" parameterType="co.admin.wh.hotel.vo.CancelVO">
 		insert into cancel(res_id,submit_date)
-		values (#{resId},sysdate)
+		values (#{resId},trunc(sysdate))
 	</select>
 
 	<!-- 예약자 정보 변경 -->
@@ -190,11 +224,9 @@
 
 	<!-- 검색어 자동완성 -->
 	<select id="autocomplete" parameterType="map" resultType="map">
-		select
-		distinct hotel_name, hotel_id
+		select hotel_name, hotel_id
 		from hotel
-		where hotel_name like '%'||
-		(#{value}) ||'%'
+		where hotel_name like '%'|| #{value} ||'%'
 	</select>
 
 	<!-- 낮은가격순 정렬 -->
@@ -273,7 +305,7 @@
 		and h.hotel_id = r.hotel_id
 		and r.res_state = 0
 	    <![CDATA[
-	    and r.check_out < sysdate
+	    and r.check_out < trunc(sysdate)
 	    ]]>
 	</select>
 
@@ -323,7 +355,9 @@
 	<update id="updateCancelInfo" parameterType="co.admin.wh.hotel.vo.CancelVO">
 		update cancel
 		<set>
-			<if test="returnPay != null">return_pay = #{returnPay},</if>
+			<if test="returnPay != null">
+			return_pay = #{returnPay},
+			</if>
 			apply_date = sysdate
 		</set>
 		where res_id = #{resId}

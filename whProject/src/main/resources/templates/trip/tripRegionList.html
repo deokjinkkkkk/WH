@@ -4,7 +4,7 @@
 <div class="row margin-30px-bottom" id="tripListContent">
 	<div class="col-12 margin-40px-bottom">
 		<div th:each="t, nStat: ${tripSelect}"
-			class="card card-list margin-15px-bottom">
+			class="card card-list margin-15px-bottom" th:if="${t.imgGroCode} != null">
 			<div class="row align-items-center">
 				<div class="col-md-5 col-lg-4 xs-margin-20px-bottom">
 					<div class="card-list-img">
@@ -24,9 +24,6 @@
 						</div>
 						<p class="margin-20px-tb sm-margin-10px-top">[[${t.tripAddr}]]</p>
 						<!-- 해시태그 -->
-						<ul class="tags">
-							<li><a href="#">#</a></li>
-						</ul>
 					</div>
 
 				</div>

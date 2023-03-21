@@ -42,7 +42,10 @@ public class FoodController {
 	
 	//게시글 리스트 처리
 	@RequestMapping("/food")
-	public String foodList(Model model, @ModelAttribute("fsvo")FoodSearchVO svo, Paging paging ) {
+	public String foodList(Model model, 
+			       		   @ModelAttribute("fsvo")FoodSearchVO svo, 
+			       		   Paging paging ) {
+		
 		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
 		
@@ -58,15 +61,22 @@ public class FoodController {
 	
 	//글작성
 	@RequestMapping("/foodForm")
-	public String foodForm(Model model , CommonVO cvo) {
+	public String foodForm(Model model , 
+						   CommonVO cvo) {
+		
 		model.addAttribute("co", commomService.commonLocal());
 		model.addAttribute("gr", commomService.commonGroup());
+		
 		return "notice/foodForm";
 	}
 	
 	//파일첨부
 	@RequestMapping("/foodJoin.do")
-	public String foodJoin(FoodVO vo, Model model, ImageVO ivo, MultipartFile[] imgFile , CommonVO cvo) {
+	public String foodJoin(FoodVO vo, 
+						   Model model, 
+						   ImageVO ivo, 
+						   MultipartFile[] imgFile , 
+						   CommonVO cvo) {
 		
 		String saveFolder = saveimg;//파일저장위치
 		
@@ -92,8 +102,10 @@ public class FoodController {
 	
 	//등록
 	@RequestMapping("/foodInsert.do")
-	public String foodJoin(FoodVO vo, Model model, ImageVO ivo) {
-		/* model.addAttribute("foodList", foodMapper.getFoodList(vo)); */
+	public String foodJoin(FoodVO vo, 
+					       Model model, 
+					       ImageVO ivo) {
+	
 		foodService.foodInsert(vo);
 		foodService.imgInsert(ivo);
 		
@@ -102,12 +114,16 @@ public class FoodController {
 	
 	//게시물 상세보기
 	@RequestMapping(value="/foodDetail/{foodCode}", method=RequestMethod.GET)
-	public String foodDetail(@PathVariable("foodCode") int foodCode, FoodVO vo, Model model) {
+	public String foodDetail(@PathVariable("foodCode") int foodCode, 
+														   FoodVO vo, 
+														   Model model) {
+		
 		vo.setFoodCode(foodCode);
 		foodService.hitUpdate(foodCode); // 조회수증가
 		
 		model.addAttribute("food",foodService.detailSelect(vo));
 		model.addAttribute("i", foodService.imgSelect(vo));
+		
 		return "notice/foodDetail";
 		
 	}
@@ -115,27 +131,45 @@ public class FoodController {
 	//삭제
 	@PostMapping("/foodDelete")
 	@ResponseBody
-	public String foodDelete(@RequestBody FoodVO vo, RedirectAttributes redirectAttributes) {
+	public String foodDelete(@RequestBody FoodVO vo) {
+		
 		int n = foodService.foodDelete(vo);
-		if (n != 0) {
-			redirectAttributes.addFlashAttribute("message","정상적으로 삭제되었습니다.");
-		}else {
-			redirectAttributes.addFlashAttribute("message","삭제가 정상적으로 처리되지 않았습니다.");
-		}
+
 		return "result";
 	}
 	
 	//수정폼
 	@RequestMapping("/foodUpdateForm")
-	public String foodUpdateForm(FoodVO vo, Model model) {
+	public String foodUpdateForm(FoodVO vo, 
+								Model model) {
+		
 		model.addAttribute("food", foodService.detailSelect(vo));
+		
 		return "notice/foodUpdateForm";
 	}
 	
 	//수정
 	@PostMapping("/foodUpdate")
-	public String foodUpdate(@ModelAttribute("foodVO") FoodVO vo, Model model) {
-	model.addAttribute("food", foodService.foodUpdate(vo));
-	return "redirect:/foodDetail/" + vo.getFoodCode();
+	public String foodUpdate(@ModelAttribute("foodVO") FoodVO vo, 
+													   ImageVO ivo,
+													   MultipartFile[] imgFile) {
+		
+		// 파일저장위치
+		String saveFolder = saveimg; 
+
+			String fileName = imageService.saveImage(imgFile, saveFolder);
+			System.out.println(fileName+"============");
+			if (fileName != null) {// 첨부파일이 존재하면 이름UUID해줘서 중복방지해쥼
+				imageService.imageDelete(ivo);
+				
+				ivo.setImgName(imgFile[0].getOriginalFilename()); // 저장할때는 원본파일명
+				ivo.setImgPath(fileName); // 물리적 위치 디렉토리포함원본파일명
+				foodMapper.imgInsert(ivo);
+			}
+		
+		foodService.foodUpdate(vo);
+				
+		// 수정된 맛집리스트의 상세 페이지로 이동
+		return "redirect:/foodDetail/" + vo.getFoodCode();
 	}
 }

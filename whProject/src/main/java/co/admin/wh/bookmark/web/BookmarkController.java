@@ -28,7 +28,6 @@ public class BookmarkController {
        String id = principal.getName();
        
        model.addAttribute("bookHotel", bMapper.hotelList(id));
-       //model.addAttribute("bookTrip", bMapper.tripList(id));
        
        return "bookmark/bookmark";
    }
@@ -38,7 +37,6 @@ public class BookmarkController {
    public String bookmarktr(Model model, Principal principal) {
        String id = principal.getName();
        
-      // model.addAttribute("bookHotel", bMapper.hotelList(id));
        model.addAttribute("bookTrip", bMapper.tripList(id));
        
        return "bookmark/bookmarkTr";
@@ -67,7 +65,7 @@ public class BookmarkController {
        vo.setId(principal.getName());
        vo.setBookNcode(bookNcode);
        vo.setBookFlag("HT");
-       bService.insertBookHotel(vo);
+       bMapper.insertBookHotel(vo);
        return vo;
    }
 
@@ -79,7 +77,6 @@ public class BookmarkController {
        vo.setBookNcode(bookNcode);
        vo.setBookFlag("TR");
        bMapper.insertBookTrip(vo);
-       //bService.insertBookTrip(vo); //db값을 삽임하고 값을 리턴하기 위한 호출
        return vo;
    }
 

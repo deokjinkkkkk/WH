@@ -93,14 +93,14 @@
 	        contentType : 'application/json',
 	        success : function(response) {
 	            console.log(response);
-	            if (response != null) {
+	            if (response != '') {
 	                console.log(response)
 
 	                $("#idResultModal .modal-body").html(response);
 	                $("#idResultModal").modal("show");
 
 	            } else {
-	                swal("","아이디와 이메일이 일치하지 않습니다.","waning");
+	                swal("","아이디와 이메일이 일치하지 않습니다.","warning");
 	                return false;
 	            }
 	        },

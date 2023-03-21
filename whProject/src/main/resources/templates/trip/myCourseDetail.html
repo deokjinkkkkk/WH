@@ -334,7 +334,7 @@
 		
 		// myCouState가 선택되었는지 확인
 	    if (!myCouState) {
-	        swal("","여행 코스에 올리시겠습니까?","warning");
+	    	alert('여행 코스에 올리시겠습니까?');
 	    } else {
 		
 		$.ajax({
@@ -343,17 +343,11 @@
 			data : JSON.stringify(data),
 			contentType : 'application/json',
 			success : function(response) {
-				 swal({
-		                title: "",
-		                text: "저장되었습니다.",
-		                icon: "success",
-		                onClose: function() {
-		                location.reload();
-		                }
-		            });
+				alert('저장했습니다.');
+				location.reload();
 			},
 			error : function(error) {
-				swal("","저장에 실패하였습니다.","error");
+				alert('저장에 실패했습니다.');
 			}
 		});	
 	}	

@@ -3,20 +3,31 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
 
+<head>
+
+<meta charset="UTF-8">
+</head>
+
+
 <body>
 
-	<!-- 각자 내용 -->
+	<!-- 내용 시작 -->
 	<div layout:fragment="content" class="content">
-<!-- 배너시작 -->
+	
+		<!-- 배너시작 -->
 		<section class="page-title-section bg-img cover-background"
-      th:style="|background: url('/img/banner/bg1.jpg')|">
-      <h1 class="text-white font-weight-600">맛집리스트</h1>
-      <ul>
-         <li><a href="/main">Home</a></li>
-         <li><span class="active">맛집리스트</span></li>
-      </ul>
-   </section>
+			th:style="|background:url(/img/banner/bg2.jpg)|">
+			<div class="container">
+
+				<h1 class="text-white font-weight-600">맛집리스트</h1>
+				<ul>
+					<li><a href="/main">Home</a></li>
+					<li><span class="active">맛집</span></li>
+				</ul>
+			</div>
+		</section>
 		<!-- 배너끝 -->
+		
 		
 		<script>
 		function deletePost() {
@@ -35,8 +46,11 @@
 		            success: function(result) {
 		            	if(result =="result"){
 		            		
-		                swal("","게시글이 삭제되었습니다.","success");
-		                window.location.href = "/food";
+		                swal("","게시글이 삭제되었습니다.","success")
+		                .then(()=>{  //.then 사용해야함!!!
+		                	window.location.href = "/food";
+		                	
+		                });
 		            	}
 		            },
 		            error: function(xhr, status, error) {

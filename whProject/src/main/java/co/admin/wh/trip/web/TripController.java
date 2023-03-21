@@ -65,6 +65,7 @@ public class TripController {
 		return "trip/tripList";
 	}
 	
+	
 	// 여행지 지역 선택
 	@RequestMapping("/tripRegion")
 	public String tripRegion(Model model, TripSearchVO tvo, Paging paging) {
@@ -82,20 +83,11 @@ public class TripController {
 		return "trip/tripRegionList";
 		
 	}
-
-	// 여행지검색 자동 완성
-	@RequestMapping("/ajax/selfsearch")
-	@ResponseBody
-	public Map<String, Object> selfsearch(@RequestParam Map<String, Object> paramMap) throws Exception{
-		List<Map<String, Object>> resultList = tripService.selfsearch(paramMap);
-		paramMap.put("resultList", resultList);
-		return paramMap;
-	}
 	
 	// 최신순 정렬
 	@PostMapping("/latestList")
 	public String latestList(Model model, TripSearchVO vo, Paging paging) {
-		paging.setPageUnit(5);
+		paging.setPageUnit(10);
 		paging.setPageSize(10);
 		
 		vo.setFirst(paging.getFirst());

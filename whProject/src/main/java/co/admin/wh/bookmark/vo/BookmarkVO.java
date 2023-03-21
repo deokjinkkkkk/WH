@@ -15,4 +15,10 @@ public class BookmarkVO {
 	
 	int tripCode;
 	String TripName;
+	
+	String imgGroCode;
+	String tripAddr;
+	String tripSumm;
+	String hotelAddr;
+	String img1;
 }
