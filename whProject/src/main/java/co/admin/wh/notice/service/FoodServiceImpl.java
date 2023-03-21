@@ -77,10 +77,7 @@ private FoodMapper mapper;
 		return mapper.imgSelect(vo);
 	}
 
-	@Override
-	public int imageSelect(ImageVO ivo) {
-		return mapper.imageSelect(ivo);
-	}
+
 
 	
 
