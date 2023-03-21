@@ -374,9 +374,9 @@ position: absolute;
 											</div>
 						<!--좋아요 버튼 기능html 종료-->	
 						
-									<!-- /////////////
-                                 		북마크
-                                 ///////////////// -->
+									<!-- ===================
+                                 		   북마크
+                                 ======================= -->
                                  <!--즐찾 버튼 기능html-->
                                  <!-- 즐겨찾기를 누르지 않은 경우  -->
                                  <div class="book_area">
@@ -739,7 +739,13 @@ position: absolute;
                      if (data.bookCode > 0) {
                        $('.emptyMark').hide();
                        $('.fullMark').show();
-                       //alert('등록완료');
+                    
+                    // 즐겨찾기 추가 확인 팝업
+                       var confirmation = confirm('즐겨찾기에 추가되었습니다. 즐겨찾기 페이지로 이동하시겠습니까?');
+                       
+                       if (confirmation) {
+                           window.location.href = '/bookmarkTr';
+                       }
                      } else {
                        // 실패했을 때 
                      }
