@@ -5,19 +5,23 @@
 <body>
 	<div layout:fragment="content" class="content">
 
-	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-<div class="container">
-<h4>제목 : <span>[[${d.videoName}]]</span></h4><p>조회수 : [[${d.videoHit}]]</p>
-<hr>
+		<!-- 내용 시작 -->
+		<section layout:fragment="adminContent">
+			<div class="container">
+				<h4>
+					제목 : <span>[[${d.videoName}]]</span>
+				</h4>
+				<span>조회수 : [[${d.videoHit}]]</span>
+				<hr>
 
-	<iframe width="600" height="450" th:src="${d.url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<hr>
-<pre>[[${d.videoContent}]]</pre>
-<hr>
-<a href="/videoSelect" class="btn btn-primary btn-lg" style="float:left;">목록</a>
-</div>
+				<iframe width="600" height="450" th:src="${d.url}" title="YouTube video player" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				<hr>
+				<pre>[[${d.videoContent}]]</pre>
+				<hr>
+				<a href="/videoSelect" class="btn btn-primary btn-lg" style="float: left;">목록</a>
+			</div>
 
-</section>
+		</section>
 </body>
 </html>

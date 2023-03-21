@@ -2,18 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{index}">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
 
 
 <body>
@@ -30,7 +19,8 @@
 				<ul>
 					<li><a href="/main">Home</a></li>
 					<li><a href="/companion">동행자</a></li>
-					<li><a href="/companionForm"><span class="active">동행자 신청페이지</span></a></li>
+					<li><a href="/companionForm"><span class="active">동행자
+								신청페이지</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -42,8 +32,7 @@
 		<section>
 			<div class="container">
 
-				<form id="frm" action="companionJoin.do" method="post"
-					enctype="multipart/form-data">
+				<form id="frm" action="companionJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
 							연락처<input type="text" name="tel" id="tel" th:value="${me.tel}" required="required">
@@ -58,11 +47,11 @@
 						<div class="form-group col-md-12">
 							함께 여행하고 싶은 그룹 유형<br>
 							<div th:each="c : ${gr}">
-								<input type="radio" th:value="${c.comCode}" th:text="${c.comName}" 
-									   name="comCode" id="comCode" onclick="setComName(this)" required="required"> 
-							<br>
+								<input type="radio" th:value="${c.comCode}" th:text="${c.comName}" name="comCode" id="comCode"
+									onclick="setComName(this)" required="required"> <br>
+							</div>
+							<input type="hidden" name="comName" id="comName">
 						</div>
-									<input type="hidden" name="comName" id="comName"> </div>
 
 						<script>
 							function setComName(radio) {
@@ -70,9 +59,9 @@
 								document.getElementById("comName").value = comName;
 							}
 						</script>
-						
-						
-						
+
+
+
 						<div class="form-group col-md-7">
 							제목<input type="text" name="compTitle" id="compTitle" required="required">
 						</div>
@@ -87,8 +76,7 @@
 						</div>
 						<div class="form-group col-md-7">
 							지역<select name="compLocal" required="required">
-								<option th:each="c : ${co}" th:value="${c.comCode}"
-									th:text="${c.comName}" ></option>
+								<option th:each="c : ${co}" th:value="${c.comCode}" th:text="${c.comName}"></option>
 							</select>
 						</div>
 
@@ -96,53 +84,53 @@
 
 
 						<div class="input-group input-daterange">
-							<input type="text" class="form-control input1"
-								placeholder="Start Date" name="compStartDate" id="compStartDate" required="required">
-							<input type="text" class="form-control input2"
-								placeholder="End Date" name="compEndDate" id="compEndDate" required="required">
+							<input type="text" class="form-control input1" placeholder="Start Date" 
+							name="compStartDate" id="compStartDate" required="required"> 
+							<input type="text" class="form-control input2" placeholder="End Date"
+								name="compEndDate" id="compEndDate" required="required">
 						</div>
 
 						<script>
 							$(function() {
-								$(document).ready(function() {
+								// compStartDate의 datepicker 설정
+								$("#compStartDate").datepicker(
+										{
+											dateFormat : "yy-mm-dd",
+											minDate : 0, // 오늘 이전 날짜 선택 불가능
+											language : "ko",
+											todayHighlight : true,
+											autoclose : true,
+											onSelect : function(selected) {
+												// compStartDate에서 선택한 날짜 이후부터 compEndDate 선택 가능
+												$("#compEndDate").datepicker(
+														"option", "minDate",
+														selected);
+											}
+										});
 
-									$('#compStartDate').datepicker({
-									    dateFormat : "yy-mm-dd",
-									    minDate : '0d',
-									    language : "ko",
-									    todayHighlight : true,
-									    autoclose : true
-									}).on('changeDate', function(selected){
-									    var startDate = new Date(selected.date.valueOf());
-									    $('#compEndDate').datepicker('setStartDate', startDate);
-									});
 
-									$('#compEndDate').datepicker({
-										dateFormat : "yy-mm-dd",
-									    language : "ko",
-									    todayHighlight : true,
-									    autoclose : true
-									}).on('changeDate', function(selected){
-									    var endDate = new Date(selected.date.valueOf());
-									    $('#compStartDate').datepicker('setEndDate', endDate);
-									});
-									
-									
-								});
+								// compEndDate의 datepicker 설정
+								$("#compEndDate").datepicker({
+									dateFormat : "yy-mm-dd",
+									language : "ko",
+									todayHighlight : true,
+									autoclose : true,
+									minDate : 0
+								// 오늘 이전 날짜 선택 불가능
 
-							});
+								
 						</script>
 						<div class="form-group col-md-12">
 							<table class="table border">
 								<tr>
-									<th style="vertical-align: middle;">TextArea<br /> <sup>(<span
-											id="byteInfo">0</span>/1000bytes)
+									<th style="vertical-align: middle;">TextArea<br /> 
+									<sup>(<span id="byteInfo">0</span>/1000bytes)
 									</sup>
 									</th>
 									<td>
 										<form>
-											<textarea rows="10" class="form-control" id="compContent"
-												name="compContent" onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
+											<textarea rows="10" class="form-control" id="compContent" name="compContent" 
+											onkeyup="fn_checkByte(this,'1000')" required="required"></textarea>
 										</form>
 									</td>
 								</tr>
@@ -151,10 +139,9 @@
 						<div class="form-group col-md-12">
 							<input type="file" name="imgFile" id="imgFile">
 						</div>
-						<input type="hidden" name="id" id="id" th:value="${session.name}"> <input
-						
-							type="hidden" name="imgGroCode" id="imgGroCode" >
-						<input type="hidden" name="imgPath" id="imgPath">
+						<input type="hidden" name="id" id="id" th:value="${session.name}">
+						<input type="hidden" name="imgGroCode" id="imgGroCode"> 
+						<input ㄴtype="hidden" name="imgPath" id="imgPath">
 					</div>
 					<input type="submit" value="모집">
 				</form>
@@ -190,7 +177,7 @@
 			}
 			if (rbyte > maxByte) {
 				// alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
-				swal("","메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.","info")
+				swal("", "메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.", "info")
 				str2 = str.substr(0, rlen); //문자열 자르기
 				obj.value = str2;
 				fnChkByte(obj, maxByte);

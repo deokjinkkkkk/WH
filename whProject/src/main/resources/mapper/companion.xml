@@ -9,11 +9,12 @@
 			SELECT NVL(MAX(COMP_CODE),0)+1 FROM COMPANION
 		</selectKey>
 
-		INSERT INTO COMPANION (COMP_CODE, ID,
-		com_Name,COMP_TITLE,COMP_COUNT,
-		comp_local, COMP_START_DATE, COMP_END_DATE,
-		COMP_CONTENT,IMG_GRO_CODE,
-		com_code, TEL, Gender, NAME )
+		INSERT INTO COMPANION (COMP_CODE, 
+		                       ID,
+				com_Name,COMP_TITLE,COMP_COUNT,
+				comp_local, COMP_START_DATE, COMP_END_DATE,
+				COMP_CONTENT,IMG_GRO_CODE,
+				com_code, TEL, Gender, NAME )
 
 		VALUES (#{compCode},#{id},#{comName},
 		#{compTitle},
@@ -38,27 +39,32 @@
 	<select id="getCompanionList"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
+		
 		SELECT DISTINCT C.COMP_CODE,
-		M.ID,
-		C.COM_NAME,
-		C.COMP_TITLE,
-		C.COMP_COUNT,
-		C.COMP_LOCAL,
-		C.COMP_START_DATE,
-		C.COMP_END_DATE,
-		C.COMP_CONTENT,
-		C.IMG_GRO_CODE,
-		M.TEL,
-		M.NAME,
-		M.GENDER,
-		I.IMG_NAME,
-		I.IMG_PATH
-		FROM
-		COMPANION C ,MEMBER M, IMAGE I
+				M.ID,
+				C.COM_NAME,
+				C.COMP_TITLE,
+				C.COMP_COUNT,
+				C.COMP_LOCAL,
+				C.COMP_START_DATE,
+				C.COMP_END_DATE,
+				C.COMP_CONTENT,
+				C.IMG_GRO_CODE,
+				M.TEL,
+				M.NAME,
+				M.GENDER,
+				I.IMG_NAME,
+				I.IMG_PATH
+				
+		 FROM	COMPANION C ,
+		        MEMBER M, 
+		        IMAGE I
+		        
 		WHERE C.ID= M.ID
-		AND C.IMG_GRO_CODE =
-		I.IMG_GRO_CODE
-		ORDER BY COMP_CODE DESC
+		  AND C.IMG_GRO_CODE =	I.IMG_GRO_CODE
+		  
+        ORDER BY COMP_CODE DESC
+		
 <![CDATA[
 		) A  WHERE ROWNUM <=#{last} ) B WHERE RN >=#{first}
 	]]>
@@ -67,26 +73,16 @@
 
 	<select id="detailSelect"
 		resultType="co.admin.wh.notice.vo.CompanionVO">
-		SELECT * 
-		FROM COMPANION c
-		INNER JOIN common co ON c.com_Code = co.com_Code
-		INNER JOIN image i ON c.img_gro_code = i.img_gro_code
+		SELECT c.* , 
+		       i.*, 
+		       find_code(c.comp_local) comp_local_name
+		
+		FROM COMPANION c		
+		INNER JOIN image i 
+		   ON c.img_gro_code = i.img_gro_code
+		   
 		WHERE c.COMP_CODE = #{compCode}
 	</select>
-
-
-	<select id="localSelect"
-		resultType="co.admin.wh.notice.vo.CompanionVO">
-		SELECT co.com_Name
-		FROM COMPANION c inner join common co
-		on c.comp_Local =
-		co.com_Code
-		WHERE c.COMP_CODE = #{compCode}
-	</select>
-
-
-
-
 
 	<!-- 전체건수조회 -->
 	<select id="getCountTotal"
@@ -121,10 +117,8 @@
 		FROM COMPANION
 		c
 		JOIN IMAGE i
-		ON c.IMG_GRO_CODE =
-		i.IMG_GRO_CODE
-		WHERE c.COMP_CODE =
-		#{compCode}
+		ON c.IMG_GRO_CODE =		i.IMG_GRO_CODE
+		WHERE c.COMP_CODE =		#{compCode}
 	</select>
 	
 	<insert id="comListInsert" parameterType="co.admin.wh.notice.vo.CompanionVO">
@@ -156,7 +150,8 @@
 	
 	
 	<select id="comSelList" resultType="co.admin.wh.notice.vo.CompanionVO">
-	 SELECT * FROM COMPANION_LIST
+	 SELECT * FROM COMPANION_LIST 
+<!-- 	 orderby추가 -->
 	</select>
 	
 	<select id="comSelMyList" resultType="co.admin.wh.notice.vo.CompanionVO">
