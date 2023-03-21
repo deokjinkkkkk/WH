@@ -131,14 +131,9 @@ public class MemberController {
 		HttpSession session = request.getSession();   
 		MemberVO dbvo = new MemberVO();
 		dbvo = memberMapper.memberSelect(vo);
-		vo.setName(dbvo.getName());
-		vo.setGender(dbvo.getGender());
-		vo.setEmail(dbvo.getEmail());
-		vo.setTel(dbvo.getTel());
-		vo.setPass(dbvo.getPass());
-		int Del = memberMapper.memDel(vo);
+		int Del = memberMapper.memDel(dbvo);
 		if (Del == 1) {
-			memberService.memberDelete(vo);
+			memberService.memberDelete(dbvo);
 			session.invalidate();
 			SecurityContextHolder.getContext().setAuthentication(null);
 		} else {
@@ -153,10 +148,8 @@ public class MemberController {
 		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
 		
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
 		paging.setTotalRecord(memberMapper.getCountTotal(vo));
 		
 		model.addAttribute("mem", memberMapper.adMemberList(vo));
@@ -182,12 +175,7 @@ public class MemberController {
 		HttpSession session = request.getSession();   
 		MemberVO dbvo = new MemberVO();
 		dbvo = memberMapper.memberSelect(vo);
-		vo.setName(dbvo.getName());
-		vo.setGender(dbvo.getGender());
-		vo.setEmail(dbvo.getEmail());
-		vo.setTel(dbvo.getTel());
-		vo.setPass(dbvo.getPass());
-		int Del = memberMapper.memDel(vo);
+		int Del = memberMapper.memDel(dbvo);
 		if (Del == 1) {
 			memberService.memberDelete(vo);
 			session.invalidate();
@@ -238,7 +226,7 @@ public class MemberController {
 	@ResponseBody
 	public String idFind(@RequestBody MemberVO vo, Model model) {
 	    String id = memberMapper.idFind(vo);
-	    return "아이디는 " + id + "입니다.";
+	    return id;
 	}
 	
 	//관리자 회원검색 아이디로 찾기

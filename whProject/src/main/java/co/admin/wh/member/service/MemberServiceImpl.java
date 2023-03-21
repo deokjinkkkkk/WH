@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO dbvo = member.memberSelect(vo);
 		vo.setPass(dbvo.getPass());
 		// TODO Auto-generated method stub
-		return member.memDel(vo);
+		return member.memDel(dbvo);
 	}
 
 	@Override
