@@ -25,7 +25,7 @@ public interface FoodService {
 	
 	int foodUpdate(FoodVO vo); //수정
 	
-	int imageSelect (ImageVO ivo);
+	
 	
 	
 }

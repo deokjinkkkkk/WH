@@ -21,12 +21,7 @@
 
 	<delete id="imageDelete">
 		DELETE FROM image
-		WHERE img_gro_code IN (
-		SELECT
-		img_gro_code
-		FROM companion
-		WHERE img_gro_code = #{imgGroCode}
-		)
+		WHERE img_gro_code= #{imgGroCode}
 	</delete>
 
 </mapper>

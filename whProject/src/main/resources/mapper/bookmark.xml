@@ -41,25 +41,18 @@
 
 	<!-- 마이페이지 -> hotel 즐겨찾기 리스트 출력 -->
 	<select id="hotelList" resultMap="bookmarkResult">
-		SELECT M.*, B.*, H.*
-		FROM
-		MEMBER M
-		LEFT JOIN BOOKMARK B ON (M.ID = B.ID)
-		LEFT JOIN HOTEL H
-		ON (B.BOOK_N_CODE = H.HOTEL_ID)
-		WHERE M.ID = #{id}
+		SELECT  B.*, H.*
+		FROM BOOKMARK B
+		JOIN HOTEL H ON (B.BOOK_N_CODE = H.HOTEL_ID)
+		WHERE B.ID = #{id}
 		AND B.BOOK_FLAG = 'HT'
 	</select>
 	<!-- 마이페이지 -> trip 즐겨찾기 리스트 출력 -->
 	<select id="tripList" resultMap="bookmarkResult">
-		SELECT M.*, B.*,T.*
-		FROM
-		MEMBER M
-		LEFT JOIN BOOKMARK B ON(M.ID = B.ID)
-		LEFT JOIN TRIP T
-		ON (B.BOOK_N_CODE = T.TRIP_CODE)
-		WHERE M.ID = #{id}
-		AND B.BOOK_FLAG = 'TR'
+		SELECT  B.*, T.* 
+		  FROM BOOKMARK B  
+		  JOIN TRIP T ON (B.BOOK_N_CODE = T.TRIP_CODE) 
+         WHERE B.ID = #{id} AND B.BOOK_FLAG = 'TR'
 	</select>
 	<!-- 즐겨찾기 삭제 -->
 	<delete id="bookDel"
