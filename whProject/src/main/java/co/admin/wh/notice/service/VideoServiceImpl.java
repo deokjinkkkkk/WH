@@ -15,53 +15,51 @@ public class VideoServiceImpl implements VideoService {
 	@Autowired
 	VideoMapper videoMapper;
 	
+	//인서트
 	@Override
 	public int videoInsert(VideoVO vo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoInsert(vo);
 	}
-
+	
+	//목록 출력
 	@Override
 	public List<VideoVO> videoSelect(VideoSearchVO svo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoSelect(svo);
 	}
-
+	
+	//상세페이지
 	@Override
 	public VideoVO videoDetail(VideoVO vo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoDetail(vo);
 	}
-
+	
+	//페이지 수 관리
 	@Override
 	public int videoTotal(VideoSearchVO svo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoTotal(svo);
 	}
 	
+	//지역 정렬
 	@Override
 	public List<VideoVO> region(VideoSearchVO svo) {
-		// TODO Auto-generated method stub
 		return videoMapper.region(svo);
 	}
-
 	
-
+	//업데이트
 	@Override
 	public int videoUpdate(VideoVO vo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoUpdate(vo);
 	}
-
+	
+	//조회수
 	@Override
 	public int videoHit(int videoCode) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoHit(videoCode);
 	}
-
+	
+	//삭제
 	@Override
 	public int videoDelete(VideoVO vo) {
-		// TODO Auto-generated method stub
 		return videoMapper.videoDelete(vo);
 	}
 

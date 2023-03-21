@@ -20,9 +20,6 @@ public interface TripMapper {
 	
 	List<TripVO> myCouNameSelect(TripVO vo); // 여행지 담기 버튼 클릭 -> 코스명 목록
 
-
-	List<Map<String, Object>> selfsearch(Map<String, Object> paramMap) throws Exception; // 여행지이름 검색어 자동완성
-
 	
 	// 정렬
 	List<TripVO> latestList(TripSearchVO vo); // 최신순 정렬

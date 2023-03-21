@@ -16,8 +16,8 @@
 				<ul>
 					<li><a href="/main">Home</a></li>
 					<li><a href="/companion">동행자</a></li>
-					<li><a th:href="|/companionUpdateForm?compCode=${c.compCode}|"><span
-							class="active">동행자 수정페이지</span></a></li>
+					<li><a th:href="|/companionUpdateForm?compCode=${c.compCode}|">
+					<span class="active">동행자 수정페이지</span></a></li>
 				</ul>
 			</div>
 		</section>
@@ -26,29 +26,24 @@
 		<section>
 			<div class="container">
 
-				<form id="frm" action="companionUpdate" method="post"
-					enctype="multipart/form-data">
+				<form id="frm" action="companionUpdate" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
 							[필수]연락처<input type="text" name="tel" id="tel" th:value="${c.tel}">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]이름<input type="text" name="name" id="name"
-								th:value="${c.name}">
+							[필수]이름<input type="text" name="name" id="name" th:value="${c.name}">
 						</div>
 						<div class="form-group col-md-7">
-							[필수]성별<input type="text" name="gender" id="gender"
-								th:value="${c.gender}">
+							[필수]성별<input type="text" name="gender" id="gender" th:value="${c.gender}">
 						</div>
 
 
 						<div class="form-group col-md-12">
 							함께 여행하고 싶은 그룹 유형<br>
 							<div th:each="cr : ${gr}">
-								<input type="radio" th:value="${cr.comCode}"
-									th:text="${cr.comName}" name="comCode" id="comCode"
-									th:checked="${cr.comCode == c.comCode}"
-									onclick="setComName(this)">
+								<input type="radio" th:value="${cr.comCode}" th:text="${cr.comName}" name="comCode" 
+								id="comCode" th:checked="${cr.comCode == c.comCode}" onclick="setComName(this)">
 							</div>
 							<br> <input type="hidden" name="comName" id="comName">
 						</div>
@@ -62,8 +57,7 @@
 
 
 						<div class="form-group col-md-7">
-							제목<input type="text" name="compTitle" id="compTitle"
-								th:value="${c.compTitle}">
+							제목<input type="text" name="compTitle" id="compTitle" th:value="${c.compTitle}">
 
 						</div>
 						<div class="form-group col-md-7">
@@ -77,85 +71,54 @@
 						</div>
 						<div class="form-group col-md-7">
 							지역 <select name="compLocal">
-								<option th:each="cc : ${co}" th:value="${cc.comCode}"
-									th:text="${cc.comName}"
+								<option th:each="cc : ${co}" th:value="${cc.comCode}" th:text="${cc.comName}"
 									th:selected="${cc.comCode} == ${c.compLocal}"></option>
 							</select>
 						</div>
 						<div class="input-group input-daterange">
-							<input type="text" class="form-control input1"
-								name="compStartDate" id="compStartDate"
-								th:value="${c.compStartDate}"> <input type="text"
-								class="form-control input2" name="compEndDate" id="compEndDate"
-								th:value="${c.compEndDate}">
+							<input type="text" class="form-control input1" name="compStartDate" id="compStartDate" th:value="${c.compStartDate}"> 
+						    <input type="text" class="form-control input2" name="compEndDate" id="compEndDate" th:value="${c.compEndDate}">
 						</div>
 
 						<script>
-							$(function() {
-								$(document)
-										.ready(
-												function() {
+						$(function() {
+							// compStartDate의 datepicker 설정
+							$("#compStartDate").datepicker(
+									{
+										dateFormat : "yy-mm-dd",
+										minDate : 0, // 오늘 이전 날짜 선택 불가능
+										language : "ko",
+										todayHighlight : true,
+										autoclose : true,
+										onSelect : function(selected) {
+											// compStartDate에서 선택한 날짜 이후부터 compEndDate 선택 가능
+											$("#compEndDate").datepicker(
+													"option", "minDate",
+													selected);
+										}
+									});
 
-													$('#compStartDate')
-															.datepicker(
-																	{
-																		format : "yyyy-mm-dd",
-																		startDate : '0d',
-																		language : "ko",
-																		todayHighlight : true,
-																		autoclose : true
-																	})
-															.on(
-																	'changeDate',
-																	function(
-																			selected) {
-																		var startDate = new Date(
-																				selected.date
-																						.valueOf());
-																		$(
-																				'#compEndDate')
-																				.datepicker(
-																						'setStartDate',
-																						startDate);
-																	});
-
-													$('#compEndDate')
-															.datepicker(
-																	{
-																		format : "yyyy-mm-dd",
-																		language : "ko",
-																		todayHighlight : true,
-																		autoclose : true
-																	})
-															.on(
-																	'changeDate',
-																	function(
-																			selected) {
-																		var endDate = new Date(
-																				selected.date
-																						.valueOf());
-																		$(
-																				'#compStartDate')
-																				.datepicker(
-																						'setEndDate',
-																						endDate);
-																	});
-
-												});
-
+							// compEndDate의 datepicker 설정
+							$("#compEndDate").datepicker({
+								dateFormat : "yy-mm-dd",
+								language : "ko",
+								todayHighlight : true,
+								autoclose : true,
+								minDate : 0
+							// 오늘 이전 날짜 선택 불가능
 							});
+						});
 						</script>
 						<div class="form-group col-md-12">
 							<table class="table border">
 								<tr>
-									<th style="vertical-align: middle;">TextArea<br /> <sup>(<span
-											id="byteInfo">0</span>/1000bytes)
+									<th style="vertical-align: middle;">TextArea<br /> 
+									<sup>(<span id="byteInfo">0</span>/1000bytes)
 									</sup>
 									</th>
 									<td>
 										<form>
-											<textarea rows="10" class="form-control"
-												th:text="${c.compContent}" id="compContent"
+											<textarea rows="10" class="form-control" th:text="${c.compContent}" id="compContent"
 												name="compContent" onkeyup="fn_checkByte(this,'1000')"></textarea>
 										</form>
 									</td>
@@ -169,12 +132,10 @@
 						<div class="form-group col-md-12">
 							나만의 코스 불러오기<input type="text" name="couCode" id="couCode">
 						</div>
-						<input type="hidden" name="id" id="id" th:value="${session.name}"> <input
-							type="hidden" name="imgGroCode" id="imgGroCode"
-							th:value="${c.imgGroCode}"> <input type="hidden"
-							name="imgPath" id="imgPath" th:value="${c.imgPath}"> <input
-							type="hidden" name="compCode" id="compCode"
-							th:value="${c.compCode}">
+						<input type="hidden" name="id" id="id" th:value="${session.name}">
+						<input type="hidden" name="imgGroCode" id="imgGroCode" th:value="${c.imgGroCode}"> 
+						<input type="hidden" name="imgPath" id="imgPath" th:value="${c.imgPath}"> 
+						<input type="hidden" name="compCode" id="compCode" th:value="${c.compCode}">
 					</div>
 					<input type="submit" value="수정완료">
 				</form>

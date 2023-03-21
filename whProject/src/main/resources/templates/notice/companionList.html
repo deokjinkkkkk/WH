@@ -4,125 +4,122 @@
 	layout:decorate="~{index}">
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.3.js" -->
+<!-- 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" -->
+<!-- 	crossorigin="anonymous"></script> -->
 
 
-<body>
-	<!-- 각자 내용 -->
-	<body layout:fragment="content">
-<style>
+
+<!-- 각자 내용 -->
+<body layout:fragment="content">
+	<style>
 @font-face {
-    font-family: 'TheJamsil5Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
+	font-family: 'TheJamsil5Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+		format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
-*{
+* {
 	font-family: 'TheJamsil5Bold';
 }
 
 .rwd-table {
-  margin: auto;
-  min-width: 300px;
-  max-width: 100%;
-  border-collapse: collapse;
+	margin: auto;
+	min-width: 300px;
+	max-width: 100%;
+	border-collapse: collapse;
 }
 
 .rwd-table tbody:first-child {
-  border-top: none;
-  background: #428bca;
-  color: #fff;
+	border-top: none;
+	background: #428bca;
+	color: #fff;
 }
 
 .rwd-table tbody {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-color: #f5f9fc;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background-color: #f5f9fc;
 }
 
 .rwd-table tbody:nth-child(odd):not(:first-child) {
-  background-color: #ebf3f9;
+	background-color: #ebf3f9;
 }
 
 .rwd-table tbody th {
-  display: none;
+	display: none;
 }
 
 .rwd-table tbody td {
-  display: block;
+	display: block;
 }
 
 .rwd-table tbody td:first-child {
-  margin-top: .5em;
+	margin-top: .5em;
 }
 
 .rwd-table tbody td:last-child {
-  margin-bottom: .5em;
+	margin-bottom: .5em;
 }
 
 .rwd-table tbody td:before {
-  content: attr(data-th) ": ";
-  font-weight: bold;
-  width: 120px;
-  display: inline-block;
-  color: #000;
+	content: attr(data-th) ": ";
+	font-weight: bold;
+	width: 120px;
+	display: inline-block;
+	color: #000;
 }
 
-.rwd-table tbody th,
-.rwd-table tbody std {
-  text-align: left;
+.rwd-table tbody th, .rwd-table tbody std {
+	text-align: left;
 }
 
 .rwd-table {
-  color: #333;
-  border-radius: .4em;
-  overflow: hidden;
+	color: #333;
+	border-radius: .4em;
+	overflow: hidden;
 }
 
 .rwd-table tbody {
-  border-color: #bfbfbf;
+	border-color: #bfbfbf;
 }
 
-.rwd-table tbody th,
-.rwd-table tbody td {
-  padding: .5em 1em;
+.rwd-table tbody th, .rwd-table tbody td {
+	padding: .5em 1em;
 }
+
 @media screen and (max-width: 601px) {
-  .rwd-table tbody:nth-child(2) {
-    border-top: none;
-  }
-}
-@media screen and (min-width: 600px) {
-  .rwd-table tbody:hover:not(:first-child) {
-    background-color: #d8e7f3;
-  }
-  .rwd-table tbody td:before {
-    display: none;
-  }
-  .rwd-table tbody th,
-  .rwd-table tbody td {
-    display: table-cell;
-    padding: .25em .5em;
-  }
-  .rwd-table tbody th:first-child,
-  .rwd-table tbody td:first-child {
-    padding-left: 0;
-  }
-  .rwd-table tbody th:last-child,
-  .rwd-table tbody td:last-child {
-    padding-right: 0;
-  }
-  .rwd-table tbody th,
-  .rwd-table tbody td {
-    padding: 1em !important;
-  }
+	.rwd-table tbody:nth-child(2) {
+		border-top: none;
+	}
 }
 
+@media screen and (min-width: 600px) {
+	.rwd-table tbody:hover:not(:first-child) {
+		background-color: #d8e7f3;
+	}
+	.rwd-table tbody td:before {
+		display: none;
+	}
+	.rwd-table tbody th, .rwd-table tbody td {
+		display: table-cell;
+		padding: .25em .5em;
+	}
+	.rwd-table tbody th:first-child, .rwd-table tbody td:first-child {
+		padding-left: 0;
+	}
+	.rwd-table tbody th:last-child, .rwd-table tbody td:last-child {
+		padding-right: 0;
+	}
+	.rwd-table tbody th, .rwd-table tbody td {
+		padding: 1em !important;
+	}
+}
 
 /* THE END OF THE IMPORTANT STUFF */
 
@@ -136,122 +133,133 @@
 /*   display: block; */
 /*   text-align: center; */
 /* } */
-@-webkit-keyframes leftRight {
-  0%    { -webkit-transform: translateX(0)}
-  25%   { -webkit-transform: translateX(-10px)}
-  75%   { -webkit-transform: translateX(10px)}
-  100%  { -webkit-transform: translateX(0)}
+@
+-webkit-keyframes leftRight { 0% {
+	-webkit-transform: translateX(0)
 }
-@keyframes leftRight {
-  0%    { transform: translateX(0)}
-  25%   { transform: translateX(-10px)}
-  75%   { transform: translateX(10px)}
-  100%  { transform: translateX(0)}
+
+25 %
+{ -webkit-transform :
+ translateX ( -10px ) }
+75 %
+{ -webkit-transform :
+ translateX ( 10px ) }
+100 %
+{ -webkit-transform :
+ translateX  (  0 ) }
+}
+@
+keyframes leftRight { 0% {
+	transform: translateX(0)
+}
+25 %
+{ transform :
+ translateX ( -10px ) }
+75 %
+{ transform :
+ translateX ( 10px ) }
+100 %
+{ transform :
+ translateX ( 0 ) }
+ 
 }
 </style>
-	
-		<!-- 배너시작 -->
-		<section class="page-title-section bg-img cover-background"
-			th:style="|background:url(img/banner/bg2.jpg)|">
-			<div class="container">
 
-				<h1 class="text-white font-weight-600">My Page</h1>
-				<ul>
-					<li><a href="/main">Home</a></li>
-					<li><a href="/companionList"><span class="active">내
-								동행자에 신청한 사람들</span></a></li>
-				</ul>
-			</div>
-		</section>
+	<!-- 배너시작 -->
+	<section class="page-title-section bg-img cover-background"
+		th:style="|background:url(img/banner/bg2.jpg)|">
+		<div class="container">
 
-		<!-- start blog detail section -->
-		<section class="blogs">
-			<div class="container">
-				<div class="row">
+			<h1 class="text-white font-weight-600">My Page</h1>
+			<ul>
+				<li><a href="/main">Home</a></li>
+				<li><a href="/companionList">
+				<span class="active">내 동행자에 신청한 사람들</span></a></li>
+			</ul>
+		</div>
+	</section>
 
-					<!--  start blog left-->
-					<div
-						class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
-						<h4>내 동행자에 신청한 사람들</h4>
-						<div class="posts">
+	<!-- start blog detail section -->
+	<section class="blogs">
+		<div class="container">
+			<div class="row">
+
+				<!--  start blog left-->
+				<div class="col-lg-8 col-md-12 sm-margin-40px-bottom xs-margin-35px-bottom">
+					<h4>내 동행자에 신청한 사람들</h4>
+					<div class="posts">
 
 
-							<table class="rwd-table"
-								style="border-top: 3px solid #69737C; border-collapse: collapse;">
-									<tr>
-										<td>글제목</td>
-										<td>신청자</td>
-										<td>신청자전화번호</td>
-										<td>신청자성별</td>
-										<td colspan="2" style="text-align: center;">승인</td>
+						<table class="rwd-table"
+							style="border-top: 3px solid #69737C; border-collapse: collapse;">
+							<tr>
+								<td>글제목</td>
+								<td>신청자</td>
+								<td>신청자전화번호</td>
+								<td>신청자성별</td>
+								<td colspan="2" style="text-align: center;">승인</td>
 
-									</tr>
-								<tbody th:each="c, status : ${se}">
-									<tr th:if="${c.writer == session.name}">
-										<!-- 중복된 글 제목인 경우, 첫 번째 글에만 제목을 표시하고 나머지는 빈칸으로 대체 -->
-										<th:block
-											th:if="${status.first or c.compTitle != se[status.index - 1].compTitle}">
-											<td><a
-												th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
-										</th:block>
-										<th:block
-											th:unless="${status.first or c.compTitle != se[status.index - 1].compTitle}">
-											<td></td>
-										</th:block>
-										<td>[[${c.name}]]</td>
-										<td>[[${c.tel}]]</td>
-										<td>[[${c.gender}]]</td>
+							</tr>
+							<tbody th:each="c, status : ${se}">
+								<tr th:if="${c.writer == session.name}">
+									<!-- 중복된 글 제목인 경우, 첫 번째 글에만 제목을 표시하고 나머지는 빈칸으로 대체 -->
+									<th:block th:if="${status.first or c.compTitle != se[status.index - 1].compTitle}">
+										<td><a th:href="@{/companionDetail/{compCode}(compCode = ${c.compCode})}">[[${c.compTitle}]]</a></td>
+									</th:block>
+									<th:block th:unless="${status.first or c.compTitle != se[status.index - 1].compTitle}">
+									</th:block>
+									<td>[[${c.name}]]</td>
+									<td>[[${c.tel}]]</td>
+									<td>[[${c.gender}]]</td>
 
-										<td><form action="/approve" method="post">
-												<input type="hidden" name="seCode" th:value="${c.seCode}"><input
-													type="hidden" name="compCode" th:value="${c.compCode}">
-												<button
-													th:disabled="${c.coState == '111'}or${c.coState == '222'}"
-													type="submit">승인</button>
-											</form></td>
-										<td><form action="/reject" method="post">
-												<input type="hidden" name="seCode" th:value="${c.seCode}"><input
-													type="hidden" name="compCode" th:value="${c.compCode}">
-												<button
-													th:disabled="${c.coState == '111'}or${c.coState == '222'}"
-													type="submit">거절</button>
-											</form></td>
-									</tr>
-								</tbody>
+									<td><form action="/approve" method="post">
+											<input type="hidden" name="seCode" th:value="${c.seCode}">
+											<input type="hidden" name="compCode" th:value="${c.compCode}">
+											<button th:disabled="${c.coState == '111'}or${c.coState == '222'}"
+												type="submit">승인</button>
+									</form></td>
+									<td><form action="/reject" method="post">
+											<input type="hidden" name="seCode" th:value="${c.seCode}">
+											<input type="hidden" name="compCode" th:value="${c.compCode}">
+											<button th:disabled="${c.coState == '111'}or${c.coState == '222'}"
+												type="submit">거절</button>
+									</form></td>
+								</tr>
+							</tbody>
 
-							</table>
+						</table>
 
-						</div>
 					</div>
-					<script>
-						
-					</script>
-					<!--  end blog left-->
-
-					<!--  start blog right-->
-					<div
-						class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
-						<div class="side-bar">
-
-							<div class="widget">
-								<div class="widget-title margin-20px-bottom">
-									<h3>Categories</h3>
-								</div>
-								<ul class="widget-list">
-									<li><a href="/companionList">내 동행자에 신청한 사람들 </a></li>
-									<li><a href="/companionSelList">내가 신청한 동행자 </a></li>
-								</ul>
-							</div>
-
-
-						</div>
-					</div>
-					<!--  end blog right-->
-
 				</div>
+				<script>
+					
+				</script>
+				<!--  end blog left-->
+
+				<!--  start blog right-->
+				<div
+					class="col-lg-4 col-md-12 padding-30px-left sm-padding-15px-left">
+					<div class="side-bar">
+
+						<div class="widget">
+							<div class="widget-title margin-20px-bottom">
+								<h3>Categories</h3>
+							</div>
+							<ul class="widget-list">
+								<li><a href="/companionList">내 동행자에 신청한 사람들 </a></li>
+								<li><a href="/companionSelList">내가 신청한 동행자 </a></li>
+							</ul>
+						</div>
+
+
+					</div>
+				</div>
+				<!--  end blog right-->
+
 			</div>
-		</section>
-		<!-- end blog detail section -->
+		</div>
+	</section>
+	<!-- end blog detail section -->
 	</div>
 </body>
 </html>

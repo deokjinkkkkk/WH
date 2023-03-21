@@ -4,7 +4,7 @@
 	<!-- 로그인  -->
 	<select id="memberSelect"
 			resultType="co.admin.wh.member.vo.MemberVO">
-			SELECT id, pass,name,gender,tel,email,perm,login_way,token,retoken,state
+			SELECT id,pass,name,gender,tel,email,perm,login_way,token,retoken,state
 			FROM member
 			where id = #{id}
 	<!-- 		AND PASS = #{pass} -->
@@ -72,7 +72,14 @@
 	<!--탈퇴 테이블에 회원 정보 이전  -->
 	<insert id="memDel">
 	insert into quit
-	values(#{id},#{pass},#{name},#{gender},#{tel},#{email})
+	values(
+	<if test="id != null">#{id},</if>
+	<if test="pass != null">#{pass},</if>
+	<if test="name != null">#{name},</if>
+	<if test="gender != null">#{gender},</if>
+	<if test="tel != null">#{tel},</if>
+	<if test="email != null">#{email}</if>
+	)
 	</insert>
 
 	<update id="passUpdate">

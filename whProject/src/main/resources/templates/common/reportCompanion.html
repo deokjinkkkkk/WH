@@ -167,20 +167,16 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 											<td>[[${c.targetId}]]</td>
 
 
-											<td><button type="button" class="btn btn-danger"
-													data-toggle="modal" data-target="#myModal" id="modalForm"
-													onclick="modalForm()">신고된 글</button></td>
+											<td><button type="button" class="btn btn-danger" data-toggle="modal" 
+											data-target="#myModal" id="modalForm" onclick="modalForm()">신고된 글</button></td>
 											<td>
 												<form action="/duration" method="post" id="submit">
-													<!-- 										<input type="hidden"  name="state" value="1"> -->
 													<select name="sanDay" id="sanDay">
 														<option th:each="c : ${cs}" th:value="${c.comCode}"
-															th:text="${c.comName}"></option>
-													</select> <input type="hidden" id="targetID" name="targetId"
-														th:value="${c.targetId}"> <input type="hidden"
-														id="state" name="state" value="1"> <input
-														type="hidden" id="state" name="id"
-														th:value="${c.targetId}">
+															th:text="${c.comName}"></option> </select> 
+														<input type="hidden" id="targetID" name="targetId" th:value="${c.targetId}"> 
+														<input type="hidden" id="state" name="state" value="1"> 
+														<input type="hidden" id="state" name="id" th:value="${c.targetId}">
 														<input type="hidden" id="repCode" name="repCode" th:value="${c.repCode}">
 													<button>제제하기</button>
 												</form>
@@ -190,11 +186,11 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 								</table>
 
 								<script>
+								//신고된글을 클릭하면 모달창이 뜨면서 신고된 글 페이지가 뜨도록 해줌
 									function modalForm() {
-										var compCode = $(event.target).closest(
-												".code").attr("id");
+										var compCode = $(event.target).closest( ".code").attr("id");
 										console.log(compCode);
-										let str = '<iframe src="/companionDetail/'+compCode+'" style="width:1000px; height:800px;"></iframe>'
+										let str = '<iframe src="/companionDetail/'+compCode+'" style="width:880px; height:800px;"></iframe>'
 
 										let s = $("#s")
 										s.html(str)
@@ -215,20 +211,18 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 
 						<div class="modal hide" id="myModal">
 							<div class="modal-header">
-								<!-- 					<button class="close" data-dismiss="modal">x</button> -->
-								<div class="modal-dialog" role="document" style="width:1100px;">
-									<div class="modal-dialog modal-dialog-centered" style="width:1100px;">
-										<div class="modal-content" style="width:1100px;">
-											<div class="modal-header" style="width:1100px;">
+								<div class="modal-dialog" role="document" style="width:900px;">
+									<div class="modal-dialog modal-dialog-centered" style="width:900px;">
+										<div class="modal-content" style="width:900px;">
+											<div class="modal-header" style="width:900px;">
 												<h5 class="modal-title" id="exampleModalLabel">신고사유</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body" style="width:1100px;">
-												<div id="s" style="width:1100px;"></div>
-												<div class="modal-footer" style="width:1100px;"></div>
+											<div class="modal-body" style="width:900px;">
+												<div id="s" style="width:900px;"></div>
+												<div class="modal-footer" style="width:900px;"></div>
 											</div>
 										</div>
 									</div>
@@ -237,10 +231,7 @@ background: linear-gradient(to left, #4B79A1 , #283E51);
 						</div>
 
 					</div>
-				</div>
-		</section>
 		<!-- end blog detail section -->
-	</section>
 	<!-- 내용 끝 -->
 </body>
 </html>

@@ -39,15 +39,15 @@
    		function gopage(page) {
    			$("#page").val(page)
    			goregion()
-
    		}  
    		
+   		//videoRegion전달, page는 1로 고정
    		function region(videoRegion){
    			$("#videoRegion").val(videoRegion);
    			$("#page").val(1)
    			goregion()
    		}
-		// 서울 -->
+		// 지역을 누를때마다 페이지가 달라지게 해주는 ajax
  		var goregion = function(){
  			var videoRegion = $("#videoRegion").val()
  			var page = $("#page").val()
@@ -63,23 +63,15 @@
  				} 
 			}); 
  		};
- 		
- 		
- 	
 		</script>
    <!-- 페이징 끝-->
    <div class="container">
 				<div class="row margin-30px-bottom" id="hotelListContent">
-				
 					<div th:each="v : ${video}" class="hotels col-md-6 margin-30px-bottom">
-					<!-- 							<div class="box-wrapper"> -->
-							<div class="shadow-bottom-right">
-						<div class="hotel border border-radius-4 package h-100">
-							
-							<div class="padding-30px-all">
-
-								<div
-									class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
+						<div class="shadow-bottom-right">
+							<div class="hotel border border-radius-4 package h-100">
+								<div class="padding-30px-all">
+									<div class="margin-20px-bottom  border-bottom d-flex padding-15px-bottom justify-content-between align-items-center">
 									<p>[[${v.videoName}]]</p>
 								</div>
 								<img th:src="${v.thumbnail}" />
@@ -89,8 +81,6 @@
 						</div>
 					</div>
 				</div></div>
-
-
 				<a href="videoForm" class="btn btn-danger" style="float: right;">신청하기</a>
 </div>
 </section></section>

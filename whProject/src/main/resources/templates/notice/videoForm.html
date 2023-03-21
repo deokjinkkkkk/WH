@@ -5,8 +5,8 @@
 <body>
 
 	<!-- 내용 시작 -->
-<section layout:fragment="adminContent">
-<section>
+	<section layout:fragment="adminContent">
+		<section>
 			<div class="container">
 
 				<form id="frm" action="/videoInsert" method="post">
@@ -15,27 +15,29 @@
 							제목<input type="text" name="videoName" id="videoName">
 						</div>
 						<div class="form-group col-md-7">
-						내용<textarea rows="10" cols="100" name="videoContent" id="videoContent"></textarea>
-						</div>		
+							내용 <textarea rows="10" cols="100" name="videoContent" id="videoContent"></textarea>
+						</div>
 						<div class="form-group col-md-7">
 							지역<select name="videoRegion" id="videoRegion">
-								<option th:each="c : ${co}" th:value="${c.comCode}"
-									th:text="${c.comName}"></option>
+								<option th:each="c : ${co}" th:value="${c.comCode}" th:text="${c.comName}"></option>
 							</select>
 						</div>
-						
+
 						<div class="form-group col-md-7">
 							url<input type="text" name="url" id="url">
-						</div>	
+						</div>
 						<div class="form-group col-md-7">
 							Thumbnail<input type="text" name="thumbnail" id="thumbnail">
-						</div>	
-						
-						
-						<input type="submit" value="등록">
-						</div></form></div></section>
-				
+						</div>
 
-</section>
+
+						<input type="submit" value="등록">
+					</div>
+				</form>
+			</div>
+		</section>
+
+
+	</section>
 </body>
 </html>

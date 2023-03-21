@@ -20,9 +20,7 @@ public interface VideoService {
 	
 	int videoDelete(VideoVO vo);//삭제
 	
-	List<VideoVO> region(VideoSearchVO svo); //서울 정렬
-	
-	
+	List<VideoVO> region(VideoSearchVO svo); //지역 정렬
 	
 	int videoHit(int videoCode); //조회수
 }

@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.admin.wh.member.mapper.MemberMapper;
 import co.admin.wh.member.service.EmailService;
+import co.admin.wh.member.service.MemberService;
 import co.admin.wh.member.vo.MemberSearchVO;
 import co.admin.wh.member.vo.MemberVO;
 import co.admin.wh.notice.vo.Paging;
@@ -35,7 +35,8 @@ import co.admin.wh.notice.vo.Paging;
 public class MemberController {
 	@Autowired
 	MemberMapper memberMapper;
-
+	@Autowired
+	MemberService memberService;
 	@Autowired
 	EmailService emailService;
 	//로그인 폼 이동
@@ -128,13 +129,11 @@ public class MemberController {
 	@PostMapping("/memberDelete")
 	public String memberDelete(MemberVO vo,HttpServletRequest request) {
 		HttpSession session = request.getSession();   
-
-
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		vo.setPass(passwordEncoder.encode(vo.getPass()));
-		int Del = memberMapper.memDel(vo);
+		MemberVO dbvo = new MemberVO();
+		dbvo = memberMapper.memberSelect(vo);
+		int Del = memberMapper.memDel(dbvo);
 		if (Del == 1) {
-			memberMapper.memberDelete(vo);
+			memberService.memberDelete(dbvo);
 			session.invalidate();
 			SecurityContextHolder.getContext().setAuthentication(null);
 		} else {
@@ -149,10 +148,8 @@ public class MemberController {
 		paging.setPageUnit(5);//한 페이지에 출력할 레코드 건수
 		paging.setPageSize(5); //한 페이지에 보여질 페이지 갯수
 		
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+paging.getFirst() + paging.getLast()+ paging.getPageSize());
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		System.out.println("PPPPPPPPPPPPPPPPPPPPP"+vo.getFirst() + vo.getLast());
 		paging.setTotalRecord(memberMapper.getCountTotal(vo));
 		
 		model.addAttribute("mem", memberMapper.adMemberList(vo));
@@ -174,9 +171,16 @@ public class MemberController {
 	}
 	//관리자 회원강제 탈퇴 처리
 	@PostMapping("/adminDelete")
-	public String adminDelete(MemberVO vo) {
-		memberMapper.memDel(vo);
-		memberMapper.memberDelete(vo);
+	public String adminDelete(MemberVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();   
+		MemberVO dbvo = new MemberVO();
+		dbvo = memberMapper.memberSelect(vo);
+		int Del = memberMapper.memDel(dbvo);
+		if (Del == 1) {
+			memberService.memberDelete(vo);
+			session.invalidate();
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
 		return "redirect:/admemList";
 	}
 	//회원가입 이메일 비밀번호 발급
@@ -222,7 +226,7 @@ public class MemberController {
 	@ResponseBody
 	public String idFind(@RequestBody MemberVO vo, Model model) {
 	    String id = memberMapper.idFind(vo);
-	    return "아이디는 " + id + "입니다.";
+	    return id;
 	}
 	
 	//관리자 회원검색 아이디로 찾기
