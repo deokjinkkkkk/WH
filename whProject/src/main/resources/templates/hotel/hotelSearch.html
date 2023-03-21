@@ -227,17 +227,17 @@
 							// 페이징할 때 검색 정보 계속 가지고 있게
 							 document.getElementById("searchBtn").onclick = function () {
 							    
-							  let checkIn = document.getElementsByName("checkIn")[0].value;
-							  let checkOut = document.getElementsByName("checkOut")[0].value;
-							  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
-							  let humanCount =  document.getElementsByName("humanCount")[0].value;
-							  let childCount =  document.getElementsByName("childCount")[0].value;
-							  let priceRangeMin = (document.getElementsByName("priceRangeMin")[0].value).replace(/,/g,''); // replace함수 이용하여 모든 ,를 제거
-							  let priceRangeMax = (document.getElementsByName("priceRangeMax")[0].value).replace(/,/g,'');
-							  
-							  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+
-									  "&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount
-									  +"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax;
+								  let checkIn = document.getElementsByName("checkIn")[0].value;
+								  let checkOut = document.getElementsByName("checkOut")[0].value;
+								  let hotelRegion =  document.getElementsByName("hotelRegion")[0].value;
+								  let humanCount =  document.getElementsByName("humanCount")[0].value;
+								  let childCount =  document.getElementsByName("childCount")[0].value;
+								  let priceRangeMin = (document.getElementsByName("priceRangeMin")[0].value).replace(/,/g,''); // replace함수 이용하여 모든 ,를 제거
+								  let priceRangeMax = (document.getElementsByName("priceRangeMax")[0].value).replace(/,/g,'');
+								  
+								  location.href="hotelSearch?page=1"+"&checkIn="+checkIn+"&checkOut="+checkOut+
+										  "&hotelRegion="+hotelRegion+"&humanCount="+humanCount+"&childCount="+childCount
+										  +"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax;
 							 };
 							 
 							 var numberSetComma = function(val){
@@ -327,7 +327,7 @@
 								};
 
 								$(function(){
-									initPriceRange(50000,750000); //로드시 혹은 로드 후 리스팅된 상품가격의 최소 최대값
+									initPriceRange([[${paging.priceRangeMin}]],[[${paging.priceRangeMax}]]); //로드시 혹은 로드 후 리스팅된 상품가격의 최소 최대값
 								});
 							</script>
 						</div>
