@@ -30,15 +30,13 @@ public class MailConfig {
 		javaMailSender.setHost(host); //  smtp 서버 주소
 		javaMailSender.setUsername(id); // 네이버 아이디
 		javaMailSender.setPassword(password); // 네이버 비밀번호
-
 		javaMailSender.setPort(port); // 메일 인증서버 포트
-
 		javaMailSender.setJavaMailProperties(getMailProperties()); // 메일 인증서버 정보 가져오기
 
 		return javaMailSender;
 	}
 
-	private Properties getMailProperties() {
+	private Properties getMailProperties() { //메일 인증서버 정보
 		Properties properties = new Properties();
 		properties.setProperty("mail.transport.protocol", "smtp"); // 프로토콜 설정
 		properties.setProperty("mail.smtp.auth", "true"); // smtp 인증
