@@ -35,13 +35,13 @@
 				<form id="frm" action="companionJoin.do" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
-							연락처<input type="text" name="tel" id="tel" th:value="${me.tel}" required="required">
+							연락처<input type="text" name="tel" id="tel" th:value="${me.tel}" required="required" autocomplete='off'>
 						</div>
 						<div class="form-group col-md-7">
-							이름<input type="text" name="name" id="name" th:value="${me.name}" readonly>
+							이름<input type="text" name="name" id="name" th:value="${me.name}" readonly autocomplete='off'>
 						</div>
 						<div class="form-group col-md-7">
-							성별<input type="text" name="gender" id="gender" th:value="${me.gender}" readonly>
+							성별<input type="text" name="gender" id="gender" th:value="${me.gender}" readonly autocomplete='off'>
 						</div>
 
 						<div class="form-group col-md-12">
@@ -63,7 +63,7 @@
 
 
 						<div class="form-group col-md-7">
-							제목<input type="text" name="compTitle" id="compTitle" required="required">
+							제목<input type="text" name="compTitle" id="compTitle" required="required" autocomplete='off'>
 						</div>
 						<div class="form-group col-md-7">
 							인원수<select name="compCount" id="compCount" required="required">
@@ -85,9 +85,9 @@
 
 						<div class="input-group input-daterange" style="margin:0 auto; width:1110px;">
 							<input type="text" class="form-control input1" placeholder="Start Date" 
-							name="compStartDate" id="compStartDate" required="required"> 
+							name="compStartDate" id="compStartDate" required="required" autocomplete='off'> 
 							<input type="text" class="form-control input2" placeholder="End Date"
-								name="compEndDate" id="compEndDate" required="required">
+								name="compEndDate" id="compEndDate" required="required" autocomplete='off'>
 						</div>
 
 						<script>
