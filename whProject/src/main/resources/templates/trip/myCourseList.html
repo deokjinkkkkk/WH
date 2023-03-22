@@ -60,9 +60,9 @@ body>.container {
 												</div>	
 												
 			<!-- 코스명 입력 Modal-->
+         <form id="titleForm" method="post">
             <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                  <div class="modal-dialog modal-dialog modal-dialog-centered">
-               <form id="titleForm" method="post">
                    <div class="modal-content ">
                      <div class="modal-header">
                        <h5 class="modal-title" id="exampleModalLabel">코스명을 입력하세요</h5>
@@ -84,9 +84,9 @@ body>.container {
                      </div>
                      <input type="hidden" name="myCouId" id="myCouId" th:value="${session.name}">
                    </div>
-                 </form>
                  </div>
                </div>
+            </form>
                                     <br>
 																							
 												<br>
@@ -94,8 +94,6 @@ body>.container {
 													<tr>
 														<th class="col-md-2">번호</th>
 														<th class="col-md-5">코스명</th>
-														<th class="col-md-3">코스테마</th>
-														<th class="col-md-3">코스일정</th>
 														<th class="col-md-3">삭 제</th>
 													</tr>
 												</thead>
@@ -104,8 +102,6 @@ body>.container {
 														<td th:text="${m.myCourseCode}"></td>
 														<td><a th:text="${m.myCouName}"
 														th:href="@{/myCourseDetail/{myCourseCode}(myCourseCode=${m.myCourseCode})}"></a></td>
-														<td th:text="${m.theme}"></td>
-														<td th:text=${m.myCouDate}></td>
 														<td><button onclick="myCouDelete()" type="button" class="btn btn-xs btn-warning">삭제</button></td>
 													</tr>
 												</tbody>

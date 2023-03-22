@@ -112,17 +112,16 @@
                            		</div>
                            		<br><hr>
                            		
-                                    <!-- 구글 지도 API 이용 -->
+                                 <!-- 구글 지도 API 이용 -->
                                 <div id="map" style="height: 600px; width: 600px;"></div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <script type="text/javascript">
                                 
                                 var map;
                                 var tripMap = [(${json})]
                                 console.log(tripMap);
-                                // 각 위도와 경도값을 ajax로 흥엉엉 
+                                // 각 위도와 경도값을 ajax로 호출
                                 function initMap() {
                                 	
-                                    
                                     var defaultOptions = {
                                         zoom: 6.3,
                                         center:  {
@@ -133,12 +132,9 @@
                                         zoomControl: true
                                     };
 
-                                         
                                     map = new google.maps.Map(document.getElementById('map'), defaultOptions);
-                                    
                                     var totalDistance = 0; // 총 거리 변수 초기화
 
-                                                                        
                                     for (var i = 0 ; i < tripMap.length; i++) {
                                     	var cityHall = {
                                     			lat: Number(tripMap[i].tripLat),
@@ -147,8 +143,6 @@
                                     	
                                     	// 코스 순서 번호 
                                     	var couOrd = Number(tripMap[i].couOrd)
-                                    
-                                    	
                                     	if (i > 0) {
                                     		  var polyline = new google.maps.Polyline({
                                     		    path: [
@@ -165,7 +159,6 @@
                                     	
                                     	// 여행지 이름 변수에 담기
                                     	var name = tripMap[i].tripName
-                                    	
                                     	var marker = new google.maps.Marker({
 	                                        position: cityHall,
 	                                        map: map,                       
@@ -176,9 +169,7 @@
                                     	var infoWindow = new google.maps.InfoWindow({
                                             content: (marker.index) + ". " + name
                                         });
-                                                              	
                                     		infoWindow.open(map, marker);
-                                    	
                                             map.setCenter(marker.getPosition());                                       
                                                                       
                                          // 이전 마커와 현재 마커 사이의 거리 계산
@@ -199,7 +190,6 @@
 		                           }
                                                                     
                                 </script>
-
                                 <script 
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrpcuEivzWEtuaTYVRatiBMrn-sZUYovQ&libraries=geometry&callback=initMap">
                                 </script>
